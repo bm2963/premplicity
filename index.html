@@ -3,441 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premplicity — Premium Website Templates</title>
+<title>Siteafi — Coming Soon</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --dark:#0D0D0F;
+  --dark:#0F0F12;
   --dark-border:rgba(255,255,255,0.07);
-  --purple-tint:#1A1428;
   --gold:#C9A84C;
   --gold-light:#E2C068;
   --gold-dim:rgba(201,168,76,0.12);
   --white:#FFFFFF;
-  --off-white:#F9F8F5;
-  --light-border:rgba(0,0,0,0.07);
-  --text-dark:#0D0D0F;
-  --text-muted-dark:rgba(255,255,255,0.42);
-  --text-muted-light:#6B6A72;
+  --text-muted:rgba(255,255,255,0.42);
 }
-body{font-family:'Syne',sans-serif;background:var(--white);color:var(--text-dark);overflow-x:hidden;}
-#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+html,body{height:100%;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--dark);
+  color:var(--white);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  text-align:center;
+  padding:24px;
+  position:relative;
+}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(13,13,15,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
-.nav-logo{font-family:'Instrument Serif',serif;font-size:23px;color:var(--white);flex-shrink:0;z-index:101;}
-.nav-logo span{color:var(--gold);}
-.nav-links{display:flex;gap:22px;list-style:none;align-items:center;flex:1;justify-content:center;}
-.nav-links a{font-size:12.5px;font-weight:400;color:var(--text-muted-dark);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
-.nav-links a:hover{color:var(--white);}
-.nav-links a:hover::after{transform:scaleX(1);}
-.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
-.nav-request::after{display:none !important;}
-.nav-cta{background:var(--gold);color:var(--dark);padding:9px 20px;border-radius:8px;font-size:12.5px;font-weight:700;text-decoration:none;transition:all 0.2s;flex-shrink:0;font-family:'Syne',sans-serif;}
-.nav-cta:hover{background:var(--gold-light);}
+/* BACKGROUND GRID */
+.bg-grid{
+  position:fixed;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+  pointer-events:none;z-index:0;
+}
 
-/* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* GLOW */
+.bg-glow{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,rgba(100,60,180,0.07) 40%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
 
-/* MOBILE MENU */
-.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(13,13,15,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
-.mobile-menu.open{opacity:1;}
-.mobile-menu a{font-family:'Instrument Serif',serif;font-size:30px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
-.mobile-menu a:hover{color:var(--gold-light);}
-.mobile-menu .mob-req{font-family:'Syne',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
-.mobile-menu .mob-cta{font-family:'Syne',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+/* SPOTLIGHT */
+#spotlight{
+  position:fixed;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,rgba(100,60,180,0.04) 50%,transparent 70%);
+  pointer-events:none;transform:translate(-50%,-50%);
+  transition:left 0.1s ease,top 0.1s ease;z-index:0;
+}
 
-/* HERO */
-.hero{background:var(--dark);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;position:relative;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none;}
-.hero-purple-wash{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(100,60,180,0.14) 0%,transparent 70%);pointer-events:none;}
-#spotlight{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,rgba(100,60,180,0.05) 40%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:left 0.08s ease,top 0.08s ease;z-index:1;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,168,76,0.22);border-radius:6px;padding:6px 16px;font-size:11px;font-weight:500;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:32px;position:relative;z-index:2;background:rgba(201,168,76,0.04);animation:fadeUp 0.7s ease both;}
-.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+/* CONTENT */
+.content{position:relative;z-index:1;max-width:680px;width:100%;}
+
+/* LOGO */
+.logo{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-bottom:52px;
+  animation:fadeUp 0.8s ease both;
+}
+.logo-icon svg{width:36px;height:36px;}
+.logo-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:600;
+  color:var(--white);letter-spacing:0.5px;
+}
+.logo-text span{color:var(--gold);}
+
+/* BADGE */
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(201,168,76,0.22);
+  border-radius:6px;padding:6px 18px;
+  font-size:11px;font-weight:500;
+  color:var(--gold);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:32px;
+  background:rgba(201,168,76,0.04);
+  animation:fadeUp 0.8s 0.1s ease both;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);animation:pulse 2s infinite;
+}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(40px,7vw,90px);font-weight:400;line-height:1.05;letter-spacing:-2px;color:var(--white);max-width:820px;margin-bottom:24px;position:relative;z-index:2;animation:fadeUp 0.7s 0.1s ease both;}
-.hero h1 em{font-style:italic;color:var(--gold-light);}
-#typeword{display:inline-block;min-width:240px;}
-#typeword::after{content:'|';color:var(--gold);animation:blink 0.8s infinite;margin-left:2px;font-style:normal;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
-.hero-sub{font-size:15px;font-weight:400;color:var(--text-muted-dark);max-width:440px;line-height:1.75;margin-bottom:40px;position:relative;z-index:2;animation:fadeUp 0.7s 0.2s ease both;}
-.hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;animation:fadeUp 0.7s 0.3s ease both;}
-.btn-gold{background:var(--gold);color:var(--dark);padding:13px 28px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;font-family:'Syne',sans-serif;}
-.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
-.btn-ghost{background:transparent;color:var(--text-muted-dark);padding:13px 28px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:all 0.2s;cursor:pointer;border:1px solid var(--dark-border);font-family:'Syne',sans-serif;}
-.btn-ghost:hover{color:var(--gold-light);border-color:rgba(201,168,76,0.3);}
-.hero-stats{display:flex;margin-top:64px;position:relative;z-index:2;border:1px solid rgba(201,168,76,0.13);border-radius:12px;overflow:hidden;background:rgba(201,168,76,0.03);animation:fadeUp 0.7s 0.4s ease both;}
-.stat{padding:18px 32px;text-align:center;flex:1;}
-.stat+.stat{border-left:1px solid rgba(201,168,76,0.1);}
-.stat-number{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--white);line-height:1;margin-bottom:4px;}
-.stat-label{font-size:10px;color:var(--text-muted-dark);letter-spacing:1px;text-transform:uppercase;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}.reveal-delay-4{transition-delay:0.4s;}
+/* HEADLINE */
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,8vw,80px);
+  font-weight:300;line-height:1.0;
+  letter-spacing:-2px;
+  color:var(--white);
+  margin-bottom:24px;
+  animation:fadeUp 0.8s 0.15s ease both;
+}
+h1 em{font-style:italic;color:var(--gold-light);font-weight:400;}
 
-/* MARQUEE */
-.marquee-section{padding:64px 0 0;background:var(--purple-tint);border-top:1px solid rgba(120,80,200,0.12);overflow:hidden;}
-.marquee-eyebrow{text-align:center;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.45);margin-bottom:36px;}
-.marquee-row{overflow:hidden;margin-bottom:16px;}
-.marquee-track{display:flex;gap:16px;width:max-content;}
-.track-left{animation:scrollLeft 35s linear infinite;}
-.track-right{animation:scrollRight 28s linear infinite;}
-.marquee-row:hover .track-left,.marquee-row:hover .track-right{animation-play-state:paused;}
-@keyframes scrollLeft{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-@keyframes scrollRight{from{transform:translateX(-50%);}to{transform:translateX(0);}}
-.tcard{width:240px;height:150px;border-radius:12px;flex-shrink:0;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;}
-.tcard:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
-.tcard-light{background:#1E1830;}.tcard-dark{background:#0D0D0F;}.tcard-gold{background:#1A1508;}
-.tcard-inner{padding:18px;height:100%;display:flex;flex-direction:column;position:relative;}
-.tcard-overlay{position:absolute;inset:0;background:rgba(201,168,76,0.93);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;border-radius:12px;}
-.tcard:hover .tcard-overlay{opacity:1;}
-.tcard-overlay span{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--dark);}
-.tcard-tag{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;width:fit-content;padding:3px 8px;border-radius:4px;margin-bottom:8px;}
-.tcard-light .tcard-tag{background:rgba(201,168,76,0.15);color:var(--gold);}
-.tcard-dark .tcard-tag{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);}
-.tcard-gold .tcard-tag{background:rgba(201,168,76,0.18);color:var(--gold-light);}
-.tcard-name{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--white);}
-.tcard-sub{font-size:11px;margin-top:3px;color:rgba(255,255,255,0.28);}
-.tcard-gold .tcard-sub{color:rgba(201,168,76,0.38);}
-.tcard-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
-.tcard-dots{position:absolute;top:14px;right:14px;display:flex;gap:4px;}
-.tcard-dots i{width:5px;height:5px;border-radius:50%;display:block;background:rgba(255,255,255,0.07);}
-
-/* WHY DIY */
-.why-diy{background:var(--off-white);padding:80px 52px;border-bottom:1px solid var(--light-border);}
-.why-diy-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
-.why-diy-eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-.why-diy-title{font-family:'Instrument Serif',serif;font-size:clamp(28px,3.5vw,46px);font-weight:400;line-height:1.1;letter-spacing:-1px;color:var(--text-dark);margin-bottom:20px;}
-.why-diy-title em{font-style:italic;color:var(--gold);}
-.why-diy-sub{font-size:15px;color:var(--text-muted-light);line-height:1.75;margin-bottom:32px;}
-.why-diy-cta{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:var(--gold);padding:13px 28px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;font-family:'Syne',sans-serif;border:1px solid rgba(201,168,76,0.18);}
-.why-diy-cta:hover{background:#1A1A20;transform:translateY(-1px);}
-.why-diy-right{display:flex;flex-direction:column;gap:14px;}
-.diy-card{background:var(--white);border:1px solid var(--light-border);border-radius:14px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:all 0.25s;position:relative;overflow:hidden;}
-.diy-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold-light));border-radius:3px 0 0 3px;transform:scaleY(0);transition:transform 0.3s;transform-origin:bottom;}
-.diy-card:hover{border-color:rgba(201,168,76,0.18);transform:translateX(4px);}
-.diy-card:hover::before{transform:scaleY(1);}
-.diy-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.diy-title{font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:3px;}
-.diy-desc{font-size:13px;color:var(--text-muted-light);line-height:1.6;}
-.diy-highlight{background:var(--dark);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;border:1px solid rgba(201,168,76,0.18);position:relative;overflow:hidden;}
-.diy-highlight-glow{position:absolute;right:-40px;top:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(201,168,76,0.1),transparent 70%);pointer-events:none;}
-.diy-highlight-icon{font-size:24px;flex-shrink:0;}
-.diy-highlight-title{font-size:14px;font-weight:600;color:var(--gold-light);margin-bottom:3px;}
-.diy-highlight-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.55;}
-
-/* FEATURES */
-.features{padding:88px 52px;background:var(--white);}
-.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
-.section-title{font-family:'Instrument Serif',serif;font-size:clamp(30px,4vw,48px);font-weight:400;color:var(--text-dark);line-height:1.1;letter-spacing:-1px;}
-.section-title em{font-style:italic;color:var(--gold);}
-.section-header{margin-bottom:52px;}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1080px;margin:0 auto;}
-.feat{padding:28px 24px;border-radius:14px;border:1px solid var(--light-border);background:var(--off-white);transition:all 0.3s;position:relative;overflow:hidden;}
-.feat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
-.feat:hover{border-color:rgba(201,168,76,0.2);transform:translateY(-4px);box-shadow:0 20px 48px rgba(201,168,76,0.05);}
-.feat:hover::after{opacity:1;}
-.feat-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:16px;}
-.feat-title{font-family:'Instrument Serif',serif;font-size:19px;font-weight:400;color:var(--text-dark);margin-bottom:8px;}
-.feat-desc{font-size:13px;color:var(--text-muted-light);line-height:1.7;}
-
-/* TIERS */
-.tiers{padding:88px 52px;background:var(--purple-tint);}
-.tiers .section-title{color:var(--white);}
-.tiers-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px;margin:0 auto;}
-.tier{border-radius:20px;padding:40px 36px;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;}
-.tier:hover{transform:translateY(-4px);}
-.tier-std{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
-.tier-prem{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.18);}
-.tier-prem::before{content:'';position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,rgba(201,168,76,0.22),transparent 50%,rgba(201,168,76,0.08));z-index:0;animation:borderPulse 4s ease-in-out infinite;}
-@keyframes borderPulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
-.tier-prem-inner{position:relative;z-index:1;}
-.tier-prem-glow{position:absolute;top:-80px;right:-80px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);pointer-events:none;z-index:1;}
-.tier-pill{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;width:fit-content;margin-bottom:18px;}
-.tier-std .tier-pill{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);}
-.tier-prem-inner .tier-pill{background:rgba(201,168,76,0.15);color:var(--gold);}
-.tier-name{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;margin-bottom:10px;color:var(--white);}
-.tier-desc{font-size:13px;line-height:1.7;margin-bottom:22px;color:rgba(255,255,255,0.38);}
-.tier-list{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.tier-list li{font-size:13px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.55);}
-.tier-prem-inner .tier-list li{color:rgba(255,255,255,0.7);}
-.tier-list li::before{content:'→';font-size:11px;color:var(--gold);flex-shrink:0;}
-
-/* CTA */
-.cta{margin:0 52px 80px;background:var(--dark);border-radius:20px;padding:72px 52px;text-align:center;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,0.08);}
-.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
-.cta h2{font-family:'Instrument Serif',serif;font-size:clamp(30px,4vw,54px);font-weight:400;color:var(--white);line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px;position:relative;}
-.cta h2 em{font-style:italic;color:var(--gold-light);}
-.cta p{font-size:15px;color:rgba(255,255,255,0.32);margin-bottom:32px;position:relative;}
-.cta .btn-gold{font-size:14px;padding:14px 40px;}
-
-/* FOOTER */
-footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
-.footer-logo{font-family:'Instrument Serif',serif;font-size:20px;color:var(--text-dark);}
-.footer-logo span{color:var(--gold);}
-.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
-.footer-links a{font-size:12px;color:var(--text-muted-light);text-decoration:none;transition:color 0.2s;}
-.footer-links a:hover{color:var(--gold);}
-.footer-copy{font-size:12px;color:var(--text-muted-light);}
-
-/* ═══ MOBILE ═══ */
-@media(max-width:768px){
-  nav{padding:16px 20px;}
-  .nav-links,.nav-cta{display:none;}
-  .hamburger{display:flex;}
-  .mobile-menu{display:flex;}
-
-  .hero{padding:88px 20px 60px;}
-  .hero h1{font-size:clamp(34px,10vw,52px);letter-spacing:-1.5px;}
-  #typeword{min-width:160px;}
-  .hero-sub{font-size:14px;}
-  .hero-buttons{flex-direction:column;align-items:stretch;width:100%;max-width:320px;}
-  .hero-buttons a{text-align:center;}
-
-  .hero-stats{
-    display:grid;grid-template-columns:1fr 1fr;
-    width:100%;margin-top:40px;
-  }
-  .stat{padding:14px 8px;}
-  .stat+.stat{border-left:none;}
-  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.1);}
-  .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid rgba(201,168,76,0.1);}
-  .stat-number{font-size:20px;}
-  .stat-label{font-size:9px;}
-
-  .why-diy{padding:56px 20px;}
-  .why-diy-inner{grid-template-columns:1fr;gap:36px;}
-
-  .features{padding:56px 20px;}
-  .features-grid{grid-template-columns:1fr;gap:12px;}
-
-  .tiers{padding:56px 20px;}
-  .tiers-wrap{grid-template-columns:1fr;gap:16px;}
-  .tier{padding:30px 24px;}
-  .tier-name{font-size:24px;}
-
-  .cta{margin:0 16px 56px;padding:48px 24px;}
-  .cta .btn-gold{width:100%;text-align:center;display:block;}
-
-  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+/* SUBTEXT */
+.sub{
+  font-size:16px;font-weight:300;
+  color:var(--text-muted);
+  line-height:1.75;max-width:480px;
+  margin:0 auto 48px;
+  animation:fadeUp 0.8s 0.2s ease both;
 }
 
+/* EMAIL FORM */
+.form-wrap{
+  display:flex;gap:0;
+  max-width:440px;margin:0 auto 48px;
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px;overflow:hidden;
+  background:rgba(255,255,255,0.03);
+  animation:fadeUp 0.8s 0.25s ease both;
+  transition:border-color 0.2s;
+}
+.form-wrap:focus-within{border-color:rgba(201,168,76,0.5);}
+.form-wrap input{
+  flex:1;padding:14px 20px;
+  background:transparent;border:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:300;
+  color:var(--white);outline:none;
+}
+.form-wrap input::placeholder{color:rgba(255,255,255,0.3);}
+.form-wrap button{
+  padding:14px 24px;
+  background:var(--gold);color:var(--dark);
+  border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;
+  transition:background 0.2s;
+  white-space:nowrap;
+}
+.form-wrap button:hover{background:var(--gold-light);}
+
+.form-note{
+  font-size:11px;color:rgba(255,255,255,0.25);
+  margin-top:-36px;margin-bottom:48px;
+  animation:fadeUp 0.8s 0.3s ease both;
+  font-weight:300;
+}
+
+/* FEATURES PILLS */
+.pills{
+  display:flex;gap:12px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:56px;
+  animation:fadeUp 0.8s 0.35s ease both;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--dark-border);
+  border-radius:100px;padding:7px 16px;
+  font-size:12px;font-weight:400;
+  color:var(--text-muted);
+}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+/* DIVIDER */
+.divider{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:0 auto 32px;
+  animation:fadeUp 0.8s 0.4s ease both;
+}
+
+/* SOCIAL */
+.social{
+  display:flex;gap:20px;justify-content:center;
+  animation:fadeUp 0.8s 0.45s ease both;
+}
+.social a{
+  font-size:12px;font-weight:400;
+  color:rgba(255,255,255,0.3);
+  text-decoration:none;
+  transition:color 0.2s;
+  letter-spacing:0.3px;
+}
+.social a:hover{color:var(--gold-light);}
+
+/* SUCCESS STATE */
+.success{
+  display:none;
+  flex-direction:column;align-items:center;gap:12px;
+  padding:20px 32px;
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:12px;
+  background:rgba(201,168,76,0.04);
+  max-width:440px;margin:0 auto 48px;
+  animation:fadeUp 0.5s ease both;
+}
+.success-icon{font-size:28px;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--gold-light);}
+.success-sub{font-size:13px;color:var(--text-muted);font-weight:300;}
+
+/* FOOTER NOTE */
+.footer-note{
+  position:fixed;bottom:24px;left:0;right:0;
+  text-align:center;
+  font-size:11px;color:rgba(255,255,255,0.18);
+  font-weight:300;z-index:1;
+  animation:fadeUp 0.8s 0.5s ease both;
+}
+.footer-note span{color:rgba(201,168,76,0.4);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MOBILE */
 @media(max-width:480px){
-  .hero h1{font-size:34px;}
-  .section-title{font-size:26px;}
-  .why-diy-title{font-size:26px;}
+  body{overflow:auto;}
+  h1{font-size:42px;letter-spacing:-1.5px;}
+  .sub{font-size:14px;}
+  .form-wrap{flex-direction:column;border-radius:10px;}
+  .form-wrap input{border-radius:10px 10px 0 0;padding:14px 16px;}
+  .form-wrap button{border-radius:0 0 10px 10px;padding:14px;}
+  .pills{gap:8px;}
+  .pill{font-size:11px;padding:6px 12px;}
+  .logo{margin-bottom:40px;}
+  .footer-note{position:relative;bottom:auto;margin-top:40px;}
 }
 </style>
 </head>
 <body>
-<div id="progress-bar"></div>
 
-<nav>
-  <div class="nav-logo">Premp<span>licity</span></div>
-  <ul class="nav-links">
-    <li><a href="templates.html">Templates</a></li>
-    <li><a href="addons.html">Add-ons</a></li>
-    <li><a href="process.html">The Process</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="request.html" class="nav-request">✦ Request a Template</a></li>
-  </ul>
-  <a href="templates.html" class="nav-cta">Browse Templates</a>
-  <button class="hamburger" id="hamburger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div id="spotlight"></div>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="templates.html">Templates</a>
-  <a href="addons.html">Add-ons</a>
-  <a href="process.html">The Process</a>
-  <a href="about.html">About</a>
-  <a href="faq.html">FAQ</a>
-  <a href="request.html" class="mob-req">✦ Request a Template</a>
-  <a href="templates.html" class="mob-cta">Browse Templates</a>
+<div class="content">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#C9A84C"/>
+        <path d="M14 7 L14 4" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <path d="M21 14 L24 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <path d="M14 21 L14 24" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <path d="M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </div>
+
+  <!-- BADGE -->
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Something premium is coming
+  </div>
+
+  <!-- HEADLINE -->
+  <h1>Your business,<br><em>beautifully online.</em></h1>
+
+  <!-- SUB -->
+  <p class="sub">Premium website templates for small businesses — launching soon. Be the first to know when we go live.</p>
+
+  <!-- EMAIL FORM -->
+  <div class="form-wrap" id="form-wrap">
+    <input type="email" id="email-input" placeholder="Enter your email address" autocomplete="email">
+    <button onclick="handleSubmit()">Notify me</button>
+  </div>
+  <p class="form-note">No spam. Just a heads up when we launch.</p>
+
+  <!-- SUCCESS STATE -->
+  <div class="success" id="success">
+    <div class="success-icon">✦</div>
+    <div class="success-title">You're on the list!</div>
+    <div class="success-sub">We'll let you know the moment Siteafi goes live.</div>
+  </div>
+
+  <!-- PILLS -->
+  <div class="pills">
+    <div class="pill"><span class="pill-dot"></span>Premium templates</div>
+    <div class="pill"><span class="pill-dot"></span>Free hosting</div>
+    <div class="pill"><span class="pill-dot"></span>No monthly fees</div>
+    <div class="pill"><span class="pill-dot"></span>Step-by-step guides</div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- SOCIAL -->
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">Twitter / X</a>
+    <a href="mailto:hello@siteafi.com">hello@siteafi.com</a>
+  </div>
+
 </div>
 
-<section class="hero" id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-purple-wash"></div>
-  <div id="spotlight"></div>
-  <div class="hero-badge"><span class="hero-badge-dot"></span>Premium Website Templates</div>
-  <h1>Your business,<br>beautifully <em id="typeword">online.</em></h1>
-  <p class="hero-sub">Professional website templates designed for small businesses. Launch fast, look premium, grow with confidence.</p>
-  <div class="hero-buttons">
-    <a href="templates.html" class="btn-gold">Browse Templates</a>
-    <a href="process.html" class="btn-ghost">View Live Demos →</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-number" data-target="50" data-suffix="+">0</div><div class="stat-label">Templates</div></div>
-    <div class="stat"><div class="stat-number" data-target="2" data-suffix="">0</div><div class="stat-label">Tiers</div></div>
-    <div class="stat"><div class="stat-number" data-target="100" data-suffix="%">0</div><div class="stat-label">Free Hosting</div></div>
-    <div class="stat"><div class="stat-number">Instant</div><div class="stat-label">Download</div></div>
-  </div>
-</section>
-
-<section class="marquee-section reveal">
-  <div class="marquee-eyebrow">Template showcase</div>
-  <div class="marquee-row">
-    <div class="marquee-track track-left">
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Portfolio</div><div class="tcard-name">Noir</div><div class="tcard-sub">Bold creative portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Boutique</div><div class="tcard-name">Luxe</div><div class="tcard-sub">Fashion & retail store</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Agency</div><div class="tcard-name">Apex</div><div class="tcard-sub">Modern creative agency</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Pulse</div><div class="tcard-sub">Dynamic gym template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Law Firm</div><div class="tcard-name">Counsel</div><div class="tcard-sub">Professional legal services</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Portfolio</div><div class="tcard-name">Noir</div><div class="tcard-sub">Bold creative portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Boutique</div><div class="tcard-name">Luxe</div><div class="tcard-sub">Fashion & retail store</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Agency</div><div class="tcard-name">Apex</div><div class="tcard-sub">Modern creative agency</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Pulse</div><div class="tcard-sub">Dynamic gym template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Law Firm</div><div class="tcard-name">Counsel</div><div class="tcard-sub">Professional legal services</div><div class="tcard-bar"></div></div></div>
-    </div>
-  </div>
-  <div class="marquee-row">
-    <div class="marquee-track track-right">
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Photography</div><div class="tcard-name">Aperture</div><div class="tcard-sub">Stunning visual portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Consulting</div><div class="tcard-name">Strata</div><div class="tcard-sub">Corporate advisory</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Bakery</div><div class="tcard-name">Brioche</div><div class="tcard-sub">Warm artisan bakery</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Real Estate</div><div class="tcard-name">Realty</div><div class="tcard-sub">Premium property listings</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Spa</div><div class="tcard-name">Serene</div><div class="tcard-sub">Luxury wellness & spa</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Music</div><div class="tcard-name">Tempo</div><div class="tcard-sub">Artist & musician page</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Coffee</div><div class="tcard-name">Roast</div><div class="tcard-sub">Specialty cafe template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Photography</div><div class="tcard-name">Aperture</div><div class="tcard-sub">Stunning visual portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Consulting</div><div class="tcard-name">Strata</div><div class="tcard-sub">Corporate advisory</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Bakery</div><div class="tcard-name">Brioche</div><div class="tcard-sub">Warm artisan bakery</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Real Estate</div><div class="tcard-name">Realty</div><div class="tcard-sub">Premium property listings</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-gold"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Spa</div><div class="tcard-name">Serene</div><div class="tcard-sub">Luxury wellness & spa</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-light"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Music</div><div class="tcard-name">Tempo</div><div class="tcard-sub">Artist & musician page</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-dark"><div class="tcard-overlay"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Coffee</div><div class="tcard-name">Roast</div><div class="tcard-sub">Specialty cafe template</div><div class="tcard-bar"></div></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="why-diy">
-  <div class="why-diy-inner">
-    <div class="why-diy-left reveal">
-      <div class="why-diy-eyebrow">The smarter way</div>
-      <h2 class="why-diy-title">Why pay someone else,<br>when you can own it <em>yourself?</em></h2>
-      <p class="why-diy-sub">Web designers charge thousands. Monthly platforms charge forever. Premplicity gives you a professional website you fully own — no middleman, no recurring fees, no compromises. And if you're not sure where to start, we guide you every step of the way.</p>
-      <a href="process.html" class="why-diy-cta">See how it works →</a>
-    </div>
-    <div class="why-diy-right">
-      <div class="diy-card reveal reveal-delay-1"><div class="diy-icon">💸</div><div class="diy-content"><div class="diy-title">Save hundreds — or thousands</div><div class="diy-desc">Web designers charge $1,000–$10,000+ for a site you don't even fully own. Our templates cost a fraction and are yours forever.</div></div></div>
-      <div class="diy-card reveal reveal-delay-2"><div class="diy-icon">🚫</div><div class="diy-content"><div class="diy-title">No monthly hosting fees</div><div class="diy-desc">Platforms like WordPress, Squarespace, and Wix charge every month just to keep your site live. With Premplicity, hosting on GitHub Pages is completely free.</div></div></div>
-      <div class="diy-card reveal reveal-delay-3"><div class="diy-icon">🎛️</div><div class="diy-content"><div class="diy-title">Full ownership & control</div><div class="diy-desc">Your website, your code, your brand. No platform can change their pricing, lock you out, or pull the rug from under you.</div></div></div>
-      <div class="diy-highlight reveal reveal-delay-4"><div class="diy-highlight-glow"></div><div class="diy-highlight-icon">🎓</div><div class="diy-highlight-text"><div class="diy-highlight-title">And best of all — we teach you.</div><div class="diy-highlight-desc">Our step-by-step add-on guides walk you through setup, hosting, and launching. No tech experience needed.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="section-header reveal">
-    <div class="section-eyebrow">Why Premplicity</div>
-    <h2 class="section-title">Everything your business needs<br>to look <em>exceptional.</em></h2>
-  </div>
-  <div class="features-grid">
-    <div class="feat reveal reveal-delay-1"><div class="feat-icon">✦</div><div class="feat-title">Premium Design</div><p class="feat-desc">Every template is crafted with precision — clean layouts, beautiful typography, and attention to every detail.</p></div>
-    <div class="feat reveal reveal-delay-2"><div class="feat-icon">◎</div><div class="feat-title">Two Tiers, One Goal</div><p class="feat-desc">Standard templates are clean and professional. Premium adds animations and scroll effects that turn heads.</p></div>
-    <div class="feat reveal reveal-delay-3"><div class="feat-icon">⬡</div><div class="feat-title">Free to Host</div><p class="feat-desc">Every template deploys to GitHub Pages for free. No server, no setup fees, no ongoing costs.</p></div>
-    <div class="feat reveal reveal-delay-1"><div class="feat-icon">◈</div><div class="feat-title">Instant Download</div><p class="feat-desc">Purchase and download in seconds. Everything included — just customize and launch.</p></div>
-    <div class="feat reveal reveal-delay-2"><div class="feat-icon">⊕</div><div class="feat-title">Helpful Add-ons</div><p class="feat-desc">Step-by-step guides covering hosting, domains, and more. Built for non-technical business owners.</p></div>
-    <div class="feat reveal reveal-delay-3"><div class="feat-icon">◇</div><div class="feat-title">Built to Impress</div><p class="feat-desc">Mobile responsive, fast loading, and designed to make the right first impression every time.</p></div>
-  </div>
-</section>
-
-<section class="tiers">
-  <div class="section-header reveal">
-    <div class="section-eyebrow">Template Tiers</div>
-    <h2 class="section-title">Choose your<br><em>level of impact.</em></h2>
-  </div>
-  <div class="tiers-wrap">
-    <div class="tier tier-std reveal reveal-delay-1">
-      <div class="tier-pill">Standard</div>
-      <div class="tier-name">Clean & Professional</div>
-      <p class="tier-desc">A polished, professional website without the complexity. Everything your business needs to look credible online.</p>
-      <ul class="tier-list"><li>Beautiful static design</li><li>Mobile responsive</li><li>Fast & lightweight</li><li>Easy to customize</li><li>GitHub Pages ready</li></ul>
-    </div>
-    <div class="tier tier-prem reveal reveal-delay-2">
-      <div class="tier-prem-glow"></div>
-      <div class="tier-prem-inner">
-        <div class="tier-pill">Premium</div>
-        <div class="tier-name">Bold & Animated</div>
-        <p class="tier-desc">Everything in Standard plus smooth animations, scroll effects, and interactive elements that make visitors stop and take notice.</p>
-        <ul class="tier-list"><li>Everything in Standard</li><li>Scroll animations</li><li>Page transitions</li><li>Interactive elements</li><li>Premium visual effects</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="cta reveal">
-  <div class="cta-glow"></div>
-  <h2>Ready to launch your<br><em>dream website?</em></h2>
-  <p>Browse our full collection and find your perfect template today.</p>
-  <a href="templates.html" class="btn-gold">Browse All Templates</a>
-</div>
-
-<footer class="reveal">
-  <div class="footer-logo">Premp<span>licity</span></div>
-  <ul class="footer-links">
-    <li><a href="templates.html">Templates</a></li>
-    <li><a href="addons.html">Add-ons</a></li>
-    <li><a href="process.html">The Process</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Premplicity</div>
-</footer>
+<div class="footer-note">© 2026 <span>Siteafi</span> · Premium Website Templates</div>
 
 <script>
-const hero=document.getElementById('hero'),spotlight=document.getElementById('spotlight');
-hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect();spotlight.style.left=(e.clientX-r.left)+'px';spotlight.style.top=(e.clientY-r.top)+'px';});
-
-const hamburger=document.getElementById('hamburger');
-const mobileMenu=document.getElementById('mobile-menu');
-hamburger.addEventListener('click',()=>{
-  const isOpen=hamburger.classList.toggle('open');
-  if(isOpen){mobileMenu.style.display='flex';setTimeout(()=>mobileMenu.style.opacity='1',10);}
-  else{mobileMenu.style.opacity='0';setTimeout(()=>mobileMenu.style.display='none',300);}
-  document.body.style.overflow=isOpen?'hidden':'';
-});
-mobileMenu.querySelectorAll('a').forEach(a=>{
-  a.addEventListener('click',()=>{
-    hamburger.classList.remove('open');
-    mobileMenu.style.opacity='0';
-    setTimeout(()=>mobileMenu.style.display='none',300);
-    document.body.style.overflow='';
-  });
+// SPOTLIGHT
+document.addEventListener('mousemove', e => {
+  const s = document.getElementById('spotlight');
+  s.style.left = e.clientX + 'px';
+  s.style.top = e.clientY + 'px';
 });
 
-const words=['online.','unstoppable.','stunning.','unforgettable.','premium.','alive.'];
-const el=document.getElementById('typeword');
-let wi=0,ci=0,deleting=false;
-function type(){const word=words[wi];if(!deleting){el.textContent=word.slice(0,++ci);if(ci===word.length){deleting=true;setTimeout(type,1800);return;}}else{el.textContent=word.slice(0,--ci);if(ci===0){deleting=false;wi=(wi+1)%words.length;setTimeout(type,300);return;}}setTimeout(type,deleting?55:90);}
-setTimeout(type,1200);
+// EMAIL SUBMIT
+function handleSubmit() {
+  const input = document.getElementById('email-input');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderBottom = '1px solid rgba(255,80,80,0.5)';
+    input.placeholder = 'Please enter a valid email';
+    setTimeout(() => {
+      input.style.borderBottom = '';
+      input.placeholder = 'Enter your email address';
+    }, 2000);
+    return;
+  }
+  // Hide form, show success
+  document.getElementById('form-wrap').style.display = 'none';
+  document.querySelector('.form-note').style.display = 'none';
+  const success = document.getElementById('success');
+  success.style.display = 'flex';
+}
 
-function animateCounter(el,target,suffix){let start=0;const dur=1800;const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*target)+(suffix||'');if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
-
-const bar=document.getElementById('progress-bar');
-window.addEventListener('scroll',()=>{bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
-
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-let started=false;
-new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&!started){started=true;document.querySelectorAll('[data-target]').forEach(el=>animateCounter(el,parseInt(el.dataset.target),el.dataset.suffix));}}),{threshold:0.3}).observe(document.querySelector('.hero-stats'));
+// Allow enter key
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleSubmit();
+});
 </script>
 </body>
 </html>
