@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templates — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* PAGE HERO */
+.page-hero{padding:130px 48px 56px;background:var(--dark);position:relative;overflow:hidden;border-bottom:1px solid var(--dark-border);}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 20%,transparent 80%);pointer-events:none;}
+.page-hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.04) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
+.page-hero-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;}
+.page-eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,68px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;}
+.page-hero h1 em{font-style:italic;color:var(--gold-light);}
+.page-hero p{font-size:15px;font-weight:300;color:var(--text-muted);max-width:420px;line-height:1.75;}
+
+/* LAYOUT */
+.content-wrap{max-width:1280px;margin:0 auto;display:flex;align-items:flex-start;padding:0 48px 100px;}
+
+/* SIDEBAR */
+.sidebar{width:224px;flex-shrink:0;position:sticky;top:80px;padding:32px 32px 32px 0;border-right:1px solid var(--dark-border);margin-right:44px;}
+.sidebar-section{margin-bottom:26px;}
+.sidebar-label{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:12px;display:block;}
+.check-row{display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer;}
+.check-row:hover .check-label{color:var(--white);}
+.check-box{width:15px;height:15px;border-radius:3px;border:1px solid rgba(255,255,255,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.check-box.checked{background:var(--gold);border-color:var(--gold);}
+.check-label{font-size:12px;color:rgba(255,255,255,0.5);transition:color 0.15s;}
+.check-label.checked{color:rgba(255,255,255,0.9);}
+.check-count{font-size:10px;color:rgba(255,255,255,0.18);margin-left:auto;}
+.tier-row{display:flex;gap:6px;flex-wrap:wrap;}
+.tier-pill{font-size:11px;padding:6px 13px;border-radius:5px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);transition:all 0.2s;background:transparent;font-family:'DM Sans',sans-serif;}
+.tier-pill:hover{border-color:rgba(201,168,76,0.3);color:rgba(255,255,255,0.7);}
+.tier-pill.active{background:var(--gold);border-color:var(--gold);color:var(--dark);font-weight:600;}
+.sidebar-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:26px;}
+.clear-btn{font-size:11px;color:rgba(201,168,76,0.55);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color 0.2s;}
+.clear-btn:hover{color:var(--gold-light);}
+
+/* MOBILE FILTER BAR */
+.mobile-filter-bar{display:none;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--dark-border);background:var(--dark-2);position:sticky;top:57px;z-index:89;}
+.mobile-filter-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 16px;border-radius:6px;cursor:pointer;transition:all 0.2s;}
+.mobile-filter-btn.has-filters{border-color:var(--gold);color:var(--gold);}
+.filter-badge{background:var(--gold);color:var(--dark);font-size:10px;font-weight:700;width:17px;height:17px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+.filter-badge.visible{display:flex;}
+
+/* DRAWER */
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:150;opacity:0;transition:opacity 0.3s;}
+.drawer-overlay.open{opacity:1;}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:300px;background:#141418;z-index:151;transform:translateX(-100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.drawer.open{transform:translateX(0);}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--dark-border);flex-shrink:0;}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);}
+.drawer-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.4);font-size:20px;line-height:1;padding:4px;transition:color 0.2s;font-family:'DM Sans',sans-serif;}
+.drawer-close:hover{color:var(--white);}
+.drawer-body{padding:24px;flex:1;overflow-y:auto;}
+.drawer-footer{padding:20px 24px;border-top:1px solid var(--dark-border);display:flex;gap:10px;flex-shrink:0;}
+.drawer-apply{flex:1;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:13px;border-radius:8px;cursor:pointer;transition:background 0.2s;}
+.drawer-apply:hover{background:var(--gold-light);}
+.drawer-clear-btn{background:transparent;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);font-family:'DM Sans',sans-serif;font-size:13px;padding:13px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.drawer-clear-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.25);}
+
+/* MAIN */
+.main{flex:1;min-width:0;padding-top:32px;}
+.main-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.results-count{font-size:12px;color:rgba(255,255,255,0.3);}
+.results-count strong{color:rgba(255,255,255,0.65);font-weight:500;}
+.sort-select{background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;padding:7px 12px;border-radius:6px;cursor:pointer;outline:none;transition:border-color 0.2s;}
+.sort-select:hover{border-color:rgba(201,168,76,0.3);}
+.sort-select option{background:#1a1a20;color:var(--white);}
+
+/* GRID */
+.templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dark-border);}
+.tcard{background:var(--dark);cursor:pointer;position:relative;overflow:hidden;transition:background 0.3s;}
+.tcard:hover{background:var(--dark-2);}
+.tcard.hidden{display:none;}
+.tcard-preview{height:200px;position:relative;overflow:hidden;background:var(--dark-3);}
+.tcard-preview-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform 0.5s ease;}
+.tcard:hover .tcard-preview-inner{transform:scale(1.04);}
+
+/* SITE MOCKUPS */
+.site-mock{width:74%;height:80%;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.m-nav{height:18px;display:flex;align-items:center;padding:0 8px;gap:5px;flex-shrink:0;}
+.m-dot{width:4px;height:4px;border-radius:50%;}
+.m-body{flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:4px;overflow:hidden;}
+.m-hero{border-radius:3px;margin-bottom:2px;}
+.m-line{height:4px;border-radius:2px;}
+.m-btn{height:12px;width:40px;border-radius:3px;margin-top:3px;}
+.m-row{display:flex;gap:4px;margin-top:5px;}
+.m-sm{flex:1;height:24px;border-radius:3px;border:1px solid rgba(255,255,255,0.05);}
+
+/* Palette A – gold/dark (restaurant, luxury) */
+.pa .m-nav{background:#1a1208;} .pa .m-body{background:#0f0b04;} .pa .m-hero{height:40px;background:rgba(201,168,76,0.2);} .pa .m-line{background:rgba(201,168,76,0.12);} .pa .m-btn{background:rgba(201,168,76,0.4);}
+/* Palette B – mono dark (salon noir) */
+.pb .m-nav{background:#111;} .pb .m-body{background:#0a0a0a;} .pb .m-hero{height:44px;background:rgba(255,255,255,0.04);} .pb .m-line{background:rgba(255,255,255,0.1);} .pb .m-btn{background:rgba(255,255,255,0.15);}
+/* Palette C – cream/gold (retail, luxe) */
+.pc .m-nav{background:#f5f0e8;} .pc .m-body{background:#faf8f4;} .pc .m-hero{height:42px;background:rgba(201,168,76,0.18);} .pc .m-line{background:rgba(0,0,0,0.08);} .pc .m-btn{background:rgba(201,168,76,0.5);}
+/* Palette D – navy/blue (contractor, apex) */
+.pd .m-nav{background:#0a1628;} .pd .m-body{background:#060f1e;} .pd .m-hero{height:44px;background:rgba(59,130,246,0.28);} .pd .m-line{background:rgba(59,130,246,0.13);} .pd .m-btn{background:rgba(59,130,246,0.48);}
+/* Palette E – purple/rose (salon velour) */
+.pe .m-nav{background:#1a0a1e;} .pe .m-body{background:#120616;} .pe .m-hero{height:42px;background:rgba(168,85,247,0.28);} .pe .m-line{background:rgba(168,85,247,0.13);} .pe .m-btn{background:rgba(168,85,247,0.42);}
+/* Palette F – green (fitness, grove) */
+.pf .m-nav{background:#0d1f10;} .pf .m-body{background:#081409;} .pf .m-hero{height:40px;background:rgba(34,197,94,0.22);} .pf .m-line{background:rgba(34,197,94,0.1);} .pf .m-btn{background:rgba(34,197,94,0.38);}
+/* Palette G – warm terracotta (restaurant casual) */
+.pg .m-nav{background:#1f0e08;} .pg .m-body{background:#140804;} .pg .m-hero{height:44px;background:rgba(220,100,40,0.3);} .pg .m-line{background:rgba(220,100,40,0.15);} .pg .m-btn{background:rgba(220,100,40,0.45);}
+/* Palette H – slate/silver (contractor modern) */
+.ph .m-nav{background:#16181e;} .ph .m-body{background:#0e1016;} .ph .m-hero{height:42px;background:rgba(148,163,184,0.2);} .ph .m-line{background:rgba(148,163,184,0.12);} .ph .m-btn{background:rgba(148,163,184,0.35);}
+/* Palette I – blush/pink (beauty soft) */
+.pi .m-nav{background:#1e0e14;} .pi .m-body{background:#140810;} .pi .m-hero{height:42px;background:rgba(236,72,153,0.22);} .pi .m-line{background:rgba(236,72,153,0.12);} .pi .m-btn{background:rgba(236,72,153,0.38);}
+/* Palette J – teal (fitness/wellness) */
+.pj .m-nav{background:#041414;} .pj .m-body{background:#020e0e;} .pj .m-hero{height:44px;background:rgba(20,184,166,0.28);} .pj .m-line{background:rgba(20,184,166,0.12);} .pj .m-btn{background:rgba(20,184,166,0.42);}
+/* Palette K – off-white/sage (retail natural) */
+.pk .m-nav{background:#eef0ec;} .pk .m-body{background:#f5f6f3;} .pk .m-hero{height:42px;background:rgba(100,140,80,0.2);} .pk .m-line{background:rgba(0,0,0,0.07);} .pk .m-btn{background:rgba(100,140,80,0.45);}
+/* Palette L – deep wine (restaurant upscale) */
+.pl .m-nav{background:#1a0810;} .pl .m-body{background:#110408;} .pl .m-hero{height:44px;background:rgba(180,30,60,0.3);} .pl .m-line{background:rgba(180,30,60,0.15);} .pl .m-btn{background:rgba(180,30,60,0.45);}
+
+.tcard-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.65);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;z-index:3;}
+.tcard:hover .tcard-overlay{opacity:1;}
+.overlay-btn{background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:6px;transition:background 0.2s;text-decoration:none;}
+.overlay-btn:hover{background:var(--gold-light);}
+.overlay-btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.35);color:var(--white);}
+.overlay-btn.ghost:hover{background:rgba(255,255,255,0.08);}
+.badge-tier{position:absolute;top:12px;right:12px;font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
+.badge-tier.premium{background:var(--gold);color:var(--dark);}
+.badge-tier.standard{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);}
+.badge-industry{position:absolute;top:12px;left:12px;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,0,0,0.55);color:rgba(255,255,255,0.5);backdrop-filter:blur(8px);}
+.tcard-body{padding:16px 18px 18px;border-top:1px solid var(--dark-border);}
+.tcard-accent{height:1px;background:linear-gradient(90deg,var(--gold),transparent);width:0;transition:width 0.4s ease;}
+.tcard:hover .tcard-accent{width:100%;}
+.tcard-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:3px;}
+.tcard-desc{font-size:11px;font-weight:300;color:var(--text-muted);line-height:1.55;margin-bottom:12px;}
+.tcard-footer{display:flex;align-items:center;justify-content:space-between;}
+.tcard-price{font-size:18px;font-weight:300;color:var(--gold);}
+.tcard-price sup{font-size:11px;vertical-align:top;margin-top:3px;display:inline-block;}
+.tcard-tags{display:flex;gap:4px;}
+.tcard-tag{font-size:9px;color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.04);padding:2px 6px;border-radius:3px;border:1px solid rgba(255,255,255,0.06);}
+.empty-state{display:none;grid-column:1/-1;text-align:center;padding:80px 40px;}
+.empty-state.visible{display:block;}
+.empty-state h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--white);margin-bottom:8px;}
+.empty-state p{font-size:13px;color:var(--text-muted);}
+
+/* CTA + FOOTER */
+.cta-strip{background:var(--section-dark);border-top:1px solid var(--dark-border);padding:80px 48px;text-align:center;}
+.cta-strip-inner{max-width:520px;margin:0 auto;}
+.cta-strip h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);font-weight:300;line-height:1.1;margin-bottom:12px;}
+.cta-strip h2 em{font-style:italic;color:var(--gold-light);}
+.cta-strip p{font-size:14px;color:var(--text-muted);font-weight:300;margin-bottom:30px;line-height:1.7;}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:13px 30px;border-radius:8px;text-decoration:none;transition:all 0.2s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-ghost{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;padding:13px 20px;text-decoration:none;transition:color 0.2s;margin-left:6px;}
+.btn-ghost:hover{color:var(--white);}
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .page-hero{padding:100px 20px 44px;}
+  .mobile-filter-bar{display:flex;}
+  .content-wrap{padding:0 0 60px;flex-direction:column;}
+  .sidebar{display:none;}
+  .main{padding:16px 20px 0;}
+  .templates-grid{grid-template-columns:1fr;}
+  .tcard-preview{height:190px;}
+  .cta-strip{padding:56px 20px;}
+  footer{padding:32px 20px;flex-direction:column;align-items:flex-start;}
+}
+@media(min-width:769px) and (max-width:1100px){
+  nav{padding:16px 28px;}
+  .content-wrap{padding:0 28px 80px;}
+  .templates-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/><path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html" class="active">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="request.html" class="nav-request">Request a Template</a></li>
+  </ul>
+  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-inner">
+    <p class="page-eyebrow">Templates</p>
+    <h1>Sites built to<br><em>convert.</em></h1>
+    <p>Premium static templates for small businesses. No bloat — just beautiful, fast websites ready to launch.</p>
+  </div>
+</section>
+
+<!-- MOBILE FILTER BAR -->
+<div class="mobile-filter-bar">
+  <button class="mobile-filter-btn" id="mobile-filter-btn">
+    <svg style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 14 14" fill="none">
+      <line x1="1" y1="3.5" x2="13" y2="3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="1" y1="10.5" x2="13" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="3.5" r="1.5" fill="currentColor"/>
+      <circle cx="9.5" cy="7" r="1.5" fill="currentColor"/>
+      <circle cx="5.5" cy="10.5" r="1.5" fill="currentColor"/>
+    </svg>
+    Filters
+    <span class="filter-badge" id="filter-badge">0</span>
+  </button>
+  <select class="sort-select" id="sort-mobile">
+    <option value="featured">Featured</option>
+    <option value="price-low">Price: Low → High</option>
+    <option value="price-high">Price: High → Low</option>
+    <option value="name">Name A–Z</option>
+  </select>
+</div>
+
+<!-- FILTER DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Filters</span>
+    <button class="drawer-close" id="drawer-close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-footer">
+    <button class="drawer-apply" id="drawer-apply">Show results</button>
+    <button class="drawer-clear-btn" id="drawer-clear">Clear all</button>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- DESKTOP SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <span class="sidebar-label">Industry</span>
+      <div class="check-row" data-industry="salon"><div class="check-box"></div><span class="check-label">Salon & Beauty</span><span class="check-count">10</span></div>
+      <div class="check-row" data-industry="restaurant"><div class="check-box"></div><span class="check-label">Restaurant</span><span class="check-count">10</span></div>
+      <div class="check-row" data-industry="contractor"><div class="check-box"></div><span class="check-label">Contractor</span><span class="check-count">10</span></div>
+      <div class="check-row" data-industry="retail"><div class="check-box"></div><span class="check-label">Retail</span><span class="check-count">10</span></div>
+      <div class="check-row" data-industry="fitness"><div class="check-box"></div><span class="check-label">Fitness</span><span class="check-count">10</span></div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Tier</span>
+      <div class="tier-row">
+        <button class="tier-pill active" data-tier="all">All</button>
+        <button class="tier-pill" data-tier="standard">Standard</button>
+        <button class="tier-pill" data-tier="premium">Premium</button>
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Style</span>
+      <div class="check-row" data-style="dark"><div class="check-box"></div><span class="check-label">Dark theme</span></div>
+      <div class="check-row" data-style="light"><div class="check-box"></div><span class="check-label">Light theme</span></div>
+      <div class="check-row" data-style="animated"><div class="check-box"></div><span class="check-label">Animated</span></div>
+      <div class="check-row" data-style="minimal"><div class="check-box"></div><span class="check-label">Minimal</span></div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <button class="clear-btn" id="clear-desktop">Clear all filters</button>
+  </aside>
+
+  <div class="main">
+    <div class="main-top">
+      <p class="results-count"><strong id="count">50</strong> templates</p>
+      <select class="sort-select" id="sort-desktop">
+        <option value="featured">Featured</option>
+        <option value="price-low">Price: Low → High</option>
+        <option value="price-high">Price: High → Low</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+
+    <div class="templates-grid" id="grid">
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SALON & BEAUTY — 5 PREMIUM, 5 STANDARD -->
+      <!-- ═══════════════════════════════════════ -->
+
+      <div class="tcard" data-industry="salon" data-tier="premium" data-style="dark minimal animated" data-price="44.99" data-name="Noir">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:55%"></div><div class="m-line" style="width:35%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=noir" class="overlay-btn">Preview</a><a href="product.html?t=noir" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Noir</div><div class="tcard-desc">Sleek monochrome salon template. Minimal, sophisticated, unforgettable.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Velvet">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pe"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=velvet" class="overlay-btn">Preview</a><a href="product.html?t=velvet" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Velvet</div><div class="tcard-desc">Rich plum and rose tones with flowing scroll animations. Made for luxury salons.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Aura">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pi"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=aura" class="overlay-btn">Preview</a><a href="product.html?t=aura" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Aura</div><div class="tcard-desc">Soft pink and blush with cinematic hero transitions. Built for beauty brands.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Petal">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:58%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=petal" class="overlay-btn">Preview</a><a href="product.html?t=petal" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Petal</div><div class="tcard-desc">Light, airy salon template with delicate animations and a soft editorial look.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Eclipse">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=eclipse" class="overlay-btn">Preview</a><a href="product.html?t=eclipse" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Eclipse</div><div class="tcard-desc">Gold on black luxury salon template with dramatic reveal animations.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="standard" data-style="dark" data-price="24.99" data-name="Velour">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pe"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:55%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=velour" class="overlay-btn">Preview</a><a href="product.html?t=velour" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Velour</div><div class="tcard-desc">Dreamy purple and rose salon template. Feminine, lush, and highly bookable.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Elegant</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="standard" data-style="light minimal" data-price="24.99" data-name="Blush">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=blush" class="overlay-btn">Preview</a><a href="product.html?t=blush" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Blush</div><div class="tcard-desc">Clean cream and blush salon template. Simple, inviting, and easy to customize.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="standard" data-style="dark minimal" data-price="24.99" data-name="Onyx">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:50%"></div><div class="m-line" style="width:30%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=onyx" class="overlay-btn">Preview</a><a href="product.html?t=onyx" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Onyx</div><div class="tcard-desc">Bold monochrome for barbershops and unisex studios. Clean and confident.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="standard" data-style="light" data-price="24.99" data-name="Ivory">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=ivory" class="overlay-btn">Preview</a><a href="product.html?t=ivory" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Ivory</div><div class="tcard-desc">Warm white and sage salon template. Spa-like calm with a professional polish.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="salon" data-tier="standard" data-style="dark" data-price="24.99" data-name="Gloss">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pi"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:58%"></div><div class="m-line" style="width:36%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=gloss" class="overlay-btn">Preview</a><a href="product.html?t=gloss" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Salon</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Gloss</div><div class="tcard-desc">Vibrant nail studio template with a playful, high-energy dark aesthetic.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <!-- ═════════════════════════════════════════ -->
+      <!-- RESTAURANT — 5 PREMIUM, 5 STANDARD       -->
+      <!-- ═════════════════════════════════════════ -->
+
+      <div class="tcard" data-industry="restaurant" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Saveur">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:70%"></div><div class="m-line" style="width:45%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=saveur" class="overlay-btn">Preview</a><a href="product.html?t=saveur" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Saveur</div><div class="tcard-desc">Rich editorial restaurant template with animated menu reveals and reservation flow.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Ember">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pg"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=ember" class="overlay-btn">Preview</a><a href="product.html?t=ember" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Ember</div><div class="tcard-desc">Warm terracotta and fire tones for a rustic, inviting dining experience.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Cellar">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pl"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=cellar" class="overlay-btn">Preview</a><a href="product.html?t=cellar" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Cellar</div><div class="tcard-desc">Deep wine and candlelight aesthetic. Perfect for fine dining and wine bars.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Harvest">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:68%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=harvest" class="overlay-btn">Preview</a><a href="product.html?t=harvest" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Harvest</div><div class="tcard-desc">Farm-to-table warmth in a light, editorial layout with staggered scroll reveals.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="premium" data-style="dark animated minimal" data-price="44.99" data-name="Sotto">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:52%"></div><div class="m-line" style="width:34%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=sotto" class="overlay-btn">Preview</a><a href="product.html?t=sotto" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Sotto</div><div class="tcard-desc">Understated Italian-inspired minimal dark template for upscale casual dining.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="standard" data-style="dark" data-price="24.99" data-name="Hearth">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pg"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:64%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=hearth" class="overlay-btn">Preview</a><a href="product.html?t=hearth" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Hearth</div><div class="tcard-desc">Cozy, welcoming template for neighborhood restaurants and comfort food spots.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Warm</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="standard" data-style="light minimal" data-price="24.99" data-name="Bistro">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=bistro" class="overlay-btn">Preview</a><a href="product.html?t=bistro" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Bistro</div><div class="tcard-desc">Clean Parisian-inspired light template. Menu-forward, easy to update, highly readable.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="standard" data-style="dark" data-price="24.99" data-name="Grill">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:66%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=grill" class="overlay-btn">Preview</a><a href="product.html?t=grill" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Grill</div><div class="tcard-desc">Bold, meat-forward template for steakhouses and BBQ spots. Dark and striking.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="standard" data-style="light" data-price="24.99" data-name="Café">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=cafe" class="overlay-btn">Preview</a><a href="product.html?t=cafe" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Café</div><div class="tcard-desc">Friendly sage and cream template for coffee shops, bakeries, and brunch spots.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Friendly</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="restaurant" data-tier="standard" data-style="dark minimal" data-price="24.99" data-name="Dusk">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pl"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:54%"></div><div class="m-line" style="width:34%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=dusk" class="overlay-btn">Preview</a><a href="product.html?t=dusk" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Restaurant</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Dusk</div><div class="tcard-desc">Moody deep-red minimal template for cocktail bars and late-night dining.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- CONTRACTOR — 5 PREMIUM, 5 STANDARD         -->
+      <!-- ═══════════════════════════════════════════ -->
+
+      <div class="tcard" data-industry="contractor" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Apex">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pd"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=apex" class="overlay-btn">Preview</a><a href="product.html?t=apex" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Apex</div><div class="tcard-desc">Bold, trustworthy contractor template with animated counters and project showcases.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Forge">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock ph"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=forge" class="overlay-btn">Preview</a><a href="product.html?t=forge" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Forge</div><div class="tcard-desc">Industrial slate and steel template. Scroll-triggered reveals and a strong quote CTA.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Iron">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=iron" class="overlay-btn">Preview</a><a href="product.html?t=iron" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Iron</div><div class="tcard-desc">Gold accents on near-black. Conveys strength, precision, and premium craftsmanship.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Crest">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:68%"></div><div class="m-line" style="width:46%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=crest" class="overlay-btn">Preview</a><a href="product.html?t=crest" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Crest</div><div class="tcard-desc">Light, professional contractor template built for remodeling and home services.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Bastion">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pd"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:56%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=bastion" class="overlay-btn">Preview</a><a href="product.html?t=bastion" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Bastion</div><div class="tcard-desc">Navy blue authority template for roofing, plumbing, and structural contractors.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="standard" data-style="dark" data-price="24.99" data-name="Build">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock ph"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=build" class="overlay-btn">Preview</a><a href="product.html?t=build" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Build</div><div class="tcard-desc">No-nonsense contractor template. Services, gallery, and contact form front and center.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="standard" data-style="light" data-price="24.99" data-name="Hatch">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:66%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=hatch" class="overlay-btn">Preview</a><a href="product.html?t=hatch" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Hatch</div><div class="tcard-desc">Light and clean for landscaping, lawn care, and outdoor service businesses.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="standard" data-style="dark" data-price="24.99" data-name="Vault">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pd"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:58%"></div><div class="m-line" style="width:36%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=vault" class="overlay-btn">Preview</a><a href="product.html?t=vault" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Vault</div><div class="tcard-desc">Solid navy template for security, electrical, and specialty trade contractors.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="standard" data-style="light minimal" data-price="24.99" data-name="Frame">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:64%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=frame" class="overlay-btn">Preview</a><a href="product.html?t=frame" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Frame</div><div class="tcard-desc">Minimal warm-cream template ideal for interior design and renovation firms.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="contractor" data-tier="standard" data-style="dark" data-price="24.99" data-name="Grade">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=grade" class="overlay-btn">Preview</a><a href="product.html?t=grade" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Contractor</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Grade</div><div class="tcard-desc">Gold-on-dark for premium painting, flooring, and finishing contractors.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- RETAIL — 5 PREMIUM, 5 STANDARD    -->
+      <!-- ══════════════════════════════════ -->
+
+      <div class="tcard" data-industry="retail" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Luxe">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=luxe" class="overlay-btn">Preview</a><a href="product.html?t=luxe" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Luxe</div><div class="tcard-desc">Warm cream and gold retail template with scroll animations and product showcase.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Gilt">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=gilt" class="overlay-btn">Preview</a><a href="product.html?t=gilt" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Gilt</div><div class="tcard-desc">Dark luxury retail template. Gold-accented product cards and a cinematic hero.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Grove">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:64%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=grove-retail" class="overlay-btn">Preview</a><a href="product.html?t=grove-retail" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Grove</div><div class="tcard-desc">Natural sage and linen template for organic, eco-conscious, and botanical retail.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="premium" data-style="dark animated minimal" data-price="44.99" data-name="Maison">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:50%"></div><div class="m-line" style="width:32%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=maison" class="overlay-btn">Preview</a><a href="product.html?t=maison" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Maison</div><div class="tcard-desc">Minimalist French-inspired boutique template. Stark, editorial, and unforgettable.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Éclat">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pi"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:66%"></div><div class="m-line" style="width:46%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=eclat" class="overlay-btn">Preview</a><a href="product.html?t=eclat" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Éclat</div><div class="tcard-desc">Pink-tinted boutique template with flowing product reveals. Built for fashion retail.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="standard" data-style="light minimal" data-price="24.99" data-name="Shelf">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:40%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=shelf" class="overlay-btn">Preview</a><a href="product.html?t=shelf" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Shelf</div><div class="tcard-desc">Clean, product-first retail template. Grid layout, fast load, easy to update.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="standard" data-style="dark" data-price="24.99" data-name="Loft">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:55%"></div><div class="m-line" style="width:36%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=loft" class="overlay-btn">Preview</a><a href="product.html?t=loft" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Loft</div><div class="tcard-desc">Urban dark retail template for streetwear, vintage, and independent clothing brands.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="standard" data-style="light" data-price="24.99" data-name="Market">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:66%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=market" class="overlay-btn">Preview</a><a href="product.html?t=market" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Market</div><div class="tcard-desc">Farmers market and local goods template. Friendly, earthy, community-first.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Friendly</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="standard" data-style="dark minimal" data-price="24.99" data-name="Stow">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pa"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:58%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=stow" class="overlay-btn">Preview</a><a href="product.html?t=stow" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Stow</div><div class="tcard-desc">Compact dark template for specialty goods, gift shops, and curated retail.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="retail" data-tier="standard" data-style="light" data-price="24.99" data-name="Canvas">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=canvas" class="overlay-btn">Preview</a><a href="product.html?t=canvas" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Retail</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Canvas</div><div class="tcard-desc">Versatile bright template for art supplies, home décor, and lifestyle retail.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <!-- ══════════════════════════════════ -->
+      <!-- FITNESS — 5 PREMIUM, 5 STANDARD   -->
+      <!-- ══════════════════════════════════ -->
+
+      <div class="tcard" data-industry="fitness" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Surge">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pf"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=surge" class="overlay-btn">Preview</a><a href="product.html?t=surge" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Surge</div><div class="tcard-desc">High-energy green and black gym template with animated stats and class schedule.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Tide">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pj"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=tide" class="overlay-btn">Preview</a><a href="product.html?t=tide" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Tide</div><div class="tcard-desc">Teal wellness template for yoga, pilates, and mindfulness studios. Calm and premium.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Flux">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pd"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=flux" class="overlay-btn">Preview</a><a href="product.html?t=flux" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Flux</div><div class="tcard-desc">Navy and electric blue HIIT and crossfit template. Fast, punchy, and conversion-focused.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="premium" data-style="light animated" data-price="44.99" data-name="Bloom">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:64%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=bloom" class="overlay-btn">Preview</a><a href="product.html?t=bloom" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Bloom</div><div class="tcard-desc">Light wellness and nutrition coaching template. Animated testimonials and booking flow.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="premium" data-style="dark animated" data-price="44.99" data-name="Strike">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pb"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:56%"></div><div class="m-line" style="width:36%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=strike" class="overlay-btn">Preview</a><a href="product.html?t=strike" class="overlay-btn ghost">Details</a></div><span class="badge-tier premium">Premium</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Strike</div><div class="tcard-desc">Monochrome combat sports template for boxing gyms, MMA, and martial arts.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>44.99</div><div class="tcard-tags"><span class="tcard-tag">Animated</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="standard" data-style="dark" data-price="24.99" data-name="Reps">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pf"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:65%"></div><div class="m-line" style="width:45%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=reps" class="overlay-btn">Preview</a><a href="product.html?t=reps" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Reps</div><div class="tcard-desc">Clean, energetic fitness template. Built for gyms, studios, and personal trainers.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="standard" data-style="light minimal" data-price="24.99" data-name="Flow">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pk"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=flow" class="overlay-btn">Preview</a><a href="product.html?t=flow" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Flow</div><div class="tcard-desc">Minimal light template for yoga and wellness. Serene, spacious, and inviting.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Minimal</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="standard" data-style="dark" data-price="24.99" data-name="Core">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pj"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:58%"></div><div class="m-line" style="width:38%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=core" class="overlay-btn">Preview</a><a href="product.html?t=core" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Core</div><div class="tcard-desc">Teal-accented functional fitness template for boutique studios and group training.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="standard" data-style="dark" data-price="24.99" data-name="Sprint">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pd"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:62%"></div><div class="m-line" style="width:42%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=sprint" class="overlay-btn">Preview</a><a href="product.html?t=sprint" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Sprint</div><div class="tcard-desc">Navy and speed-focused running club and athletics template. Crisp and motivational.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Bold</span><span class="tcard-tag">Dark</span></div></div></div>
+      </div>
+
+      <div class="tcard" data-industry="fitness" data-tier="standard" data-style="light" data-price="24.99" data-name="Lift">
+        <div class="tcard-preview"><div class="tcard-preview-inner"><div class="site-mock pc"><div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div><div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:64%"></div><div class="m-line" style="width:44%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div></div></div><div class="tcard-overlay"><a href="product.html?t=lift" class="overlay-btn">Preview</a><a href="product.html?t=lift" class="overlay-btn ghost">Details</a></div><span class="badge-tier standard">Standard</span><span class="badge-industry">Fitness</span></div>
+        <div class="tcard-accent"></div><div class="tcard-body"><div class="tcard-name">Lift</div><div class="tcard-desc">Warm cream personal training template with pricing table and testimonial section.</div><div class="tcard-footer"><div class="tcard-price"><sup>$</sup>24.99</div><div class="tcard-tags"><span class="tcard-tag">Clean</span><span class="tcard-tag">Light</span></div></div></div>
+      </div>
+
+      <div class="empty-state" id="empty-state">
+        <h3>No templates found.</h3>
+        <p>Try adjusting your filters.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="cta-strip reveal">
+  <div class="cta-strip-inner">
+    <h2>Don't see your<br><em>industry?</em></h2>
+    <p>We're always adding new templates. Request a custom industry and we'll prioritize it.</p>
+    <a href="request.html" class="btn-gold">Request a Template</a>
+    <a href="addons.html" class="btn-ghost">View Add-ons →</a>
+  </div>
+</div>
+
+<footer class="reveal">
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+const TICK = `<svg style="width:9px;height:9px;" viewBox="0 0 9 9"><polyline points="1,4.5 3.5,7 8,2" fill="none" stroke="#0F0F12" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+let activeIndustries = new Set(), activeTier = 'all', activeStyles = new Set();
+const cards = Array.from(document.querySelectorAll('.tcard'));
+const countEl = document.getElementById('count');
+const emptyState = document.getElementById('empty-state');
+
+function applyFilters() {
+  let v = 0;
+  cards.forEach(c => {
+    const ok = (activeIndustries.size === 0 || activeIndustries.has(c.dataset.industry))
+      && (activeTier === 'all' || c.dataset.tier === activeTier)
+      && (activeStyles.size === 0 || [...activeStyles].some(s => (c.dataset.style||'').includes(s)));
+    c.classList.toggle('hidden', !ok);
+    if (ok) v++;
+  });
+  countEl.textContent = v;
+  emptyState.classList.toggle('visible', v === 0);
+  updateBadge();
+}
+function updateBadge() {
+  const n = activeIndustries.size + activeStyles.size + (activeTier !== 'all' ? 1 : 0);
+  const badge = document.getElementById('filter-badge');
+  badge.textContent = n;
+  badge.classList.toggle('visible', n > 0);
+  document.getElementById('mobile-filter-btn').classList.toggle('has-filters', n > 0);
+}
+function clearAll() {
+  activeIndustries.clear(); activeStyles.clear(); activeTier = 'all';
+  document.querySelectorAll('.sidebar .check-box').forEach(b => { b.classList.remove('checked'); b.style.background=''; b.style.borderColor=''; b.innerHTML=''; });
+  document.querySelectorAll('.sidebar .check-label').forEach(l => l.classList.remove('checked'));
+  document.querySelectorAll('.sidebar .tier-pill').forEach(p => p.classList.toggle('active', p.dataset.tier === 'all'));
+  applyFilters();
+}
+function applySort(val) {
+  const grid = document.getElementById('grid');
+  [...cards].sort((a,b) => {
+    if (val==='price-low') return +a.dataset.price - +b.dataset.price;
+    if (val==='price-high') return +b.dataset.price - +a.dataset.price;
+    if (val==='name') return a.dataset.name.localeCompare(b.dataset.name);
+    return 0;
+  }).forEach(c => grid.insertBefore(c, emptyState));
+}
+
+// Desktop sidebar
+document.querySelectorAll('.sidebar .check-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const box = row.querySelector('.check-box');
+    const label = row.querySelector('.check-label');
+    const isChecked = box.classList.toggle('checked');
+    box.style.background = isChecked ? 'var(--gold)' : '';
+    box.style.borderColor = isChecked ? 'var(--gold)' : '';
+    box.innerHTML = isChecked ? TICK : '';
+    label.classList.toggle('checked', isChecked);
+    const key = row.dataset.industry || row.dataset.style;
+    const set = row.dataset.industry ? activeIndustries : activeStyles;
+    isChecked ? set.add(key) : set.delete(key);
+    applyFilters();
+  });
+});
+document.querySelectorAll('.sidebar .tier-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar .tier-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); activeTier = btn.dataset.tier; applyFilters();
+  });
+});
+document.getElementById('clear-desktop').addEventListener('click', clearAll);
+document.getElementById('sort-desktop').addEventListener('change', e => applySort(e.target.value));
+document.getElementById('sort-mobile').addEventListener('change', e => applySort(e.target.value));
+
+// Drawer
+const drawerOverlay = document.getElementById('drawer-overlay');
+const drawer = document.getElementById('drawer');
+function openDrawer() {
+  drawerOverlay.style.display='block';
+  requestAnimationFrame(() => { drawerOverlay.classList.add('open'); drawer.classList.add('open'); });
+  document.body.style.overflow='hidden'; renderDrawer();
+}
+function closeDrawer() {
+  drawerOverlay.classList.remove('open'); drawer.classList.remove('open');
+  setTimeout(() => { drawerOverlay.style.display='none'; }, 350);
+  document.body.style.overflow='';
+}
+const INDS = [{key:'salon',label:'Salon & Beauty',count:10},{key:'restaurant',label:'Restaurant',count:10},{key:'contractor',label:'Contractor',count:10},{key:'retail',label:'Retail',count:10},{key:'fitness',label:'Fitness',count:10}];
+const STYS = [{key:'dark',label:'Dark theme'},{key:'light',label:'Light theme'},{key:'animated',label:'Animated'},{key:'minimal',label:'Minimal'}];
+function renderDrawer() {
+  const secLabel = t => `<span style="font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);display:block;margin-bottom:12px;">${t}</span>`;
+  const div = `<div style="height:1px;background:rgba(255,255,255,0.06);margin:20px 0;"></div>`;
+  const row = (key, label, set, attr, count='') => {
+    const checked = set.has(key);
+    return `<div class="check-row" data-${attr}="${key}" style="padding:6px 0;">
+      <div class="check-box${checked?' checked':''}" style="${checked?'background:var(--gold);border-color:var(--gold);':''}">${checked?TICK:''}</div>
+      <span class="check-label${checked?' checked':''}">${label}</span>
+      ${count?`<span class="check-count">${count}</span>`:''}
+    </div>`;
+  };
+  let h = secLabel('Industry') + INDS.map(i=>row(i.key,i.label,activeIndustries,'industry',i.count)).join('');
+  h += div + secLabel('Tier');
+  h += `<div style="display:flex;gap:6px;margin-bottom:4px;">${['all','standard','premium'].map(t=>`<button class="tier-pill${activeTier===t?' active':''}" data-tier="${t}" style="font-size:12px;">${t==='all'?'All':t[0].toUpperCase()+t.slice(1)}</button>`).join('')}</div>`;
+  h += div + secLabel('Style') + STYS.map(s=>row(s.key,s.label,activeStyles,'style')).join('');
+  document.getElementById('drawer-body').innerHTML = h;
+  document.querySelectorAll('#drawer-body .check-row').forEach(r => {
+    r.addEventListener('click', () => {
+      const box = r.querySelector('.check-box'), label = r.querySelector('.check-label');
+      const checked = box.classList.toggle('checked');
+      box.style.background = checked?'var(--gold)':''; box.style.borderColor = checked?'var(--gold)':''; box.innerHTML = checked?TICK:'';
+      label.classList.toggle('checked', checked);
+      const key = r.dataset.industry || r.dataset.style;
+      const set = r.dataset.industry ? activeIndustries : activeStyles;
+      checked ? set.add(key) : set.delete(key);
+    });
+  });
+  document.querySelectorAll('#drawer-body .tier-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#drawer-body .tier-pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active'); activeTier = btn.dataset.tier;
+    });
+  });
+}
+document.getElementById('mobile-filter-btn').addEventListener('click', openDrawer);
+document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+document.getElementById('drawer-apply').addEventListener('click', () => { applyFilters(); closeDrawer(); });
+document.getElementById('drawer-clear').addEventListener('click', () => { clearAll(); renderDrawer(); });
+
+// Nav
+const hamburger = document.getElementById('hamburger'), mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open){mobileMenu.style.display='flex';setTimeout(()=>mobileMenu.style.opacity='1',10);}
+  else{mobileMenu.style.opacity='0';setTimeout(()=>mobileMenu.style.display='none',300);}
+  document.body.style.overflow=open?'hidden':'';
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hamburger.classList.remove('open');mobileMenu.style.opacity='0';
+  setTimeout(()=>mobileMenu.style.display='none',300);document.body.style.overflow='';
+}));
+
+// Progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll',()=>{bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+
+// Scroll reveal
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

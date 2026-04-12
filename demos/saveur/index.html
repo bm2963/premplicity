@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saveur — Fine Dining</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Cormorant:ital,wght@1,300;1,400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --black:#0a0804;
+  --dark:#110e08;
+  --dark-2:#1a1610;
+  --dark-3:#221e16;
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.15);
+  --gold-glow:rgba(201,168,76,0.08);
+  --cream:#F5F0E6;
+  --cream-dim:rgba(245,240,230,0.6);
+  --text-muted:rgba(245,240,230,0.45);
+  --border:rgba(201,168,76,0.12);
+  --border-dim:rgba(245,240,230,0.07);
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  overflow-x:hidden;
+}
+
+/* GRAIN OVERLAY */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;opacity:0.4;
+}
+
+/* PURCHASE BANNER */
+.purchase-banner{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  gap:20px;padding:10px 24px;
+}
+.purchase-banner p{
+  font-size:12px;font-weight:500;
+  color:var(--black);letter-spacing:0.5px;
+}
+.purchase-banner p span{font-weight:300;opacity:0.7;margin-left:4px;}
+.banner-btn{
+  background:var(--black);color:var(--gold);
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:6px 16px;border-radius:3px;text-decoration:none;
+  transition:background 0.2s;white-space:nowrap;flex-shrink:0;
+}
+.banner-btn:hover{background:#1a1610;}
+.banner-close{
+  position:absolute;right:16px;background:none;border:none;
+  color:var(--black);font-size:18px;cursor:pointer;opacity:0.6;
+  line-height:1;padding:2px;
+}
+.banner-close:hover{opacity:1;}
+
+/* NAV */
+nav{
+  position:fixed;top:36px;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 56px;
+  transition:all 0.4s ease;
+}
+nav.scrolled{
+  top:36px;
+  background:rgba(10,8,4,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 56px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:600;
+  color:var(--cream);letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;
+}
+.nav-logo span{color:var(--gold);}
+.nav-links{
+  display:flex;gap:36px;list-style:none;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-links a{
+  font-size:11px;font-weight:400;
+  color:var(--text-muted);text-decoration:none;
+  letter-spacing:1.5px;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-reserve{
+  font-size:11px;font-weight:500;
+  color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid rgba(201,168,76,0.3);
+  padding:9px 22px;text-decoration:none;
+  transition:all 0.2s;
+}
+.nav-reserve:hover{background:var(--gold-dim);color:var(--gold-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--cream);transition:all 0.3s;}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 40px 80px;
+  position:relative;overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(180,60,20,0.04) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0804 0%, #110e08 50%, #0a0804 100%);
+}
+
+.hero-line-left{
+  position:absolute;left:56px;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,transparent,var(--border),transparent);
+}
+.hero-line-right{
+  position:absolute;right:56px;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,transparent,var(--border),transparent);
+}
+
+.hero-eyebrow{
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:32px;
+  animation:fadeUp 1s 0.2s ease both;
+}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--gold);opacity:0.6;}
+.hero-eyebrow span{
+  font-size:10px;font-weight:400;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);
+}
+
+.hero h1{
+  position:relative;z-index:1;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(64px,10vw,140px);
+  font-weight:300;line-height:0.9;
+  letter-spacing:-2px;
+  color:var(--cream);
+  margin-bottom:8px;
+  animation:fadeUp 1s 0.35s ease both;
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--gold-light);
+  display:block;
+}
+
+.hero-sub{
+  position:relative;z-index:1;
+  font-size:13px;font-weight:300;
+  color:var(--text-muted);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:52px;
+  animation:fadeUp 1s 0.5s ease both;
+}
+
+.hero-actions{
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:20px;
+  animation:fadeUp 1s 0.65s ease both;
+}
+.btn-primary{
+  background:var(--gold);color:var(--black);
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:15px 36px;text-decoration:none;
+  transition:all 0.3s;
+}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-secondary{
+  font-size:11px;font-weight:400;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+  transition:color 0.2s;
+}
+.btn-secondary::after{
+  content:'';width:24px;height:1px;
+  background:currentColor;transition:width 0.3s;
+}
+.btn-secondary:hover{color:var(--cream);}
+.btn-secondary:hover::after{width:36px;}
+
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:fadeUp 1s 0.8s ease both;
+}
+.hero-scroll span{
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(245,240,230,0.25);
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(180deg,var(--gold),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:0.4;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.1);}}
+
+/* INTRO STRIP */
+.intro-strip{
+  display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+}
+.intro-item{
+  padding:48px 56px;text-align:center;
+  opacity:0;transform:translateY(20px);
+  transition:all 0.7s ease;
+}
+.intro-item.visible{opacity:1;transform:none;}
+.intro-divider{background:var(--border-dim);}
+.intro-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;font-weight:300;
+  color:var(--gold);line-height:1;
+  margin-bottom:6px;
+}
+.intro-label{
+  font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text-muted);
+}
+
+/* SECTION SHARED */
+.section-eyebrow{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:20px;
+}
+.section-eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.5;}
+.section-eyebrow span{
+  font-size:9px;font-weight:500;
+  letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,64px);
+  font-weight:300;line-height:1.05;
+  letter-spacing:-1px;color:var(--cream);
+}
+.section-title em{font-style:italic;color:var(--gold-light);}
+
+/* ABOUT / STORY */
+.story{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:80vh;
+}
+.story-image{
+  background:var(--dark-2);
+  position:relative;overflow:hidden;
+}
+.story-img-fill{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,168,76,0.02) 40px, rgba(201,168,76,0.02) 41px);
+  display:flex;align-items:center;justify-content:center;
+}
+.story-img-placeholder{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(201,168,76,0.3);
+  text-align:center;line-height:2;
+}
+.story-content{
+  padding:80px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--dark);
+}
+.story-text{
+  font-size:16px;font-weight:300;
+  color:var(--text-muted);line-height:1.9;
+  margin-bottom:20px;
+}
+.story-text strong{color:var(--cream);font-weight:400;}
+.story-signature{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;font-style:italic;
+  color:var(--gold-light);margin-top:8px;
+}
+
+/* MENU PREVIEW */
+.menu-section{
+  padding:100px 56px;
+  background:var(--dark);
+  position:relative;
+}
+.menu-section::before{
+  content:'';position:absolute;top:0;left:56px;right:56px;
+  height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+.menu-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:64px;max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.menu-header-left{}
+.menu-link{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+  transition:gap 0.3s;margin-bottom:8px;
+}
+.menu-link:hover{gap:16px;}
+.menu-link::after{content:'→';}
+
+.menu-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--border-dim);
+  margin-bottom:48px;max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.menu-tab{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text-muted);background:none;border:none;
+  padding:14px 28px;cursor:pointer;
+  border-bottom:1px solid transparent;
+  transition:all 0.2s;font-family:'DM Sans',sans-serif;
+  margin-bottom:-1px;
+}
+.menu-tab:hover{color:var(--cream);}
+.menu-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+.menu-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;max-width:1200px;margin:0 auto;
+}
+.menu-item{
+  padding:28px 0;
+  border-bottom:1px solid var(--border-dim);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:24px;
+  opacity:0;transform:translateY(12px);
+  transition:all 0.5s ease;
+}
+.menu-item.visible{opacity:1;transform:none;}
+.menu-item:nth-child(odd){padding-right:48px;border-right:1px solid var(--border-dim);}
+.menu-item:nth-child(even){padding-left:48px;}
+.menu-item-left{}
+.menu-item-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:400;color:var(--cream);
+  margin-bottom:4px;
+}
+.menu-item-desc{font-size:12px;font-weight:300;color:var(--text-muted);line-height:1.5;}
+.menu-item-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:300;color:var(--gold);
+  white-space:nowrap;flex-shrink:0;padding-top:2px;
+}
+
+/* EXPERIENCE */
+.experience{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border-dim);
+}
+.exp-item{
+  background:var(--dark-2);
+  padding:64px 48px;
+  opacity:0;transform:translateY(20px);
+  transition:all 0.6s ease;
+}
+.exp-item.visible{opacity:1;transform:none;}
+.exp-icon{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;font-style:italic;
+  color:var(--gold);margin-bottom:20px;line-height:1;
+}
+.exp-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:400;color:var(--cream);
+  margin-bottom:12px;
+}
+.exp-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+
+/* RESERVATION */
+.reservation{
+  padding:100px 56px;
+  background:var(--black);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.reservation-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.reservation-inner{
+  max-width:600px;margin:0 auto;
+  position:relative;z-index:1;
+}
+.reservation h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,5vw,72px);
+  font-weight:300;line-height:1.05;
+  letter-spacing:-1px;margin-bottom:16px;
+}
+.reservation h2 em{font-style:italic;color:var(--gold-light);}
+.reservation p{
+  font-size:14px;font-weight:300;
+  color:var(--text-muted);margin-bottom:40px;line-height:1.7;
+}
+.res-form{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:12px;
+}
+.res-form input, .res-form select{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border-dim);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:300;
+  padding:14px 18px;outline:none;
+  transition:border-color 0.2s;
+  -webkit-appearance:none;
+}
+.res-form input::placeholder{color:rgba(245,240,230,0.25);}
+.res-form input:focus,.res-form select:focus{border-color:rgba(201,168,76,0.4);}
+.res-form select option{background:#1a1610;}
+.res-submit{
+  width:100%;padding:16px;
+  background:var(--gold);color:var(--black);
+  font-family:'DM Sans',sans-serif;font-size:12px;
+  font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  border:none;cursor:pointer;transition:background 0.2s;
+}
+.res-submit:hover{background:var(--gold-light);}
+.res-note{font-size:11px;color:rgba(245,240,230,0.2);margin-top:12px;letter-spacing:0.5px;}
+
+/* GALLERY STRIP */
+.gallery-strip{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  height:420px;gap:1px;background:var(--border-dim);
+}
+.gallery-item{
+  background:var(--dark-3);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.gallery-item::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gold-glow),transparent);
+}
+.gallery-item:nth-child(1){background:linear-gradient(135deg,#1a1208,#0f0b04);}
+.gallery-item:nth-child(2){background:linear-gradient(135deg,#1f100a,#120804);}
+.gallery-item:nth-child(3){background:linear-gradient(135deg,#141208,#0c0a06);}
+.gallery-placeholder{
+  font-family:'Cormorant Garamond',serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,168,76,0.2);z-index:1;text-align:center;line-height:2;
+}
+
+/* PRIVATE DINING */
+.private{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:70vh;
+}
+.private-content{
+  padding:80px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--dark-2);
+}
+.private-image{
+  background:var(--dark-3);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.private-image-fill{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    linear-gradient(135deg,#1a1208,#0f0b04);
+}
+.private-list{
+  list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:12px;
+}
+.private-list li{
+  display:flex;align-items:center;gap:14px;
+  font-size:13px;font-weight:300;color:var(--text-muted);
+}
+.private-list li::before{
+  content:'';width:20px;height:1px;
+  background:var(--gold);flex-shrink:0;opacity:0.6;
+}
+
+/* HOURS */
+.hours-bar{
+  background:var(--dark-2);
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+  display:flex;align-items:center;justify-content:center;
+  gap:64px;padding:32px 56px;flex-wrap:wrap;
+}
+.hours-item{text-align:center;}
+.hours-day{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:4px;
+}
+.hours-time{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:300;color:var(--cream);
+}
+.hours-divider{width:1px;height:40px;background:var(--border-dim);}
+
+/* TESTIMONIALS */
+.testimonials{
+  padding:100px 56px;background:var(--black);
+  position:relative;
+}
+.testimonials::before{
+  content:'';position:absolute;top:0;left:56px;right:56px;
+  height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+.testimonials-inner{max-width:1000px;margin:0 auto;}
+.testimonials-header{
+  text-align:center;margin-bottom:64px;
+}
+.testimonials-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border-dim);
+}
+.testimonial{
+  background:var(--dark);
+  padding:40px 36px;
+  opacity:0;transform:translateY(16px);
+  transition:all 0.6s ease;
+}
+.testimonial.visible{opacity:1;transform:none;}
+.testimonial-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:300;font-style:italic;
+  color:var(--cream-dim);line-height:1.7;
+  margin-bottom:24px;
+}
+.testimonial-author{
+  display:flex;align-items:center;gap:12px;
+}
+.testimonial-dot{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--gold-dim);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--gold);flex-shrink:0;
+}
+.testimonial-name{font-size:12px;font-weight:500;color:var(--cream);margin-bottom:2px;}
+.testimonial-via{font-size:10px;color:var(--text-muted);letter-spacing:0.5px;}
+.testimonial-stars{
+  display:flex;gap:3px;margin-bottom:16px;
+}
+.star{width:10px;height:10px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+
+/* FOOTER */
+footer{
+  background:var(--dark-2);
+  border-top:1px solid var(--border-dim);
+  padding:64px 56px 40px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;margin-bottom:56px;
+}
+.footer-brand{}
+.footer-logo-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--cream);
+  margin-bottom:12px;
+}
+.footer-logo-text span{color:var(--gold);}
+.footer-tagline{
+  font-size:12px;font-weight:300;
+  color:var(--text-muted);line-height:1.7;
+  max-width:220px;margin-bottom:24px;
+}
+.footer-social{display:flex;gap:12px;}
+.social-btn{
+  width:34px;height:34px;border:1px solid var(--border-dim);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--text-muted);text-decoration:none;
+  transition:all 0.2s;
+}
+.social-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-col-title{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul a{
+  font-size:13px;font-weight:300;color:var(--text-muted);
+  text-decoration:none;transition:color 0.2s;
+}
+.footer-col ul a:hover{color:var(--cream);}
+.footer-bottom{
+  border-top:1px solid var(--border-dim);
+  padding-top:28px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-copy{font-size:11px;color:rgba(245,240,230,0.2);letter-spacing:0.5px;}
+.footer-built{
+  font-size:10px;color:rgba(245,240,230,0.15);letter-spacing:0.5px;
+}
+.footer-built a{color:rgba(201,168,76,0.35);text-decoration:none;transition:color 0.2s;}
+.footer-built a:hover{color:var(--gold);}
+
+/* MOBILE MENU */
+.mobile-menu{
+  display:none;position:fixed;top:36px;left:0;right:0;bottom:0;
+  background:rgba(10,8,4,0.98);backdrop-filter:blur(24px);
+  z-index:99;flex-direction:column;align-items:center;justify-content:center;
+  gap:28px;opacity:0;transition:opacity 0.3s;
+}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;color:var(--cream);
+  text-decoration:none;letter-spacing:1px;transition:color 0.2s;
+}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-reserve{
+  font-family:'DM Sans',sans-serif !important;font-size:12px !important;
+  font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);
+  padding:12px 32px;margin-top:8px;
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:16px 24px;}
+  nav.scrolled{padding:12px 24px;}
+  .nav-links,.nav-reserve{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:100px 24px 80px;}
+  .hero h1{font-size:clamp(52px,14vw,80px);}
+  .hero-line-left,.hero-line-right{display:none;}
+  .intro-strip{grid-template-columns:1fr;border:none;}
+  .intro-divider{display:none;}
+  .intro-item{padding:32px 24px;border-bottom:1px solid var(--border-dim);}
+  .story{grid-template-columns:1fr;}
+  .story-image{height:300px;}
+  .story-content{padding:52px 24px;}
+  .menu-section{padding:60px 24px;}
+  .menu-header{flex-direction:column;align-items:flex-start;gap:20px;}
+  .menu-grid{grid-template-columns:1fr;}
+  .menu-item:nth-child(odd){padding-right:0;border-right:none;}
+  .menu-item:nth-child(even){padding-left:0;}
+  .experience{grid-template-columns:1fr;}
+  .reservation{padding:60px 24px;}
+  .res-form{grid-template-columns:1fr;}
+  .gallery-strip{grid-template-columns:1fr;height:auto;}
+  .gallery-item{height:200px;}
+  .private{grid-template-columns:1fr;}
+  .private-image{height:260px;}
+  .private-content{padding:52px 24px;}
+  .hours-bar{gap:32px;padding:28px 24px;}
+  .testimonials{padding:60px 24px;}
+  .testimonials-grid{grid-template-columns:1fr;}
+  footer{padding:52px 24px 32px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- PURCHASE BANNER -->
+<div class="purchase-banner" id="purchase-banner">
+  <p>You're previewing <strong>Saveur</strong> — Premium Restaurant Template<span>· $44.99</span></p>
+  <a href="../../saveur.html" class="banner-btn">Buy this template</a>
+  <button class="banner-close" id="banner-close">×</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Sa<span>v</span>eur</a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#private">Private Dining</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#reserve" class="nav-reserve">Reserve a Table</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#story">Our Story</a>
+  <a href="#menu">Menu</a>
+  <a href="#experience">Experience</a>
+  <a href="#private">Private Dining</a>
+  <a href="#contact">Contact</a>
+  <a href="#reserve" class="mob-reserve">Reserve a Table</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line-left"></div>
+  <div class="hero-line-right"></div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <span>Est. 2019 · New Orleans, Louisiana</span>
+    <div class="hero-eyebrow-line"></div>
+  </div>
+
+  <h1>
+    Where Every Dish<br>
+    <em>Tells a Story.</em>
+  </h1>
+
+  <p class="hero-sub">Contemporary Creole · Fine Dining · Private Events</p>
+
+  <div class="hero-actions">
+    <a href="#reserve" class="btn-primary">Reserve a Table</a>
+    <a href="#menu" class="btn-secondary">View the Menu</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="intro-item reveal">
+    <div class="intro-num">12</div>
+    <div class="intro-label">Years of Excellence</div>
+  </div>
+  <div class="intro-divider"></div>
+  <div class="intro-item reveal reveal-delay-1">
+    <div class="intro-num">3</div>
+    <div class="intro-label">James Beard Nominations</div>
+  </div>
+  <div class="intro-divider"></div>
+  <div class="intro-item reveal reveal-delay-2">
+    <div class="intro-num">48</div>
+    <div class="intro-label">Seats, Nightly</div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-image reveal">
+    <div class="story-img-fill">
+      <div class="story-img-placeholder">
+        Restaurant<br>Photography<br>Goes Here
+      </div>
+    </div>
+  </div>
+  <div class="story-content">
+    <div class="section-eyebrow reveal">
+      <div class="section-eyebrow-line"></div>
+      <span>Our Story</span>
+    </div>
+    <h2 class="section-title reveal">Rooted in<br><em>tradition,</em><br>reimagined.</h2>
+    <p class="story-text reveal" style="margin-top:24px;">
+      Saveur was born from a deep reverence for <strong>Louisiana's culinary heritage</strong> — its bold flavors, its layered history, its soulful generosity. We take that foundation and push it forward, season by season.
+    </p>
+    <p class="story-text reveal">
+      Chef Marie Delacroix trained in Lyon before returning to her hometown of New Orleans, bringing with her a <strong>French precision that honors the Creole spirit</strong> rather than subduing it.
+    </p>
+    <div class="story-signature reveal">— Chef Marie Delacroix</div>
+  </div>
+</section>
+
+<!-- MENU PREVIEW -->
+<section class="menu-section" id="menu">
+  <div class="menu-header reveal">
+    <div class="menu-header-left">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>The Menu</span>
+      </div>
+      <h2 class="section-title">A seasonal<br><em>journey.</em></h2>
+    </div>
+    <a href="#" class="menu-link">Full Menu</a>
+  </div>
+
+  <div class="menu-tabs reveal">
+    <button class="menu-tab active" data-menu="starters">Starters</button>
+    <button class="menu-tab" data-menu="mains">Mains</button>
+    <button class="menu-tab" data-menu="desserts">Desserts</button>
+    <button class="menu-tab" data-menu="wine">Wine</button>
+  </div>
+
+  <div class="menu-grid" id="menu-grid">
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Blue Crab Beignets</div>
+        <div class="menu-item-desc">Louisiana blue crab, chive crème fraîche, caviar pearls</div>
+      </div>
+      <div class="menu-item-price">$22</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Oysters Rockefeller</div>
+        <div class="menu-item-desc">Half shell, spinach cream, Pernod, house-cured bacon</div>
+      </div>
+      <div class="menu-item-price">$28</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Duck Liver Mousse</div>
+        <div class="menu-item-desc">Blackberry gastrique, toasted brioche, pickled shallots</div>
+      </div>
+      <div class="menu-item-price">$19</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Turtle Soup</div>
+        <div class="menu-item-desc">A New Orleans classic. Sherry, lemon, hard-boiled egg</div>
+      </div>
+      <div class="menu-item-price">$17</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Chilled Gulf Shrimp</div>
+        <div class="menu-item-desc">Housemade cocktail, avocado crema, micro cilantro</div>
+      </div>
+      <div class="menu-item-price">$24</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Roasted Beet Salad</div>
+        <div class="menu-item-desc">Arugula, Manchego, candied walnuts, aged balsamic</div>
+      </div>
+      <div class="menu-item-price">$16</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="experience">
+    <div class="exp-item reveal">
+      <div class="exp-icon">I.</div>
+      <div class="exp-title">The Dining Room</div>
+      <p class="exp-desc">48 intimate seats across two rooms. Candlelit, unhurried, and designed for conversation. Reserve the chef's counter for a front-row view of the kitchen.</p>
+    </div>
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-icon">II.</div>
+      <div class="exp-title">The Wine Cellar</div>
+      <p class="exp-desc">Over 400 selections curated by Sommelier Jean-Paul Fontenot. A deep focus on Burgundy and the American South, with surprises from every corner of the globe.</p>
+    </div>
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-icon">III.</div>
+      <div class="exp-title">The Tasting Menu</div>
+      <p class="exp-desc">Seven courses, three hours, one unforgettable evening. Available Friday and Saturday by reservation. Dietary accommodations warmly honored.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <div class="gallery-item">
+    <div class="gallery-placeholder">Interior Photography<br>Goes Here</div>
+  </div>
+  <div class="gallery-item">
+    <div class="gallery-placeholder">Food<br>Photography</div>
+  </div>
+  <div class="gallery-item">
+    <div class="gallery-placeholder">Detail<br>Photography</div>
+  </div>
+</div>
+
+<!-- PRIVATE DINING -->
+<section class="private" id="private">
+  <div class="private-content">
+    <div class="section-eyebrow reveal">
+      <div class="section-eyebrow-line"></div>
+      <span>Private Dining</span>
+    </div>
+    <h2 class="section-title reveal">Your occasion,<br><em>elevated.</em></h2>
+    <p class="story-text reveal" style="margin-top:20px;">
+      From intimate anniversaries to corporate gatherings, our private dining room accommodates up to 20 guests with a dedicated service team and custom menus.
+    </p>
+    <ul class="private-list reveal">
+      <li>Custom tasting menus by Chef Delacroix</li>
+      <li>Dedicated sommelier pairing</li>
+      <li>Floral arrangement coordination</li>
+      <li>Audio/visual for presentations</li>
+      <li>Exclusive buyout available</li>
+    </ul>
+    <a href="#contact" class="btn-primary reveal" style="margin-top:36px;display:inline-block;">Inquire About Events</a>
+  </div>
+  <div class="private-image reveal">
+    <div class="private-image-fill">
+      <div class="gallery-placeholder">Private Dining<br>Photography<br>Goes Here</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS BAR -->
+<div class="hours-bar">
+  <div class="hours-item">
+    <div class="hours-day">Tuesday — Thursday</div>
+    <div class="hours-time">5:30 — 10:00 pm</div>
+  </div>
+  <div class="hours-divider"></div>
+  <div class="hours-item">
+    <div class="hours-day">Friday — Saturday</div>
+    <div class="hours-time">5:00 — 11:00 pm</div>
+  </div>
+  <div class="hours-divider"></div>
+  <div class="hours-item">
+    <div class="hours-day">Sunday Brunch</div>
+    <div class="hours-time">10:30 am — 2:00 pm</div>
+  </div>
+  <div class="hours-divider"></div>
+  <div class="hours-item">
+    <div class="hours-day">Monday</div>
+    <div class="hours-time">Closed</div>
+  </div>
+</div>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reserve">
+  <div class="reservation-glow"></div>
+  <div class="reservation-inner">
+    <div class="section-eyebrow reveal" style="justify-content:center;">
+      <div class="section-eyebrow-line"></div>
+      <span>Reservations</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <h2 class="reveal">Join us for<br><em>an evening.</em></h2>
+    <p class="reveal">We recommend reserving at least two weeks in advance. Walk-ins welcome at the bar, subject to availability.</p>
+    <div class="res-form reveal">
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email Address">
+      <input type="tel" placeholder="Phone Number">
+      <select>
+        <option value="" disabled selected>Party Size</option>
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3–4 Guests</option>
+        <option>5–6 Guests</option>
+        <option>7+ Guests</option>
+      </select>
+      <input type="date" placeholder="Preferred Date">
+      <select>
+        <option value="" disabled selected>Preferred Time</option>
+        <option>5:00 PM</option>
+        <option>5:30 PM</option>
+        <option>6:00 PM</option>
+        <option>6:30 PM</option>
+        <option>7:00 PM</option>
+        <option>7:30 PM</option>
+        <option>8:00 PM</option>
+        <option>8:30 PM</option>
+      </select>
+    </div>
+    <button class="res-submit reveal">Request Reservation</button>
+    <p class="res-note reveal">You will receive a confirmation within 24 hours. For same-day reservations, please call us directly.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <div class="section-eyebrow reveal" style="justify-content:center;">
+        <div class="section-eyebrow-line"></div>
+        <span>What Guests Say</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title reveal" style="text-align:center;">An evening<br><em>remembered.</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+        <div class="testimonial-quote">"The tasting menu was a transcendent experience. Each course more surprising than the last. We're already planning our return."</div>
+        <div class="testimonial-author"><div class="testimonial-dot">A</div><div><div class="testimonial-name">Alicia Fontenot</div><div class="testimonial-via">via Google · 5 stars</div></div></div>
+      </div>
+      <div class="testimonial reveal reveal-delay-1">
+        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+        <div class="testimonial-quote">"I've dined at restaurants across Europe and New York. Saveur belongs in that conversation without question. Chef Delacroix is the real deal."</div>
+        <div class="testimonial-author"><div class="testimonial-dot">M</div><div><div class="testimonial-name">Marcus Webb</div><div class="testimonial-via">via Yelp · 5 stars</div></div></div>
+      </div>
+      <div class="testimonial reveal reveal-delay-2">
+        <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+        <div class="testimonial-quote">"We held our rehearsal dinner in the private room. The team handled everything beautifully. Our guests are still talking about it six months later."</div>
+        <div class="testimonial-author"><div class="testimonial-dot">S</div><div><div class="testimonial-name">Sophie & Daniel R.</div><div class="testimonial-via">via The Knot · 5 stars</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-text">Sa<span>v</span>eur</div>
+      <p class="footer-tagline">Contemporary Creole cuisine in the heart of New Orleans. Est. 2019.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">fb</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navigate</div>
+      <ul>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#menu">The Menu</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#private">Private Dining</a></li>
+        <li><a href="#reserve">Reservations</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Visit</div>
+      <ul>
+        <li><a href="#">823 Magazine Street</a></li>
+        <li><a href="#">New Orleans, LA 70130</a></li>
+        <li><a href="#">(504) 555-0194</a></li>
+        <li><a href="#">hello@saveur.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Hours</div>
+      <ul>
+        <li><a href="#">Tue–Thu: 5:30–10pm</a></li>
+        <li><a href="#">Fri–Sat: 5–11pm</a></li>
+        <li><a href="#">Sun Brunch: 10:30–2pm</a></li>
+        <li><a href="#">Monday: Closed</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Saveur Restaurant. All rights reserved.</div>
+    <div class="footer-built">Template by <a href="https://siteafi.com">Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+// BANNER CLOSE
+document.getElementById('banner-close').addEventListener('click', () => {
+  const banner = document.getElementById('purchase-banner');
+  banner.style.display = 'none';
+  document.getElementById('nav').style.top = '0';
+  document.querySelector('.mobile-menu').style.top = '0';
+});
+
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.style.opacity = '0';
+    setTimeout(() => mobileMenu.style.display = 'none', 300);
+    document.body.style.overflow = '';
+  });
+});
+
+// MENU TABS
+const menuData = {
+  starters: [
+    {name:'Blue Crab Beignets', desc:'Louisiana blue crab, chive crème fraîche, caviar pearls', price:'$22'},
+    {name:'Oysters Rockefeller', desc:'Half shell, spinach cream, Pernod, house-cured bacon', price:'$28'},
+    {name:'Duck Liver Mousse', desc:'Blackberry gastrique, toasted brioche, pickled shallots', price:'$19'},
+    {name:'Turtle Soup', desc:'A New Orleans classic. Sherry, lemon, hard-boiled egg', price:'$17'},
+    {name:'Chilled Gulf Shrimp', desc:'Housemade cocktail, avocado crema, micro cilantro', price:'$24'},
+    {name:'Roasted Beet Salad', desc:'Arugula, Manchego, candied walnuts, aged balsamic', price:'$16'},
+  ],
+  mains: [
+    {name:'Blackened Redfish', desc:'Smoked corn grits, crawfish butter, crispy capers', price:'$52'},
+    {name:'Duck Confit', desc:'Sweet potato purée, cherry gastrique, wilted greens', price:'$48'},
+    {name:'Grilled Gulf Swordfish', desc:'Saffron beurre blanc, haricots verts, tomato confit', price:'$54'},
+    {name:'Filet au Poivre', desc:'8oz prime filet, peppercorn cream, pommes frites', price:'$68'},
+    {name:'Mushroom Risotto', desc:'Wild mushroom, truffle oil, Grana Padano, herbs', price:'$38'},
+    {name:'Rack of Lamb', desc:'Herbes de Provence, flageolet beans, jus de viande', price:'$72'},
+  ],
+  desserts: [
+    {name:'Bananas Foster', desc:'The New Orleans original. Flambéed tableside, vanilla ice cream', price:'$16'},
+    {name:'Chocolate Soufflé', desc:'72% Valrhona, crème anglaise — please allow 20 minutes', price:'$18'},
+    {name:'Praline Cheesecake', desc:'Pecan praline, caramel, candied pecans, Chantilly cream', price:'$14'},
+    {name:'Crème Brûlée', desc:'Classic vanilla, seasonal fruit compote, tuile', price:'$13'},
+    {name:'Cheese Course', desc:'Three selections, accoutrements, house-made crackers', price:'$22'},
+    {name:'Tarte Tatin', desc:'Caramelized apple, puff pastry, calvados ice cream', price:'$15'},
+  ],
+  wine: [
+    {name:"Château Margaux '18", desc:'Margaux, Bordeaux — deep, structured, extraordinary', price:'$420'},
+    {name:"Kosta Browne Pinot '20", desc:'Sonoma Coast — silky, complex, exceptional length', price:'$185'},
+    {name:"Domaine Leflaive '19", desc:"Puligny-Montrachet — Burgundy's finest white", price:'$280'},
+    {name:'Billecart-Salmon Rosé NV', desc:'Champagne — delicate, precise, endlessly elegant', price:'$160'},
+    {name:'Frog\'s Leap Cabernet \'21', desc:'Napa Valley — balanced, earthy, beautifully crafted', price:'$145'},
+    {name:'Merry Edwards Sauvignon \'22', desc:'Russian River Valley — aromatic, crisp, refined', price:'$110'},
+  ]
+};
+
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const key = tab.dataset.menu;
+    const grid = document.getElementById('menu-grid');
+    grid.style.opacity = '0';
+    setTimeout(() => {
+      grid.innerHTML = menuData[key].map((item, i) => `
+        <div class="menu-item visible" style="transition-delay:${i * 0.06}s">
+          <div class="menu-item-left">
+            <div class="menu-item-name">${item.name}</div>
+            <div class="menu-item-desc">${item.desc}</div>
+          </div>
+          <div class="menu-item-price">${item.price}</div>
+        </div>
+      `).join('');
+      grid.style.opacity = '1';
+    }, 200);
+  });
+});
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal, .intro-item, .menu-item, .exp-item, .testimonial').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
