@@ -239,6 +239,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .tier-prem-inner .tier-btn{background:var(--gold);color:var(--dark);}
 .tier-prem-inner .tier-btn:hover{background:var(--gold-light);}
 
+/* ─── COMPARISON ─── */
+.comparison{padding:88px 52px;background:var(--dark);border-top:1px solid var(--dark-border);}
+.comparison-inner{max-width:1100px;margin:0 auto;}
+.comparison .section-header{margin-bottom:48px;}
+.comparison-sub{font-size:15px;font-weight:300;color:var(--text-muted-dark);max-width:500px;margin:12px auto 0;line-height:1.8;text-align:center;}
+.comparison-table{border:1px solid var(--dark-border);overflow:hidden;}
+.ct-header{display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1.5fr;background:var(--dark-3);border-bottom:1px solid var(--dark-border);}
+.ct-feature-col{padding:20px 24px;}
+.ct-col{padding:20px 24px;text-align:center;border-left:1px solid var(--dark-border);}
+.ct-col-siteafi{background:rgba(201,168,76,0.06);border-left:1px solid rgba(201,168,76,0.2) !important;}
+.ct-col-label{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:4px;}
+.ct-col-siteafi .ct-col-label{color:var(--gold-light);}
+.ct-col-sub{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted-dark);}
+.ct-row{display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1.5fr;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;}
+.ct-row:last-child{border-bottom:none;}
+.ct-row:hover{background:rgba(255,255,255,0.02);}
+.ct-feature{padding:18px 24px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.6);display:flex;align-items:center;}
+.ct-val{padding:18px 24px;font-size:12px;font-weight:300;color:var(--text-muted-dark);text-align:center;border-left:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;}
+.ct-val-siteafi{background:rgba(201,168,76,0.04);border-left:1px solid rgba(201,168,76,0.1) !important;color:rgba(201,168,76,0.9);font-weight:500;}
+.ct-val-bad{color:rgba(255,80,80,0.5);}
+
 /* ─── CTA ─── */
 .cta{margin:0 52px 80px;background:var(--dark);border-radius:20px;padding:72px 52px;text-align:center;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,0.08);}
 .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,rgba(100,60,180,0.04) 50%,transparent 70%);pointer-events:none;}
@@ -287,6 +308,9 @@ footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;a
   .cta{margin:0 16px 56px;padding:48px 24px;}
   .cta .btn-gold{width:100%;text-align:center;display:block;}
   footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+  .comparison{padding:56px 20px;}
+  .comparison-table{overflow-x:auto;}
+  .ct-header,.ct-row{grid-template-columns:1.5fr 1fr 1fr 1fr;min-width:560px;}
   .social-proof{padding:56px 20px;}
   .sp-grid{grid-template-columns:1fr !important;gap:20px;}
   .sp-img{height:220px;}
@@ -302,8 +326,7 @@ footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;a
 /* ─── SOCIAL PROOF ─── */
 .social-proof{padding:88px 52px;background:var(--dark-2);border-top:1px solid var(--dark-border);}
 .social-proof .section-title{color:var(--white);}
-.sp-grid{display:grid;gap:24px;max-width:1080px;margin:0 auto;}
-@media(min-width:769px){.sp-grid{grid-template-columns:repeat(3,1fr);}}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1080px;margin:0 auto;}
 .sp-card{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);transition:all 0.3s;position:relative;}
 .sp-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.4);border-color:rgba(201,168,76,0.2);}
 .sp-img{width:100%;height:200px;object-fit:cover;object-position:top;display:block;}
@@ -568,6 +591,76 @@ footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;a
           <li>Premium visual effects</li>
         </ul>
         <a href="templates.html" class="tier-btn">Browse Premium →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comparison">
+  <div class="comparison-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">How We Stack Up</div>
+      <h2 class="section-title">Siteafi vs. <em>the alternatives.</em></h2>
+      <p class="comparison-sub">We're not afraid to show this side by side. You deserve to know exactly what you're getting — and what you're avoiding.</p>
+    </div>
+    <div class="comparison-table reveal">
+      <div class="ct-header">
+        <div class="ct-feature-col"></div>
+        <div class="ct-col ct-col-siteafi">
+          <div class="ct-col-label">Siteafi</div>
+          <div class="ct-col-sub">Templates</div>
+        </div>
+        <div class="ct-col">
+          <div class="ct-col-label">Web Agency</div>
+          <div class="ct-col-sub">Custom Build</div>
+        </div>
+        <div class="ct-col">
+          <div class="ct-col-label">Page Builder</div>
+          <div class="ct-col-sub">Wix / Squarespace</div>
+        </div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">Upfront Cost</div>
+        <div class="ct-val ct-val-siteafi">$24.99 – $44.99</div>
+        <div class="ct-val ct-val-bad">$2,000 – $15,000+</div>
+        <div class="ct-val">Free – $50 setup</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">Monthly Fees</div>
+        <div class="ct-val ct-val-siteafi">$0</div>
+        <div class="ct-val">Varies</div>
+        <div class="ct-val ct-val-bad">$16 – $65 / month</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">You Own the Files</div>
+        <div class="ct-val ct-val-siteafi">✓ Always</div>
+        <div class="ct-val">Sometimes</div>
+        <div class="ct-val ct-val-bad">✗ Never</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">Free Hosting</div>
+        <div class="ct-val ct-val-siteafi">✓ GitHub / Cloudflare</div>
+        <div class="ct-val ct-val-bad">✗ Extra cost</div>
+        <div class="ct-val ct-val-bad">✗ Included in monthly fee</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">Time to Launch</div>
+        <div class="ct-val ct-val-siteafi">Hours – Days</div>
+        <div class="ct-val ct-val-bad">Weeks – Months</div>
+        <div class="ct-val">Days – Weeks</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">Only What You Need</div>
+        <div class="ct-val ct-val-siteafi">✓ Always</div>
+        <div class="ct-val ct-val-bad">Rarely</div>
+        <div class="ct-val">Sometimes</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-feature">No Lock-in</div>
+        <div class="ct-val ct-val-siteafi">✓ Completely free</div>
+        <div class="ct-val">Depends</div>
+        <div class="ct-val ct-val-bad">✗ Platform dependent</div>
       </div>
     </div>
   </div>
