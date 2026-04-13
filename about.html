@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+
+/* PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+
+/* NAV */
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:140px 48px 100px;
+  position:relative;overflow:hidden;
+  background:var(--dark);
+}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 30% 50%,black 20%,transparent 80%);pointer-events:none;}
+.hero-glow{position:absolute;top:30%;left:0;width:700px;height:600px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+.hero-left{}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp 0.8s 0.1s ease both;}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.6;}
+.hero-eyebrow span{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,80px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:28px;animation:fadeUp 0.8s 0.2s ease both;}
+.hero h1 em{font-style:italic;color:var(--gold-light);display:block;}
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:440px;animation:fadeUp 0.8s 0.3s ease both;}
+
+/* HERO RIGHT — BADGE CARD */
+.hero-right{display:flex;justify-content:center;align-items:center;animation:fadeUp 0.8s 0.4s ease both;}
+.founder-card{
+  background:var(--dark-2);
+  border:1px solid var(--dark-border);
+  padding:48px 44px;
+  position:relative;
+  overflow:hidden;
+  max-width:380px;
+  width:100%;
+}
+.founder-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.founder-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.founder-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--white);line-height:1;margin-bottom:6px;}
+.founder-title{font-size:12px;font-weight:300;color:var(--text-muted);margin-bottom:28px;letter-spacing:0.5px;}
+.founder-badges{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.founder-badge{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+}
+.badge-icon{width:28px;height:28px;border-radius:3px;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;}
+.badge-text{font-size:12px;font-weight:400;color:rgba(255,255,255,0.65);}
+.badge-text strong{color:var(--white);font-weight:500;display:block;margin-bottom:1px;}
+.founder-divider{height:1px;background:var(--dark-border);margin-bottom:20px;}
+.founder-quote{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.5);line-height:1.7;}
+.founder-quote span{color:var(--gold-light);}
+
+/* ── THE PROBLEM ── */
+.problem{
+  background:var(--section-dark);
+  border-top:1px solid var(--dark-border);
+  padding:120px 48px;
+  position:relative;
+  overflow:hidden;
+}
+.problem-inner{max-width:1200px;margin:0 auto;}
+.problem-header{margin-bottom:72px;}
+.section-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.section-eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.5;}
+.section-eyebrow span{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,64px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;color:var(--white);}
+.section-title em{font-style:italic;color:var(--gold-light);}
+
+.problems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dark-border);}
+.problem-card{
+  background:var(--section-dark);
+  padding:48px 40px;
+  position:relative;
+  overflow:hidden;
+  transition:background 0.3s;
+}
+.problem-card:hover{background:var(--dark-2);}
+.problem-card::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.4s ease;
+}
+.problem-card:hover::after{transform:scaleX(1);}
+.problem-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;font-weight:300;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(201,168,76,0.15);
+  line-height:1;
+  margin-bottom:20px;
+  transition:all 0.3s;
+}
+.problem-card:hover .problem-num{-webkit-text-stroke:1px rgba(201,168,76,0.4);}
+.problem-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:12px;}
+.problem-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+.problem-desc strong{color:rgba(255,255,255,0.7);font-weight:400;}
+
+/* ── STORY ── */
+.story{
+  padding:120px 48px;
+  background:var(--dark);
+  position:relative;
+  overflow:hidden;
+}
+.story-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;}
+.story-left{position:sticky;top:120px;}
+.story-left-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.story-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;margin-bottom:24px;}
+.story-left h2 em{font-style:italic;color:var(--gold-light);}
+.story-left-sub{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:380px;}
+.story-line{width:40px;height:2px;background:var(--gold);margin-top:32px;opacity:0.5;}
+
+.story-right{display:flex;flex-direction:column;gap:40px;}
+.story-block{
+  padding:36px 40px;
+  border:1px solid var(--dark-border);
+  position:relative;
+  transition:border-color 0.3s;
+}
+.story-block:hover{border-color:rgba(201,168,76,0.25);}
+.story-block::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;bottom:0;
+  width:2px;
+  background:linear-gradient(180deg,var(--gold),transparent);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.story-block:hover::before{opacity:1;}
+.story-block-label{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.story-block p{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;}
+.story-block p strong{color:rgba(255,255,255,0.8);font-weight:400;}
+.story-block-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.7);
+  line-height:1.5;
+  border-left:2px solid var(--gold);
+  padding-left:20px;
+  margin-top:16px;
+}
+
+/* ── VALUES ── */
+.values{
+  background:var(--section-dark);
+  border-top:1px solid var(--dark-border);
+  padding:120px 48px;
+}
+.values-inner{max-width:1200px;margin:0 auto;}
+.values-header{text-align:center;margin-bottom:72px;}
+.values-header .section-eyebrow{justify-content:center;}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--dark-border);}
+.value-card{
+  background:var(--section-dark);
+  padding:48px 36px;
+  position:relative;
+  overflow:hidden;
+  transition:background 0.3s;
+}
+.value-card:hover{background:var(--dark-2);}
+.value-glyph{
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;font-weight:300;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:20px;
+  transition:transform 0.3s;
+}
+.value-card:hover .value-glyph{transform:scale(1.1);}
+.value-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:12px;}
+.value-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+
+/* ── MISSION STATEMENT ── */
+.mission{
+  padding:120px 48px;
+  background:var(--dark);
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.mission-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(201,168,76,0.04) 0%,transparent 70%);pointer-events:none;}
+.mission-inner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+.mission-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,52px);
+  font-weight:300;
+  font-style:italic;
+  line-height:1.3;
+  letter-spacing:-0.5px;
+  color:var(--white);
+  margin-bottom:32px;
+}
+.mission-quote em{color:var(--gold-light);font-style:normal;}
+.mission-attr{font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+.mission-attr span{color:var(--gold);margin-right:8px;}
+.mission-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:40px auto;}
+
+/* ── STATS ── */
+.stats{
+  background:var(--dark-2);
+  border-top:1px solid var(--dark-border);
+  border-bottom:1px solid var(--dark-border);
+  padding:0;
+}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{
+  padding:52px 40px;
+  text-align:center;
+  border-right:1px solid var(--dark-border);
+  position:relative;
+  overflow:hidden;
+  transition:background 0.3s;
+}
+.stat-item:last-child{border-right:none;}
+.stat-item:hover{background:var(--dark-3);}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;}
+.stat-label{font-size:10px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+
+/* ── WHO THIS IS FOR ── */
+.for-section{padding:120px 48px;background:var(--dark);border-top:1px solid var(--dark-border);}
+.for-inner{max-width:1200px;margin:0 auto;}
+.for-header{text-align:center;margin-bottom:64px;}
+.for-header .section-eyebrow{justify-content:center;}
+.for-sub{font-size:15px;font-weight:300;color:var(--text-muted);max-width:520px;margin:16px auto 0;line-height:1.8;}
+.for-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dark-border);}
+.for-card{background:var(--dark);padding:44px 40px;transition:background 0.3s;position:relative;overflow:hidden;}
+.for-card:hover{background:var(--dark-2);}
+.for-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.for-card:hover::after{transform:scaleX(1);}
+.for-icon{font-size:32px;color:var(--gold);margin-bottom:16px;line-height:1;transition:transform 0.3s;}
+.for-card:hover .for-icon{transform:scale(1.15);}
+.for-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:10px;}
+.for-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+
+/* ── COMPARISON TABLE ── */
+.comparison{padding:120px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);}
+.comparison-inner{max-width:1100px;margin:0 auto;}
+.comparison-header{text-align:center;margin-bottom:56px;}
+.comparison-header .section-eyebrow{justify-content:center;}
+.comparison-sub{font-size:15px;font-weight:300;color:var(--text-muted);max-width:500px;margin:16px auto 0;line-height:1.8;}
+.comparison-table{border:1px solid var(--dark-border);overflow:hidden;}
+.ct-header{display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1.5fr;background:var(--dark-3);border-bottom:1px solid var(--dark-border);}
+.ct-feature-col{padding:20px 24px;}
+.ct-col{padding:20px 24px;text-align:center;border-left:1px solid var(--dark-border);}
+.ct-col-siteafi{background:rgba(201,168,76,0.06);border-left:1px solid rgba(201,168,76,0.2) !important;}
+.ct-col-label{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:4px;}
+.ct-col-siteafi .ct-col-label{color:var(--gold-light);}
+.ct-col-sub{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+.ct-row{display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1.5fr;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;}
+.ct-row:last-child{border-bottom:none;}
+.ct-row:hover{background:rgba(255,255,255,0.02);}
+.ct-feature{padding:18px 24px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.6);display:flex;align-items:center;}
+.ct-val{padding:18px 24px;font-size:12px;font-weight:300;color:var(--text-muted);text-align:center;border-left:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;}
+.ct-val-siteafi{background:rgba(201,168,76,0.04);border-left:1px solid rgba(201,168,76,0.1) !important;color:rgba(201,168,76,0.9);font-weight:500;}
+.ct-val-bad{color:rgba(255,80,80,0.5);}
+
+/* ── SOCIAL PROOF ABOUT ── */
+.sp-about{padding:120px 48px;background:var(--dark);border-top:1px solid var(--dark-border);}
+.sp-about-inner{max-width:1100px;margin:0 auto;}
+.sp-about-header{text-align:center;margin-bottom:56px;}
+.sp-about-header .section-eyebrow{justify-content:center;}
+.sp-about-sub{font-size:15px;font-weight:300;color:var(--text-muted);max-width:480px;margin:16px auto 0;line-height:1.8;}
+.sp-about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.sp-about-card{border:1px solid var(--dark-border);overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.sp-about-card:hover{border-color:rgba(201,168,76,0.2);transform:translateY(-4px);}
+.sp-about-img-wrap{height:200px;background:var(--dark-3);display:flex;align-items:center;justify-content:center;}
+.sp-about-img-placeholder{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.25);}
+.sp-about-info{padding:20px 24px;background:var(--dark-2);}
+.sp-live-dot{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;}
+.sp-live-dot span{width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:livePulse 2s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.sp-about-biz{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:4px;}
+.sp-about-meta{font-size:11px;font-weight:300;color:var(--text-muted);}
+
+/* ── TEXAS / VETERAN PRIDE ── */
+.pride{padding:120px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);overflow:hidden;}
+.pride-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.texas-outline{width:100%;max-width:360px;opacity:0.9;}
+.pride-desc{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;max-width:460px;}
+.pride-badges{display:flex;flex-direction:column;gap:12px;}
+.pride-badge{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(201,168,76,0.15);background:rgba(201,168,76,0.03);transition:border-color 0.2s;}
+.pride-badge:hover{border-color:rgba(201,168,76,0.3);}
+.pride-badge-icon{font-size:16px;color:var(--gold);width:28px;text-align:center;flex-shrink:0;}
+.pride-badge-text{font-size:13px;font-weight:400;color:rgba(255,255,255,0.7);}
+
+/* ── FAQ TEASER ── */
+.faq-teaser{padding:120px 48px;background:var(--dark);border-top:1px solid var(--dark-border);}
+.faq-teaser-inner{max-width:800px;margin:0 auto;}
+.faq-teaser-header{text-align:center;margin-bottom:56px;}
+.faq-teaser-header .section-eyebrow{justify-content:center;}
+.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--dark-border);margin-bottom:40px;}
+.faq-item{background:var(--dark);padding:32px 36px;transition:background 0.2s;}
+.faq-item:hover{background:var(--dark-2);}
+.faq-q{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:12px;}
+.faq-a{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+.faq-teaser-cta{text-align:center;}
+.btn-outline-gold{display:inline-block;background:transparent;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:12px 28px;border:1px solid rgba(201,168,76,0.3);text-decoration:none;transition:all 0.2s;}
+.btn-outline-gold:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta{
+  padding:120px 48px;
+  background:var(--dark);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.bottom-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+.bottom-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.bottom-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px;}
+.bottom-cta h2 em{font-style:italic;color:var(--gold-light);}
+.bottom-cta p{font-size:15px;font-weight:300;color:var(--text-muted);margin-bottom:40px;line-height:1.8;}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:14px 24px;text-decoration:none;transition:color 0.2s;margin-left:8px;}
+.btn-outline:hover{color:var(--white);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* REVEAL ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal-right.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:110px 20px 72px;min-height:auto;}
+  .hero-inner{grid-template-columns:1fr;gap:48px;}
+  .problem{padding:72px 20px;}
+  .problems-grid{grid-template-columns:1fr;}
+  .story{padding:72px 20px;}
+  .story-inner{grid-template-columns:1fr;gap:48px;}
+  .story-left{position:static;}
+  .values{padding:72px 20px;}
+  .values-grid{grid-template-columns:1fr 1fr;gap:1px;}
+  .mission{padding:72px 20px;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-item{border-bottom:1px solid var(--dark-border);}
+  .stat-item:nth-child(even){border-right:none;}
+  .for-section,.comparison,.sp-about,.pride,.faq-teaser{padding:72px 20px;}
+  .for-grid{grid-template-columns:1fr;}
+  .comparison-table{overflow-x:auto;}
+  .ct-header,.ct-row{grid-template-columns:1.5fr 1fr 1fr 1fr;min-width:560px;}
+  .sp-about-grid{grid-template-columns:1fr;}
+  .pride-inner{grid-template-columns:1fr;gap:40px;}
+  .texas-outline{max-width:200px;margin:0 auto;display:block;}
+  .bottom-cta{padding:72px 20px;}
+  footer{padding:32px 20px;flex-direction:column;align-items:flex-start;}
+}
+@media(min-width:769px) and (max-width:1100px){
+  nav{padding:16px 28px;}
+  .hero{padding:120px 28px 80px;}
+  .problem,.story,.values,.mission,.bottom-cta{padding-left:28px;padding-right:28px;}
+  .values-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-inner{grid-template-columns:repeat(2,1fr);}
+  .stat-item:nth-child(2){border-right:none;}
+  .stat-item:nth-child(3){border-top:1px solid var(--dark-border);}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/><path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="request.html" class="nav-request">Request a Template</a></li>
+  </ul>
+  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>About Siteafi</span>
+      </div>
+      <h1>Built for the<br>business owner who<br><em>does it all.</em></h1>
+      <p class="hero-sub">Siteafi exists because small businesses deserve a professional web presence — without the agency price tag, the confusing jargon, or the features they never asked for.</p>
+    </div>
+    <div class="hero-right">
+      <div class="founder-card">
+        <div class="founder-card-eyebrow">Who We Are</div>
+        <div class="founder-name">Siteafi</div>
+        <div class="founder-title">Veteran & Aggie Owned Small Business — Texas</div>
+        <div class="founder-badges">
+          <div class="founder-badge">
+            <div class="badge-icon">⚔</div>
+            <div class="badge-text">
+              <strong>U.S. Veteran Owned</strong>
+              Discipline, integrity, and mission first — in everything we build.
+            </div>
+          </div>
+          <div class="founder-badge">
+            <div class="badge-icon">✦</div>
+            <div class="badge-text">
+              <strong>Aggie Owned & Operated</strong>
+              Proudly built in Texas. Gig 'Em.
+            </div>
+          </div>
+          <div class="founder-badge">
+            <div class="badge-icon">◈</div>
+            <div class="badge-text">
+              <strong>Small Business, Built for Small Business</strong>
+              We are the customer we build for.
+            </div>
+          </div>
+        </div>
+        <div class="founder-divider"></div>
+        <div class="founder-quote">"Every small business deserves a website that <span>looks like it cost a fortune</span> — without actually costing one."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div class="problem-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Why Siteafi Exists</span>
+      </div>
+      <h2 class="section-title">The same three problems,<br><em>over and over again.</em></h2>
+    </div>
+    <div class="problems-grid">
+      <div class="problem-card reveal">
+        <div class="problem-num">01</div>
+        <div class="problem-title">The Price Was Out of Reach</div>
+        <p class="problem-desc">Professional web agencies charge anywhere from <strong>thousands to tens of thousands of dollars</strong> for a website. For a small business owner already wearing a dozen hats, that number isn't just expensive — it's impossible. So they went without, and their competitors didn't.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="problem-num">02</div>
+        <div class="problem-title">They Didn't Know Where to Start</div>
+        <p class="problem-desc">Even when business owners tried to figure it out themselves, the process felt overwhelming. <strong>What platform? What host? What domain? What does any of this cost?</strong> The lack of clear, honest information left them paralyzed — and made it easy for the wrong people to take advantage.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="problem-num">03</div>
+        <div class="problem-title">They Were Being Taken Advantage Of</div>
+        <p class="problem-desc">This is the one that stings. Because these business owners trusted the people they hired. They didn't know enough to push back when <strong>a simple 5-page site turned into a bloated $8,000 proposal</strong> packed with features they'd never use. They paid it. They felt burned. And they had every right to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="for-section">
+  <div class="for-inner">
+    <div class="for-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Who This Is For</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title">Sound like <em>you?</em></h2>
+      <p class="for-sub">Siteafi was built for the business owners who keep getting overlooked by the web industry. If any of these sound familiar — you're exactly who we had in mind.</p>
+    </div>
+    <div class="for-grid">
+      <div class="for-card reveal">
+        <div class="for-icon">✂</div>
+        <div class="for-title">Salon & Beauty</div>
+        <p class="for-desc">You do incredible work on people every day. Your website should reflect that — not look like it was built in 2009.</p>
+      </div>
+      <div class="for-card reveal reveal-delay-1">
+        <div class="for-icon">⊕</div>
+        <div class="for-title">Restaurant & Café</div>
+        <p class="for-desc">Your food speaks for itself. Your website should too — with your menu, your hours, and a way for customers to find you.</p>
+      </div>
+      <div class="for-card reveal reveal-delay-2">
+        <div class="for-icon">◈</div>
+        <div class="for-title">Contractor & Trades</div>
+        <p class="for-desc">You build things that last. Your website should be the same — solid, professional, and built to bring in leads.</p>
+      </div>
+      <div class="for-card reveal reveal-delay-3">
+        <div class="for-icon">◇</div>
+        <div class="for-title">Retail & Boutique</div>
+        <p class="for-desc">Your store has personality. Your online presence should match — showcasing what makes you different from every big-box alternative.</p>
+      </div>
+      <div class="for-card reveal">
+        <div class="for-icon">◎</div>
+        <div class="for-title">Fitness & Wellness</div>
+        <p class="for-desc">You help people feel their best. A clean, energetic website helps new clients find you and trust you before they ever walk through the door.</p>
+      </div>
+      <div class="for-card reveal reveal-delay-1">
+        <div class="for-icon">✦</div>
+        <div class="for-title">Any Small Business</div>
+        <p class="for-desc">Don't see your industry? We're adding new categories constantly. Request a template and we'll prioritize it for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE STORY -->
+<section class="story">
+  <div class="story-inner">
+    <div class="story-left reveal-left">
+      <div class="story-left-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span style="font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);">The Story</span>
+      </div>
+      <h2>Where Siteafi<br><em>came from.</em></h2>
+      <p class="story-left-sub">A veteran-owned small business, built from firsthand experience watching great businesses get bad deals.</p>
+      <div class="story-line"></div>
+    </div>
+    <div class="story-right">
+      <div class="story-block reveal">
+        <div class="story-block-label">The Beginning</div>
+        <p>Siteafi was born out of years spent building websites for small businesses across Texas — restaurants, salons, contractors, retailers. The work was good. The relationships were real. But the same story kept coming up, over and over again.</p>
+      </div>
+      <div class="story-block reveal">
+        <div class="story-block-label">The Pattern</div>
+        <p>Business owners would come in frustrated. They'd already been to someone else — paid a lot of money — and ended up with a site they didn't understand, features they never used, and a monthly bill that never seemed to end. <strong>They weren't angry at websites. They were angry at being misled.</strong></p>
+        <div class="story-block-quote">"I didn't know what I was buying, and nobody helped me understand."</div>
+      </div>
+      <div class="story-block reveal">
+        <div class="story-block-label">The Breaking Point</div>
+        <p>There's a particular kind of frustration that comes from watching someone get taken advantage of — especially when they trusted the person doing it. Business owners were being sold bloated proposals packed with features they'd never use, at prices that were never justified. <strong>They felt taken advantage of. And they had every right to.</strong> As a small business owner ourselves, that hit close to home.</p>
+      </div>
+      <div class="story-block reveal">
+        <div class="story-block-label">The Solution</div>
+        <p>Siteafi was built to close that gap. Premium templates, one-time pricing, free hosting, no unnecessary features, no confusing upsells. <strong>Everything a small business actually needs to get online — and nothing they don't.</strong> The kind of product we wished existed every time we had that conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION STATEMENT -->
+<section class="mission">
+  <div class="mission-glow"></div>
+  <div class="mission-inner">
+    <div class="section-eyebrow reveal" style="justify-content:center;margin-bottom:40px;">
+      <div class="section-eyebrow-line"></div>
+      <span>Our Mission</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <div class="mission-line"></div>
+    <div class="mission-quote reveal">
+      "To give every small business owner a <em>professional web presence</em> they can afford, understand, and own — without compromise."
+    </div>
+    <div class="mission-line"></div>
+    <div class="mission-attr reveal"><span>—</span> Siteafi</div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-inner">
+    <div class="values-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>What We Believe</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title">The values behind<br><em>every template.</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-glyph">◈</div>
+        <div class="value-title">Simplicity</div>
+        <p class="value-desc">You only get what you need. No bloated feature lists, no confusing dashboards, no unnecessary complexity. Clean, purposeful, and exactly right.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-glyph">◇</div>
+        <div class="value-title">Affordability</div>
+        <p class="value-desc">Quality shouldn't be a luxury reserved for businesses with big budgets. A great website should be accessible to anyone willing to put in a little work.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-glyph">✦</div>
+        <div class="value-title">Ownership</div>
+        <p class="value-desc">You own your files. You own your site. No one can change the price on you, take it down, or hold your content hostage. What you buy is yours — forever.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-3">
+        <div class="value-glyph">◎</div>
+        <div class="value-title">Transparency</div>
+        <p class="value-desc">No upsells. No surprises. No fine print. You know exactly what you're getting before you spend a dime. That's the way it should have always been.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS — animated counters -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num" data-target="50" data-suffix="+">0+</div>
+      <div class="stat-label">Premium Templates</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num" data-target="0" data-prefix="$">$0</div>
+      <div class="stat-label">Monthly Hosting Fees</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num" data-target="5">0</div>
+      <div class="stat-label">Industries & Growing</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num" data-target="1" data-suffix="×">0×</div>
+      <div class="stat-label">One-Time Payment</div>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<section class="sp-about">
+  <div class="sp-about-inner">
+    <div class="sp-about-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Real Businesses, Real Results</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title">Don't take<br><em>our word for it.</em></h2>
+      <p class="sp-about-sub">These are real small businesses that now have a professional web presence — without the agency price tag.</p>
+    </div>
+    <div class="sp-about-grid">
+      <div class="sp-about-card reveal">
+        <div class="sp-about-img-wrap">
+          <div class="sp-about-img-placeholder">Whitney's Salon</div>
+        </div>
+        <div class="sp-about-info">
+          <div class="sp-live-dot"><span></span>Live Site</div>
+          <div class="sp-about-biz">Whitney's Salon</div>
+          <div class="sp-about-meta">Full Service Hair Salon · Standard Template</div>
+        </div>
+      </div>
+      <div class="sp-about-card reveal reveal-delay-1">
+        <div class="sp-about-img-wrap">
+          <div class="sp-about-img-placeholder">Refuel BCS</div>
+        </div>
+        <div class="sp-about-info">
+          <div class="sp-live-dot"><span></span>Live Site</div>
+          <div class="sp-about-biz">Refuel BCS</div>
+          <div class="sp-about-meta">Fuel Delivery Service · Standard Template</div>
+        </div>
+      </div>
+      <div class="sp-about-card reveal reveal-delay-2">
+        <div class="sp-about-img-wrap">
+          <div class="sp-about-img-placeholder">Arturo's Painting</div>
+        </div>
+        <div class="sp-about-info">
+          <div class="sp-live-dot"><span></span>Live Site</div>
+          <div class="sp-about-biz">Arturo's Painting</div>
+          <div class="sp-about-meta">Home Services · Standard Template</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEXAS / VETERAN PRIDE -->
+<section class="pride">
+  <div class="pride-inner">
+    <div class="pride-left reveal-left">
+      <svg class="texas-outline" viewBox="0 0 400 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer decorative rings -->
+        <circle cx="200" cy="200" r="170" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="150" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="130" stroke="rgba(201,168,76,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+        <!-- Tick marks around the ring -->
+        <line x1="200" y1="50" x2="200" y2="62" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <line x1="200" y1="338" x2="200" y2="350" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <line x1="50" y1="200" x2="62" y2="200" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <line x1="338" y1="200" x2="350" y2="200" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <line x1="80" y1="80" x2="89" y2="89" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+        <line x1="311" y1="311" x2="320" y2="320" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+        <line x1="320" y1="80" x2="311" y2="89" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+        <line x1="80" y1="320" x2="89" y2="311" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+        <!-- Inner circle -->
+        <circle cx="200" cy="200" r="90" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+        <!-- 5-point lone star — precise polygon -->
+        <polygon
+          points="200,88 222,162 300,162 238,208 260,282 200,236 140,282 162,208 100,162 178,162"
+          stroke="rgba(201,168,76,0.9)"
+          stroke-width="1.5"
+          stroke-linejoin="round"
+          fill="rgba(201,168,76,0.08)"
+        />
+        <!-- Subtle glow dot at center -->
+        <circle cx="200" cy="196" r="4" fill="var(--gold)" opacity="0.7">
+          <animate attributeName="opacity" values="0.7;0.3;0.7" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Text -->
+        <text x="200" y="390" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" letter-spacing="5" fill="rgba(201,168,76,0.3)">LONE STAR STATE</text>
+        <text x="200" y="410" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" letter-spacing="3" fill="rgba(201,168,76,0.2)">TEXAS · EST. 1845</text>
+      </svg>
+    </div>
+    <div class="pride-right reveal-right">
+      <div class="section-eyebrow" style="margin-bottom:20px;">
+        <div class="section-eyebrow-line"></div>
+        <span>Proudly Texas-Built</span>
+      </div>
+      <h2 class="section-title" style="margin-bottom:28px;">Veteran &amp; Aggie<br><em>owned.</em></h2>
+      <p class="pride-desc">Siteafi is a small business built by a small business owner who knows exactly what it feels like to start from scratch. We're U.S. veteran owned, Texas A&amp;M proud, and deeply committed to the values that come with both — integrity, discipline, and doing right by the people who trust you.</p>
+      <div class="pride-badges">
+        <div class="pride-badge">
+          <div class="pride-badge-icon">⚔</div>
+          <div class="pride-badge-text">U.S. Veteran Owned</div>
+        </div>
+        <div class="pride-badge">
+          <div class="pride-badge-icon">✦</div>
+          <div class="pride-badge-text">Aggie Owned & Operated</div>
+        </div>
+        <div class="pride-badge">
+          <div class="pride-badge-icon">◈</div>
+          <div class="pride-badge-text">Small Business, Built in Texas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ TEASER -->
+<section class="faq-teaser">
+  <div class="faq-teaser-inner">
+    <div class="faq-teaser-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Common Questions</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title">Still have<br><em>questions?</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">Do I need to know how to code?</div>
+        <div class="faq-a">Not at all. Our templates are designed to be customized by anyone — you just open the file, swap in your content, and you're done. No coding knowledge required.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-q">Is the hosting really free?</div>
+        <div class="faq-a">Yes — completely free. We build our templates for GitHub Pages and Cloudflare Pages, both of which offer free static site hosting. You pay nothing to keep your site live.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-q">What happens after I buy? Do I get ongoing support?</div>
+        <div class="faq-a">After purchase you get instant access to your template files. Our add-on guides cover everything from setup to going live. For additional help, reach out to us directly at hello@siteafi.com.</div>
+      </div>
+    </div>
+    <div class="faq-teaser-cta reveal">
+      <a href="faq.html" class="btn-outline-gold">See All FAQs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta reveal">
+  <div class="bottom-cta-glow"></div>
+  <div class="bottom-cta-inner">
+    <div class="section-eyebrow" style="justify-content:center;margin-bottom:20px;">
+      <div class="section-eyebrow-line"></div>
+      <span>Ready to get started?</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <h2>Your business,<br><em>beautifully online.</em></h2>
+    <p>Browse our full collection of premium templates. Find yours, customize it, and launch — no agency required.</p>
+    <a href="templates.html" class="btn-gold">Browse All Templates</a>
+    <a href="process.html" class="btn-outline">See How It Works →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300);
+  document.body.style.overflow = '';
+}));
+
+// Animated counters
+function animateCounter(el, target, prefix, suffix) {
+  let start = 0;
+  const dur = 1800;
+  const step = ts => {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = (prefix||'') + Math.floor(e * target) + (suffix||'');
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+let countersStarted = false;
+new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting && !countersStarted) {
+    countersStarted = true;
+    document.querySelectorAll('[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      animateCounter(el, target, prefix, suffix);
+    });
+  }
+}), { threshold: 0.3 }).observe(document.querySelector('.stats'));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  }), { threshold: 0.08 }).observe(el);
+});
+</script>
+</body>
+</html>
