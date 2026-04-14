@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+
+/* NAV */
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+
+/* CART ICON */
+.cart-btn{position:relative;background:transparent;border:1px solid var(--dark-border);width:38px;height:38px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+.cart-btn:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.05);}
+.cart-btn svg{width:16px;height:16px;stroke:var(--text-muted);transition:stroke 0.2s;}
+.cart-btn:hover svg{stroke:var(--gold);}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--dark);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;}
+.cart-count.visible{display:flex;}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* ── CART DRAWER ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;opacity:0;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--dark-2);z-index:301;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--dark-border);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid var(--dark-border);flex-shrink:0;}
+.cart-drawer-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.cart-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:20px;line-height:1;padding:4px;transition:color 0.2s;font-family:'DM Sans',sans-serif;}
+.cart-close:hover{color:var(--white);}
+.cart-items{flex:1;overflow-y:auto;padding:20px 28px;}
+.cart-items::-webkit-scrollbar{width:4px;}
+.cart-items::-webkit-scrollbar-track{background:transparent;}
+.cart-items::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:12px;}
+.cart-empty-icon{font-size:36px;opacity:0.3;}
+.cart-empty-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--text-muted);}
+.cart-empty-sub{font-size:12px;color:rgba(255,255,255,0.25);font-weight:300;}
+.cart-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item-mockup{width:56px;height:56px;border-radius:6px;overflow:hidden;flex-shrink:0;border:1px solid var(--dark-border);}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-type{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:2px;}
+.cart-item-sub{font-size:11px;font-weight:300;color:var(--text-muted);}
+.cart-item-price{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--gold-light);flex-shrink:0;}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.2);font-size:16px;line-height:1;padding:2px;transition:color 0.2s;display:block;margin-top:4px;font-family:'DM Sans',sans-serif;}
+.cart-item-remove:hover{color:rgba(255,80,80,0.6);}
+.cart-footer{padding:20px 28px;border-top:1px solid var(--dark-border);flex-shrink:0;}
+.cart-subtotal{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cart-subtotal-label{font-size:12px;font-weight:400;color:var(--text-muted);}
+.cart-subtotal-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.cart-checkout-btn{width:100%;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:16px;cursor:pointer;transition:background 0.2s;margin-bottom:10px;}
+.cart-checkout-btn:hover{background:var(--gold-light);}
+.cart-continue{display:block;text-align:center;font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;width:100%;}
+.cart-continue:hover{color:var(--white);}
+
+/* SITE MOCKUPS (from templates.html) */
+.site-mock{width:74%;height:80%;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.m-nav{height:18px;display:flex;align-items:center;padding:0 8px;gap:5px;flex-shrink:0;}
+.m-dot{width:4px;height:4px;border-radius:50%;}
+.m-body{flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:4px;overflow:hidden;}
+.m-hero{border-radius:3px;margin-bottom:2px;}
+.m-line{height:4px;border-radius:2px;}
+.m-btn{height:12px;width:40px;border-radius:3px;margin-top:3px;}
+.m-row{display:flex;gap:4px;margin-top:5px;}
+.m-sm{flex:1;height:24px;border-radius:3px;border:1px solid rgba(255,255,255,0.05);}
+.pa .m-nav{background:#1a1208;}.pa .m-body{background:#0f0b04;}.pa .m-hero{height:40px;background:rgba(201,168,76,0.2);}.pa .m-line{background:rgba(201,168,76,0.12);}.pa .m-btn{background:rgba(201,168,76,0.4);}
+.pb .m-nav{background:#111;}.pb .m-body{background:#0a0a0a;}.pb .m-hero{height:44px;background:rgba(255,255,255,0.04);}.pb .m-line{background:rgba(255,255,255,0.1);}.pb .m-btn{background:rgba(255,255,255,0.15);}
+.pc .m-nav{background:#f5f0e8;}.pc .m-body{background:#faf8f4;}.pc .m-hero{height:42px;background:rgba(201,168,76,0.18);}.pc .m-line{background:rgba(0,0,0,0.08);}.pc .m-btn{background:rgba(201,168,76,0.5);}
+.pd .m-nav{background:#0a1628;}.pd .m-body{background:#060f1e;}.pd .m-hero{height:44px;background:rgba(59,130,246,0.28);}.pd .m-line{background:rgba(59,130,246,0.13);}.pd .m-btn{background:rgba(59,130,246,0.48);}
+.pe .m-nav{background:#1a0a1e;}.pe .m-body{background:#120616;}.pe .m-hero{height:42px;background:rgba(168,85,247,0.28);}.pe .m-line{background:rgba(168,85,247,0.13);}.pe .m-btn{background:rgba(168,85,247,0.42);}
+.pf .m-nav{background:#0d1f10;}.pf .m-body{background:#081409;}.pf .m-hero{height:40px;background:rgba(34,197,94,0.22);}.pf .m-line{background:rgba(34,197,94,0.1);}.pf .m-btn{background:rgba(34,197,94,0.38);}
+.pg .m-nav{background:#1f0e08;}.pg .m-body{background:#140804;}.pg .m-hero{height:44px;background:rgba(220,100,40,0.3);}.pg .m-line{background:rgba(220,100,40,0.15);}.pg .m-btn{background:rgba(220,100,40,0.45);}
+.ph .m-nav{background:#16181e;}.ph .m-body{background:#0e1016;}.ph .m-hero{height:42px;background:rgba(148,163,184,0.2);}.ph .m-line{background:rgba(148,163,184,0.12);}.ph .m-btn{background:rgba(148,163,184,0.35);}
+.pi .m-nav{background:#1e0e14;}.pi .m-body{background:#140810;}.pi .m-hero{height:42px;background:rgba(236,72,153,0.22);}.pi .m-line{background:rgba(236,72,153,0.12);}.pi .m-btn{background:rgba(236,72,153,0.38);}
+.pj .m-nav{background:#041414;}.pj .m-body{background:#020e0e;}.pj .m-hero{height:44px;background:rgba(20,184,166,0.28);}.pj .m-line{background:rgba(20,184,166,0.12);}.pj .m-btn{background:rgba(20,184,166,0.42);}
+.pk .m-nav{background:#eef0ec;}.pk .m-body{background:#f5f6f3;}.pk .m-hero{height:42px;background:rgba(100,140,80,0.2);}.pk .m-line{background:rgba(0,0,0,0.07);}.pk .m-btn{background:rgba(100,140,80,0.45);}
+.pl .m-nav{background:#1a0810;}.pl .m-body{background:#110408;}.pl .m-hero{height:44px;background:rgba(180,30,60,0.3);}.pl .m-line{background:rgba(180,30,60,0.15);}.pl .m-btn{background:rgba(180,30,60,0.45);}
+.pm .m-nav{background:#0a1628;}.pm .m-body{background:#060f1e;}.pm .m-hero{height:44px;background:rgba(59,130,246,0.28);}.pm .m-line{background:rgba(59,130,246,0.13);}.pm .m-btn{background:rgba(59,130,246,0.48);}
+.pn .m-nav{background:#0f1a0a;}.pn .m-body{background:#080f05;}.pn .m-hero{height:40px;background:rgba(34,197,94,0.18);}.pn .m-line{background:rgba(34,197,94,0.08);}.pn .m-btn{background:rgba(34,197,94,0.32);}
+.po .m-nav{background:#120a08;}.po .m-body{background:#0c0604;}.po .m-hero{height:44px;background:rgba(234,88,12,0.28);}.po .m-line{background:rgba(234,88,12,0.13);}.po .m-btn{background:rgba(234,88,12,0.42);}
+
+/* BREADCRUMB */
+.breadcrumb{padding:100px 48px 0;background:var(--dark);}
+.breadcrumb-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);}
+.breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.breadcrumb a:hover{color:var(--gold);}
+.breadcrumb-sep{opacity:0.3;}
+
+/* PRODUCT LAYOUT */
+.product{padding:32px 48px 100px;background:var(--dark);}
+.product-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:start;}
+
+/* MOCKUP SLIDESHOW */
+.mockup-wrap{position:sticky;top:100px;}
+.mockup-main{height:420px;background:var(--dark-2);border:1px solid var(--dark-border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:12px;}
+.mockup-main-inner{width:65%;height:75%;transition:opacity 0.3s;}
+.mockup-slides{display:flex;gap:8px;}
+.mockup-thumb{width:80px;height:56px;background:var(--dark-3);border:1px solid var(--dark-border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s;overflow:hidden;flex-shrink:0;}
+.mockup-thumb.active{border-color:var(--gold);}
+.mockup-thumb:hover{border-color:rgba(201,168,76,0.4);}
+.mockup-thumb-inner{width:85%;height:80%;}
+.mockup-label{position:absolute;bottom:12px;left:12px;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);background:rgba(0,0,0,0.5);padding:4px 10px;backdrop-filter:blur(8px);}
+
+/* PRODUCT INFO */
+.product-info{}
+.product-breadcrumb-label{font-size:11px;font-weight:400;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.product-badges{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.badge-tier{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;}
+.badge-tier.premium{background:var(--gold);color:var(--dark);}
+.badge-tier.standard{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);}
+.badge-industry{font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5vw,72px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:12px;}
+.product-desc{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:28px;}
+.product-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;}
+.product-tag{font-size:10px;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.04);padding:5px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.07);}
+
+/* WHAT'S INCLUDED */
+.product-includes{background:var(--dark-2);border:1px solid var(--dark-border);padding:24px 28px;margin-bottom:28px;position:relative;overflow:hidden;}
+.product-includes::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.product-includes-label{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.includes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.include-item{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:300;color:rgba(255,255,255,0.6);}
+.include-check{color:var(--gold);font-size:11px;flex-shrink:0;}
+
+/* PRICE & CTA */
+.product-purchase{border-top:1px solid var(--dark-border);padding-top:28px;}
+.product-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;}
+.product-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold-light);line-height:1;}
+.product-price sup{font-size:22px;vertical-align:top;margin-top:8px;display:inline-block;}
+.product-price-note{font-size:12px;font-weight:300;color:var(--text-muted);}
+.btn-add-cart{width:100%;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:17px;cursor:pointer;transition:all 0.2s;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-add-cart:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-add-cart.added{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);}
+.btn-view-templates{width:100%;background:transparent;color:var(--text-muted);border:1px solid var(--dark-border);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:13px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;}
+.btn-view-templates:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+.product-guarantee{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:11px;font-weight:300;color:rgba(255,255,255,0.3);}
+.product-guarantee-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+/* NOT FOUND */
+.not-found{padding:200px 48px;text-align:center;}
+.not-found h1{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--white);margin-bottom:12px;}
+.not-found p{font-size:14px;color:var(--text-muted);margin-bottom:32px;}
+
+/* GUIDES SECTION */
+.guides-section{padding:0 48px 80px;background:var(--dark);border-top:1px solid var(--dark-border);}
+.guides-section-inner{max-width:1100px;margin:0 auto;padding-top:64px;}
+.guides-header{margin-bottom:32px;}
+.guides-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.guides-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);font-weight:300;color:var(--white);line-height:1.05;letter-spacing:-0.5px;}
+.guides-title em{font-style:italic;color:var(--gold-light);}
+.guides-sub{font-size:13px;font-weight:300;color:var(--text-muted);margin-top:8px;line-height:1.7;}
+.guides-sub a{color:var(--gold);text-decoration:none;}
+.guides-sub a:hover{color:var(--gold-light);}
+.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--dark-border);}
+.guide-card{background:var(--dark-2);padding:28px 24px;position:relative;overflow:hidden;transition:background 0.2s;display:flex;flex-direction:column;}
+.guide-card:hover{background:var(--dark-3);}
+.guide-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),transparent);transform:scaleY(0);transition:transform 0.3s;transform-origin:top;}
+.guide-card:hover::before{transform:scaleY(1);}
+.guide-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.guide-card-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:8px;line-height:1.2;transition:color 0.2s;}
+.guide-card:hover .guide-card-title{color:var(--gold-light);}
+.guide-card-desc{font-size:12px;font-weight:300;color:var(--text-muted);line-height:1.7;flex:1;margin-bottom:20px;}
+.guide-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);}
+.guide-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold-light);}
+.btn-guide-cart{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.3);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-guide-cart:hover{background:var(--gold-dim);border-color:var(--gold);}
+.btn-guide-cart.added{background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.3);}
+
+/* BOTTOM CTA */
+.bottom-cta{padding:100px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);text-align:center;position:relative;overflow:hidden;}
+.bottom-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+.bottom-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.bottom-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px;}
+.bottom-cta h2 em{font-style:italic;color:var(--gold-light);}
+.bottom-cta p{font-size:14px;font-weight:300;color:var(--text-muted);margin-bottom:32px;line-height:1.8;}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:14px 24px;text-decoration:none;transition:color 0.2s;border:1px solid rgba(255,255,255,0.08);}
+.btn-outline:hover{color:var(--white);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* MOBILE */
+@media(max-width:900px){
+  .product-inner{grid-template-columns:1fr;gap:40px;}
+  .mockup-wrap{position:static;}
+}
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .breadcrumb{padding:80px 20px 0;}
+  .product{padding:24px 20px 80px;}
+  .guides-section{padding:0 20px 60px;}
+  .bottom-cta{padding:72px 20px;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+  .cart-drawer{width:100%;}
+  .guides-grid{grid-template-columns:1fr;}
+  .includes-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- CART OVERLAY & DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">Your Cart</div>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" id="cart-empty">
+      <div class="cart-empty-icon">◈</div>
+      <div class="cart-empty-text">Your cart is empty</div>
+      <div class="cart-empty-sub">Add a template or guide to get started</div>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-subtotal">
+      <div class="cart-subtotal-label">Subtotal</div>
+      <div class="cart-subtotal-val" id="cart-subtotal">$0.00</div>
+    </div>
+    <button class="cart-checkout-btn" id="cart-checkout-btn">Proceed to Checkout</button>
+    <button class="cart-continue" id="cart-continue">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#C9A84C"/>
+        <path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html" class="active">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="request.html" class="nav-request">Request a Template</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cart-btn" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="1.5" stroke-linecap="round"/><path d="M16 10a4 4 0 01-8 0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <a href="templates.html" class="nav-cta">Browse Templates</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="templates.html">Templates</a>
+    <span class="breadcrumb-sep">›</span>
+    <span id="bc-industry">—</span>
+    <span class="breadcrumb-sep">›</span>
+    <span id="bc-name">—</span>
+  </div>
+</div>
+
+<!-- PRODUCT -->
+<section class="product" id="product-section">
+  <div class="product-inner">
+
+    <!-- LEFT: MOCKUP SLIDESHOW -->
+    <div class="mockup-wrap">
+      <div class="mockup-main">
+        <div class="mockup-main-inner" id="mockup-main-inner">
+          <!-- injected by JS -->
+        </div>
+        <div class="mockup-label" id="mockup-label">Hero Section</div>
+      </div>
+      <div class="mockup-slides" id="mockup-slides">
+        <!-- thumbs injected by JS -->
+      </div>
+    </div>
+
+    <!-- RIGHT: INFO -->
+    <div class="product-info">
+      <div class="product-badges">
+        <span class="badge-tier" id="p-tier-badge">—</span>
+        <span class="badge-industry" id="p-industry-badge">—</span>
+      </div>
+      <div class="product-name" id="p-name">—</div>
+      <div class="product-desc" id="p-desc">—</div>
+      <div class="product-tags" id="p-tags"></div>
+
+      <div class="product-includes">
+        <div class="product-includes-label">What's Included</div>
+        <div class="includes-grid" id="p-includes"></div>
+      </div>
+
+      <div class="product-purchase">
+        <div class="product-price-row">
+          <div class="product-price" id="p-price"><sup>$</sup>—</div>
+          <div class="product-price-note">One-time purchase · No subscription</div>
+        </div>
+        <button class="btn-add-cart" id="btn-add-cart" onclick="addTemplateToCart()">
+          <span id="cart-btn-text">Add to Cart</span>
+        </button>
+        <a href="templates.html" class="btn-view-templates">← Back to All Templates</a>
+        <div class="product-guarantee">
+          <span class="product-guarantee-dot"></span>
+          Files delivered instantly · Yours to keep forever · Free hosting compatible
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOT FOUND STATE (hidden by default) -->
+<div class="not-found" id="not-found" style="display:none;">
+  <h1>Template not found.</h1>
+  <p>The template you're looking for doesn't exist or the URL is incorrect.</p>
+  <a href="templates.html" class="btn-gold">Browse All Templates</a>
+</div>
+
+<!-- GUIDES SECTION -->
+<section class="guides-section reveal" id="guides-section">
+  <div class="guides-section-inner">
+    <div class="guides-header">
+      <div class="guides-eyebrow">Written Guides</div>
+      <div class="guides-title">Need a guide? Here are our<br><em>3 most popular.</em></div>
+      <p class="guides-sub">Step-by-step written guides for getting your site live, connected, and found online. <a href="addons.html">See all guides on our Add-ons page →</a></p>
+    </div>
+    <div class="guides-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-eyebrow">Most Popular</div>
+        <div class="guide-card-title">Complete Setup Guide</div>
+        <p class="guide-card-desc">Everything from unzipping your template to going live — including GitHub setup, Cloudflare Pages deployment, contact form setup, and verifying your site is live. Written for complete beginners.</p>
+        <div class="guide-card-footer">
+          <div class="guide-price">$29.99</div>
+          <button class="btn-guide-cart" onclick="addGuideToCart('setup','Complete Setup Guide',29.99,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-eyebrow">Essential</div>
+        <div class="guide-card-title">Domain Connection Guide</div>
+        <p class="guide-card-desc">How to buy a custom domain and connect it to your free hosting. Covers DNS settings, popular registrars, and how to make your site live at yourbusiness.com instead of a default URL.</p>
+        <div class="guide-card-footer">
+          <div class="guide-price">$14.99</div>
+          <button class="btn-guide-cart" onclick="addGuideToCart('domain','Domain Connection Guide',14.99,this)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-eyebrow">Highly Recommended</div>
+        <div class="guide-card-title">SEO Basics Guide</div>
+        <p class="guide-card-desc">A plain-language guide to helping your site show up on Google. Covers meta titles, descriptions, Google Search Console setup, sitemap submission, and realistic expectations for a new site.</p>
+        <div class="guide-card-footer">
+          <div class="guide-price">$24.99</div>
+          <button class="btn-guide-cart" onclick="addGuideToCart('seo','SEO Basics Guide',24.99,this)">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta reveal">
+  <div class="bottom-cta-glow"></div>
+  <div class="bottom-cta-inner">
+    <h2>Not the right fit?<br><em>Keep browsing.</em></h2>
+    <p>We have 50 templates across 5 industries. There's one that's right for your business.</p>
+    <a href="templates.html" class="btn-gold">Browse All Templates</a>
+    <a href="addons.html" class="btn-outline">View Add-ons →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// TEMPLATE CATALOG
+// ═══════════════════════════════════════════
+const TEMPLATES = {
+  // ── SALON & BEAUTY ──
+  noir:    { name:'Noir',    industry:'Salon & Beauty', tier:'premium', price:44.99, palette:'pb', desc:'Sleek monochrome salon template. Minimal, sophisticated, unforgettable.', tags:['Minimal','Dark'], pages:['Home','Services','Gallery','Booking','Contact'] },
+  velvet:  { name:'Velvet',  industry:'Salon & Beauty', tier:'premium', price:44.99, palette:'pe', desc:'Rich plum and rose tones with flowing scroll animations. Made for luxury salons.', tags:['Animated','Dark'], pages:['Home','Services','Gallery','About','Contact'] },
+  aura:    { name:'Aura',    industry:'Salon & Beauty', tier:'premium', price:44.99, palette:'pi', desc:'Soft pink and blush with cinematic hero transitions. Built for beauty brands.', tags:['Animated','Dark'], pages:['Home','Services','Gallery','About','Contact'] },
+  petal:   { name:'Petal',   industry:'Salon & Beauty', tier:'premium', price:44.99, palette:'pc', desc:'Light, airy salon template with delicate animations and a soft editorial look.', tags:['Animated','Light'], pages:['Home','Services','Gallery','About','Contact'] },
+  eclipse: { name:'Eclipse', industry:'Salon & Beauty', tier:'premium', price:44.99, palette:'pa', desc:'Gold on black luxury salon template with dramatic reveal animations.', tags:['Animated','Dark'], pages:['Home','Services','Gallery','About','Contact'] },
+  velour:  { name:'Velour',  industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pe', desc:'Dreamy purple and rose salon template. Feminine, lush, and highly bookable.', tags:['Elegant','Dark'], pages:['Home','Services','Contact'] },
+  blush:   { name:'Blush',   industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pc', desc:'Clean cream and blush salon template. Simple, inviting, and easy to customize.', tags:['Minimal','Light'], pages:['Home','Services','Contact'] },
+  onyx:    { name:'Onyx',    industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pb', desc:'Bold monochrome for barbershops and unisex studios. Clean and confident.', tags:['Minimal','Dark'], pages:['Home','Services','Contact'] },
+  ivory:   { name:'Ivory',   industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pk', desc:'Warm white and sage salon template. Spa-like calm with a professional polish.', tags:['Clean','Light'], pages:['Home','Services','Contact'] },
+  gloss:   { name:'Gloss',   industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pi', desc:'Vibrant nail studio template with a playful, high-energy dark aesthetic.', tags:['Bold','Dark'], pages:['Home','Services','Contact'] },
+  // ── RESTAURANT ──
+  saveur:  { name:'Saveur',  industry:'Restaurant', tier:'premium', price:44.99, palette:'pa', desc:'Rich editorial restaurant template with animated menu reveals and reservation flow.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
+  ember:   { name:'Ember',   industry:'Restaurant', tier:'premium', price:44.99, palette:'pg', desc:'Warm terracotta and fire tones for a rustic, inviting dining experience.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
+  cellar:  { name:'Cellar',  industry:'Restaurant', tier:'premium', price:44.99, palette:'pl', desc:'Deep wine and candlelight aesthetic. Perfect for fine dining and wine bars.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
+  harvest: { name:'Harvest', industry:'Restaurant', tier:'premium', price:44.99, palette:'pc', desc:'Farm-to-table warmth in a light, editorial layout with staggered scroll reveals.', tags:['Animated','Light'], pages:['Home','Menu','About','Reservations','Contact'] },
+  sotto:   { name:'Sotto',   industry:'Restaurant', tier:'premium', price:44.99, palette:'pb', desc:'Understated Italian-inspired minimal dark template for upscale casual dining.', tags:['Minimal','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
+  hearth:  { name:'Hearth',  industry:'Restaurant', tier:'standard', price:24.99, palette:'pg', desc:'Cozy, welcoming template for neighborhood restaurants and comfort food spots.', tags:['Warm','Dark'], pages:['Home','Menu','Contact'] },
+  bistro:  { name:'Bistro',  industry:'Restaurant', tier:'standard', price:24.99, palette:'pc', desc:'Clean Parisian-inspired light template. Menu-forward, easy to update, highly readable.', tags:['Minimal','Light'], pages:['Home','Menu','Contact'] },
+  grill:   { name:'Grill',   industry:'Restaurant', tier:'standard', price:24.99, palette:'pa', desc:'Bold, meat-forward template for steakhouses and BBQ spots. Dark and striking.', tags:['Bold','Dark'], pages:['Home','Menu','Contact'] },
+  cafe:    { name:'Café',    industry:'Restaurant', tier:'standard', price:24.99, palette:'pn', desc:'Friendly sage and cream template for coffee shops, bakeries, and brunch spots.', tags:['Friendly','Light'], pages:['Home','Menu','Contact'] },
+  dusk:    { name:'Dusk',    industry:'Restaurant', tier:'standard', price:24.99, palette:'pl', desc:'Moody deep-red minimal template for cocktail bars and late-night dining.', tags:['Minimal','Dark'], pages:['Home','Menu','Contact'] },
+  // ── CONTRACTOR ──
+  apex:    { name:'Apex',    industry:'Contractor', tier:'premium', price:44.99, palette:'pd', desc:'Bold, trustworthy contractor template with animated counters and project showcases.', tags:['Animated','Dark'], pages:['Home','Services','Projects','About','Contact'] },
+  forge:   { name:'Forge',   industry:'Contractor', tier:'premium', price:44.99, palette:'ph', desc:'Industrial slate and steel template. Scroll-triggered reveals and a strong quote CTA.', tags:['Animated','Dark'], pages:['Home','Services','Projects','About','Contact'] },
+  iron:    { name:'Iron',    industry:'Contractor', tier:'premium', price:44.99, palette:'pa', desc:'Gold accents on near-black. Conveys strength, precision, and premium craftsmanship.', tags:['Animated','Dark'], pages:['Home','Services','Projects','About','Contact'] },
+  crest:   { name:'Crest',   industry:'Contractor', tier:'premium', price:44.99, palette:'pc', desc:'Light, professional contractor template built for remodeling and home services.', tags:['Animated','Light'], pages:['Home','Services','Projects','About','Contact'] },
+  bastion: { name:'Bastion', industry:'Contractor', tier:'premium', price:44.99, palette:'pm', desc:'Navy blue authority template for roofing, plumbing, and structural contractors.', tags:['Animated','Dark'], pages:['Home','Services','Projects','About','Contact'] },
+  build:   { name:'Build',   industry:'Contractor', tier:'standard', price:24.99, palette:'ph', desc:'No-nonsense contractor template. Services, gallery, and contact form front and center.', tags:['Clean','Dark'], pages:['Home','Services','Contact'] },
+  hatch:   { name:'Hatch',   industry:'Contractor', tier:'standard', price:24.99, palette:'pk', desc:'Light and clean for landscaping, lawn care, and outdoor service businesses.', tags:['Clean','Light'], pages:['Home','Services','Contact'] },
+  vault:   { name:'Vault',   industry:'Contractor', tier:'standard', price:24.99, palette:'pd', desc:'Solid navy template for security, electrical, and specialty trade contractors.', tags:['Bold','Dark'], pages:['Home','Services','Contact'] },
+  frame:   { name:'Frame',   industry:'Contractor', tier:'standard', price:24.99, palette:'pc', desc:'Minimal warm-cream template ideal for interior design and renovation firms.', tags:['Minimal','Light'], pages:['Home','Services','Contact'] },
+  grade:   { name:'Grade',   industry:'Contractor', tier:'standard', price:24.99, palette:'pa', desc:'Gold-on-dark for premium painting, flooring, and finishing contractors.', tags:['Bold','Dark'], pages:['Home','Services','Contact'] },
+  // ── RETAIL ──
+  luxe:    { name:'Luxe',    industry:'Retail', tier:'premium', price:44.99, palette:'pc', desc:'Warm cream and gold retail template with scroll animations and product showcase.', tags:['Animated','Light'], pages:['Home','Shop','About','Contact'] },
+  gilt:    { name:'Gilt',    industry:'Retail', tier:'premium', price:44.99, palette:'pa', desc:'Dark luxury retail template. Gold-accented product cards and a cinematic hero.', tags:['Animated','Dark'], pages:['Home','Shop','About','Contact'] },
+  grove:   { name:'Grove',   industry:'Retail', tier:'premium', price:44.99, palette:'pk', desc:'Natural sage and linen template for organic, eco-conscious, and botanical retail.', tags:['Animated','Light'], pages:['Home','Shop','About','Contact'] },
+  maison:  { name:'Maison',  industry:'Retail', tier:'premium', price:44.99, palette:'pb', desc:'Minimalist French-inspired boutique template. Stark, editorial, and unforgettable.', tags:['Minimal','Dark'], pages:['Home','Shop','About','Contact'] },
+  eclat:   { name:'Éclat',   industry:'Retail', tier:'premium', price:44.99, palette:'pi', desc:'Pink-tinted boutique template with flowing product reveals. Built for fashion retail.', tags:['Animated','Light'], pages:['Home','Shop','About','Contact'] },
+  shelf:   { name:'Shelf',   industry:'Retail', tier:'standard', price:24.99, palette:'pc', desc:'Clean, product-first retail template. Grid layout, fast load, easy to update.', tags:['Minimal','Light'], pages:['Home','Shop','Contact'] },
+  loft:    { name:'Loft',    industry:'Retail', tier:'standard', price:24.99, palette:'pb', desc:'Urban dark retail template for streetwear, vintage, and independent clothing brands.', tags:['Bold','Dark'], pages:['Home','Shop','Contact'] },
+  market:  { name:'Market',  industry:'Retail', tier:'standard', price:24.99, palette:'pk', desc:"Farmers market and local goods template. Friendly, earthy, community-first.", tags:['Friendly','Light'], pages:['Home','Shop','Contact'] },
+  stow:    { name:'Stow',    industry:'Retail', tier:'standard', price:24.99, palette:'pa', desc:'Compact dark template for specialty goods, gift shops, and curated retail.', tags:['Minimal','Dark'], pages:['Home','Shop','Contact'] },
+  canvas:  { name:'Canvas',  industry:'Retail', tier:'standard', price:24.99, palette:'pc', desc:'Versatile bright template for art supplies, home décor, and lifestyle retail.', tags:['Clean','Light'], pages:['Home','Shop','Contact'] },
+  // ── FITNESS ──
+  surge:   { name:'Surge',   industry:'Fitness', tier:'premium', price:44.99, palette:'pf', desc:'High-energy green and black gym template with animated stats and class schedule.', tags:['Animated','Dark'], pages:['Home','Classes','Trainers','Pricing','Contact'] },
+  tide:    { name:'Tide',    industry:'Fitness', tier:'premium', price:44.99, palette:'pj', desc:'Teal wellness template for yoga, pilates, and mindfulness studios. Calm and premium.', tags:['Animated','Dark'], pages:['Home','Classes','Trainers','Pricing','Contact'] },
+  flux:    { name:'Flux',    industry:'Fitness', tier:'premium', price:44.99, palette:'pd', desc:'Navy and electric blue HIIT and crossfit template. Fast, punchy, and conversion-focused.', tags:['Animated','Dark'], pages:['Home','Classes','Trainers','Pricing','Contact'] },
+  bloom:   { name:'Bloom',   industry:'Fitness', tier:'premium', price:44.99, palette:'pk', desc:'Light wellness and nutrition coaching template. Animated testimonials and booking flow.', tags:['Animated','Light'], pages:['Home','Programs','About','Pricing','Contact'] },
+  strike:  { name:'Strike',  industry:'Fitness', tier:'premium', price:44.99, palette:'pb', desc:'Monochrome combat sports template for boxing gyms, MMA, and martial arts.', tags:['Animated','Dark'], pages:['Home','Classes','Trainers','Pricing','Contact'] },
+  reps:    { name:'Reps',    industry:'Fitness', tier:'standard', price:24.99, palette:'pf', desc:'Clean, energetic fitness template. Built for gyms, studios, and personal trainers.', tags:['Clean','Dark'], pages:['Home','Classes','Contact'] },
+  flow:    { name:'Flow',    industry:'Fitness', tier:'standard', price:24.99, palette:'pk', desc:'Minimal light template for yoga and wellness. Serene, spacious, and inviting.', tags:['Minimal','Light'], pages:['Home','Classes','Contact'] },
+  core:    { name:'Core',    industry:'Fitness', tier:'standard', price:24.99, palette:'pj', desc:'Teal-accented functional fitness template for boutique studios and group training.', tags:['Clean','Dark'], pages:['Home','Classes','Contact'] },
+  sprint:  { name:'Sprint',  industry:'Fitness', tier:'standard', price:24.99, palette:'pd', desc:'Navy and speed-focused running club and athletics template. Crisp and motivational.', tags:['Bold','Dark'], pages:['Home','Classes','Contact'] },
+  lift:    { name:'Lift',    industry:'Fitness', tier:'standard', price:24.99, palette:'pc', desc:'Warm cream personal training template with pricing table and testimonial section.', tags:['Clean','Light'], pages:['Home','Programs','Contact'] },
+};
+
+// ═══════════════════════════════════════════
+// CART SYSTEM
+// ═══════════════════════════════════════════
+let cart = JSON.parse(localStorage.getItem('siteafi_cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('siteafi_cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.length;
+  const countEl = document.getElementById('cart-count');
+  if (countEl) {
+    countEl.textContent = count;
+    countEl.classList.toggle('visible', count > 0);
+  }
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const itemsEl = document.getElementById('cart-items');
+  const emptyEl = document.getElementById('cart-empty');
+  const footerEl = document.getElementById('cart-footer');
+  const subtotalEl = document.getElementById('cart-subtotal');
+  if (!itemsEl) return;
+
+  if (cart.length === 0) {
+    if (emptyEl) emptyEl.style.display = 'flex';
+    if (footerEl) footerEl.style.display = 'none';
+    // Clear any rendered items
+    Array.from(itemsEl.children).forEach(c => { if (c !== emptyEl) c.remove(); });
+    return;
+  }
+
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (footerEl) footerEl.style.display = 'block';
+
+  // Remove old item elements
+  Array.from(itemsEl.children).forEach(c => { if (c !== emptyEl) c.remove(); });
+
+  let total = 0;
+  cart.forEach((item, idx) => {
+    total += item.price;
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+    const mockupHTML = item.palette ? `
+      <div class="cart-item-mockup" style="display:flex;align-items:center;justify-content:center;background:#1E1E24;">
+        <div class="site-mock ${item.palette}" style="width:85%;height:85%;border-radius:4px;">
+          <div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div></div>
+          <div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:60%"></div><div class="m-btn"></div></div>
+        </div>
+      </div>` : `<div class="cart-item-mockup" style="display:flex;align-items:center;justify-content:center;font-size:20px;">◈</div>`;
+    el.innerHTML = `
+      ${mockupHTML}
+      <div class="cart-item-info">
+        <div class="cart-item-type">${item.type}</div>
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-sub">${item.sub || ''}</div>
+        <button class="cart-item-remove" onclick="removeFromCart(${idx})">Remove</button>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+      </div>`;
+    itemsEl.appendChild(el);
+  });
+
+  if (subtotalEl) subtotalEl.textContent = '$' + total.toFixed(2);
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  saveCart();
+}
+
+function addToCart(item) {
+  // Prevent duplicates
+  if (cart.find(c => c.id === item.id)) {
+    openCart();
+    return false;
+  }
+  cart.push(item);
+  saveCart();
+  openCart();
+  return true;
+}
+
+function openCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  if (!overlay || !drawer) return;
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => { overlay.classList.add('open'); drawer.classList.add('open'); });
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  if (!overlay || !drawer) return;
+  overlay.classList.remove('open'); drawer.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; }, 350);
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════
+// ADD TEMPLATE TO CART
+// ═══════════════════════════════════════════
+function addTemplateToCart() {
+  const key = new URLSearchParams(window.location.search).get('t');
+  const t = TEMPLATES[key];
+  if (!t) return;
+  const btn = document.getElementById('btn-add-cart');
+  const btnText = document.getElementById('cart-btn-text');
+  const added = addToCart({
+    id: 'template-' + key,
+    type: t.tier === 'premium' ? 'Premium Template' : 'Standard Template',
+    name: t.name,
+    sub: t.industry,
+    price: t.price,
+    palette: t.palette
+  });
+  if (added) {
+    btnText.textContent = '✓ Added to Cart';
+    btn.classList.add('added');
+    setTimeout(() => { btnText.textContent = 'Add to Cart'; btn.classList.remove('added'); }, 2500);
+  }
+}
+
+function addGuideToCart(id, name, price, btn) {
+  const added = addToCart({ id: 'guide-' + id, type: 'Written Guide', name, sub: 'One-time purchase', price, palette: null });
+  if (added && btn) {
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = 'Add to Cart'; btn.classList.remove('added'); }, 2500);
+  }
+}
+
+// ═══════════════════════════════════════════
+// LOAD PRODUCT
+// ═══════════════════════════════════════════
+function buildMockupHTML(palette) {
+  return `<div class="site-mock ${palette}" style="width:100%;height:100%;">
+    <div class="m-nav"><div class="m-dot" style="background:#ff5f57"></div><div class="m-dot" style="background:#ffbd2e"></div><div class="m-dot" style="background:#28ca41"></div></div>
+    <div class="m-body"><div class="m-hero"></div><div class="m-line" style="width:70%"></div><div class="m-line" style="width:45%"></div><div class="m-btn"></div><div class="m-row"><div class="m-sm"></div><div class="m-sm"></div><div class="m-sm"></div></div></div>
+  </div>`;
+}
+
+const SLIDE_LABELS = ['Hero Section','Services','About','Gallery / Portfolio','Contact'];
+
+function loadProduct() {
+  const params = new URLSearchParams(window.location.search);
+  const key = (params.get('t') || '').toLowerCase();
+  const t = TEMPLATES[key];
+
+  if (!t) {
+    document.getElementById('product-section').style.display = 'none';
+    document.getElementById('guides-section').style.display = 'none';
+    document.getElementById('not-found').style.display = 'block';
+    document.title = 'Template Not Found — Siteafi';
+    return;
+  }
+
+  document.title = t.name + ' — Siteafi';
+  document.getElementById('bc-industry').textContent = t.industry;
+  document.getElementById('bc-name').textContent = t.name;
+  document.getElementById('p-name').textContent = t.name;
+  document.getElementById('p-desc').textContent = t.desc;
+
+  const tierBadge = document.getElementById('p-tier-badge');
+  tierBadge.textContent = t.tier.charAt(0).toUpperCase() + t.tier.slice(1);
+  tierBadge.className = 'badge-tier ' + t.tier;
+  document.getElementById('p-industry-badge').textContent = t.industry;
+
+  document.getElementById('p-price').innerHTML = '<sup>$</sup>' + t.price.toFixed(2);
+
+  const tagsEl = document.getElementById('p-tags');
+  tagsEl.innerHTML = t.tags.map(tag => `<span class="product-tag">${tag}</span>`).join('');
+
+  const includesEl = document.getElementById('p-includes');
+  const includeItems = [
+    ...t.pages.map(p => `<div class="include-item"><span class="include-check">✓</span>${p} Page</div>`),
+    '<div class="include-item"><span class="include-check">✓</span>HTML / CSS / JS Files</div>',
+    '<div class="include-item"><span class="include-check">✓</span>Free Hosting Compatible</div>',
+    '<div class="include-item"><span class="include-check">✓</span>Mobile Responsive</div>',
+    '<div class="include-item"><span class="include-check">✓</span>LICENSE.txt Included</div>',
+  ];
+  includesEl.innerHTML = includeItems.join('');
+
+  // Build slides
+  const slides = t.pages.slice(0, 5);
+  const mainInner = document.getElementById('mockup-main-inner');
+  const slidesEl = document.getElementById('mockup-slides');
+  const labelEl = document.getElementById('mockup-label');
+  mainInner.innerHTML = buildMockupHTML(t.palette);
+
+  slidesEl.innerHTML = slides.map((s, i) => `
+    <div class="mockup-thumb ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="switchSlide(${i}, '${s}')">
+      <div class="mockup-thumb-inner">${buildMockupHTML(t.palette)}</div>
+    </div>`).join('');
+
+  labelEl.textContent = slides[0] + ' Section';
+}
+
+function switchSlide(idx, label) {
+  document.querySelectorAll('.mockup-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.getElementById('mockup-label').textContent = label + ' Section';
+  const main = document.getElementById('mockup-main-inner');
+  main.style.opacity = '0';
+  setTimeout(() => { main.style.opacity = '1'; }, 300);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+loadProduct();
+updateCartUI();
+
+// Cart open/close
+document.getElementById('cart-btn').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+document.getElementById('cart-continue').addEventListener('click', closeCart);
+document.getElementById('cart-checkout-btn').addEventListener('click', () => {
+  // Will be wired to Lemon Squeezy when ready
+  alert('Checkout coming soon — Lemon Squeezy integration in progress.');
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+
+// Progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => { bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; });
+
+// Reveal
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([entry]) => { if (entry.isIntersecting) el.classList.add('visible'); }, { threshold: 0.08 }).observe(el);
+});
+</script>
+</body>
+</html>
