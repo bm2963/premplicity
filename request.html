@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Template — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+
+/* NAV */
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* HERO */
+.hero{padding:140px 48px 80px;position:relative;overflow:hidden;background:var(--dark);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 20%,transparent 80%);pointer-events:none;}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px;animation:fadeUp 0.8s 0.1s ease both;}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.6;}
+.hero-eyebrow span{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:20px;animation:fadeUp 0.8s 0.2s ease both;}
+.hero h1 em{font-style:italic;color:var(--gold-light);display:block;}
+.hero-sub{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.85;animation:fadeUp 0.8s 0.3s ease both;}
+
+/* HERO RIGHT — INFO CARD */
+.hero-card{background:var(--dark-2);border:1px solid var(--dark-border);padding:36px 32px;position:relative;overflow:hidden;animation:fadeUp 0.8s 0.3s ease both;}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.hero-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.hero-card-items{display:flex;flex-direction:column;gap:12px;}
+.hero-card-item{display:flex;align-items:flex-start;gap:12px;}
+.hero-card-icon{width:28px;height:28px;border-radius:6px;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px;}
+.hero-card-text{font-size:12px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.6;}
+.hero-card-text strong{color:rgba(255,255,255,0.85);font-weight:400;display:block;margin-bottom:1px;}
+.hero-card-glow{position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+/* FORM SECTION */
+.form-section{padding:0 48px 120px;background:var(--dark);}
+.form-section-inner{max-width:760px;margin:0 auto;}
+
+/* FORM WRAPPER */
+.form-wrap{
+  background:var(--dark-2);
+  border:1px solid var(--dark-border);
+  position:relative;
+  overflow:hidden;
+}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+
+/* FORM GROUPS */
+.form-group-band{
+  padding:36px 44px;
+  border-bottom:1px solid var(--dark-border);
+}
+.form-group-band:last-of-type{border-bottom:none;}
+.form-band-label{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.form-band-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,0.15);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-row.single{grid-template-columns:1fr;}
+
+/* FIELD */
+.field{display:flex;flex-direction:column;gap:8px;}
+.field label{font-size:11px;font-weight:500;letter-spacing:0.5px;color:rgba(255,255,255,0.55);}
+.field label span{color:rgba(201,168,76,0.6);margin-left:2px;}
+.field input,.field select,.field textarea{
+  background:var(--dark-3);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:13px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:300;
+  color:var(--white);
+  outline:none;
+  transition:border-color 0.2s,background 0.2s;
+  width:100%;
+  -webkit-appearance:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:rgba(201,168,76,0.4);
+  background:rgba(201,168,76,0.02);
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.22);}
+.field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;}
+.field select option{background:var(--dark-3);color:var(--white);}
+.field textarea{resize:vertical;min-height:100px;line-height:1.7;}
+
+/* CHECKBOXES */
+.checkbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.checkbox-item{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.checkbox-item input[type="checkbox"]{display:none;}
+.checkbox-box{
+  width:18px;height:18px;flex-shrink:0;
+  border:1px solid rgba(255,255,255,0.15);
+  background:var(--dark-3);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.checkbox-item input[type="checkbox"]:checked + .checkbox-box{
+  background:var(--gold-dim);
+  border-color:rgba(201,168,76,0.5);
+}
+.checkbox-item input[type="checkbox"]:checked + .checkbox-box::after{
+  content:'✓';font-size:11px;color:var(--gold);font-weight:600;
+}
+.checkbox-label{font-size:12px;font-weight:300;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.checkbox-item:hover .checkbox-label{color:var(--white);}
+.checkbox-item:hover .checkbox-box{border-color:rgba(201,168,76,0.3);}
+
+/* RADIO BUTTONS */
+.radio-row{display:flex;gap:12px;flex-wrap:wrap;}
+.radio-item{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.radio-item input[type="radio"]{display:none;}
+.radio-box{
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  border:1px solid rgba(255,255,255,0.15);
+  background:var(--dark-3);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.radio-item input[type="radio"]:checked + .radio-box{
+  border-color:rgba(201,168,76,0.6);background:var(--gold-dim);
+}
+.radio-item input[type="radio"]:checked + .radio-box::after{
+  content:'';width:7px;height:7px;border-radius:50%;background:var(--gold);display:block;
+}
+.radio-label{font-size:12px;font-weight:300;color:rgba(255,255,255,0.6);transition:color 0.2s;}
+.radio-item:hover .radio-label{color:var(--white);}
+.radio-item:hover .radio-box{border-color:rgba(201,168,76,0.3);}
+
+/* TIER CARDS */
+.tier-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tier-card{
+  border:1px solid rgba(255,255,255,0.07);
+  padding:20px 20px;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+  background:var(--dark-3);
+}
+.tier-card:hover{border-color:rgba(201,168,76,0.2);}
+.tier-card.selected{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.04);}
+.tier-card.selected::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+.tier-card input[type="radio"]{display:none;}
+.tier-card-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:4px;transition:color 0.2s;}
+.tier-card.selected .tier-card-name{color:var(--gold-light);}
+.tier-card-price{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;}
+.tier-card-desc{font-size:11px;font-weight:300;color:var(--text-muted);line-height:1.6;}
+
+/* SUBMIT */
+.form-submit-band{padding:32px 44px;background:var(--section-dark);border-top:1px solid var(--dark-border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.form-submit-note{font-size:12px;font-weight:300;color:var(--text-muted);line-height:1.6;max-width:360px;}
+.form-submit-note strong{color:rgba(255,255,255,0.6);font-weight:400;}
+.btn-submit{
+  background:var(--gold);color:var(--dark);
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:15px 40px;border:none;cursor:pointer;
+  transition:all 0.2s;flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.btn-submit:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* SUCCESS STATE */
+.success-state{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:80px 44px;
+  background:var(--dark-2);
+  border:1px solid var(--dark-border);
+  position:relative;
+  overflow:hidden;
+}
+.success-state::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.success-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,0.06),transparent 70%);pointer-events:none;}
+.success-icon{font-size:40px;margin-bottom:24px;position:relative;z-index:1;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--white);letter-spacing:-1px;margin-bottom:12px;position:relative;z-index:1;}
+.success-title em{font-style:italic;color:var(--gold-light);}
+.success-sub{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:440px;margin-bottom:32px;position:relative;z-index:1;}
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:110px 20px 56px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .form-section{padding:0 20px 80px;}
+  .form-group-band{padding:28px 24px;}
+  .form-row{grid-template-columns:1fr;}
+  .checkbox-grid{grid-template-columns:1fr 1fr;}
+  .tier-cards{grid-template-columns:1fr;}
+  .form-submit-band{flex-direction:column;align-items:stretch;padding:28px 24px;}
+  .btn-submit{text-align:center;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:480px){
+  .checkbox-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#C9A84C"/>
+        <path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="request.html" class="nav-request active">Request a Template</a></li>
+  </ul>
+  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Template Requests</span>
+      </div>
+      <h1>Tell us what<br>you <em>need.</em></h1>
+      <p class="hero-sub">Don't see your industry in our template library? Fill out the form and let us know what you're looking for. We review every request and use them to prioritize what we build next.</p>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-eyebrow">What Happens Next</div>
+      <div class="hero-card-items">
+        <div class="hero-card-item">
+          <div class="hero-card-icon">01</div>
+          <div class="hero-card-text">
+            <strong>We review your request</strong>
+            Every submission is read by a real person — usually within 1–2 business days.
+          </div>
+        </div>
+        <div class="hero-card-item">
+          <div class="hero-card-icon">02</div>
+          <div class="hero-card-text">
+            <strong>We prioritize by demand</strong>
+            The most-requested industries move to the top of our build queue.
+          </div>
+        </div>
+        <div class="hero-card-item">
+          <div class="hero-card-icon">03</div>
+          <div class="hero-card-text">
+            <strong>We'll reach out</strong>
+            If your request is selected, we'll email you before it goes live so you get first access.
+          </div>
+        </div>
+      </div>
+      <div class="hero-card-glow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section">
+  <div class="form-section-inner">
+
+    <!-- FORM -->
+    <form id="request-form" action="https://formspree.io/f/mojyqzrg" method="POST">
+
+      <div class="form-wrap reveal" id="form-wrap">
+
+        <!-- CONTACT INFO -->
+        <div class="form-group-band">
+          <div class="form-band-label">Contact Information</div>
+          <div class="form-row" style="margin-bottom:20px;">
+            <div class="field">
+              <label>Full Name <span>*</span></label>
+              <input type="text" name="name" placeholder="Jane Smith" required>
+            </div>
+            <div class="field">
+              <label>Email Address <span>*</span></label>
+              <input type="email" name="email" placeholder="jane@yourbusiness.com" required>
+            </div>
+          </div>
+          <div class="form-row single">
+            <div class="field">
+              <label>Business Name</label>
+              <input type="text" name="business_name" placeholder="Your Business Name">
+            </div>
+          </div>
+        </div>
+
+        <!-- TEMPLATE DETAILS -->
+        <div class="form-group-band">
+          <div class="form-band-label">Template Details</div>
+
+          <div class="form-row" style="margin-bottom:20px;">
+            <div class="field">
+              <label>Industry / Business Type <span>*</span></label>
+              <input type="text" name="industry" placeholder="e.g. Auto Detailing, Bakery, Law Firm..." required>
+            </div>
+            <div class="field">
+              <label>Approximate Timeline</label>
+              <select name="timeline">
+                <option value="" disabled selected>Select a timeline</option>
+                <option value="ASAP">ASAP — I need this soon</option>
+                <option value="1-3 months">1–3 months</option>
+                <option value="3-6 months">3–6 months</option>
+                <option value="Just exploring">Just exploring for now</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- TIER SELECTION -->
+          <div class="field" style="margin-bottom:20px;">
+            <label>Template Tier Preference</label>
+            <div class="tier-cards">
+              <label class="tier-card" id="tier-standard">
+                <input type="radio" name="tier" value="Standard" checked>
+                <div class="tier-card-name">Standard</div>
+                <div class="tier-card-price">$24.99</div>
+                <div class="tier-card-desc">Single-page design. Clean, professional, and everything a small business needs to get online.</div>
+              </label>
+              <label class="tier-card" id="tier-premium">
+                <input type="radio" name="tier" value="Premium">
+                <div class="tier-card-name">Premium</div>
+                <div class="tier-card-price">$44.99</div>
+                <div class="tier-card-desc">Multi-page design with expanded sections, additional pages, and a more complete site experience.</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PAGES NEEDED -->
+          <div class="field">
+            <label>Pages / Sections Needed <span style="color:var(--text-muted);font-size:10px;margin-left:4px;letter-spacing:0;">(select all that apply)</span></label>
+            <div class="checkbox-grid" style="margin-top:4px;">
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Home">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Home</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="About">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">About</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Services">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Services</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Gallery / Portfolio">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Gallery / Portfolio</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Pricing">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Pricing</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Testimonials">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Testimonials</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="FAQ">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">FAQ</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Contact">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Contact</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="pages[]" value="Other">
+                <div class="checkbox-box"></div>
+                <span class="checkbox-label">Other</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN & DESCRIPTION -->
+        <div class="form-group-band">
+          <div class="form-band-label">Design & Description</div>
+
+          <div class="form-row single" style="margin-bottom:20px;">
+            <div class="field">
+              <label>Tell us about your business and what you need <span>*</span></label>
+              <textarea name="description" rows="5" placeholder="Describe your business, your customers, what the site needs to accomplish, and anything else that would help us understand what you're looking for..." required></textarea>
+            </div>
+          </div>
+
+          <div class="form-row single" style="margin-bottom:20px;">
+            <div class="field">
+              <label>Design inspiration or references</label>
+              <textarea name="inspiration" rows="3" placeholder="Any websites, styles, or designs you admire — links, descriptions, or just a general vibe (e.g. 'clean and minimal', 'bold and modern', 'warm and approachable')..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div class="field">
+              <label>Anything else we should know?</label>
+              <textarea name="other" rows="3" placeholder="Special requirements, color preferences, branding notes, or anything else you want us to consider..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-submit-band">
+          <p class="form-submit-note"><strong>We read every submission.</strong> If your request is selected for our build queue, we'll reach out to the email you provided before the template goes live.</p>
+          <button type="submit" class="btn-submit" id="submit-btn">Submit Request →</button>
+        </div>
+
+      </div><!-- end form-wrap -->
+
+    </form>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="success-state">
+      <div class="success-glow"></div>
+      <div class="success-icon">✦</div>
+      <div class="success-title">Request <em>received.</em></div>
+      <p class="success-sub">Thanks for reaching out — we've got your request and we'll review it personally. If your industry gets selected for our next build, we'll email you at the address you provided before it goes live.</p>
+      <a href="templates.html" class="btn-gold">Browse Current Templates</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+// PROGRESS BAR
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+// HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300);
+  document.body.style.overflow = '';
+}));
+
+// TIER CARD SELECTION
+document.querySelectorAll('.tier-card input[type="radio"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+    radio.closest('.tier-card').classList.add('selected');
+  });
+});
+// Set initial selected state
+document.querySelector('.tier-card input[type="radio"]:checked')?.closest('.tier-card').classList.add('selected');
+
+// FORM SUBMIT
+const form = document.getElementById('request-form');
+const formWrap = document.getElementById('form-wrap');
+const successState = document.getElementById('success-state');
+const submitBtn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      formWrap.style.display = 'none';
+      successState.style.display = 'flex';
+      window.scrollTo({ top: formWrap.offsetTop - 100, behavior: 'smooth' });
+    } else {
+      throw new Error();
+    }
+  } catch {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Request →';
+    submitBtn.style.background = 'rgba(255,80,80,0.8)';
+    submitBtn.textContent = 'Something went wrong — try again';
+    setTimeout(() => {
+      submitBtn.style.background = '';
+      submitBtn.textContent = 'Submit Request →';
+    }, 3000);
+  }
+});
+
+// REVEAL
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) el.classList.add('visible');
+  }, { threshold: 0.08 }).observe(el);
+});
+</script>
+</body>
+</html>
