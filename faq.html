@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+
+/* NAV */
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:center;padding:140px 48px 100px;position:relative;overflow:hidden;background:var(--dark);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 30% 50%,black 20%,transparent 80%);pointer-events:none;}
+.hero-glow{position:absolute;top:20%;left:0;width:700px;height:600px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
+.hero-glow-right{position:absolute;top:10%;right:-100px;width:500px;height:500px;background:radial-gradient(ellipse,rgba(100,60,180,0.04) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp 0.8s 0.1s ease both;}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.6;}
+.hero-eyebrow span{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,80px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:28px;animation:fadeUp 0.8s 0.2s ease both;}
+.hero h1 em{font-style:italic;color:var(--gold-light);display:block;}
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:440px;margin-bottom:40px;animation:fadeUp 0.8s 0.3s ease both;}
+.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp 0.8s 0.4s ease both;}
+.hero-right{display:flex;justify-content:center;align-items:center;animation:fadeUp 0.8s 0.4s ease both;}
+
+/* HERO CARD */
+.faq-hero-card{background:var(--dark-2);border:1px solid var(--dark-border);padding:44px 40px;position:relative;overflow:hidden;max-width:380px;width:100%;}
+.faq-hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.faq-hero-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.faq-hero-items{display:flex;flex-direction:column;gap:1px;background:var(--dark-border);margin-bottom:28px;}
+.faq-hero-item{background:var(--dark-3);padding:14px 18px;display:flex;align-items:center;gap:12px;transition:background 0.2s;}
+.faq-hero-item:hover{background:rgba(201,168,76,0.05);}
+.faq-hero-num{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(201,168,76,0.4);font-weight:400;letter-spacing:1px;flex-shrink:0;width:24px;}
+.faq-hero-label{font-size:12px;font-weight:300;color:rgba(255,255,255,0.6);}
+.faq-hero-divider{height:1px;background:var(--dark-border);margin-bottom:20px;}
+.faq-hero-note{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.4);line-height:1.6;}
+.faq-hero-note span{color:var(--gold-light);}
+.faq-hero-glow{position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+/* CATEGORY NAV */
+.cat-nav{background:var(--dark-2);border-bottom:1px solid var(--dark-border);padding:0 48px;position:sticky;top:61px;z-index:50;}
+.cat-nav-inner{max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;}
+.cat-nav-inner::-webkit-scrollbar{display:none;}
+.cat-btn{font-size:12px;font-weight:400;color:var(--text-muted);padding:18px 22px;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;letter-spacing:0.3px;}
+.cat-btn:hover{color:var(--white);}
+.cat-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* FAQ MAIN */
+.faq-main{padding:0 48px 120px;background:var(--dark);}
+.faq-main-inner{max-width:1100px;margin:0 auto;}
+.faq-category{padding:80px 0 0;}
+
+/* CATEGORY BAND */
+.faq-cat-band{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:56px 64px;background:var(--section-dark);border:1px solid var(--dark-border);position:relative;overflow:hidden;}
+.faq-cat-band::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),transparent);}
+.faq-cat-band-glow{position:absolute;right:-80px;top:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(201,168,76,0.04),transparent 70%);pointer-events:none;}
+.faq-cat-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.faq-cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,52px);font-weight:300;color:var(--white);line-height:1.0;letter-spacing:-1px;}
+.faq-cat-title em{font-style:italic;color:var(--gold-light);}
+.faq-cat-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.85;}
+
+/* ACCORDION */
+.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--dark-border);}
+.faq-item{background:var(--dark-2);transition:background 0.2s;position:relative;}
+.faq-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold-light));transform:scaleY(0);transition:transform 0.3s;transform-origin:top;}
+.faq-item.open{background:var(--dark-3);}
+.faq-item.open::before{transform:scaleY(1);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px 36px;cursor:pointer;user-select:none;}
+.faq-q-text{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--white);line-height:1.2;transition:color 0.2s;}
+.faq-item.open .faq-q-text{color:var(--gold-light);}
+.faq-toggle{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
+.faq-toggle svg{width:10px;height:10px;stroke:var(--text-muted);transition:transform 0.3s,stroke 0.2s;}
+.faq-item.open .faq-toggle{border-color:rgba(201,168,76,0.4);background:var(--gold-dim);}
+.faq-item.open .faq-toggle svg{transform:rotate(45deg);stroke:var(--gold);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 36px;}
+.faq-item.open .faq-a{max-height:500px;padding:0 36px 28px;}
+.faq-a-inner{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.9;border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;max-width:720px;}
+.faq-a-inner strong{color:rgba(255,255,255,0.78);font-weight:400;}
+.faq-a-inner a{color:var(--gold);text-decoration:none;}
+.faq-a-inner a:hover{color:var(--gold-light);}
+.faq-cat-divider{height:1px;background:linear-gradient(90deg,transparent,var(--dark-border),transparent);}
+
+/* CONTACT BAND */
+.faq-contact{margin-top:80px;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--dark-border);overflow:hidden;position:relative;}
+.faq-contact-left{padding:64px 56px;background:var(--dark-2);position:relative;overflow:hidden;}
+.faq-contact-left::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.faq-contact-glow{position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);pointer-events:none;}
+.faq-contact-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.faq-contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3vw,48px);font-weight:300;color:var(--white);line-height:1.05;margin-bottom:16px;letter-spacing:-1px;}
+.faq-contact-title em{font-style:italic;color:var(--gold-light);}
+.faq-contact-sub{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:380px;}
+.faq-contact-sub a{color:var(--gold);text-decoration:none;}
+.faq-contact-right{padding:64px 56px;background:var(--section-dark);display:flex;flex-direction:column;justify-content:center;gap:16px;border-left:1px solid var(--dark-border);}
+.contact-method{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid rgba(255,255,255,0.06);background:var(--dark-2);transition:border-color 0.2s,background 0.2s;text-decoration:none;}
+.contact-method:hover{border-color:rgba(201,168,76,0.25);background:rgba(201,168,76,0.03);}
+.contact-method-icon{width:36px;height:36px;border-radius:8px;background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.contact-method-label{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.contact-method-val{font-size:13px;font-weight:300;color:rgba(255,255,255,0.7);}
+.contact-cta-row{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+
+/* BUTTONS */
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;text-align:center;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:14px 24px;text-decoration:none;transition:color 0.2s;border:1px solid rgba(255,255,255,0.08);text-align:center;}
+.btn-outline:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+
+/* BOTTOM CTA */
+.bottom-cta{padding:120px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);text-align:center;position:relative;overflow:hidden;}
+.bottom-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+.bottom-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.bottom-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px;}
+.bottom-cta h2 em{font-style:italic;color:var(--gold-light);}
+.bottom-cta p{font-size:15px;font-weight:300;color:var(--text-muted);margin-bottom:40px;line-height:1.8;}
+.section-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.section-eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.5;}
+.section-eyebrow span{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:110px 20px 72px;min-height:auto;}
+  .hero-inner{grid-template-columns:1fr;gap:48px;}
+  .hero-cta-row{flex-direction:column;}
+  .hero-cta-row a{text-align:center;}
+  .cat-nav{padding:0 20px;top:57px;}
+  .cat-btn{padding:16px 14px;font-size:11px;}
+  .faq-main{padding:0 20px 80px;}
+  .faq-category{padding:56px 0 0;}
+  .faq-cat-band{grid-template-columns:1fr;gap:20px;padding:36px 28px;}
+  .faq-q{padding:20px 20px;}
+  .faq-q-text{font-size:18px;}
+  .faq-a{padding:0 20px;}
+  .faq-item.open .faq-a{padding:0 20px 22px;}
+  .faq-contact{grid-template-columns:1fr;}
+  .faq-contact-left,.faq-contact-right{padding:40px 28px;}
+  .faq-contact-right{border-left:none;border-top:1px solid var(--dark-border);}
+  .bottom-cta{padding:80px 20px;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#C9A84C"/>
+        <path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html" class="active">FAQ</a></li>
+    <li><a href="request.html" class="nav-request">Request a Template</a></li>
+  </ul>
+  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-right"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Got Questions?</span>
+      </div>
+      <h1>Plain answers.<br>No runaround.<br><em>Just the truth.</em></h1>
+      <p class="hero-sub">We've compiled every question we hear from small business owners thinking about getting online. If you don't find what you need, reach out — we're a real team and we actually respond.</p>
+      <div class="hero-cta-row">
+        <a href="templates.html" class="btn-gold">Browse Templates</a>
+        <a href="mailto:hello@siteafi.com" class="btn-outline">Email Us Directly →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="faq-hero-card">
+        <div class="faq-hero-card-eyebrow">What We Cover</div>
+        <div class="faq-hero-items">
+          <div class="faq-hero-item"><div class="faq-hero-num">01</div><div class="faq-hero-label">About Siteafi</div></div>
+          <div class="faq-hero-item"><div class="faq-hero-num">02</div><div class="faq-hero-label">Static Websites</div></div>
+          <div class="faq-hero-item"><div class="faq-hero-num">03</div><div class="faq-hero-label">Templates & Customization</div></div>
+          <div class="faq-hero-item"><div class="faq-hero-num">04</div><div class="faq-hero-label">Hosting & Going Live</div></div>
+          <div class="faq-hero-item"><div class="faq-hero-num">05</div><div class="faq-hero-label">Pricing & Ownership</div></div>
+          <div class="faq-hero-item"><div class="faq-hero-num">06</div><div class="faq-hero-label">Support & Add-ons</div></div>
+        </div>
+        <div class="faq-hero-divider"></div>
+        <div class="faq-hero-note">"If we don't answer it here, <span>email us and we will.</span>"</div>
+        <div class="faq-hero-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY NAV -->
+<div class="cat-nav">
+  <div class="cat-nav-inner">
+    <button class="cat-btn active" data-target="about">About Siteafi</button>
+    <button class="cat-btn" data-target="static">Static Websites</button>
+    <button class="cat-btn" data-target="templates">Templates</button>
+    <button class="cat-btn" data-target="hosting">Hosting & Going Live</button>
+    <button class="cat-btn" data-target="pricing">Pricing & Ownership</button>
+    <button class="cat-btn" data-target="support">Support & Add-ons</button>
+  </div>
+</div>
+
+<!-- FAQ CONTENT -->
+<main class="faq-main">
+  <div class="faq-main-inner">
+
+    <!-- ABOUT -->
+    <div class="faq-category" id="cat-about">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 01</div><div class="faq-cat-title">About<br><em>Siteafi.</em></div></div>
+        <div class="faq-cat-desc">Who we are, why we exist, and what makes Siteafi different from an agency, a freelancer, or a page builder platform.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What is Siteafi?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Siteafi is a Texas-based, veteran-owned small business that sells premium website templates for small business owners. We design beautiful, professional static website templates that you purchase once, customize yourself, and host completely free — no monthly fees, no agencies, no lock-in. Our goal is simple: give every small business an affordable path to looking professional online.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Why do you sell templates instead of building websites for people?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Because we believe you shouldn't have to pay someone thousands of dollars just to have a presence online — and you shouldn't have to keep paying monthly just to stay there. Custom agency builds are expensive, slow, and leave you dependent on someone else forever. Our templates put the power back in your hands. <strong>You own the files. You control the site. Nobody can change the price on you or hold your content hostage.</strong> We'd rather help a hundred business owners launch independently than build one site for one client.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Can I request a custom template?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — use the <strong>Request a Template</strong> button at the top of any page to submit your idea. Tell us your industry, what kind of site you need, and any design preferences. We review every request and prioritize the most-requested industries when building new templates. There's no guaranteed turnaround time, but we read every submission.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cat-divider"></div>
+
+    <!-- STATIC -->
+    <div class="faq-category" id="cat-static">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 02</div><div class="faq-cat-title">Static<br><em>Websites.</em></div></div>
+        <div class="faq-cat-desc">What a static website actually is, how it differs from platforms like Wix or Squarespace, and whether it's the right fit for your business.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What is a static website?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">A static website is built with plain HTML, CSS, and JavaScript files — the same files your browser already knows how to read. When someone visits your site, the server sends those files directly with no database queries or server-side processing in between. The result is a site that loads <strong>extremely fast, costs nothing to host, and is highly secure</strong> because there's no backend to hack. For most small business websites — a salon, a contractor, a local service — a static site does everything you need.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What's the difference between a static site and Wix or Squarespace?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Wix and Squarespace are platforms — you rent space on their system and build inside their editor. That means <strong>monthly fees forever, no access to your actual files, and no ability to leave without losing everything.</strong> A Siteafi static site is different: you get the raw files, you own them outright, and you host them yourself for free. There's no subscription, no platform dependency, and nothing stopping you from moving your site anywhere at any time.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Is a static website right for my business?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">If your goal is to have a professional online presence — showcase your services, build credibility, let customers find and contact you — then yes, a static site is a great fit. Static sites are not ideal if you need a full e-commerce store with a cart and checkout, a blog with a CMS, or a complex web app. But for the vast majority of local and small service businesses, <strong>a static site does exactly what you need at a fraction of the cost.</strong></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cat-divider"></div>
+
+    <!-- TEMPLATES -->
+    <div class="faq-category" id="cat-templates">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 03</div><div class="faq-cat-title">Templates &<br><em>Customization.</em></div></div>
+        <div class="faq-cat-desc">What's included in every template purchase, how much you can customize, and what you need — or don't need — to make it your own.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What do I get when I purchase a template?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">You get instant access to a zip file containing all the HTML, CSS, and JavaScript files that make up your website. Everything is clean, organized, and ready to customize. Open any file in a text editor, swap in your business name, contact info, photos, and copy — and your site is ready to go live. <strong>No subscription required. No account to maintain. The files are yours forever.</strong></div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Do I need to know how to code?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Not at all. Our templates are built so that all you need to do is find the text you want to change and replace it with your own. It's a lot like editing a Word document — just in a slightly different file format. If you can copy and paste, you can customize a Siteafi template. For anything beyond the basics, our add-on setup guides walk you through every step in plain, beginner-friendly language.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Can I customize the template to match my brand?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — completely. You can change your business name, logo, colors, fonts, photos, page copy, and more. Because you have the raw files, there are no restrictions on what you can modify. If you know a little CSS, you can change the entire look. If you don't, the templates are designed to look great out of the box with just your content swapped in.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Can I use one template for multiple businesses?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Each template purchase covers a single website. If you're building sites for multiple businesses — whether your own or for clients — you'll need a separate purchase for each one. This keeps things fair and helps us keep building. If you're looking to use our templates commercially or at scale, reach out at <a href="mailto:hello@siteafi.com">hello@siteafi.com</a> and we can talk through options.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cat-divider"></div>
+
+    <!-- HOSTING -->
+    <div class="faq-category" id="cat-hosting">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 04</div><div class="faq-cat-title">Hosting &<br><em>Going Live.</em></div></div>
+        <div class="faq-cat-desc">How free hosting works, what GitHub Pages and Cloudflare Pages actually are, and how to connect your own custom domain name.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">How do I host my site for free?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">You upload your template files to a free GitHub repository, then connect that repository to either GitHub Pages or Cloudflare Pages. Both services host static sites at no cost. Your site goes live on a real URL within minutes. Our Complete Setup Guide add-on walks you through this process from start to finish — even if you've never used GitHub before.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What are GitHub Pages and Cloudflare Pages?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner"><strong>GitHub Pages</strong> is a free hosting service from GitHub (owned by Microsoft) that serves static websites directly from a repository. <strong>Cloudflare Pages</strong> is a similar service from Cloudflare — one of the world's largest internet infrastructure companies — that hosts static sites for free with fast global delivery. Both are battle-tested and used by millions of sites worldwide.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Can I use my own domain name?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Once your site is live, you can connect any custom domain you own — like <strong>yourbusiness.com</strong> — so visitors see your real URL. Our Domain Connection Guide add-on covers exactly how to buy a domain and point it to your site, step by step, with no assumed technical knowledge required.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cat-divider"></div>
+
+    <!-- PRICING -->
+    <div class="faq-category" id="cat-pricing">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 05</div><div class="faq-cat-title">Pricing &<br><em>Ownership.</em></div></div>
+        <div class="faq-cat-desc">The real cost breakdown, what you actually own after purchase, and what happens to your site if Siteafi ever goes away.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Are there any monthly fees after I buy?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">No. You pay once for the template and that's it. Hosting is free through GitHub Pages or Cloudflare Pages. The only ongoing cost you'll ever have is your domain name — typically $10–$15 per year — and that's optional. <strong>There are no Siteafi subscriptions, no platform fees, and no surprise charges.</strong></div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Do I actually own the files?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — completely. When you purchase a template, you download the actual files to your computer. They live on your machine, in your GitHub repository, and on your hosting. Siteafi has no access to your site and no ability to take it down, change it, or charge you to keep it running. <strong>Your website is yours. Full stop.</strong></div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What happens if Siteafi shuts down one day?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Nothing happens to your site. Because you own the files and host them independently, Siteafi's existence has no bearing on your website staying online. This is one of the core reasons we build static sites this way — your business doesn't depend on us. Unlike Wix or Squarespace, if we disappeared tomorrow, your site would keep running exactly as-is with zero disruption.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cat-divider"></div>
+
+    <!-- SUPPORT -->
+    <div class="faq-category" id="cat-support">
+      <div class="faq-cat-band reveal">
+        <div><div class="faq-cat-eyebrow">Section 06</div><div class="faq-cat-title">Support &<br><em>Add-ons.</em></div></div>
+        <div class="faq-cat-desc">What to do if you get stuck, what the add-on guides cover, and how to reach a real person when you need one.</div>
+        <div class="faq-cat-band-glow"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What if I get stuck during setup?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Our add-on guides are written specifically to prevent that — they cover every step from unzipping your files to going live, in plain language with no assumed technical knowledge. If you're still stuck after working through the guide, reach out at <a href="mailto:hello@siteafi.com">hello@siteafi.com</a>. We're a small team and we respond personally. We want your site to get launched.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">What are the add-on guides?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Add-ons are optional written guides sold separately that walk you through specific parts of the process. Current add-ons include a <strong>Complete Setup Guide</strong>, a <strong>Domain Connection Guide</strong>, a <strong>Contact Form Setup Guide</strong>, and a <strong>Google Analytics Guide</strong>. All guides are written specifically for Siteafi templates — not generic advice. Browse them on the <a href="addons.html">Add-ons page</a>.</div></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q"><span class="faq-q-text">Do add-ons work with all templates?</span><div class="faq-toggle"><svg viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke-width="1.5" stroke-linecap="round"/></svg></div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Our add-on guides are written to work with any Siteafi template — Standard or Premium. The setup process is the same regardless of which template you purchased, so you only need to buy a guide once and it applies across all of our templates.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="faq-contact reveal">
+      <div class="faq-contact-left">
+        <div class="faq-contact-glow"></div>
+        <div class="faq-contact-eyebrow">Still have questions?</div>
+        <div class="faq-contact-title">We're a real team.<br><em>We actually respond.</em></div>
+        <p class="faq-contact-sub">No bots, no ticket queues, no runaround. Send a message to <a href="mailto:hello@siteafi.com">hello@siteafi.com</a> and you'll hear back from an actual person — usually same day.</p>
+      </div>
+      <div class="faq-contact-right">
+        <a href="mailto:hello@siteafi.com" class="contact-method">
+          <div class="contact-method-icon">✉</div>
+          <div><div class="contact-method-label">General Inquiries</div><div class="contact-method-val">hello@siteafi.com</div></div>
+        </a>
+        <a href="mailto:contact@siteafi.com" class="contact-method">
+          <div class="contact-method-icon">◈</div>
+          <div><div class="contact-method-label">Contact</div><div class="contact-method-val">contact@siteafi.com</div></div>
+        </a>
+        <div class="contact-cta-row">
+          <a href="templates.html" class="btn-gold">Browse Templates</a>
+          <a href="process.html" class="btn-outline">See How It Works →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta reveal">
+  <div class="bottom-cta-glow"></div>
+  <div class="bottom-cta-inner">
+    <div class="section-eyebrow" style="justify-content:center;margin-bottom:20px;">
+      <div class="section-eyebrow-line"></div>
+      <span>Ready to get started?</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <h2>Your business,<br><em>beautifully online.</em></h2>
+    <p>Browse our full collection of premium templates. Find yours, customize it, and launch — no agency required.</p>
+    <a href="templates.html" class="btn-gold">Browse All Templates</a>
+    <a href="process.html" class="btn-outline">See How It Works →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300);
+  document.body.style.overflow = '';
+}));
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+const catBtns = document.querySelectorAll('.cat-btn');
+catBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    catBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('cat-' + btn.dataset.target);
+    if (target) {
+      const offset = target.getBoundingClientRect().top + window.scrollY - 130;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+  });
+});
+const categories = document.querySelectorAll('.faq-category');
+const catObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id.replace('cat-', '');
+      catBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+    }
+  });
+}, { rootMargin: '-25% 0px -65% 0px' });
+categories.forEach(c => catObserver.observe(c));
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) el.classList.add('visible');
+  }, { threshold: 0.08 }).observe(el);
+});
+</script>
+</body>
+</html>
