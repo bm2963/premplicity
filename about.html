@@ -926,4 +926,9 @@ new IntersectionObserver(entries => entries.forEach(e => {
     });
   }
 }), { threshold: 0.3 }).observe(document.querySelector('.stats'));
-document.querySelectorAll('.reveal, .reveal-left, .r
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) { el.classList.add('visible'); }
+  }, { threshold: 0.12 }).observe(el);
+});
+</script>
