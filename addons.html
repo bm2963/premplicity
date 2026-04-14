@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add-ons — Siteafi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --dark:#0F0F12;
+  --dark-2:#161619;
+  --dark-3:#1E1E24;
+  --dark-border:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --gold-light:#E2C068;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.45);
+  --section-dark:#13131A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+#progress-bar{position:fixed;top:0;left:0;z-index:200;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.1s linear;}
+
+/* NAV */
+.logo-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;flex-shrink:0;}
+.logo-icon svg{width:100%;height:100%;}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:0.5px;}
+.logo-text span{color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(15,15,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--dark-border);}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;flex:1;justify-content:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;transition:color 0.2s;white-space:nowrap;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--gold);}
+.nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
+.nav-request::after{display:none !important;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
+.nav-cta::after{display:none !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,15,18,0.98);backdrop-filter:blur(24px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold-light);}
+.mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* PAGE HERO */
+.page-hero{padding:140px 48px 80px;position:relative;overflow:hidden;background:var(--dark);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 20%,transparent 80%);pointer-events:none;}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,rgba(100,60,180,0.05) 50%,transparent 70%);pointer-events:none;}
+.page-hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto;}
+.page-hero-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.page-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px;animation:fadeUp 0.8s 0.1s ease both;}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.6;}
+.page-eyebrow span{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,80px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:24px;animation:fadeUp 0.8s 0.2s ease both;}
+.page-hero h1 em{font-style:italic;color:var(--gold-light);display:block;}
+.page-hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;animation:fadeUp 0.8s 0.3s ease both;}
+
+/* HERO RIGHT — VALUE CARD */
+.hero-value-card{background:var(--dark-2);border:1px solid var(--dark-border);padding:36px 32px;position:relative;overflow:hidden;animation:fadeUp 0.8s 0.3s ease both;}
+.hero-value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.hero-value-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.value-rows{display:flex;flex-direction:column;gap:1px;background:var(--dark-border);}
+.value-row{background:var(--dark-3);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.value-row-label{font-size:12px;font-weight:300;color:var(--text-muted);}
+.value-row-val{font-size:12px;font-weight:500;color:var(--gold);}
+.value-row-val.strike{color:rgba(255,80,80,0.5);text-decoration:line-through;font-weight:300;}
+.hero-value-glow{position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+/* BUNDLE BANNER */
+.bundle-banner{background:var(--section-dark);border-top:1px solid var(--dark-border);border-bottom:1px solid var(--dark-border);padding:0 48px;}
+.bundle-banner-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dark-border);}
+.bundle-card{background:var(--section-dark);padding:36px 40px;position:relative;overflow:hidden;transition:background 0.2s;}
+.bundle-card:hover{background:var(--dark-2);}
+.bundle-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
+.bundle-card:hover::before{opacity:1;}
+.bundle-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.bundle-card-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);margin-bottom:6px;line-height:1;}
+.bundle-card-includes{font-size:12px;font-weight:300;color:var(--text-muted);margin-bottom:16px;line-height:1.7;}
+.bundle-card-includes strong{color:rgba(255,255,255,0.6);font-weight:400;}
+.bundle-pricing{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;}
+.bundle-price{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--gold-light);}
+.bundle-was{font-size:13px;color:rgba(255,255,255,0.25);text-decoration:line-through;font-weight:300;}
+.bundle-save{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);padding:3px 8px;}
+.bundle-glow{position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.04),transparent 70%);pointer-events:none;}
+
+/* ADDON GRID */
+.addons-section{padding:80px 48px 120px;background:var(--dark);}
+.addons-section-inner{max-width:900px;margin:0 auto;}
+.addons-section-header{margin-bottom:48px;}
+.section-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.section-eyebrow-line{width:32px;height:1px;background:var(--gold);opacity:0.5;}
+.section-eyebrow span{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);line-height:1.05;letter-spacing:-1px;}
+.section-title em{font-style:italic;color:var(--gold-light);}
+
+.addons-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dark-border);}
+
+/* ADDON CARD */
+.addon-card{
+  background:var(--dark-2);
+  padding:40px 36px;
+  position:relative;
+  overflow:hidden;
+  transition:background 0.3s;
+  display:flex;
+  flex-direction:column;
+}
+.addon-card:hover{background:var(--dark-3);}
+.addon-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),transparent);transform:scaleY(0);transition:transform 0.3s;transform-origin:top;}
+.addon-card:hover::before{transform:scaleY(1);}
+.addon-card-glow{position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.04),transparent 70%);pointer-events:none;}
+
+/* PRIORITY TAG */
+.addon-tag-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.addon-num{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(201,168,76,0.35);letter-spacing:1px;}
+.priority-tag{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px;}
+.tag-essential{color:#4ade80;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);}
+.tag-highly-recommended{color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);}
+.tag-recommended{color:rgba(147,197,253,1);background:rgba(147,197,253,0.08);border:1px solid rgba(147,197,253,0.2);}
+.tag-nice-to-have{color:var(--text-muted);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
+
+.addon-card-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.1;transition:color 0.2s;}
+.addon-card:hover .addon-card-title{color:var(--gold-light);}
+.addon-card-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;flex:1;margin-bottom:24px;}
+.addon-card-desc strong{color:rgba(255,255,255,0.65);font-weight:400;}
+
+.addon-card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
+.addon-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--gold-light);line-height:1;}
+.addon-type{font-size:10px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+.btn-buy{
+  display:inline-block;
+  background:var(--gold);color:var(--dark);
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:10px 20px;text-decoration:none;
+  transition:all 0.2s;border:none;cursor:pointer;
+  white-space:nowrap;
+}
+.btn-buy:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-buy-outline{
+  display:inline-block;
+  background:transparent;color:var(--gold);
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:10px 20px;text-decoration:none;
+  transition:all 0.2s;
+  border:1px solid rgba(201,168,76,0.3);
+  white-space:nowrap;
+}
+.btn-buy-outline:hover{background:var(--gold-dim);border-color:var(--gold);}
+
+/* BUTTONS */
+.btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;text-align:center;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:14px 24px;text-decoration:none;transition:color 0.2s;border:1px solid rgba(255,255,255,0.08);text-align:center;}
+.btn-outline:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+
+/* BOTTOM CTA */
+.bottom-cta{padding:120px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);text-align:center;position:relative;overflow:hidden;}
+.bottom-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;}
+.bottom-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.bottom-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px;}
+.bottom-cta h2 em{font-style:italic;color:var(--gold-light);}
+.bottom-cta p{font-size:15px;font-weight:300;color:var(--text-muted);margin-bottom:40px;line-height:1.8;}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);}
+.footer-logo-text span{color:var(--gold);}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .page-hero{padding:110px 20px 60px;}
+  .page-hero-header{grid-template-columns:1fr;gap:40px;}
+  .bundle-banner{padding:0 20px;}
+  .bundle-banner-inner{grid-template-columns:1fr;}
+  .bundle-card{padding:28px 24px;}
+  .addons-section{padding:56px 20px 80px;}
+  .addons-grid{grid-template-columns:1fr;}
+  .addon-card{padding:32px 24px;}
+  .bottom-cta{padding:80px 20px;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-mark">
+    <div class="logo-icon">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/>
+        <path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="#C9A84C"/>
+        <path d="M14 7 L14 4M21 14 L24 14M14 21 L14 24M7 14 L4 14" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="logo-text">Site<span>afi</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html" class="active">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="request.html" class="nav-request">Request a Template</a></li>
+  </ul>
+  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="templates.html">Templates</a>
+  <a href="addons.html">Add-ons</a>
+  <a href="process.html">The Process</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="request.html" class="mob-req">Request a Template</a>
+  <a href="templates.html" class="mob-cta">Browse Templates</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-header">
+      <div>
+        <div class="page-eyebrow">
+          <div class="eyebrow-line"></div>
+          <span>Written Guides</span>
+        </div>
+        <h1>Everything you need<br>to <em>launch right.</em></h1>
+        <p class="page-hero-sub">Our templates are built to be self-serve. But if you want a hand with the details — hosting, domains, SEO, analytics — our add-on guides walk you through every step in plain language. No technical experience required.</p>
+      </div>
+      <div class="hero-value-card">
+        <div class="hero-value-card-eyebrow">Why Add-ons Exist</div>
+        <div class="value-rows">
+          <div class="value-row">
+            <div class="value-row-label">Hire someone to do it</div>
+            <div class="value-row-val strike">$500 – $2,000+</div>
+          </div>
+          <div class="value-row">
+            <div class="value-row-label">Figure it out yourself</div>
+            <div class="value-row-val strike">Hours of frustration</div>
+          </div>
+          <div class="value-row">
+            <div class="value-row-label">Siteafi Add-on Guide</div>
+            <div class="value-row-val">$12.99 – $29.99</div>
+          </div>
+          <div class="value-row" style="background:rgba(201,168,76,0.04);">
+            <div class="value-row-label" style="color:rgba(255,255,255,0.7);">All 7 guides (Full Bundle)</div>
+            <div class="value-row-val">$124.99</div>
+          </div>
+        </div>
+        <div class="hero-value-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE BANNER -->
+<div class="bundle-banner">
+  <div class="bundle-banner-inner">
+
+    <div class="bundle-card reveal">
+      <div class="bundle-glow"></div>
+      <div class="bundle-card-eyebrow">Bundle 01 · Starter</div>
+      <div class="bundle-card-name">Starter Bundle</div>
+      <p class="bundle-card-includes">Includes: <strong>Complete Setup Guide</strong> + <strong>Domain Connection Guide</strong> + <strong>Contact Form Setup Guide</strong> — everything you need to go from template to live site.</p>
+      <div class="bundle-pricing">
+        <div class="bundle-price">$44.99</div>
+        <div class="bundle-was">$59.97</div>
+        <div class="bundle-save">Save $15</div>
+      </div>
+      <a href="#" class="btn-buy">Get Starter Bundle</a>
+    </div>
+
+    <div class="bundle-card reveal reveal-delay-1">
+      <div class="bundle-glow"></div>
+      <div class="bundle-card-eyebrow">Bundle 02 · Complete</div>
+      <div class="bundle-card-name">Full Launch Bundle</div>
+      <p class="bundle-card-includes">Includes: <strong>All 7 add-on guides</strong> — the complete toolkit for launching, getting found on Google, and growing your online presence from day one.</p>
+      <div class="bundle-pricing">
+        <div class="bundle-price">$124.99</div>
+        <div class="bundle-was">$152.93</div>
+        <div class="bundle-save">Save $28</div>
+      </div>
+      <a href="#" class="btn-buy">Get Full Bundle</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADDON GRID -->
+<section class="addons-section">
+  <div class="addons-section-inner">
+    <div class="addons-section-header reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span>Individual Guides</span>
+      </div>
+      <h2 class="section-title">Pick what you<br><em>need most.</em></h2>
+    </div>
+
+    <div class="addons-grid">
+
+      <!-- 01 COMPLETE SETUP -->
+      <div class="addon-card reveal">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 01</div>
+          <div class="priority-tag tag-essential">Essential</div>
+        </div>
+        <div class="addon-card-title">Complete Setup Guide</div>
+        <p class="addon-card-desc">A step-by-step written guide covering the entire process from start to finish. Covers unzipping and organizing your template files, opening and editing them in a free text editor, replacing placeholder content with your own, uploading your files to GitHub, deploying to Cloudflare Pages or GitHub Pages, adding a working contact form via Formspree, and verifying your site is live. <strong>Written for complete beginners — no technical experience assumed.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$29.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 02 DOMAIN -->
+      <div class="addon-card reveal reveal-delay-1">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 02</div>
+          <div class="priority-tag tag-essential">Essential</div>
+        </div>
+        <div class="addon-card-title">Domain Connection Guide</div>
+        <p class="addon-card-desc">A dedicated guide for purchasing a custom domain and connecting it to your free hosting. Covers choosing and buying a domain from a registrar like Namecheap or Google Domains, understanding DNS settings, pointing your domain to GitHub Pages or Cloudflare Pages, and what to expect during propagation. <strong>Takes your site from a default URL to yourbusiness.com.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$14.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 03 SEO -->
+      <div class="addon-card reveal">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 03</div>
+          <div class="priority-tag tag-highly-recommended">Highly Recommended</div>
+        </div>
+        <div class="addon-card-title">SEO Basics Guide</div>
+        <p class="addon-card-desc">A plain-language guide to helping your site show up on Google. Covers what meta titles and descriptions are and how to write them, setting up Google Search Console, submitting your sitemap, and basic on-page SEO practices for static sites. <strong>Everything covered uses free tools — no plugins or paid services required.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$24.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 04 GOOGLE BUSINESS -->
+      <div class="addon-card reveal reveal-delay-1">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 04</div>
+          <div class="priority-tag tag-highly-recommended">Highly Recommended</div>
+        </div>
+        <div class="addon-card-title">Google Business Profile Guide</div>
+        <p class="addon-card-desc">A complete walkthrough for setting up and optimizing your Google Business Profile — the listing that shows your business on Google Maps and in local search results. Covers creating or claiming your profile, filling out every section correctly, adding photos, linking your website, and best practices for getting found by local customers. <strong>One of the highest-impact things a local business can do.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$24.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 05 ANALYTICS -->
+      <div class="addon-card reveal">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 05</div>
+          <div class="priority-tag tag-recommended">Recommended</div>
+        </div>
+        <div class="addon-card-title">Google Analytics Guide</div>
+        <p class="addon-card-desc">A beginner-friendly guide to adding visitor tracking to your Siteafi template using Google Analytics 4. Covers creating a free GA4 account, finding your tracking ID, adding it to your template, verifying it's working, and a plain-language walkthrough of the key reports. <strong>So you actually understand who's visiting your site and how they're finding you.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$14.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 06 WHATSAPP -->
+      <div class="addon-card reveal reveal-delay-1">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 06</div>
+          <div class="priority-tag tag-recommended">Recommended</div>
+        </div>
+        <div class="addon-card-title">WhatsApp & Click-to-Call Guide</div>
+        <p class="addon-card-desc">A guide to adding a floating WhatsApp button and a click-to-call link to your Siteafi template — two features that make it significantly easier for mobile visitors to reach you instantly. Covers generating your WhatsApp link, adding and styling the floating button, and adding a click-to-call link to your phone number. <strong>No third-party apps or subscriptions required.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$12.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- 07 SOCIAL -->
+      <div class="addon-card reveal">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 07</div>
+          <div class="priority-tag tag-nice-to-have">Nice to Have</div>
+        </div>
+        <div class="addon-card-title">Social Media Link Integration Guide</div>
+        <p class="addon-card-desc">A guide to cleanly connecting your social media profiles to your Siteafi template. Covers adding icon links for Instagram, Facebook, TikTok, and other platforms, where to place them for maximum visibility, how to use free icon libraries, and best practices for keeping social links from pulling visitors away from your site too early. <strong>Clean, professional, and takes under an hour to implement.</strong></p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price">$12.99</div>
+            <div class="addon-type">Written Guide · One-time purchase</div>
+          </div>
+          <a href="#" class="btn-buy">Buy Guide</a>
+        </div>
+      </div>
+
+      <!-- COMING SOON PLACEHOLDER -->
+      <div class="addon-card reveal reveal-delay-1" style="opacity:0.5;pointer-events:none;">
+        <div class="addon-card-glow"></div>
+        <div class="addon-tag-row">
+          <div class="addon-num">Guide 08</div>
+          <div class="priority-tag tag-nice-to-have">Coming Soon</div>
+        </div>
+        <div class="addon-card-title">More Guides Coming</div>
+        <p class="addon-card-desc">We're always working on new guides based on what our customers ask for most. Have a topic you'd like to see covered? Reach out at hello@siteafi.com and let us know — your request could become our next add-on.</p>
+        <div class="addon-card-footer">
+          <div>
+            <div class="addon-price" style="color:var(--text-muted);">TBA</div>
+            <div class="addon-type">Written Guide</div>
+          </div>
+          <a href="mailto:hello@siteafi.com" class="btn-buy-outline" style="pointer-events:all;">Suggest a Topic</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta reveal">
+  <div class="bottom-cta-glow"></div>
+  <div class="bottom-cta-inner">
+    <div class="section-eyebrow" style="justify-content:center;margin-bottom:20px;">
+      <div class="section-eyebrow-line"></div>
+      <span>Ready to launch?</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <h2>Get your business<br><em>online today.</em></h2>
+    <p>Browse our premium templates, grab a guide or two, and launch your site — all for less than the cost of one hour with an agency.</p>
+    <a href="templates.html" class="btn-gold">Browse Templates</a>
+    <a href="process.html" class="btn-outline">See How It Works →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 14 L14 7 L21 14 L14 21 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/><circle cx="14" cy="14" r="2.5" fill="#C9A84C"/></svg>
+    <span class="footer-logo-text">Site<span>afi</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="addons.html">Add-ons</a></li>
+    <li><a href="process.html">The Process</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Siteafi</div>
+</footer>
+
+<script>
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300);
+  document.body.style.overflow = '';
+}));
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) el.classList.add('visible');
+  }, { threshold: 0.08 }).observe(el);
+});
+</script>
+</body>
+</html>
