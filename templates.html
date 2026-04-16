@@ -211,17 +211,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 /* CART ICON ON CARD */
 .tcard-cart-btn{
   width:28px;height:28px;border-radius:6px;
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.1);
+  background:var(--gold);
+  border:1px solid var(--gold);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:all 0.2s;flex-shrink:0;
 }
-.tcard-cart-btn:hover{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.08);}
-.tcard-cart-btn svg{width:13px;height:13px;stroke:rgba(255,255,255,0.35);transition:stroke 0.2s;}
-.tcard-cart-btn:hover svg{stroke:var(--gold);}
-.tcard-cart-btn.added{border-color:rgba(74,222,128,0.4);background:rgba(74,222,128,0.08);}
+.tcard-cart-btn:hover{background:var(--gold-light);border-color:var(--gold-light);}
+.tcard-cart-btn svg{width:13px;height:13px;stroke:var(--dark);transition:stroke 0.2s;}
+.tcard-cart-btn:hover svg{stroke:var(--dark);}
+.tcard-cart-btn.added{background:rgba(74,222,128,0.2);border-color:rgba(74,222,128,0.5);}
 .tcard-cart-btn.added svg{stroke:#4ade80;}
-.tcard-cart-btn.in-cart{border-color:rgba(201,168,76,0.35);background:rgba(201,168,76,0.06);}
+.tcard-cart-btn.in-cart{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.4);}
 .tcard-cart-btn.in-cart svg{stroke:var(--gold);}
 
 .empty-state{display:none;grid-column:1/-1;text-align:center;padding:80px 40px;}
