@@ -179,6 +179,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .btn-add-cart.added{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);}
 .btn-view-templates{width:100%;background:transparent;color:var(--text-muted);border:1px solid var(--dark-border);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:13px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;}
 .btn-view-templates:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+.btn-demo-preview{width:100%;background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.3);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:13px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;margin-bottom:10px;}
+.btn-demo-preview:hover{background:var(--gold-dim);border-color:var(--gold);}
 .product-guarantee{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:11px;font-weight:300;color:rgba(255,255,255,0.3);}
 .product-guarantee-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 
@@ -377,9 +379,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
           <div class="product-price" id="p-price"><sup>$</sup>—</div>
           <div class="product-price-note">One-time purchase · No subscription</div>
         </div>
-        <button class="btn-add-cart" id="btn-add-cart" onclick="addTemplateToCart()">
+        <button class="btn-add-cart" id="btn-add-cart" onclick="return addTemplateToCart(event)">
           <span id="cart-btn-text">Add to Cart</span>
         </button>
+        <a href="#" class="btn-demo-preview" id="btn-demo" target="_blank" style="display:none;">Homepage Preview →</a>
         <a href="templates.html" class="btn-view-templates">← Back to All Templates</a>
         <div class="product-guarantee">
           <span class="product-guarantee-dot"></span>
@@ -486,7 +489,7 @@ const TEMPLATES = {
   ivory:   { name:'Ivory',   industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pk', desc:'Warm white and sage salon template. Spa-like calm with a professional polish.', tags:['Clean','Light'], pages:['Home','Services','Contact'] },
   gloss:   { name:'Gloss',   industry:'Salon & Beauty', tier:'standard', price:24.99, palette:'pi', desc:'Vibrant nail studio template with a playful, high-energy dark aesthetic.', tags:['Bold','Dark'], pages:['Home','Services','Contact'] },
   // ── RESTAURANT ──
-  saveur:  { name:'Saveur',  industry:'Restaurant', tier:'premium', price:44.99, palette:'pa', desc:'Rich editorial restaurant template with animated menu reveals and reservation flow.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
+  saveur:  { name:'Saveur',  industry:'Restaurant', tier:'premium', price:44.99, palette:'pa', desc:'Rich editorial restaurant template with animated menu reveals and reservation flow.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'], demo:'/demos/saveur/' },
   ember:   { name:'Ember',   industry:'Restaurant', tier:'premium', price:44.99, palette:'pg', desc:'Warm terracotta and fire tones for a rustic, inviting dining experience.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
   cellar:  { name:'Cellar',  industry:'Restaurant', tier:'premium', price:44.99, palette:'pl', desc:'Deep wine and candlelight aesthetic. Perfect for fine dining and wine bars.', tags:['Animated','Dark'], pages:['Home','Menu','About','Reservations','Contact'] },
   harvest: { name:'Harvest', industry:'Restaurant', tier:'premium', price:44.99, palette:'pc', desc:'Farm-to-table warmth in a light, editorial layout with staggered scroll reveals.', tags:['Animated','Light'], pages:['Home','Menu','About','Reservations','Contact'] },
@@ -639,10 +642,13 @@ function closeCart() {
 // ═══════════════════════════════════════════
 // ADD TEMPLATE TO CART
 // ═══════════════════════════════════════════
-function addTemplateToCart() {
-  const key = new URLSearchParams(window.location.search).get('t');
+let _currentKey = null; // store key at load time so it doesn't get lost
+
+function addTemplateToCart(e) {
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  const key = _currentKey;
   const t = TEMPLATES[key];
-  if (!t) return;
+  if (!t) return false;
   const btn = document.getElementById('btn-add-cart');
   const btnText = document.getElementById('cart-btn-text');
   const added = addToCart({
@@ -658,6 +664,7 @@ function addTemplateToCart() {
     btn.classList.add('added');
     setTimeout(() => { btnText.textContent = 'Add to Cart'; btn.classList.remove('added'); }, 2500);
   }
+  return false;
 }
 
 function addGuideToCart(id, name, price, btn) {
@@ -684,6 +691,7 @@ const SLIDE_LABELS = ['Hero Section','Services','About','Gallery / Portfolio','C
 function loadProduct() {
   const params = new URLSearchParams(window.location.search);
   const key = (params.get('t') || '').toLowerCase();
+  _currentKey = key; // store for cart use
   const t = TEMPLATES[key];
 
   if (!t) {
@@ -719,6 +727,15 @@ function loadProduct() {
     '<div class="include-item"><span class="include-check">✓</span>LICENSE.txt Included</div>',
   ];
   includesEl.innerHTML = includeItems.join('');
+
+  // Demo button
+  const demoBtn = document.getElementById('btn-demo');
+  if (t.demo) {
+    demoBtn.href = t.demo;
+    demoBtn.style.display = 'block';
+  } else {
+    demoBtn.style.display = 'none';
+  }
 
   // Build slides
   const slides = t.pages.slice(0, 5);

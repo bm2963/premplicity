@@ -61,12 +61,6 @@ body::before{
   transition:background 0.2s;white-space:nowrap;flex-shrink:0;
 }
 .banner-btn:hover{background:#1a1610;}
-.banner-close{
-  position:absolute;right:16px;background:none;border:none;
-  color:var(--black);font-size:18px;cursor:pointer;opacity:0.6;
-  line-height:1;padding:2px;
-}
-.banner-close:hover{opacity:1;}
 
 /* NAV */
 nav{
@@ -691,9 +685,8 @@ footer{
 
 <!-- PURCHASE BANNER -->
 <div class="purchase-banner" id="purchase-banner">
-  <p>You're previewing <strong>Saveur</strong> — Premium Restaurant Template<span>· $44.99</span></p>
-  <a href="../../saveur.html" class="banner-btn">Buy this template</a>
-  <button class="banner-close" id="banner-close">×</button>
+  <p>Homepage Preview — <strong>Saveur</strong> · Premium Restaurant Template<span>· $44.99</span></p>
+  <a href="/product.html?t=saveur" class="banner-btn">View Template Details</a>
 </div>
 
 <!-- NAV -->
@@ -1063,14 +1056,6 @@ footer{
 </footer>
 
 <script>
-// BANNER CLOSE
-document.getElementById('banner-close').addEventListener('click', () => {
-  const banner = document.getElementById('purchase-banner');
-  banner.style.display = 'none';
-  document.getElementById('nav').style.top = '0';
-  document.querySelector('.mobile-menu').style.top = '0';
-});
-
 // NAV SCROLL
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
