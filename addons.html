@@ -38,9 +38,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links a.active{color:var(--gold);}
 .nav-request{font-size:11.5px !important;font-weight:600 !important;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.25) !important;padding:5px 13px !important;border-radius:100px;background:rgba(201,168,76,0.05) !important;}
 .nav-request::after{display:none !important;}
-.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.nav-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.nav-cta{background:var(--gold);color:var(--dark) !important;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;}
 .nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}
 .nav-cta::after{display:none !important;}
+.cart-btn{position:relative;background:transparent;border:1px solid var(--dark-border);width:38px;height:38px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+.cart-btn:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.05);}
+.cart-btn svg{width:16px;height:16px;stroke:var(--text-muted);transition:stroke 0.2s;}
+.cart-btn:hover svg{stroke:var(--gold);}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--dark);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;}
+.cart-count.visible{display:flex;}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:101;background:none;border:none;}
 .hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -52,6 +59,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .mobile-menu a:hover{color:var(--gold-light);}
 .mobile-menu .mob-req{font-family:'DM Sans',sans-serif !important;font-size:13px !important;font-weight:600;color:var(--gold) !important;border:1px solid rgba(201,168,76,0.3);padding:10px 24px;border-radius:100px;background:rgba(201,168,76,0.05);}
 .mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-size:14px !important;font-weight:700;background:var(--gold);color:var(--dark) !important;padding:14px 36px;border-radius:10px;margin-top:4px;}
+
+/* CART DRAWER */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;opacity:0;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--dark-2);z-index:301;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--dark-border);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid var(--dark-border);flex-shrink:0;}
+.cart-drawer-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.cart-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:20px;line-height:1;padding:4px;transition:color 0.2s;font-family:'DM Sans',sans-serif;}
+.cart-close:hover{color:var(--white);}
+.cart-items{flex:1;overflow-y:auto;padding:20px 28px;}
+.cart-items::-webkit-scrollbar{width:4px;}
+.cart-items::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:12px;}
+.cart-empty-icon{font-size:36px;opacity:0.3;}
+.cart-empty-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--text-muted);}
+.cart-empty-sub{font-size:12px;color:rgba(255,255,255,0.25);font-weight:300;}
+.cart-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item-icon{width:56px;height:56px;border-radius:6px;background:var(--dark-3);border:1px solid var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:var(--gold);}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-type{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:2px;}
+.cart-item-sub{font-size:11px;font-weight:300;color:var(--text-muted);}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.2);font-size:11px;padding:2px 0;transition:color 0.2s;display:block;margin-top:6px;font-family:'DM Sans',sans-serif;text-align:left;}
+.cart-item-remove:hover{color:rgba(255,80,80,0.6);}
+.cart-item-price{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--gold-light);flex-shrink:0;}
+.cart-footer{padding:20px 28px;border-top:1px solid var(--dark-border);flex-shrink:0;}
+.cart-subtotal{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cart-subtotal-label{font-size:12px;color:var(--text-muted);}
+.cart-subtotal-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.cart-checkout-btn{width:100%;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:16px;cursor:pointer;transition:background 0.2s;margin-bottom:10px;}
+.cart-checkout-btn:hover{background:var(--gold-light);}
+.cart-continue{display:block;text-align:center;font-size:12px;color:var(--text-muted);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;width:100%;transition:color 0.2s;}
+.cart-continue:hover{color:var(--white);}
 
 /* PAGE HERO */
 .page-hero{padding:140px 48px 80px;position:relative;overflow:hidden;background:var(--dark);}
@@ -65,8 +107,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,80px);font-weight:300;line-height:1.0;letter-spacing:-2px;color:var(--white);margin-bottom:24px;animation:fadeUp 0.8s 0.2s ease both;}
 .page-hero h1 em{font-style:italic;color:var(--gold-light);display:block;}
 .page-hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;animation:fadeUp 0.8s 0.3s ease both;}
-
-/* HERO RIGHT — VALUE CARD */
 .hero-value-card{background:var(--dark-2);border:1px solid var(--dark-border);padding:36px 32px;position:relative;overflow:hidden;animation:fadeUp 0.8s 0.3s ease both;}
 .hero-value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
 .hero-value-card-eyebrow{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
@@ -76,7 +116,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .value-row-val{font-size:12px;font-weight:500;color:var(--gold);}
 .value-row-val.strike{color:rgba(255,80,80,0.5);text-decoration:line-through;font-weight:300;}
 .hero-value-glow{position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none;}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
 
 /* BUNDLE BANNER */
@@ -105,25 +144,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .section-eyebrow span{font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);line-height:1.05;letter-spacing:-1px;}
 .section-title em{font-style:italic;color:var(--gold-light);}
-
 .addons-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dark-border);}
 
 /* ADDON CARD */
-.addon-card{
-  background:var(--dark-2);
-  padding:40px 36px;
-  position:relative;
-  overflow:hidden;
-  transition:background 0.3s;
-  display:flex;
-  flex-direction:column;
-}
+.addon-card{background:var(--dark-2);padding:40px 36px;position:relative;overflow:hidden;transition:background 0.3s;display:flex;flex-direction:column;}
 .addon-card:hover{background:var(--dark-3);}
 .addon-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),transparent);transform:scaleY(0);transition:transform 0.3s;transform-origin:top;}
 .addon-card:hover::before{transform:scaleY(1);}
 .addon-card-glow{position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.04),transparent 70%);pointer-events:none;}
-
-/* PRIORITY TAG */
 .addon-tag-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .addon-num{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(201,168,76,0.35);letter-spacing:1px;}
 .priority-tag{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px;}
@@ -131,44 +159,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .tag-highly-recommended{color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,0.2);}
 .tag-recommended{color:rgba(147,197,253,1);background:rgba(147,197,253,0.08);border:1px solid rgba(147,197,253,0.2);}
 .tag-nice-to-have{color:var(--text-muted);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
-
 .addon-card-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.1;transition:color 0.2s;}
 .addon-card:hover .addon-card-title{color:var(--gold-light);}
 .addon-card-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.8;flex:1;margin-bottom:24px;}
 .addon-card-desc strong{color:rgba(255,255,255,0.65);font-weight:400;}
-
 .addon-card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
 .addon-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--gold-light);line-height:1;}
 .addon-type{font-size:10px;font-weight:300;color:var(--text-muted);margin-top:2px;}
-.btn-buy{
-  display:inline-block;
-  background:var(--gold);color:var(--dark);
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;font-weight:600;
-  letter-spacing:1px;text-transform:uppercase;
-  padding:10px 20px;text-decoration:none;
-  transition:all 0.2s;border:none;cursor:pointer;
-  white-space:nowrap;
-}
-.btn-buy:hover{background:var(--gold-light);transform:translateY(-1px);}
-.btn-buy-outline{
-  display:inline-block;
-  background:transparent;color:var(--gold);
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;font-weight:500;
-  letter-spacing:1px;text-transform:uppercase;
-  padding:10px 20px;text-decoration:none;
-  transition:all 0.2s;
-  border:1px solid rgba(201,168,76,0.3);
-  white-space:nowrap;
-}
-.btn-buy-outline:hover{background:var(--gold-dim);border-color:var(--gold);}
+
+/* CART BUTTONS */
+.btn-add-cart{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-add-cart:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-add-cart.added{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);}
+.btn-add-cart.in-cart{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.3);}
+.btn-add-cart.in-cart:hover{background:var(--gold-dim);}
+.btn-suggest{display:inline-block;background:transparent;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;text-decoration:none;transition:all 0.2s;border:1px solid rgba(201,168,76,0.3);white-space:nowrap;}
+.btn-suggest:hover{background:var(--gold-dim);border-color:var(--gold);}
 
 /* BUTTONS */
 .btn-gold{display:inline-block;background:var(--gold);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:all 0.2s;text-align:center;}
 .btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
 .btn-outline{display:inline-block;background:transparent;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:14px 24px;text-decoration:none;transition:color 0.2s;border:1px solid rgba(255,255,255,0.08);text-align:center;}
 .btn-outline:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+.btn-add-bundle{width:100%;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-add-bundle:hover{background:var(--gold-light);}
+.btn-add-bundle.added{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);}
 
 /* BOTTOM CTA */
 .bottom-cta{padding:120px 48px;background:var(--section-dark);border-top:1px solid var(--dark-border);text-align:center;position:relative;overflow:hidden;}
@@ -211,11 +226,36 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
   .addon-card{padding:32px 24px;}
   .bottom-cta{padding:80px 20px;}
   footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+  .cart-drawer{width:100%;}
 }
 </style>
 </head>
 <body>
 <div id="progress-bar"></div>
+
+<!-- CART OVERLAY & DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">Your Cart</div>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" id="cart-empty">
+      <div class="cart-empty-icon">◈</div>
+      <div class="cart-empty-text">Your cart is empty</div>
+      <div class="cart-empty-sub">Add a template or guide to get started</div>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-subtotal">
+      <div class="cart-subtotal-label">Subtotal</div>
+      <div class="cart-subtotal-val" id="cart-subtotal">$0.00</div>
+    </div>
+    <button class="cart-checkout-btn" id="cart-checkout-btn">Proceed to Checkout</button>
+    <button class="cart-continue" id="cart-continue">Continue Shopping</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -238,7 +278,13 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
     <li><a href="faq.html">FAQ</a></li>
     <li><a href="request.html" class="nav-request">Request a Template</a></li>
   </ul>
-  <a href="templates.html" class="nav-cta">Browse Templates</a>
+  <div class="nav-right">
+    <button class="cart-btn" id="cart-btn" aria-label="Cart">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="1.5" stroke-linecap="round"/><path d="M16 10a4 4 0 01-8 0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <a href="templates.html" class="nav-cta">Browse Templates</a>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -297,7 +343,6 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
 <!-- BUNDLE BANNER -->
 <div class="bundle-banner">
   <div class="bundle-banner-inner">
-
     <div class="bundle-card reveal">
       <div class="bundle-glow"></div>
       <div class="bundle-card-eyebrow">Bundle 01 · Starter</div>
@@ -308,9 +353,8 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
         <div class="bundle-was">$59.97</div>
         <div class="bundle-save">Save $15</div>
       </div>
-      <a href="#" class="btn-buy">Get Starter Bundle</a>
+      <button class="btn-add-bundle" id="btn-starter-bundle" onclick="addBundle('starter', this)">Add Bundle to Cart</button>
     </div>
-
     <div class="bundle-card reveal reveal-delay-1">
       <div class="bundle-glow"></div>
       <div class="bundle-card-eyebrow">Bundle 02 · Complete</div>
@@ -321,9 +365,8 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
         <div class="bundle-was">$152.93</div>
         <div class="bundle-save">Save $28</div>
       </div>
-      <a href="#" class="btn-buy">Get Full Bundle</a>
+      <button class="btn-add-bundle" id="btn-full-bundle" onclick="addBundle('full', this)">Add Bundle to Cart</button>
     </div>
-
   </div>
 </div>
 
@@ -340,7 +383,6 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
 
     <div class="addons-grid">
 
-      <!-- 01 COMPLETE SETUP -->
       <div class="addon-card reveal">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -354,11 +396,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$29.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-setup" onclick="addGuide('setup','Complete Setup Guide',29.99,'btn-setup')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 02 DOMAIN -->
       <div class="addon-card reveal reveal-delay-1">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -372,11 +413,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$14.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-domain" onclick="addGuide('domain','Domain Connection Guide',14.99,'btn-domain')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 03 SEO -->
       <div class="addon-card reveal">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -390,11 +430,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$24.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-seo" onclick="addGuide('seo','SEO Basics Guide',24.99,'btn-seo')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 04 GOOGLE BUSINESS -->
       <div class="addon-card reveal reveal-delay-1">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -408,11 +447,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$24.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-gbp" onclick="addGuide('gbp','Google Business Profile Guide',24.99,'btn-gbp')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 05 ANALYTICS -->
       <div class="addon-card reveal">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -426,11 +464,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$14.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-analytics" onclick="addGuide('analytics','Google Analytics Guide',14.99,'btn-analytics')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 06 WHATSAPP -->
       <div class="addon-card reveal reveal-delay-1">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -444,11 +481,10 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-price">$12.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-whatsapp" onclick="addGuide('whatsapp','WhatsApp & Click-to-Call Guide',12.99,'btn-whatsapp')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- 07 SOCIAL -->
       <div class="addon-card reveal">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -456,17 +492,16 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
           <div class="priority-tag tag-nice-to-have">Nice to Have</div>
         </div>
         <div class="addon-card-title">Social Media Link Integration Guide</div>
-        <p class="addon-card-desc">A guide to cleanly connecting your social media profiles to your Siteafi template. Covers adding icon links for Instagram, Facebook, TikTok, and other platforms, where to place them for maximum visibility, how to use free icon libraries, and best practices for keeping social links from pulling visitors away from your site too early. <strong>Clean, professional, and takes under an hour to implement.</strong></p>
+        <p class="addon-card-desc">A guide to cleanly connecting your social media profiles to your Siteafi template. Covers adding icon links for Instagram, Facebook, TikTok, and other platforms, where to place them for maximum visibility, how to use free icon libraries, and best practices for keeping social links from pulling visitors away too early. <strong>Clean, professional, and takes under an hour to implement.</strong></p>
         <div class="addon-card-footer">
           <div>
             <div class="addon-price">$12.99</div>
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
-          <a href="#" class="btn-buy">Buy Guide</a>
+          <button class="btn-add-cart" id="btn-social" onclick="addGuide('social','Social Media Link Integration Guide',12.99,'btn-social')">Add to Cart</button>
         </div>
       </div>
 
-      <!-- COMING SOON PLACEHOLDER -->
       <div class="addon-card reveal reveal-delay-1" style="opacity:0.5;pointer-events:none;">
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
@@ -474,13 +509,13 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
           <div class="priority-tag tag-nice-to-have">Coming Soon</div>
         </div>
         <div class="addon-card-title">More Guides Coming</div>
-        <p class="addon-card-desc">We're always working on new guides based on what our customers ask for most. Have a topic you'd like to see covered? Reach out at hello@siteafi.com and let us know — your request could become our next add-on.</p>
+        <p class="addon-card-desc">We're always working on new guides based on what our customers ask for most. Have a topic you'd like covered? Reach out and let us know — your request could become our next add-on.</p>
         <div class="addon-card-footer">
           <div>
             <div class="addon-price" style="color:var(--text-muted);">TBA</div>
             <div class="addon-type">Written Guide</div>
           </div>
-          <a href="mailto:hello@siteafi.com" class="btn-buy-outline" style="pointer-events:all;">Suggest a Topic</a>
+          <a href="mailto:hello@siteafi.com" class="btn-suggest" style="pointer-events:all;">Suggest a Topic</a>
         </div>
       </div>
 
@@ -521,10 +556,156 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
 </footer>
 
 <script>
-const bar = document.getElementById('progress-bar');
-window.addEventListener('scroll', () => {
-  bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+// ═══════════════════════════════════════════
+// CART SYSTEM
+// ═══════════════════════════════════════════
+let cart = JSON.parse(localStorage.getItem('siteafi_cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('siteafi_cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.length;
+  const countEl = document.getElementById('cart-count');
+  if (countEl) { countEl.textContent = count; countEl.classList.toggle('visible', count > 0); }
+  renderCartItems();
+  syncButtonStates();
+}
+
+function syncButtonStates() {
+  const ids = cart.map(c => c.id);
+  const map = {
+    'guide-setup': 'btn-setup', 'guide-domain': 'btn-domain', 'guide-seo': 'btn-seo',
+    'guide-gbp': 'btn-gbp', 'guide-analytics': 'btn-analytics',
+    'guide-whatsapp': 'btn-whatsapp', 'guide-social': 'btn-social'
+  };
+  Object.entries(map).forEach(([cartId, btnId]) => {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    if (ids.includes(cartId)) {
+      btn.textContent = '✓ In Cart';
+      btn.classList.add('in-cart');
+      btn.classList.remove('added');
+    } else {
+      btn.textContent = 'Add to Cart';
+      btn.classList.remove('in-cart', 'added');
+    }
+  });
+}
+
+function renderCartItems() {
+  const itemsEl = document.getElementById('cart-items');
+  const emptyEl = document.getElementById('cart-empty');
+  const footerEl = document.getElementById('cart-footer');
+  const subtotalEl = document.getElementById('cart-subtotal');
+  if (!itemsEl) return;
+  if (cart.length === 0) {
+    if (emptyEl) emptyEl.style.display = 'flex';
+    if (footerEl) footerEl.style.display = 'none';
+    Array.from(itemsEl.children).forEach(c => { if (c !== emptyEl) c.remove(); });
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (footerEl) footerEl.style.display = 'block';
+  Array.from(itemsEl.children).forEach(c => { if (c !== emptyEl) c.remove(); });
+  let total = 0;
+  cart.forEach((item, idx) => {
+    total += item.price;
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+    el.innerHTML = `
+      <div class="cart-item-icon">◈</div>
+      <div class="cart-item-info">
+        <div class="cart-item-type">${item.type}</div>
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-sub">${item.sub || ''}</div>
+        <button class="cart-item-remove" onclick="removeFromCart(${idx})">Remove</button>
+      </div>
+      <div class="cart-item-price">$${item.price.toFixed(2)}</div>`;
+    itemsEl.appendChild(el);
+  });
+  if (subtotalEl) subtotalEl.textContent = '$' + total.toFixed(2);
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  saveCart();
+}
+
+function addToCart(item) {
+  if (cart.find(c => c.id === item.id)) { openCart(); return false; }
+  cart.push(item);
+  saveCart();
+  openCart();
+  return true;
+}
+
+function openCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => { overlay.classList.add('open'); drawer.classList.add('open'); });
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  overlay.classList.remove('open'); drawer.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; }, 350);
+  document.body.style.overflow = '';
+}
+
+function addGuide(id, name, price, btnId) {
+  const added = addToCart({ id: 'guide-' + id, type: 'Written Guide', name, sub: 'One-time purchase', price, palette: null });
+  if (added) {
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      btn.textContent = '✓ Added';
+      btn.classList.add('added');
+      setTimeout(() => { btn.textContent = '✓ In Cart'; btn.classList.remove('added'); btn.classList.add('in-cart'); }, 1500);
+    }
+  }
+}
+
+function addBundle(type, btn) {
+  const starter = [
+    { id: 'guide-setup',  type: 'Written Guide', name: 'Complete Setup Guide',      sub: 'Starter Bundle', price: 0, palette: null },
+    { id: 'guide-domain', type: 'Written Guide', name: 'Domain Connection Guide',    sub: 'Starter Bundle', price: 0, palette: null },
+  ];
+  const full = [
+    { id: 'guide-setup',     type: 'Written Guide', name: 'Complete Setup Guide',              sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-domain',    type: 'Written Guide', name: 'Domain Connection Guide',            sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-seo',       type: 'Written Guide', name: 'SEO Basics Guide',                   sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-gbp',       type: 'Written Guide', name: 'Google Business Profile Guide',      sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-analytics', type: 'Written Guide', name: 'Google Analytics Guide',             sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-whatsapp',  type: 'Written Guide', name: 'WhatsApp & Click-to-Call Guide',     sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-social',    type: 'Written Guide', name: 'Social Media Link Integration Guide', sub: 'Full Bundle', price: 0, palette: null },
+  ];
+  const bundlePrice = type === 'starter' ? 44.99 : 124.99;
+  const bundleName  = type === 'starter' ? 'Starter Bundle' : 'Full Launch Bundle';
+  const bundleId    = type === 'starter' ? 'bundle-starter' : 'bundle-full';
+  const added = addToCart({ id: bundleId, type: 'Bundle', name: bundleName, sub: type === 'starter' ? '3 guides included' : '7 guides included', price: bundlePrice, palette: null });
+  if (added) {
+    btn.textContent = '✓ Added to Cart';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = '✓ In Cart'; btn.classList.remove('added'); }, 2000);
+  }
+}
+
+// INIT
+updateCartUI();
+document.getElementById('cart-btn').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+document.getElementById('cart-continue').addEventListener('click', closeCart);
+document.getElementById('cart-checkout-btn').addEventListener('click', () => {
+  alert('Checkout coming soon — Lemon Squeezy integration in progress.');
 });
+
+// HAMBURGER
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 hamburger.addEventListener('click', () => {
@@ -534,15 +715,17 @@ hamburger.addEventListener('click', () => {
   document.body.style.overflow = open ? 'hidden' : '';
 });
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  hamburger.classList.remove('open');
-  mobileMenu.style.opacity = '0';
-  setTimeout(() => mobileMenu.style.display = 'none', 300);
-  document.body.style.overflow = '';
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
 }));
+
+// PROGRESS BAR
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => { bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; });
+
+// REVEAL
 document.querySelectorAll('.reveal').forEach(el => {
-  new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) el.classList.add('visible');
-  }, { threshold: 0.08 }).observe(el);
+  new IntersectionObserver(([entry]) => { if (entry.isIntersecting) el.classList.add('visible'); }, { threshold: 0.08 }).observe(el);
 });
 </script>
 </body>
