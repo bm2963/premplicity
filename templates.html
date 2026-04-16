@@ -190,7 +190,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .tcard:hover .tcard-preview-inner{transform:scale(1.04);}
 .tcard-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.65);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;z-index:3;}
 .tcard:hover .tcard-overlay{opacity:1;}
-.overlay-btn{background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:9px 20px;cursor:pointer;border-radius:6px;transition:background 0.2s;text-decoration:none;}
+.overlay-btn{background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:9px 20px;cursor:pointer;border-radius:6px;transition:background 0.2s;text-decoration:none;pointer-events:none;}
 .overlay-btn:hover{background:var(--gold-light);}
 .badge-tier{position:absolute;top:12px;right:12px;font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
 .badge-tier.premium{background:var(--gold);color:var(--dark);}
@@ -849,6 +849,7 @@ function closeCart() {
 function quickAddToCart(e, key) {
   e.preventDefault();
   e.stopPropagation();
+  e.stopImmediatePropagation();
   const t = TMPL[key];
   if (!t) return;
   const btn = e.currentTarget;
@@ -863,7 +864,10 @@ function quickAddToCart(e, key) {
   if (added) {
     btn.classList.add('added');
     setTimeout(() => { btn.classList.remove('added'); btn.classList.add('in-cart'); }, 1200);
+  } else {
+    openCart();
   }
+  return false;
 }
 
 // INIT
@@ -874,6 +878,15 @@ document.getElementById('cart-overlay').addEventListener('click', closeCart);
 document.getElementById('cart-continue').addEventListener('click', closeCart);
 document.getElementById('cart-checkout-btn').addEventListener('click', () => {
   alert('Checkout coming soon — Lemon Squeezy integration in progress.');
+});
+
+// TCARD CLICK — navigate to product page (but not when cart btn clicked)
+document.querySelectorAll('.tcard').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('.tcard-cart-btn')) return;
+    const key = card.dataset.key;
+    if (key) window.location.href = 'product.html?t=' + key;
+  });
 });
 
 // FILTER / SORT LOGIC
