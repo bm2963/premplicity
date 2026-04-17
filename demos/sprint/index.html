@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Running Co. — Run Further. Run Faster.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#080A10;
+  --dark:#0D1018;
+  --dark-2:#121520;
+  --dark-3:#181C28;
+  --blue:#0066FF;
+  --blue-light:#3385FF;
+  --blue-dim:rgba(0,102,255,0.1);
+  --blue-glow:rgba(0,102,255,0.15);
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.5);
+  --gray-dim:rgba(255,255,255,0.1);
+  --border:rgba(0,102,255,0.15);
+  --border-dim:rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--blue);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:#fff;}
+.purchase-banner p span{font-weight:300;opacity:0.7;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--blue);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--black);color:#fff;}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;transition:all 0.3s;}
+nav.scrolled{background:rgba(8,10,16,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-dim);padding:13px 52px;}
+.nav-logo{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--blue);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--blue-light);}
+.nav-cta{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--blue);color:#fff;padding:10px 28px;text-decoration:none;transition:all 0.2s;clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);}
+.nav-cta:hover{background:var(--blue-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--blue-light);}
+.mobile-menu .mob-cta{font-size:16px !important;background:var(--blue);padding:14px 48px;clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);margin-top:8px;}
+
+/* HERO — typography-driven, no grid */
+.hero{
+  min-height:100vh;
+  padding:140px 52px 100px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.hero-bg-text{
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:'Oswald',sans-serif;font-size:clamp(160px,22vw,280px);
+  font-weight:700;letter-spacing:-4px;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1px rgba(0,102,255,0.08);
+  line-height:1;pointer-events:none;user-select:none;white-space:nowrap;
+}
+.hero-distance-bar{
+  position:absolute;top:100px;right:52px;
+  display:flex;flex-direction:column;gap:2px;
+  animation:fadeIn 1s 0.5s ease both;
+}
+.hero-distance-item{
+  display:flex;align-items:center;gap:12px;
+  padding:8px 16px;background:rgba(0,102,255,0.08);
+  border-left:2px solid var(--blue);
+}
+.hero-distance-num{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:var(--white);letter-spacing:1px;}
+.hero-distance-label{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gray);}
+.hero-content{position:relative;z-index:1;max-width:800px;}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--blue-light);margin-bottom:20px;animation:fadeIn 1s 0.1s ease both;}
+.hero h1{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(72px,12vw,160px);
+  font-weight:700;line-height:0.9;
+  letter-spacing:-2px;text-transform:uppercase;
+  color:var(--white);margin-bottom:32px;
+  animation:fadeIn 1s 0.2s ease both;
+}
+.hero h1 span{color:var(--blue);}
+.hero-sub{font-size:16px;font-weight:300;color:var(--gray);line-height:1.7;max-width:460px;margin-bottom:44px;animation:fadeIn 1s 0.3s ease both;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;animation:fadeIn 1s 0.4s ease both;}
+.btn-primary{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--blue);color:#fff;padding:14px 40px;text-decoration:none;transition:all 0.2s;display:inline-block;clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);}
+.btn-primary:hover{background:var(--blue-light);}
+.btn-secondary{font-family:'Oswald',sans-serif;font-size:14px;font-weight:500;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--white);border:1px solid var(--border-dim);padding:14px 40px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue-light);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* STATS — horizontal scrolling bar */
+.stats-bar{background:var(--blue);display:flex;overflow:hidden;}
+.stats-bar-inner{display:flex;animation:marquee 20s linear infinite;}
+.stat-item{display:flex;align-items:center;gap:16px;padding:20px 40px;white-space:nowrap;flex-shrink:0;}
+.stat-num{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:1px;}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+.stat-sep{width:1px;height:24px;background:rgba(255,255,255,0.25);flex-shrink:0;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* PROGRAMS — diagonal dividers */
+.programs{padding:120px 52px 0;background:var(--black);position:relative;}
+.programs-inner{max-width:1100px;margin:0 auto;}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--blue-light);margin-bottom:16px;}
+.section-title{font-family:'Oswald',sans-serif;font-size:clamp(44px,6vw,72px);font-weight:700;letter-spacing:-1px;text-transform:uppercase;color:var(--white);line-height:1.0;margin-bottom:56px;}
+.section-title span{color:var(--blue);}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);}
+.program-card{background:var(--dark);padding:40px 32px;position:relative;overflow:hidden;transition:background 0.3s;}
+.program-card:hover{background:var(--dark-2);}
+.program-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.program-card:hover::before{transform:scaleX(1);}
+.program-num{font-family:'Oswald',sans-serif;font-size:14px;font-weight:400;letter-spacing:3px;color:var(--blue);margin-bottom:16px;}
+.program-name{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:12px;transition:color 0.2s;}
+.program-card:hover .program-name{color:var(--blue-light);}
+.program-desc{font-size:13px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:20px;}
+.program-tag{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--blue-dim);color:var(--blue-light);padding:4px 10px;border:1px solid var(--border);display:inline-block;}
+
+/* DIAGONAL SECTION */
+.diagonal-wrap{position:relative;margin-top:80px;}
+.diagonal-top{height:80px;background:var(--dark-2);clip-path:polygon(0 100%, 100% 0%, 100% 100%);}
+.schedule-section{background:var(--dark-2);padding:60px 52px 120px;}
+.schedule-inner{max-width:1100px;margin:0 auto;}
+.schedule-list{display:flex;flex-direction:column;gap:1px;background:var(--border-dim);margin-top:52px;}
+.schedule-item{background:var(--dark-3);padding:20px 28px;display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:24px;transition:background 0.2s;}
+.schedule-item:hover{background:var(--dark-2);}
+.schedule-item.featured{background:rgba(0,102,255,0.08);border-left:3px solid var(--blue);}
+.schedule-day{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);}
+.schedule-details{}
+.schedule-name{font-size:14px;font-weight:500;color:var(--white);margin-bottom:2px;}
+.schedule-meta{font-size:11px;font-weight:300;color:var(--gray);}
+.schedule-time{font-family:'Oswald',sans-serif;font-size:18px;font-weight:500;color:var(--blue-light);text-align:right;white-space:nowrap;}
+.diagonal-bottom{height:80px;background:var(--dark-2);clip-path:polygon(0 0%, 100% 0%, 0% 100%);}
+
+/* COACHES */
+.coaches{padding:120px 52px;background:var(--black);}
+.coaches-inner{max-width:1100px;margin:0 auto;}
+.coaches-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);margin-top:52px;}
+.coach-card{background:var(--dark);padding:36px 28px;transition:background 0.2s;}
+.coach-card:hover{background:var(--dark-2);}
+.coach-initial{width:56px;height:56px;background:var(--blue-dim);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--blue-light);margin-bottom:20px;clip-path:polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);}
+.coach-name{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:4px;}
+.coach-role{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:14px;}
+.coach-bio{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;}
+
+/* TESTIMONIALS */
+.testimonials{padding:120px 52px;background:var(--dark);}
+.testimonials-inner{max-width:1100px;margin:0 auto;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);margin-top:52px;}
+.testimonial{background:var(--black);padding:36px 28px;}
+.testimonial-marker{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+.testimonial-text{font-size:14px;font-weight:300;color:var(--white);line-height:1.8;font-style:italic;margin-bottom:24px;}
+.testimonial-name{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);}
+
+/* PRICING */
+.pricing{padding:120px 52px;background:var(--black);}
+.pricing-inner{max-width:1100px;margin:0 auto;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);margin-top:52px;}
+.pricing-card{background:var(--dark);padding:44px 32px;position:relative;}
+.pricing-card.featured{background:var(--blue);}
+.pricing-tier{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:12px;}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.7);}
+.pricing-name{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.pricing-amount{font-family:'Oswald',sans-serif;font-size:64px;font-weight:700;color:var(--white);line-height:1;letter-spacing:-2px;margin-bottom:4px;}
+.pricing-amount sup{font-size:28px;vertical-align:top;margin-top:12px;display:inline-block;}
+.pricing-period{font-size:12px;font-weight:300;color:var(--gray);margin-bottom:24px;}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.6);}
+.pricing-divider{height:1px;background:var(--border-dim);margin-bottom:24px;}
+.pricing-card.featured .pricing-divider{background:rgba(255,255,255,0.2);}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.pricing-feature{font-size:13px;font-weight:300;color:var(--gray);display:flex;align-items:center;gap:10px;}
+.pricing-feature::before{content:'→';color:var(--blue-light);font-size:11px;font-weight:700;}
+.pricing-card.featured .pricing-feature{color:rgba(255,255,255,0.85);}
+.pricing-card.featured .pricing-feature::before{color:#fff;}
+.pricing-feature.off{color:var(--gray-dim);}
+.pricing-feature.off::before{color:var(--gray-dim);}
+.btn-join{width:100%;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--blue);color:#fff;border:none;padding:14px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;clip-path:polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);}
+.btn-join:hover{background:var(--blue-light);}
+.btn-join.outline{background:transparent;color:var(--white);border:1px solid var(--border-dim);clip-path:none;}
+.btn-join.outline:hover{border-color:var(--blue);color:var(--blue-light);}
+.btn-join.dark{background:var(--black);color:var(--blue-light);clip-path:polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);}
+.btn-join.dark:hover{background:#0a0c14;}
+
+/* CTA */
+.cta{padding:120px 52px;background:var(--dark-2);text-align:center;position:relative;overflow:hidden;}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto;}
+.cta h2{font-family:'Oswald',sans-serif;font-size:clamp(52px,8vw,96px);font-weight:700;letter-spacing:-1px;text-transform:uppercase;color:var(--white);line-height:0.95;margin-bottom:20px;}
+.cta h2 span{color:var(--blue);}
+.cta p{font-size:15px;font-weight:300;color:var(--gray);margin-bottom:44px;line-height:1.7;}
+.cta-form{display:flex;max-width:480px;margin:0 auto;border:1px solid var(--border);}
+.cta-form:focus-within{border-color:var(--blue);}
+.cta-form input{flex:1;padding:15px 20px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--white);outline:none;}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25);}
+.cta-form button{padding:15px 24px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:background 0.2s;white-space:nowrap;}
+.cta-form button:hover{background:var(--blue-light);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--black);border-top:1px solid var(--border-dim);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--blue);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;max-width:220px;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--blue-light);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border-dim);flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:12px;color:var(--blue-light);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}
+  .hero-bg-text{display:none;}
+  .hero-distance-bar{display:none;}
+  .programs{padding:72px 20px 0;}
+  .programs-grid{grid-template-columns:1fr;}
+  .schedule-section{padding:40px 20px 72px;}
+  .schedule-item{grid-template-columns:1fr;gap:8px;}
+  .coaches{padding:72px 20px;}
+  .coaches-grid{grid-template-columns:1fr;}
+  .testimonials{padding:72px 20px;}
+  .testimonials-grid{grid-template-columns:1fr;}
+  .pricing{padding:72px 20px;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .cta{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Sprint</strong> · Standard Fitness Template<span>· $24.99</span></p>
+  <a href="/product.html?t=sprint" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">SPRINT<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Join</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Join the Club</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#programs">Programs</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#coaches">Coaches</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#contact">Join</a>
+  <a href="#contact" class="mob-cta">Join the Club</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-text">RUN</div>
+  <div class="hero-distance-bar">
+    <div class="hero-distance-item"><div class="hero-distance-num">5K</div><div class="hero-distance-label">Beginner</div></div>
+    <div class="hero-distance-item"><div class="hero-distance-num">10K</div><div class="hero-distance-label">Intermediate</div></div>
+    <div class="hero-distance-item"><div class="hero-distance-num">HM</div><div class="hero-distance-label">Half Marathon</div></div>
+    <div class="hero-distance-item"><div class="hero-distance-num">FM</div><div class="hero-distance-label">Full Marathon</div></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. 2016 · Running Community</div>
+    <h1>Run Further.<br><span>Run Faster.</span><br>Run Together.</h1>
+    <p class="hero-sub">Sprint Running Co. is a community-first running club for all paces and distances. Coached group runs, race training, and a community that actually shows up.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Join the Club</a>
+      <a href="#programs" class="btn-secondary">View Programs</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item"><div class="stat-num">650+</div><div class="stat-label">Club Members</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">3x</div><div class="stat-label">Weekly Runs</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Races Per Year</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">All</div><div class="stat-label">Paces Welcome</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">8yrs</div><div class="stat-label">Running Strong</div></div>
+    <div class="stat-sep"></div>
+    <!-- duplicate for seamless loop -->
+    <div class="stat-item"><div class="stat-num">650+</div><div class="stat-label">Club Members</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">3x</div><div class="stat-label">Weekly Runs</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Races Per Year</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">All</div><div class="stat-label">Paces Welcome</div></div>
+    <div class="stat-sep"></div>
+    <div class="stat-item"><div class="stat-num">8yrs</div><div class="stat-label">Running Strong</div></div>
+    <div class="stat-sep"></div>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="programs-inner">
+    <div class="section-eyebrow reveal">Training Programs</div>
+    <h2 class="section-title reveal">Built for <span>Every</span> Runner</h2>
+    <div class="programs-grid">
+      <div class="program-card reveal">
+        <div class="program-num">01</div>
+        <div class="program-name">5K Foundation</div>
+        <p class="program-desc">8-week coached program for new runners or those returning after time off. Build your base, find your pace, cross your first finish line.</p>
+        <span class="program-tag">Beginner</span>
+      </div>
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-num">02</div>
+        <div class="program-name">10K Push</div>
+        <p class="program-desc">For runners with a solid base looking to go longer and faster. Speed work, tempo runs, and long run progression over 10 weeks.</p>
+        <span class="program-tag">Intermediate</span>
+      </div>
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-num">03</div>
+        <div class="program-name">Half Marathon</div>
+        <p class="program-desc">12-week half marathon training program with structured long runs, race pace work, and taper. Coach-guided start to finish.</p>
+        <span class="program-tag">Intermediate+</span>
+      </div>
+      <div class="program-card reveal">
+        <div class="program-num">04</div>
+        <div class="program-name">Marathon Training</div>
+        <p class="program-desc">The full 18-week marathon build. Periodized training, group long runs, and the accountability of a team going the same direction as you.</p>
+        <span class="program-tag">Advanced</span>
+      </div>
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-num">05</div>
+        <div class="program-name">Weekly Group Runs</div>
+        <p class="program-desc">Three coached group runs per week at multiple paces. No program commitment required — just show up and run with your people.</p>
+        <span class="program-tag">All Levels</span>
+      </div>
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-num">06</div>
+        <div class="program-name">Speed & Track</div>
+        <p class="program-desc">Tuesday night track workouts focused on speed development. Intervals, tempo repeats, and racing strategy for competitive runners.</p>
+        <span class="program-tag">All Levels</span>
+      </div>
+    </div>
+  </div>
+  <div class="diagonal-wrap">
+    <div class="diagonal-top"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule-section" id="schedule">
+  <div class="schedule-inner">
+    <div class="section-eyebrow reveal">Weekly Schedule</div>
+    <h2 class="section-title reveal">When We <span>Run</span></h2>
+    <div class="schedule-list">
+      <div class="schedule-item reveal">
+        <div class="schedule-day">Tuesday</div>
+        <div class="schedule-details"><div class="schedule-name">Track Night — Speed Work</div><div class="schedule-meta">City Track · All Levels · 2–4 mile workout</div></div>
+        <div class="schedule-time">6:00 PM</div>
+      </div>
+      <div class="schedule-item featured reveal">
+        <div class="schedule-day">Thursday</div>
+        <div class="schedule-details"><div class="schedule-name">Tempo Run — Coached</div><div class="schedule-meta">Meet at HQ · 4–8 miles · Multiple paces</div></div>
+        <div class="schedule-time">6:00 AM</div>
+      </div>
+      <div class="schedule-item reveal">
+        <div class="schedule-day">Thursday</div>
+        <div class="schedule-details"><div class="schedule-name">Evening Group Run</div><div class="schedule-meta">Meet at HQ · 3–6 miles · All paces</div></div>
+        <div class="schedule-time">6:00 PM</div>
+      </div>
+      <div class="schedule-item featured reveal">
+        <div class="schedule-day">Saturday</div>
+        <div class="schedule-details"><div class="schedule-name">Long Run — Weekly Flagship</div><div class="schedule-meta">Varies by route · 6–18 miles · Pace groups</div></div>
+        <div class="schedule-time">7:00 AM</div>
+      </div>
+    </div>
+  </div>
+  <div class="diagonal-bottom"></div>
+</section>
+
+<!-- COACHES -->
+<section class="coaches" id="coaches">
+  <div class="coaches-inner">
+    <div class="section-eyebrow reveal">The Coaches</div>
+    <h2 class="section-title reveal">Coaches Who <span>Run</span> Too</h2>
+    <div class="coaches-grid">
+      <div class="coach-card reveal">
+        <div class="coach-initial">BR</div>
+        <div class="coach-name">Brett Rivera</div>
+        <div class="coach-role">Head Coach · Distance</div>
+        <p class="coach-bio">USATF Level 2 certified coach and 2:48 marathoner. Has coached over 200 athletes to finish lines from 5K to ultra distances.</p>
+      </div>
+      <div class="coach-card reveal reveal-delay-1">
+        <div class="coach-initial">CS</div>
+        <div class="coach-name">Casey Stone</div>
+        <div class="coach-role">Speed & Track Coach</div>
+        <p class="coach-bio">Former collegiate track athlete and RRCA certified running coach. Specializes in 5K/10K speed development and race strategy.</p>
+      </div>
+      <div class="coach-card reveal reveal-delay-2">
+        <div class="coach-initial">PM</div>
+        <div class="coach-name">Paula Morales</div>
+        <div class="coach-role">Beginner & Half Marathon</div>
+        <p class="coach-bio">Took up running at 35, ran her first marathon at 38, started coaching at 40. Her programs are built on empathy and real-world experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-eyebrow reveal">Member Stories</div>
+    <h2 class="section-title reveal">They <span>Showed Up.</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <div class="testimonial-marker">5K → Marathon</div>
+        <p class="testimonial-text">"I joined Sprint to run a 5K. Two years later I crossed a marathon finish line. I never thought that was possible for me. This club made it happen."</p>
+        <div class="testimonial-name">— Jamie T., Member 3 years</div>
+      </div>
+      <div class="testimonial reveal reveal-delay-1">
+        <div class="testimonial-marker">PR by 18 minutes</div>
+        <p class="testimonial-text">"Brett's speed program cut 18 minutes off my half marathon time in one training cycle. The structure and accountability make all the difference."</p>
+        <div class="testimonial-name">— Marcus W., Member 2 years</div>
+      </div>
+      <div class="testimonial reveal reveal-delay-2">
+        <div class="testimonial-marker">Community First</div>
+        <p class="testimonial-text">"I moved to a new city knowing no one. Saturday long runs with Sprint became the thing I looked forward to most every week. These are my people."</p>
+        <div class="testimonial-name">— Dani R., Member 1 year</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-eyebrow reveal">Membership</div>
+    <h2 class="section-title reveal">Join the <span>Club</span></h2>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Community</div>
+        <div class="pricing-name">Run Club</div>
+        <div class="pricing-amount"><sup>$</sup>29</div>
+        <div class="pricing-period">per month · cancel anytime</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature">3 Group Runs / Week</div>
+          <div class="pricing-feature">Club Events & Races</div>
+          <div class="pricing-feature off">Coached Programs</div>
+          <div class="pricing-feature off">Race Registration Discount</div>
+        </div>
+        <a href="#contact" class="btn-join outline">Join Now</a>
+      </div>
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-tier">Most Popular</div>
+        <div class="pricing-name">Training</div>
+        <div class="pricing-amount"><sup>$</sup>69</div>
+        <div class="pricing-period">per month · cancel anytime</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature">3 Group Runs / Week</div>
+          <div class="pricing-feature">Club Events & Races</div>
+          <div class="pricing-feature">1 Coached Program</div>
+          <div class="pricing-feature">Race Registration Discount</div>
+        </div>
+        <a href="#contact" class="btn-join dark">Join Now</a>
+      </div>
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-tier">Elite</div>
+        <div class="pricing-name">All Access</div>
+        <div class="pricing-amount"><sup>$</sup>119</div>
+        <div class="pricing-period">per month · cancel anytime</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature">Unlimited Group Runs</div>
+          <div class="pricing-feature">All Coached Programs</div>
+          <div class="pricing-feature">1-on-1 Coaching Session</div>
+          <div class="pricing-feature">Free Race Registration</div>
+        </div>
+        <a href="#contact" class="btn-join outline">Join Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <div class="section-eyebrow reveal" style="justify-content:center;margin-bottom:20px;">First Run Free</div>
+    <h2 class="reveal">Your First Run<br><span>Is On Us.</span></h2>
+    <p class="reveal">Show up to any group run, no membership required. Run with us, meet the team, and see if Sprint is your kind of club.</p>
+    <div class="cta-form reveal">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Claim Free Run</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">SPRINT<span>.</span></div>
+      <p class="footer-tagline">Community-first running club. All paces, all distances, all welcome.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Programs</div>
+      <ul>
+        <li><a href="#programs">5K Foundation</a></li>
+        <li><a href="#programs">10K Push</a></li>
+        <li><a href="#programs">Half Marathon</a></li>
+        <li><a href="#programs">Marathon Training</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Club</div>
+      <ul>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#schedule">Run Schedule</a></li>
+        <li><a href="#pricing">Membership</a></li>
+        <li><a href="#contact">Join Free</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Run Times</div>
+      <ul>
+        <li><a href="#">Tuesday: 6:00 PM</a></li>
+        <li><a href="#">Thursday: 6:00 AM & 6:00 PM</a></li>
+        <li><a href="#">Saturday: 7:00 AM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Sprint Running Co. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

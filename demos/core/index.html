@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Studio — Precision. Strength. Function.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#0A0E0E;
+  --dark:#111618;
+  --dark-2:#172020;
+  --dark-3:#1E2A2A;
+  --teal:#00B4A6;
+  --teal-light:#00D4C4;
+  --teal-dim:rgba(0,180,166,0.1);
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.5);
+  --gray-dim:rgba(255,255,255,0.12);
+  --border:rgba(0,180,166,0.15);
+  --border-dim:rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--teal);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:var(--black);}
+.purchase-banner p span{font-weight:300;opacity:0.6;margin-left:4px;}
+.banner-btn{background:var(--black);color:var(--teal);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:#0a1414;}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;transition:all 0.3s;}
+nav.scrolled{background:rgba(10,14,14,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-dim);padding:14px 52px;}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.nav-logo-mark{width:28px;height:28px;border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;}
+.nav-logo-inner{width:10px;height:10px;background:var(--teal);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--teal);}
+.nav-cta{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--teal);color:var(--black);padding:10px 24px;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--teal-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--teal);}
+.mobile-menu .mob-cta{font-size:14px !important;background:var(--teal);color:var(--black) !important;padding:14px 40px;margin-top:8px;}
+
+/* HERO — alternating split */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 52px 80px;position:relative;overflow:hidden;}
+.hero-teal-bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);}
+.hero-content{position:relative;z-index:1;max-width:700px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--teal-dim);border:1px solid var(--border);padding:6px 14px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:32px;animation:slideIn 0.8s ease both;}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,8vw,100px);font-weight:700;line-height:0.95;letter-spacing:-2px;color:var(--white);margin-bottom:28px;animation:slideIn 0.8s 0.1s ease both;}
+.hero h1 span{color:var(--teal);}
+.hero-sub{font-size:16px;font-weight:300;color:var(--gray);line-height:1.7;max-width:480px;margin-bottom:44px;animation:slideIn 0.8s 0.2s ease both;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;animation:slideIn 0.8s 0.3s ease both;}
+.btn-primary{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--teal);color:var(--black);padding:15px 36px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--teal-light);}
+.btn-secondary{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;background:transparent;color:var(--white);border:1px solid var(--border-dim);padding:15px 36px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal);}
+.hero-stats{position:absolute;right:52px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1px;animation:slideIn 0.8s 0.4s ease both;}
+.hero-stat{background:var(--dark);padding:24px 32px;border-left:3px solid transparent;transition:border-color 0.3s;}
+.hero-stat:hover{border-left-color:var(--teal);}
+.hero-stat-num{font-size:40px;font-weight:700;color:var(--white);line-height:1;letter-spacing:-1px;}
+.hero-stat-num span{color:var(--teal);font-size:24px;}
+.hero-stat-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:4px;}
+@keyframes slideIn{from{opacity:0;transform:translateX(-24px);}to{opacity:1;transform:translateX(0);}}
+
+/* ALTERNATING SECTIONS */
+.split-section{display:grid;grid-template-columns:1fr 1fr;}
+.split-content{padding:80px 52px;display:flex;flex-direction:column;justify-content:center;}
+.split-visual{background:var(--dark-2);display:flex;align-items:center;justify-content:center;min-height:480px;position:relative;overflow:hidden;}
+.split-visual-placeholder{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(0,180,166,0.3);}
+.split-visual-accent{position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--teal);}
+.split-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.split-eyebrow::before{content:'';width:20px;height:2px;background:var(--teal);}
+.split-title{font-size:clamp(36px,4vw,52px);font-weight:700;color:var(--white);line-height:1.05;letter-spacing:-1px;margin-bottom:20px;}
+.split-title span{color:var(--teal);}
+.split-text{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:32px;}
+.split-items{display:flex;flex-direction:column;gap:16px;margin-bottom:32px;}
+.split-item{display:flex;align-items:flex-start;gap:16px;padding:16px;background:var(--dark-2);border-left:2px solid transparent;transition:border-color 0.2s;}
+.split-item:hover{border-left-color:var(--teal);}
+.split-item-icon{width:32px;height:32px;background:var(--teal-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:var(--teal);font-weight:700;}
+.split-item-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px;}
+.split-item-text{font-size:12px;font-weight:300;color:var(--gray);line-height:1.6;}
+
+/* CLASSES GRID */
+.classes{padding:100px 52px;background:var(--dark);}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-eyebrow::before{content:'';width:20px;height:2px;background:var(--teal);}
+.section-title{font-size:clamp(36px,5vw,56px);font-weight:700;color:var(--white);line-height:1.0;letter-spacing:-1px;margin-bottom:52px;}
+.section-title span{color:var(--teal);}
+.classes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);}
+.class-card{background:var(--dark);padding:36px 28px;position:relative;overflow:hidden;transition:background 0.2s;}
+.class-card:hover{background:var(--dark-2);}
+.class-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.class-card:hover::after{transform:scaleX(1);}
+.class-num{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--teal);margin-bottom:16px;}
+.class-name{font-size:20px;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-0.3px;}
+.class-desc{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:20px;}
+.class-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.class-tag{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--teal-dim);color:var(--teal);padding:4px 10px;border:1px solid var(--border);}
+
+/* SCHEDULE */
+.schedule{padding:100px 52px;background:var(--black);}
+.schedule-table{margin-top:52px;border:1px solid var(--border-dim);overflow:hidden;}
+.schedule-row{display:grid;grid-template-columns:160px 1fr 1fr 1fr;border-bottom:1px solid var(--border-dim);}
+.schedule-row:last-child{border-bottom:none;}
+.schedule-row.header{background:var(--dark-2);}
+.schedule-cell{padding:18px 24px;font-size:12px;border-right:1px solid var(--border-dim);}
+.schedule-cell:last-child{border-right:none;}
+.schedule-cell.header-cell{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);}
+.schedule-cell.day{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--white);}
+.schedule-class-item{display:flex;flex-direction:column;gap:2px;}
+.schedule-class-name{font-size:12px;font-weight:500;color:var(--white);}
+.schedule-class-time{font-size:10px;font-weight:300;color:var(--gray);}
+.schedule-cell.highlight{background:var(--teal-dim);}
+.schedule-cell.highlight .schedule-class-name{color:var(--teal);}
+
+/* TRAINERS */
+.trainers{padding:100px 52px;background:var(--dark);}
+.trainers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);margin-top:52px;}
+.trainer-card{background:var(--dark);padding:36px 28px;transition:background 0.2s;}
+.trainer-card:hover{background:var(--dark-2);}
+.trainer-initial{width:52px;height:52px;background:var(--teal-dim);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--teal);margin-bottom:20px;letter-spacing:1px;}
+.trainer-name{font-size:18px;font-weight:700;color:var(--white);letter-spacing:-0.3px;margin-bottom:4px;}
+.trainer-role{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:14px;}
+.trainer-bio{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;}
+
+/* PRICING */
+.pricing{padding:100px 52px;background:var(--black);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);margin-top:52px;}
+.pricing-card{background:var(--dark);padding:44px 32px;position:relative;}
+.pricing-card.featured{background:var(--teal);border:none;}
+.pricing-card.featured::before{display:none;}
+.pricing-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;}
+.pricing-card.featured .pricing-label{color:var(--black);}
+.pricing-name{font-size:24px;font-weight:700;color:var(--white);letter-spacing:-0.5px;margin-bottom:8px;}
+.pricing-card.featured .pricing-name{color:var(--black);}
+.pricing-amount{font-size:56px;font-weight:700;color:var(--white);line-height:1;letter-spacing:-2px;margin-bottom:4px;}
+.pricing-card.featured .pricing-amount{color:var(--black);}
+.pricing-amount sup{font-size:24px;vertical-align:top;margin-top:10px;display:inline-block;}
+.pricing-period{font-size:12px;font-weight:300;color:var(--gray);margin-bottom:28px;}
+.pricing-card.featured .pricing-period{color:rgba(0,0,0,0.5);}
+.pricing-divider{height:1px;background:var(--border-dim);margin-bottom:24px;}
+.pricing-card.featured .pricing-divider{background:rgba(0,0,0,0.15);}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.pricing-feature{font-size:13px;font-weight:400;color:var(--gray);display:flex;align-items:center;gap:10px;}
+.pricing-feature::before{content:'';width:5px;height:5px;background:var(--teal);flex-shrink:0;}
+.pricing-card.featured .pricing-feature{color:rgba(0,0,0,0.7);}
+.pricing-card.featured .pricing-feature::before{background:var(--black);}
+.pricing-feature.off{color:var(--gray-dim);}
+.pricing-feature.off::before{background:var(--gray-dim);}
+.btn-plan{width:100%;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--teal);color:var(--black);border:none;padding:14px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;}
+.btn-plan:hover{background:var(--teal-light);}
+.btn-plan.outline{background:transparent;color:var(--white);border:1px solid var(--border-dim);}
+.btn-plan.outline:hover{border-color:var(--teal);color:var(--teal);}
+.btn-plan.dark{background:var(--black);color:var(--teal);}
+.btn-plan.dark:hover{background:#0a1414;}
+
+/* CTA */
+.cta{padding:100px 52px;background:var(--dark-2);text-align:center;}
+.cta-inner{max-width:600px;margin:0 auto;}
+.cta h2{font-size:clamp(44px,6vw,72px);font-weight:700;color:var(--white);line-height:1.0;letter-spacing:-2px;margin-bottom:20px;}
+.cta h2 span{color:var(--teal);}
+.cta p{font-size:15px;font-weight:300;color:var(--gray);margin-bottom:40px;line-height:1.7;}
+.cta-form{display:flex;max-width:440px;margin:0 auto;border:1px solid var(--border);}
+.cta-form:focus-within{border-color:var(--teal);}
+.cta-form input{flex:1;padding:15px 20px;background:transparent;border:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:300;color:var(--white);outline:none;}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25);}
+.cta-form button{padding:15px 24px;background:var(--teal);color:var(--black);border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:background 0.2s;white-space:nowrap;}
+.cta-form button:hover{background:var(--teal-light);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--black);border-top:1px solid var(--border-dim);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-logo{font-size:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.footer-logo-mark{width:20px;height:20px;border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;}
+.footer-logo-inner{width:7px;height:7px;background:var(--teal);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;max-width:220px;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--teal);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border-dim);flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:12px;color:var(--teal);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}
+  .hero-stats{display:none;}
+  .split-section{grid-template-columns:1fr;}
+  .split-visual{min-height:240px;}
+  .classes{padding:72px 20px;}
+  .classes-grid{grid-template-columns:1fr;}
+  .schedule{padding:72px 20px;}
+  .schedule-table{overflow-x:auto;}
+  .trainers{padding:72px 20px;}
+  .trainers-grid{grid-template-columns:1fr;}
+  .pricing{padding:72px 20px;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .cta{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Core</strong> · Standard Fitness Template<span>· $24.99</span></p>
+  <a href="/product.html?t=core" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark"><div class="nav-logo-inner"></div></div>
+    CORE
+  </a>
+  <ul class="nav-links">
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#trainers">Trainers</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#classes">Classes</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#trainers">Trainers</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="mob-cta">Start Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-teal-bar"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Boutique Fitness Studio</div>
+    <h1>Precision.<br>Strength.<br><span>Function.</span></h1>
+    <p class="hero-sub">Small classes. Expert coaching. Results-driven programming. Core is where serious people come to train seriously — without the big-box gym experience.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Free Session</a>
+      <a href="#classes" class="btn-secondary">View Classes</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">15<span>max</span></div>
+      <div class="hero-stat-label">Class Size</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">500<span>+</span></div>
+      <div class="hero-stat-label">Members</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">8<span>yrs</span></div>
+      <div class="hero-stat-label">In Business</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT — About -->
+<div class="split-section">
+  <div class="split-visual reveal">
+    <div class="split-visual-placeholder">Studio Photography</div>
+    <div class="split-visual-accent"></div>
+  </div>
+  <div class="split-content reveal">
+    <div class="split-eyebrow">Why Core</div>
+    <h2 class="split-title">Boutique Training,<br><span>Real Results</span></h2>
+    <p class="split-text">We built Core around one idea — small classes with expert coaches produce better results than crowded gyms with no guidance. Every session is programmed. Every member is known by name.</p>
+    <div class="split-items">
+      <div class="split-item">
+        <div class="split-item-icon">15</div>
+        <div><div class="split-item-title">Maximum 15 Per Class</div><div class="split-item-text">Your coach can see you, cue you, and push you the right amount.</div></div>
+      </div>
+      <div class="split-item">
+        <div class="split-item-icon">↗</div>
+        <div><div class="split-item-title">Progressive Programming</div><div class="split-item-text">Every cycle builds on the last. You're not just showing up — you're improving.</div></div>
+      </div>
+    </div>
+    <a href="#classes" class="btn-primary">Explore Classes</a>
+  </div>
+</div>
+
+<!-- CLASSES -->
+<section class="classes" id="classes">
+  <div class="section-eyebrow reveal">Training Programs</div>
+  <h2 class="section-title reveal">Six Ways to <span>Train</span></h2>
+  <div class="classes-grid">
+    <div class="class-card reveal">
+      <div class="class-num">01</div>
+      <div class="class-name">Functional Strength</div>
+      <p class="class-desc">Compound movements, progressive loading, and movement pattern training. Built for real-world strength that transfers outside the gym.</p>
+      <div class="class-tags"><span class="class-tag">All Levels</span><span class="class-tag">55 Min</span></div>
+    </div>
+    <div class="class-card reveal reveal-delay-1">
+      <div class="class-num">02</div>
+      <div class="class-name">Metabolic Conditioning</div>
+      <p class="class-desc">High-output interval work designed to build aerobic capacity and burn fat simultaneously. Coach-directed, never random.</p>
+      <div class="class-tags"><span class="class-tag">Intermediate</span><span class="class-tag">45 Min</span></div>
+    </div>
+    <div class="class-card reveal reveal-delay-2">
+      <div class="class-num">03</div>
+      <div class="class-name">Core & Stability</div>
+      <p class="class-desc">Deep core activation, anti-rotation work, and balance training. The foundation every other class is built on.</p>
+      <div class="class-tags"><span class="class-tag">All Levels</span><span class="class-tag">40 Min</span></div>
+    </div>
+    <div class="class-card reveal">
+      <div class="class-num">04</div>
+      <div class="class-name">Athletic Performance</div>
+      <p class="class-desc">Speed, agility, power, and coordination work. Built for athletes and anyone who wants to move like one.</p>
+      <div class="class-tags"><span class="class-tag">Advanced</span><span class="class-tag">60 Min</span></div>
+    </div>
+    <div class="class-card reveal reveal-delay-1">
+      <div class="class-num">05</div>
+      <div class="class-name">Recovery & Mobility</div>
+      <p class="class-desc">Guided tissue work, stretching, and nervous system downregulation. Essential for anyone training more than twice a week.</p>
+      <div class="class-tags"><span class="class-tag">All Levels</span><span class="class-tag">45 Min</span></div>
+    </div>
+    <div class="class-card reveal reveal-delay-2">
+      <div class="class-num">06</div>
+      <div class="class-name">Private Coaching</div>
+      <p class="class-desc">One-on-one sessions with a dedicated coach. Custom programming, detailed feedback, and complete focus on your specific goals.</p>
+      <div class="class-tags"><span class="class-tag">1-on-1</span><span class="class-tag">60 Min</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule" id="schedule">
+  <div class="section-eyebrow reveal">Weekly Classes</div>
+  <h2 class="section-title reveal">This <span>Week's</span> Schedule</h2>
+  <div class="schedule-table reveal">
+    <div class="schedule-row header">
+      <div class="schedule-cell header-cell">Day</div>
+      <div class="schedule-cell header-cell">Morning</div>
+      <div class="schedule-cell header-cell">Midday</div>
+      <div class="schedule-cell header-cell">Evening</div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-cell day">Monday</div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Functional Strength</div><div class="schedule-class-time">6:00 AM</div></div></div>
+      <div class="schedule-cell"></div>
+      <div class="schedule-cell highlight"><div class="schedule-class-item"><div class="schedule-class-name">Metabolic Conditioning</div><div class="schedule-class-time">6:00 PM</div></div></div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-cell day">Wednesday</div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Core & Stability</div><div class="schedule-class-time">7:00 AM</div></div></div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Functional Strength</div><div class="schedule-class-time">12:00 PM</div></div></div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Athletic Performance</div><div class="schedule-class-time">5:30 PM</div></div></div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-cell day">Friday</div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Metabolic Conditioning</div><div class="schedule-class-time">6:00 AM</div></div></div>
+      <div class="schedule-cell"></div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Functional Strength</div><div class="schedule-class-time">6:00 PM</div></div></div>
+    </div>
+    <div class="schedule-row">
+      <div class="schedule-cell day">Saturday</div>
+      <div class="schedule-cell highlight"><div class="schedule-class-item"><div class="schedule-class-name">Athletic Performance</div><div class="schedule-class-time">8:00 AM</div></div></div>
+      <div class="schedule-cell"><div class="schedule-class-item"><div class="schedule-class-name">Recovery & Mobility</div><div class="schedule-class-time">10:30 AM</div></div></div>
+      <div class="schedule-cell"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="trainers" id="trainers">
+  <div class="section-eyebrow reveal">The Coaches</div>
+  <h2 class="section-title reveal">Trained to <span>Train You</span></h2>
+  <div class="trainers-grid">
+    <div class="trainer-card reveal">
+      <div class="trainer-initial">KR</div>
+      <div class="trainer-name">Kyle Reeves</div>
+      <div class="trainer-role">Head Coach · Strength</div>
+      <p class="trainer-bio">NSCA-CSCS certified strength coach with 8 years of coaching experience. Specializes in functional strength and athletic development.</p>
+    </div>
+    <div class="trainer-card reveal reveal-delay-1">
+      <div class="trainer-initial">NP</div>
+      <div class="trainer-name">Nia Park</div>
+      <div class="trainer-role">Conditioning · Mobility</div>
+      <p class="trainer-bio">Former D1 track athlete turned conditioning specialist. Builds metabolic programs that improve performance without burning you out.</p>
+    </div>
+    <div class="trainer-card reveal reveal-delay-2">
+      <div class="trainer-initial">TM</div>
+      <div class="trainer-name">Tyler Moss</div>
+      <div class="trainer-role">Performance · Private</div>
+      <p class="trainer-bio">Sports performance coach working with weekend warriors and competitive athletes alike. Precision cuing and zero nonsense.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-eyebrow reveal">Membership</div>
+  <h2 class="section-title reveal">Choose Your <span>Plan</span></h2>
+  <div class="pricing-grid">
+    <div class="pricing-card reveal">
+      <div class="pricing-label">Starter</div>
+      <div class="pricing-name">Class Pack</div>
+      <div class="pricing-amount"><sup>$</sup>120</div>
+      <div class="pricing-period">10-class pack · no expiry</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">10 Class Credits</div>
+        <div class="pricing-feature">All Class Types</div>
+        <div class="pricing-feature off">Unlimited Access</div>
+        <div class="pricing-feature off">Priority Booking</div>
+      </div>
+      <a href="#contact" class="btn-plan outline">Buy Pack</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-label">Most Popular</div>
+      <div class="pricing-name">Monthly</div>
+      <div class="pricing-amount"><sup>$</sup>129</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Unlimited Classes</div>
+        <div class="pricing-feature">All Class Types</div>
+        <div class="pricing-feature">Priority Booking</div>
+        <div class="pricing-feature off">Private Sessions</div>
+      </div>
+      <a href="#contact" class="btn-plan dark">Get Started</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-label">Elite</div>
+      <div class="pricing-name">All-In</div>
+      <div class="pricing-amount"><sup>$</sup>229</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Unlimited Classes</div>
+        <div class="pricing-feature">All Class Types</div>
+        <div class="pricing-feature">Priority Booking</div>
+        <div class="pricing-feature">2 Private Sessions</div>
+      </div>
+      <a href="#contact" class="btn-plan outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <div class="section-eyebrow reveal" style="justify-content:center;margin-bottom:20px;">Free Trial</div>
+    <h2 class="reveal">First Session <span>On Us.</span></h2>
+    <p class="reveal">Book a complimentary session and experience what boutique training actually feels like. No commitment. Just show up ready to work.</p>
+    <div class="cta-form reveal">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Book Free Session</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><div class="footer-logo-mark"><div class="footer-logo-inner"></div></div>CORE</div>
+      <p class="footer-tagline">Precision training. Small classes. Real results.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Classes</div>
+      <ul>
+        <li><a href="#classes">Functional Strength</a></li>
+        <li><a href="#classes">Metabolic Conditioning</a></li>
+        <li><a href="#classes">Core & Stability</a></li>
+        <li><a href="#classes">Private Coaching</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Studio</div>
+      <ul>
+        <li><a href="#trainers">Coaches</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#pricing">Membership</a></li>
+        <li><a href="#contact">Free Session</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Hours</div>
+      <ul>
+        <li><a href="#">Mon–Fri: 5:30am–8pm</a></li>
+        <li><a href="#">Saturday: 7am–2pm</a></li>
+        <li><a href="#">Sunday: Closed</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Core Studio. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
