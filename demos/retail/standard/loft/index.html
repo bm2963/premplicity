@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOFT — Independent. Unfiltered. Yours.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#0A0A0A;
+  --dark:#111111;
+  --dark-2:#181818;
+  --dark-3:#222222;
+  --white:#FFFFFF;
+  --red:#E63946;
+  --red-dim:rgba(230,57,70,0.1);
+  --gray:rgba(255,255,255,0.5);
+  --gray-dim:rgba(255,255,255,0.1);
+  --border:rgba(255,255,255,0.08);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:#fff;}
+.purchase-banner p span{font-weight:300;opacity:0.7;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--black);color:#fff;}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;transition:all 0.3s;}
+nav.scrolled{background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 28px;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:#ff4d5a;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--red);}
+.mobile-menu .mob-cta{font-size:16px !important;background:var(--red);padding:14px 48px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;padding:140px 52px 80px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A0A0A 0%,#141414 100%);}
+.hero-accent{position:absolute;top:0;right:0;width:40%;height:100%;background:var(--red);clip-path:polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);opacity:0.03;}
+.hero-content{position:relative;z-index:1;max-width:900px;}
+.hero-drop{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:slideUp 0.7s ease both;}
+.hero-drop::before{content:'';width:20px;height:2px;background:var(--red);}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(80px,14vw,180px);font-weight:800;line-height:0.88;letter-spacing:-2px;text-transform:uppercase;color:var(--white);margin-bottom:32px;animation:slideUp 0.7s 0.1s ease both;}
+.hero h1 span{color:var(--red);display:block;}
+.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;animation:slideUp 0.7s 0.2s ease both;}
+.hero-sub{font-size:15px;font-weight:300;color:var(--gray);line-height:1.7;max-width:400px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn-primary{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--white);color:var(--black);padding:14px 36px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--red);color:#fff;}
+.btn-secondary{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2);padding:14px 36px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--red);color:var(--red);}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* DROP TICKER */
+.ticker{background:var(--red);padding:12px 0;overflow:hidden;}
+.ticker-inner{display:flex;animation:ticker 15s linear infinite;white-space:nowrap;}
+.ticker-item{display:flex;align-items:center;gap:24px;padding:0 24px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;flex-shrink:0;}
+.ticker-sep{opacity:0.4;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* DROPS */
+.drops{padding:100px 52px;background:var(--dark);}
+.drops-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
+.section-tag{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,6vw,72px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--white);line-height:0.95;}
+.view-all{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);text-decoration:none;display:flex;align-items:center;gap:8px;transition:gap 0.2s;}
+.view-all:hover{gap:12px;}
+.drops-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;background:var(--border);}
+.drop-card{background:var(--black);position:relative;overflow:hidden;cursor:pointer;}
+.drop-card:hover .drop-overlay{opacity:1;}
+.drop-card:hover .drop-image{transform:scale(1.03);}
+.drop-image{aspect-ratio:3/4;background:var(--dark-2);display:flex;align-items:center;justify-content:center;transition:transform 0.5s ease;position:relative;}
+.drop-image-placeholder{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+.drop-card:first-child .drop-image{aspect-ratio:2/3;}
+.drop-overlay{position:absolute;inset:0;background:rgba(230,57,70,0.15);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:20px;}
+.drop-info{padding:16px;}
+.drop-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.drop-name{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--white);margin-bottom:4px;}
+.drop-price{font-size:14px;font-weight:300;color:var(--gray);}
+
+/* BRANDS */
+.brands{padding:60px 52px;background:var(--black);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.brands-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.2);text-align:center;margin-bottom:32px;}
+.brands-list{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+.brand-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.15);transition:color 0.2s;cursor:default;}
+.brand-name:hover{color:rgba(255,255,255,0.5);}
+
+/* LOOKBOOK */
+.lookbook{padding:100px 52px;background:var(--dark);}
+.lookbook-inner{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.lookbook-left{background:var(--black);padding:64px;}
+.lookbook-right{background:var(--dark-2);display:grid;grid-template-rows:1fr 1fr;gap:2px;}
+.lookbook-img{background:var(--dark-3);display:flex;align-items:center;justify-content:center;}
+.lookbook-img-placeholder{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.15);}
+.lookbook-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
+.lookbook-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,5vw,72px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--white);line-height:0.95;margin-bottom:24px;}
+.lookbook-title span{color:var(--red);}
+.lookbook-text{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:36px;}
+.btn-red{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:#fff;padding:14px 32px;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-red:hover{background:#ff4d5a;}
+
+/* PRODUCTS */
+.products{padding:100px 52px;background:var(--black);}
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);}
+.product-card{background:var(--dark);position:relative;overflow:hidden;cursor:pointer;transition:background 0.2s;}
+.product-card:hover{background:var(--dark-2);}
+.product-img{aspect-ratio:3/4;background:var(--dark-2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.product-img-placeholder{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.15);}
+.product-badge{position:absolute;top:12px;left:0;background:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;color:#fff;}
+.product-info{padding:14px;}
+.product-brand{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+.product-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--white);}
+.btn-cart{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:transparent;color:var(--red);border:1px solid rgba(230,57,70,0.3);padding:6px 12px;cursor:pointer;transition:all 0.2s;}
+.btn-cart:hover{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* NEWSLETTER */
+.newsletter{padding:100px 52px;background:var(--red);text-align:center;}
+.newsletter-inner{max-width:600px;margin:0 auto;}
+.newsletter h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,100px);font-weight:800;letter-spacing:-2px;text-transform:uppercase;color:#fff;line-height:0.9;margin-bottom:20px;}
+.newsletter p{font-size:15px;font-weight:300;color:rgba(255,255,255,0.75);margin-bottom:36px;line-height:1.7;}
+.newsletter-form{display:flex;max-width:440px;margin:0 auto;border:2px solid rgba(255,255,255,0.4);}
+.newsletter-form:focus-within{border-color:#fff;}
+.newsletter-form input{flex:1;padding:14px 18px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:14px;color:#fff;outline:none;}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.5);}
+.newsletter-form button{padding:14px 24px;background:#fff;color:var(--red);border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:background 0.2s;white-space:nowrap;}
+.newsletter-form button:hover{background:var(--black);color:#fff;}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--dark);border-top:1px solid var(--border);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--red);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;max-width:220px;}
+.footer-col-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--red);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:12px;color:var(--red);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}
+  .hero-row{flex-direction:column;align-items:flex-start;}
+  .drops{padding:72px 20px;}
+  .drops-grid{grid-template-columns:1fr;}
+  .brands{padding:40px 20px;}
+  .brands-list{gap:24px;}
+  .lookbook{padding:72px 20px;}
+  .lookbook-inner{grid-template-columns:1fr;}
+  .lookbook-right{display:none;}
+  .products{padding:72px 20px;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .newsletter{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Loft</strong> · Standard Retail Template<span>· $24.99</span></p>
+  <a href="/product.html?t=loft" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">LOFT<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#drops">New Drops</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#lookbook">Lookbook</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+  <a href="#drops" class="nav-cta">Shop Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#drops">New Drops</a>
+  <a href="#products">Shop</a>
+  <a href="#lookbook">Lookbook</a>
+  <a href="#newsletter">Contact</a>
+  <a href="#drops" class="mob-cta">Shop Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-drop">Spring Drop 2026 — Available Now</div>
+    <h1>Independent.<br><span>Unfiltered.</span></h1>
+    <div class="hero-row">
+      <p class="hero-sub">Streetwear and independent brands for people who don't follow trends — they set them. Every piece is deliberate. Nothing here is for everyone.</p>
+      <div class="hero-actions">
+        <a href="#drops" class="btn-primary">Shop the Drop</a>
+        <a href="#lookbook" class="btn-secondary">Lookbook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item">New Drop Live<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Limited Quantities<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Free Shipping $75+<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Independent Brands Only<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">No Restocks<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">New Drop Live<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Limited Quantities<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Free Shipping $75+<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">Independent Brands Only<span class="ticker-sep"> · </span></div>
+    <div class="ticker-item">No Restocks<span class="ticker-sep"> · </span></div>
+  </div>
+</div>
+
+<!-- DROPS -->
+<section class="drops" id="drops">
+  <div class="drops-header reveal">
+    <div>
+      <div class="section-tag">Latest Drop</div>
+      <h2 class="section-title">Spring '26<br>Collection</h2>
+    </div>
+    <a href="#products" class="view-all">View All →</a>
+  </div>
+  <div class="drops-grid reveal">
+    <div class="drop-card">
+      <div class="drop-image"><div class="drop-image-placeholder">Campaign Photo</div><div class="drop-overlay"></div></div>
+      <div class="drop-info"><div class="drop-tag">Featured Drop</div><div class="drop-name">Oversized Coach Jacket</div><div class="drop-price">$148</div></div>
+    </div>
+    <div class="drop-card">
+      <div class="drop-image"><div class="drop-image-placeholder">Product Photo</div><div class="drop-overlay"></div></div>
+      <div class="drop-info"><div class="drop-tag">New</div><div class="drop-name">Washed Crewneck</div><div class="drop-price">$88</div></div>
+    </div>
+    <div class="drop-card">
+      <div class="drop-image"><div class="drop-image-placeholder">Product Photo</div><div class="drop-overlay"></div></div>
+      <div class="drop-info"><div class="drop-tag">Limited</div><div class="drop-name">Cargo Pants</div><div class="drop-price">$124</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands reveal">
+  <div class="brands-label">Brands we carry</div>
+  <div class="brands-list">
+    <div class="brand-name">ARCANE</div>
+    <div class="brand-name">VOID CO.</div>
+    <div class="brand-name">RAWFORM</div>
+    <div class="brand-name">NOMA</div>
+    <div class="brand-name">DRIFT</div>
+    <div class="brand-name">BLOC</div>
+  </div>
+</div>
+
+<!-- LOOKBOOK -->
+<section class="lookbook" id="lookbook">
+  <div class="lookbook-inner">
+    <div class="lookbook-left reveal">
+      <div class="lookbook-eyebrow">Spring Lookbook 2026</div>
+      <h2 class="lookbook-title">Wear It<br><span>Your Way.</span></h2>
+      <p class="lookbook-text">Street doesn't mean sloppy. Our spring lookbook shows how independent pieces layer, contrast, and tell a story that's entirely yours.</p>
+      <a href="#products" class="btn-red">Shop the Look</a>
+    </div>
+    <div class="lookbook-right">
+      <div class="lookbook-img reveal"><div class="lookbook-img-placeholder">Lookbook Photo</div></div>
+      <div class="lookbook-img reveal reveal-delay-1"><div class="lookbook-img-placeholder">Lookbook Photo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="section-tag">All Products</div>
+      <h2 class="section-title">Shop the<br>Full Range</h2>
+    </div>
+    <a href="#newsletter" class="view-all">See All →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card reveal">
+      <div class="product-img"><div class="product-img-placeholder">Photo</div><div class="product-badge">New</div></div>
+      <div class="product-info"><div class="product-brand">Arcane</div><div class="product-name">Bomber Jacket</div><div class="product-footer"><div class="product-price">$165</div><button class="btn-cart">Add</button></div></div>
+    </div>
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-img"><div class="product-img-placeholder">Photo</div></div>
+      <div class="product-info"><div class="product-brand">Void Co.</div><div class="product-name">Graphic Tee</div><div class="product-footer"><div class="product-price">$54</div><button class="btn-cart">Add</button></div></div>
+    </div>
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-img"><div class="product-img-placeholder">Photo</div><div class="product-badge">Ltd.</div></div>
+      <div class="product-info"><div class="product-brand">Rawform</div><div class="product-name">Utility Vest</div><div class="product-footer"><div class="product-price">$112</div><button class="btn-cart">Add</button></div></div>
+    </div>
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-img"><div class="product-img-placeholder">Photo</div></div>
+      <div class="product-info"><div class="product-brand">Drift</div><div class="product-name">Wide Leg Denim</div><div class="product-footer"><div class="product-price">$138</div><button class="btn-cart">Add</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-inner">
+    <h2 class="reveal">Drop<br>Alerts.</h2>
+    <p class="reveal">New drops sell fast. Get notified before they hit the site so you actually have a chance.</p>
+    <div class="newsletter-form reveal">
+      <input type="email" placeholder="Your email">
+      <button type="button">Notify Me</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">LOFT<span>.</span></div>
+      <p class="footer-tagline">Independent streetwear and contemporary brands. No trends. No restocks.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Shop</div>
+      <ul>
+        <li><a href="#drops">New Drops</a></li>
+        <li><a href="#products">All Products</a></li>
+        <li><a href="#lookbook">Lookbook</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Info</div>
+      <ul>
+        <li><a href="#">About Loft</a></li>
+        <li><a href="#">Brands We Carry</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#newsletter">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Follow</div>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Pinterest</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Loft. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
