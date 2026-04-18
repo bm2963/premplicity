@@ -330,8 +330,8 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="value-row-val">$12.99 – $29.99</div>
           </div>
           <div class="value-row" style="background:rgba(201,168,76,0.04);">
-            <div class="value-row-label" style="color:rgba(255,255,255,0.7);">All 7 guides (Full Bundle)</div>
-            <div class="value-row-val">$124.99</div>
+            <div class="value-row-label" style="color:rgba(255,255,255,0.7);">All 6 guides (Full Bundle)</div>
+            <div class="value-row-val">$74.99</div>
           </div>
         </div>
         <div class="hero-value-glow"></div>
@@ -347,11 +347,11 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
       <div class="bundle-glow"></div>
       <div class="bundle-card-eyebrow">Bundle 01 · Starter</div>
       <div class="bundle-card-name">Starter Bundle</div>
-      <p class="bundle-card-includes">Includes: <strong>Complete Setup Guide</strong> + <strong>Domain Connection Guide</strong> + <strong>Contact Form Setup Guide</strong> — everything you need to go from template to live site.</p>
+      <p class="bundle-card-includes">Includes: <strong>Domain Connection Guide</strong> + <strong>SEO Basics Guide</strong> — the two most impactful next steps after launching your template.</p>
       <div class="bundle-pricing">
-        <div class="bundle-price">$44.99</div>
-        <div class="bundle-was">$59.97</div>
-        <div class="bundle-save">Save $15</div>
+        <div class="bundle-price">$29.99</div>
+        <div class="bundle-was">$39.98</div>
+        <div class="bundle-save">Save $10</div>
       </div>
       <button class="btn-add-bundle" id="btn-starter-bundle" onclick="addBundle('starter', this)">Add Bundle to Cart</button>
     </div>
@@ -359,11 +359,11 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
       <div class="bundle-glow"></div>
       <div class="bundle-card-eyebrow">Bundle 02 · Complete</div>
       <div class="bundle-card-name">Full Launch Bundle</div>
-      <p class="bundle-card-includes">Includes: <strong>All 7 add-on guides</strong> — the complete toolkit for launching, getting found on Google, and growing your online presence from day one.</p>
+      <p class="bundle-card-includes">Includes: <strong>All 6 add-on guides</strong> — everything you need to get found on Google, grow your online presence, and connect with customers from day one.</p>
       <div class="bundle-pricing">
-        <div class="bundle-price">$124.99</div>
-        <div class="bundle-was">$152.93</div>
-        <div class="bundle-save">Save $28</div>
+        <div class="bundle-price">$74.99</div>
+        <div class="bundle-was">$109.94</div>
+        <div class="bundle-save">Save $35</div>
       </div>
       <button class="btn-add-bundle" id="btn-full-bundle" onclick="addBundle('full', this)">Add Bundle to Cart</button>
     </div>
@@ -387,16 +387,15 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
         <div class="addon-card-glow"></div>
         <div class="addon-tag-row">
           <div class="addon-num">Guide 01</div>
-          <div class="priority-tag tag-essential">Essential</div>
+          <div class="priority-tag tag-essential">Included with Templates</div>
         </div>
-        <div class="addon-card-title">Complete Setup Guide</div>
-        <p class="addon-card-desc">A step-by-step written guide covering the entire process from start to finish. Covers unzipping and organizing your template files, opening and editing them in a free text editor, replacing placeholder content with your own, uploading your files to GitHub, deploying to Cloudflare Pages or GitHub Pages, adding a working contact form via Formspree, and verifying your site is live. <strong>Written for complete beginners — no technical experience assumed.</strong></p>
+        <div class="addon-card-title">Setup Guide</div>
+        <p class="addon-card-desc">A step-by-step written guide covering the entire process from start to finish. Covers unzipping and organizing your template files, opening and editing them in a free text editor, replacing placeholder content with your own, uploading your files to GitHub, deploying to Cloudflare Pages or GitHub Pages, adding a working contact form via Formspree, and verifying your site is live. <strong>Included free with every Siteafi template purchase — no add-on needed.</strong></p>
         <div class="addon-card-footer">
           <div>
-            <div class="addon-price">$29.99</div>
-            <div class="addon-type">Written Guide · One-time purchase</div>
+            <div class="addon-price" style="color:var(--text-muted);font-size:18px;">Free with template</div>
+            <div class="addon-type">Written Guide · Included automatically</div>
           </div>
-          <button class="btn-add-cart" id="btn-setup" onclick="addGuide('setup','Complete Setup Guide',29.99,'btn-setup')">Add to Cart</button>
         </div>
       </div>
 
@@ -499,23 +498,6 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
             <div class="addon-type">Written Guide · One-time purchase</div>
           </div>
           <button class="btn-add-cart" id="btn-social" onclick="addGuide('social','Social Media Link Integration Guide',12.99,'btn-social')">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="addon-card reveal reveal-delay-1" style="opacity:0.5;pointer-events:none;">
-        <div class="addon-card-glow"></div>
-        <div class="addon-tag-row">
-          <div class="addon-num">Guide 08</div>
-          <div class="priority-tag tag-nice-to-have">Coming Soon</div>
-        </div>
-        <div class="addon-card-title">More Guides Coming</div>
-        <p class="addon-card-desc">We're always working on new guides based on what our customers ask for most. Have a topic you'd like covered? Reach out and let us know — your request could become our next add-on.</p>
-        <div class="addon-card-footer">
-          <div>
-            <div class="addon-price" style="color:var(--text-muted);">TBA</div>
-            <div class="addon-type">Written Guide</div>
-          </div>
-          <a href="mailto:hello@siteafi.com" class="btn-suggest" style="pointer-events:all;">Suggest a Topic</a>
         </div>
       </div>
 
@@ -672,22 +654,21 @@ function addGuide(id, name, price, btnId) {
 
 function addBundle(type, btn) {
   const starter = [
-    { id: 'guide-setup',  type: 'Written Guide', name: 'Complete Setup Guide',      sub: 'Starter Bundle', price: 0, palette: null },
-    { id: 'guide-domain', type: 'Written Guide', name: 'Domain Connection Guide',    sub: 'Starter Bundle', price: 0, palette: null },
+    { id: 'guide-domain', type: 'Written Guide', name: 'Domain Connection Guide', sub: 'Starter Bundle', price: 0, palette: null },
+    { id: 'guide-seo',    type: 'Written Guide', name: 'SEO Basics Guide',         sub: 'Starter Bundle', price: 0, palette: null },
   ];
   const full = [
-    { id: 'guide-setup',     type: 'Written Guide', name: 'Complete Setup Guide',              sub: 'Full Bundle', price: 0, palette: null },
-    { id: 'guide-domain',    type: 'Written Guide', name: 'Domain Connection Guide',            sub: 'Full Bundle', price: 0, palette: null },
-    { id: 'guide-seo',       type: 'Written Guide', name: 'SEO Basics Guide',                   sub: 'Full Bundle', price: 0, palette: null },
-    { id: 'guide-gbp',       type: 'Written Guide', name: 'Google Business Profile Guide',      sub: 'Full Bundle', price: 0, palette: null },
-    { id: 'guide-analytics', type: 'Written Guide', name: 'Google Analytics Guide',             sub: 'Full Bundle', price: 0, palette: null },
-    { id: 'guide-whatsapp',  type: 'Written Guide', name: 'WhatsApp & Click-to-Call Guide',     sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-domain',    type: 'Written Guide', name: 'Domain Connection Guide',             sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-seo',       type: 'Written Guide', name: 'SEO Basics Guide',                    sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-gbp',       type: 'Written Guide', name: 'Google Business Profile Guide',       sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-analytics', type: 'Written Guide', name: 'Google Analytics Guide',              sub: 'Full Bundle', price: 0, palette: null },
+    { id: 'guide-whatsapp',  type: 'Written Guide', name: 'WhatsApp & Click-to-Call Guide',      sub: 'Full Bundle', price: 0, palette: null },
     { id: 'guide-social',    type: 'Written Guide', name: 'Social Media Link Integration Guide', sub: 'Full Bundle', price: 0, palette: null },
   ];
-  const bundlePrice = type === 'starter' ? 44.99 : 124.99;
+  const bundlePrice = type === 'starter' ? 29.99 : 74.99;
   const bundleName  = type === 'starter' ? 'Starter Bundle' : 'Full Launch Bundle';
   const bundleId    = type === 'starter' ? 'bundle-starter' : 'bundle-full';
-  const added = addToCart({ id: bundleId, type: 'Bundle', name: bundleName, sub: type === 'starter' ? '3 guides included' : '7 guides included', price: bundlePrice, palette: null });
+  const added = addToCart({ id: bundleId, type: 'Bundle', name: bundleName, sub: type === 'starter' ? '2 guides included' : '6 guides included', price: bundlePrice, palette: null });
   if (added) {
     btn.textContent = '✓ Added to Cart';
     btn.classList.add('added');
