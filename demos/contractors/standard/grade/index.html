@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Grade Finishing Co." to your business name -->
+<title>Grade Finishing Co. — Premium Painting & Flooring</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --slate:#1E2832;
+  --slate-2:#252F3B;
+  --slate-3:#2C3744;
+  --slate-4:#333F4E;
+  --red:#C0392B;
+  --red-light:#D44333;
+  --red-dim:rgba(192,57,43,0.12);
+  --off-white:#E8EDF2;
+  --off-white-2:#D8DFE8;
+  --text-muted:rgba(232,237,242,0.45);
+  --border:rgba(232,237,242,0.08);
+  --border-red:rgba(192,57,43,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--slate);color:var(--off-white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.6;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--red);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--off-white-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;transition:all 0.4s;}
+nav.scrolled{background:rgba(30,40,50,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "Grade" to your business name */
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--off-white);letter-spacing:1px;text-transform:uppercase;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.5px;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--off-white);}
+/* NAV CTA */
+.nav-cta{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 22px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--red-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--off-white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--slate);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--off-white);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--red);}
+.mobile-menu .mob-cta{font-size:14px !important;background:var(--red);color:#fff !important;padding:14px 48px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;padding:140px 52px 0;background:var(--slate);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-accent-bar{position:absolute;top:0;right:0;width:6px;height:100%;background:var(--red);}
+.hero-content{position:relative;z-index:1;padding-bottom:0;}
+/* HERO LABEL — Change to your specialty */
+.hero-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:24px;display:flex;align-items:center;gap:14px;animation:slideUp 0.8s ease both;}
+.hero-label::before{content:'';width:28px;height:2px;background:var(--red);}
+/* HERO HEADLINE — Change to your tagline */
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(64px,10vw,140px);font-weight:800;line-height:0.9;letter-spacing:-2px;text-transform:uppercase;color:var(--off-white);margin-bottom:0;animation:slideUp 0.8s 0.1s ease both;}
+.hero h1 .accent{color:var(--red);}
+/* HERO LOWER ROW — subtext and CTA side by side */
+.hero-lower{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;padding:40px 0 80px;border-top:1px solid var(--border);margin-top:32px;animation:slideUp 0.8s 0.2s ease both;}
+/* HERO SUBTEXT — Describe your business */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:480px;}
+.hero-right-lower{display:flex;flex-direction:column;gap:24px;align-items:flex-end;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;}
+.btn-primary{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--red);color:#fff;padding:14px 28px;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--red-light);}
+.btn-secondary{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:14px 28px;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--red);color:var(--red);}
+/* TRUST — Change to your real credentials */
+.hero-trust{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap;}
+.hero-trust-item{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-trust-item::before{content:'';width:4px;height:4px;background:var(--red);}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* STATS STRIP */
+.stats-strip{background:var(--slate-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{padding:28px 36px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
+.stat-item:last-child{border-right:none;}
+/* STATS — Change all four to your real numbers */
+.stat-num{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--off-white);letter-spacing:-1px;line-height:1;}
+.stat-num span{color:var(--red);}
+.stat-label{font-size:11px;font-weight:400;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+
+/* SERVICES */
+.services{padding:100px 52px;background:var(--slate-2);}
+.section-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--off-white);line-height:0.95;margin-bottom:60px;}
+.section-title span{color:var(--red);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.service-card{background:var(--slate);padding:40px 32px;position:relative;transition:background 0.2s;}
+.service-card:hover{background:var(--slate-3);}
+.service-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
+/* SERVICE NUMBER */
+.service-num{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:var(--text-muted);}
+/* SERVICE MARKER — small red square */
+.service-marker{width:8px;height:8px;background:var(--red);flex-shrink:0;}
+/* SERVICE CARDS — Change names and descriptions */
+.service-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--off-white);margin-bottom:12px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--red);}
+.service-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.75;}
+
+/* WORK / PROJECTS */
+.projects{padding:100px 52px;background:var(--slate);}
+.projects-layout{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:60px;}
+.projects-left{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.project-card{background:var(--slate-2);overflow:hidden;position:relative;transition:background 0.2s;}
+.project-card:hover{background:var(--slate-3);}
+.project-img{background:var(--slate-3);display:flex;align-items:center;justify-content:center;}
+.project-main .project-img{aspect-ratio:4/3;}
+.projects-left .project-img{aspect-ratio:16/9;}
+/* PROJECT IMAGES — Replace with real project photos */
+.project-img-placeholder{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(232,237,242,0.15);}
+.project-info{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;}
+.project-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+/* PROJECT NAME — Change to your real project names */
+.project-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--off-white);letter-spacing:0.3px;}
+.project-arrow{font-size:16px;color:var(--text-muted);}
+
+/* WHY */
+.why{padding:100px 52px;background:var(--slate-2);}
+.why-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.why-left{}
+/* WHY HEADLINE — Change to your own statement */
+.why-headline{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--off-white);line-height:0.95;margin-bottom:20px;}
+.why-headline span{color:var(--red);}
+/* WHY BODY — Change to your own story */
+.why-body{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;}
+.why-right{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.why-item{background:var(--slate);padding:28px 32px;display:flex;gap:20px;transition:background 0.2s;}
+.why-item:hover{background:var(--slate-3);}
+.why-item-bar{width:3px;background:var(--red);flex-shrink:0;border-radius:2px;}
+/* WHY ITEMS — Change titles and descriptions to your real differentiators */
+.why-item-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.3px;color:var(--off-white);margin-bottom:6px;}
+.why-item-text{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--slate);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
+.testimonial{background:var(--slate-2);padding:40px 32px;}
+/* CSS STARS */
+.testimonial-stars{display:flex;gap:4px;margin-bottom:20px;}
+.star{width:10px;height:10px;background:var(--red);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:var(--off-white-2);line-height:1.8;margin-bottom:24px;}
+.testimonial-author{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--off-white);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:4px;letter-spacing:0.5px;}
+
+/* CTA */
+.cta{padding:0;background:var(--slate-2);}
+.cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.cta-left{padding:80px 52px;background:var(--red);display:flex;flex-direction:column;justify-content:center;}
+/* CTA HEADLINE — Change to your own call to action */
+.cta h2{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:#fff;line-height:0.95;margin-bottom:16px;}
+.cta p{font-size:15px;font-weight:300;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:32px;}
+.btn-white{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#fff;color:var(--red);padding:14px 28px;transition:background 0.2s;display:inline-block;}
+.btn-white:hover{background:var(--off-white-2);}
+.cta-right{padding:80px 52px;background:var(--slate-3);}
+/* CONTACT FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(232,237,242,0.05);border:1px solid rgba(232,237,242,0.1);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--off-white);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(232,237,242,0.25);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(192,57,43,0.5);}
+form select option{background:var(--slate);}
+form textarea{resize:none;height:90px;}
+.btn-submit{width:100%;padding:16px;background:var(--red);color:#fff;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--red-light);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--slate);border-top:1px solid var(--border);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+/* FOOTER LOGO & TAGLINE — Change to your business name and description */
+.footer-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--off-white);margin-bottom:12px;}
+.footer-logo span{color:var(--red);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;max-width:220px;}
+.footer-col-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:16px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--red);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change business name */
+.footer-copy{font-size:12px;color:rgba(232,237,242,0.2);}
+.footer-built a{font-size:12px;color:var(--red);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.hero-lower{grid-template-columns:1fr;}.hero-actions{justify-content:flex-start;}.hero-trust{justify-content:flex-start;}.why-inner{grid-template-columns:1fr;}.cta-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 0;}.stats-strip .stats-inner{grid-template-columns:1fr 1fr;}
+  .services{padding:72px 20px;}.services-grid{grid-template-columns:1fr;}
+  .projects{padding:72px 20px;}.projects-layout{grid-template-columns:1fr;}
+  .why{padding:72px 20px;}.testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .cta-left{padding:60px 20px;}.cta-right{padding:60px 20px;}
+  footer{padding:48px 20px 24px;}.footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Grade</strong> · Standard Contractor Template<span>· $24.99</span></p>
+  <a href="/product.html?t=grade" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Grade" to your business name -->
+  <a href="#" class="nav-logo">Grade<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#projects">Work</a>
+  <a href="#why">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="mob-cta">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-accent-bar"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your specialty -->
+    <div class="hero-label">Premium Painting &amp; Flooring</div>
+    <!-- HERO HEADLINE — Change to your tagline -->
+    <h1>Surface<br>Level<br><span class="accent">Mastery.</span></h1>
+    <div class="hero-lower">
+      <!-- HERO SUBTEXT — Describe your business -->
+      <p class="hero-sub">Premium painting, flooring, and finish work for homeowners and contractors who understand that the quality of a finish defines the quality of a space. We've been proving that for 15 years.</p>
+      <div class="hero-right-lower">
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Request a Quote</a>
+          <a href="#projects" class="btn-secondary">View Our Work</a>
+        </div>
+        <!-- TRUST — Change to your real credentials -->
+        <div class="hero-trust">
+          <div class="hero-trust-item">Licensed &amp; Insured</div>
+          <div class="hero-trust-item">15 Years Experience</div>
+          <div class="hero-trust-item">Free Estimates</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<!-- STATS — Change all four to your real numbers -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">15<span>+</span></div><div class="stat-label">Years in Business</div></div>
+    <div class="stat-item reveal reveal-delay-1"><div class="stat-num">900<span>+</span></div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-item reveal reveal-delay-2"><div class="stat-num">4.9<span>/5</span></div><div class="stat-label">Google Rating</div></div>
+    <div class="stat-item reveal reveal-delay-3"><div class="stat-num">2yr</div><div class="stat-label">Labor Warranty</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <span>Services</span></h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change names and descriptions to your actual services -->
+    <div class="service-card reveal">
+      <div class="service-card-top"><div class="service-num">01</div><div class="service-marker"></div></div>
+      <div class="service-name">Interior Painting</div>
+      <p class="service-desc">Walls, ceilings, trim, doors, and cabinetry to a flawless finish. Proper prep, proper primer, no shortcuts. The difference is visible the moment you walk in.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-top"><div class="service-num">02</div><div class="service-marker"></div></div>
+      <div class="service-name">Exterior Painting</div>
+      <p class="service-desc">Full prep, quality product, expert application. We protect your property from the elements and make it look its best from the curb.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-top"><div class="service-num">03</div><div class="service-marker"></div></div>
+      <div class="service-name">Hardwood Flooring</div>
+      <p class="service-desc">Installation, sanding, staining, and refinishing. From solid oak to engineered hardwood — laid level, finished smooth, built for decades of use.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-top"><div class="service-num">04</div><div class="service-marker"></div></div>
+      <div class="service-name">Tile Work</div>
+      <p class="service-desc">Kitchens, bathrooms, entryways, and exteriors. Precision tile installation with clean grout lines and exact pattern alignment.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-top"><div class="service-num">05</div><div class="service-marker"></div></div>
+      <div class="service-name">Cabinet Refinishing</div>
+      <p class="service-desc">Transform your cabinets without a full replacement. Professional spray finish in any color — results that look factory-new at a fraction of the cost.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-top"><div class="service-num">06</div><div class="service-marker"></div></div>
+      <div class="service-name">Drywall &amp; Plaster</div>
+      <p class="service-desc">Patches, repairs, and full finishing to a paint-ready surface. We correct it properly — not just cover it — so it doesn't come back.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-label reveal">Selected Work</div>
+  <h2 class="section-title reveal">Recent <span>Projects</span></h2>
+  <div class="projects-layout">
+    <div class="project-main project-card reveal">
+      <!-- PROJECT IMAGES — Replace with real project photos -->
+      <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+      <div class="project-info">
+        <div>
+          <div class="project-tag">Interior Painting</div>
+          <!-- PROJECT NAME — Change to your real project name -->
+          <div class="project-name">Full Home Repaint — River Oaks</div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+    </div>
+    <div class="projects-left">
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+        <div class="project-info">
+          <div>
+            <div class="project-tag">Hardwood Flooring</div>
+            <div class="project-name">White Oak Install — The Heights</div>
+          </div>
+          <div class="project-arrow">→</div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+        <div class="project-info">
+          <div>
+            <div class="project-tag">Cabinet Refinishing</div>
+            <div class="project-name">Kitchen Repaint — Midtown Condo</div>
+          </div>
+          <div class="project-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="reveal">
+      <div class="section-label">Why Grade</div>
+      <!-- WHY HEADLINE — Change to your own statement -->
+      <h2 class="why-headline">Built on <span>Craft.</span></h2>
+      <!-- WHY BODY — Change to your own story -->
+      <p class="why-body">Grade started in 2009 with one crew and a straightforward conviction — if you prep properly, use quality materials, and treat people honestly, the work takes care of itself. Fifteen years and 900+ projects later, that's still everything.</p>
+      <a href="#contact" class="btn-primary">Request a Free Estimate</a>
+    </div>
+    <div class="why-right reveal">
+      <!-- WHY ITEMS — Change titles and text to your real differentiators -->
+      <div class="why-item">
+        <div class="why-item-bar"></div>
+        <div><div class="why-item-title">Licensed &amp; Fully Insured</div><p class="why-item-text">Every job is covered. We carry full liability and workers' comp so you have zero exposure on your property.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-item-bar"></div>
+        <div><div class="why-item-title">Written Estimates — No Surprises</div><p class="why-item-text">You receive a detailed written quote before we start anything. What we say is what you pay.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-item-bar"></div>
+        <div><div class="why-item-title">We Show Up On Schedule</div><p class="why-item-text">We commit to a start date and we're there. No waiting, no rescheduling without notice.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-item-bar"></div>
+        <div><div class="why-item-title">2-Year Labor Warranty</div><p class="why-item-text">All work is backed by our labor warranty. If something isn't right, we come back and make it right — no questions asked.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What <span>Clients Say</span></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The interior painting was flawless. Every edge crisp, every surface properly prepped. You can tell immediately this isn't a standard crew — they operate at a completely different level."</p>
+      <div class="testimonial-author">Catherine W.</div>
+      <div class="testimonial-detail">Full home repaint · River Oaks</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"White oak floors throughout our main level. Perfectly level, tight seams, beautiful stain. It completely transformed the space. Worth every single dollar."</p>
+      <div class="testimonial-author">James &amp; Ellen R.</div>
+      <div class="testimonial-detail">Hardwood flooring installation</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"They refinished our kitchen cabinets and the result looks brand new. Color match was perfect and it saved us over $15,000 compared to a full replacement."</p>
+      <div class="testimonial-author">Michelle T.</div>
+      <div class="testimonial-detail">Cabinet refinishing · Kitchen</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <div class="cta-left reveal">
+      <!-- CTA HEADLINE — Change to your own call to action -->
+      <h2>Let's Talk<br>About Your<br>Project.</h2>
+      <p>Tell us what you're working on. We respond within one business day with a clear written estimate and timeline — no pressure, no obligation.</p>
+      <!-- PHONE — Change to your real phone number -->
+      <a href="tel:+15551234567" class="btn-white">(555) 123-4567</a>
+    </div>
+    <div class="cta-right reveal">
+      <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <!-- SERVICE OPTIONS — Change to your actual services -->
+        <select name="service">
+          <option value="" disabled selected>Type of Work</option>
+          <option>Interior Painting</option>
+          <option>Exterior Painting</option>
+          <option>Hardwood Flooring</option>
+          <option>Tile Work</option>
+          <option>Cabinet Refinishing</option>
+          <option>Drywall &amp; Plaster</option>
+          <option>Multiple Services</option>
+        </select>
+        <textarea name="message" placeholder="Describe your project — scope, timeline, any specifics we should know..."></textarea>
+        <button type="submit" class="btn-submit">Submit My Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO & TAGLINE — Change to your business name and description -->
+      <div class="footer-logo">Grade<span>.</span></div>
+      <p class="footer-tagline">Premium painting, flooring, and finish work for homeowners and contractors who want it done right.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <!-- FOOTER SERVICES — Change to your actual services -->
+        <li><a href="#services">Interior Painting</a></li>
+        <li><a href="#services">Exterior Painting</a></li>
+        <li><a href="#services">Hardwood Flooring</a></li>
+        <li><a href="#services">Tile Work</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#why">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourbusiness.com">hello@yourbusiness.com</a></li>
+        <!-- SERVICE AREA — Change to your city -->
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Mon–Fri 7am–5pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change business name -->
+    <div class="footer-copy">© 2026 Grade Finishing Co. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

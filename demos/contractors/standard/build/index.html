@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Build Electric" to your business name -->
+<title>Build Electric — Licensed Electrical Contractor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#111111;
+  --dark:#1A1A1A;
+  --dark-2:#222222;
+  --dark-3:#2A2A2A;
+  --orange:#E8611A;
+  --orange-light:#F07A38;
+  --orange-dim:rgba(232,97,26,0.1);
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.5);
+  --gray-dim:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.08);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--orange);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:#fff;}
+.purchase-banner p span{font-weight:300;opacity:0.7;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--black);color:#fff;}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;transition:all 0.3s;}
+nav.scrolled{background:rgba(17,17,17,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "BUILD" to your business name abbreviation */
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+/* NAV CALL BUTTON — Change phone number */
+.nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--orange);color:#fff;padding:10px 24px;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{background:var(--orange-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--orange);}
+.mobile-menu .mob-cta{font-size:16px !important;background:var(--orange);padding:14px 48px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;padding:140px 52px 80px;position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A0A0A 0%,#1A1A1A 100%);}
+.hero-stripe{position:absolute;top:0;right:0;width:45%;height:100%;background:var(--orange);clip-path:polygon(25% 0%,100% 0%,100% 100%,0% 100%);opacity:0.04;}
+.hero-content{position:relative;z-index:1;max-width:900px;}
+/* HERO LABEL — Change to your license type or specialty */
+.hero-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;gap:12px;animation:up 0.7s ease both;}
+.hero-label::before{content:'';width:24px;height:2px;background:var(--orange);}
+/* HERO HEADLINE — Your main headline, make it bold and direct */
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(72px,12vw,160px);font-weight:900;line-height:0.88;letter-spacing:-2px;text-transform:uppercase;color:var(--white);margin-bottom:32px;animation:up 0.7s 0.1s ease both;}
+.hero h1 span{color:var(--orange);display:block;}
+.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;animation:up 0.7s 0.2s ease both;}
+/* HERO SUBTEXT — 1-2 sentences about your business */
+.hero-sub{font-size:16px;font-weight:300;color:var(--gray);line-height:1.7;max-width:440px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+/* CTA BUTTONS — Change phone number and text */
+.btn-primary{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:var(--orange);color:#fff;padding:14px 32px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--orange-light);}
+.btn-secondary{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2);padding:14px 32px;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--orange);color:var(--orange);}
+@keyframes up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* STATS BAR */
+.stats-bar{background:var(--orange);display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{padding:24px 32px;border-right:1px solid rgba(255,255,255,0.15);text-align:center;}
+.stat-item:last-child{border-right:none;}
+/* STATS — Change numbers and labels to real stats */
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;}
+.stat-label{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;}
+
+/* SERVICES */
+.services{padding:100px 52px;background:var(--dark);}
+.section-tag{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(44px,6vw,72px);font-weight:900;letter-spacing:-1px;text-transform:uppercase;color:var(--white);line-height:0.95;margin-bottom:52px;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+.service-card{background:var(--black);padding:36px 32px;position:relative;overflow:hidden;transition:background 0.2s;cursor:default;}
+.service-card:hover{background:var(--dark-2);}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+.service-card:hover::before{transform:scaleX(1);}
+/* SERVICE NUMBER — Auto-generated, no need to change */
+.service-num{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;color:rgba(232,97,26,0.1);line-height:1;margin-bottom:16px;}
+/* SERVICE NAME — Change to your actual services */
+.service-name{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:var(--white);margin-bottom:10px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--orange);}
+/* SERVICE DESCRIPTION — 1-2 sentences about this service */
+.service-desc{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;}
+
+/* WHY US */
+.why{padding:100px 52px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.why-left{}
+.why-right{display:flex;flex-direction:column;gap:2px;background:var(--border);}
+.why-item{background:var(--dark);padding:28px 32px;display:flex;gap:20px;align-items:flex-start;transition:background 0.2s;}
+.why-item:hover{background:var(--dark-2);}
+.why-icon{width:40px;height:40px;background:var(--orange-dim);border:1px solid rgba(232,97,26,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+/* WHY US ITEMS — Change titles and descriptions to your real differentiators */
+.why-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;color:var(--white);margin-bottom:6px;}
+.why-text{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;}
+/* WHY US HEADLINE — Change to your own compelling statement */
+.why-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:900;text-transform:uppercase;color:var(--white);line-height:0.95;margin-bottom:20px;}
+.why-headline span{color:var(--orange);}
+.why-body{font-size:15px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:32px;}
+
+/* PROJECTS */
+.projects{padding:100px 52px;background:var(--dark);}
+.projects-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;background:var(--border);margin-top:52px;}
+.project-card{background:var(--black);position:relative;overflow:hidden;cursor:default;}
+.project-img{display:flex;align-items:center;justify-content:center;background:var(--dark-2);position:relative;}
+.project-card:first-child .project-img{aspect-ratio:16/10;}
+.project-card:not(:first-child) .project-img{aspect-ratio:1;}
+/* PROJECT IMAGE PLACEHOLDER — Replace with real project photos */
+.project-img-placeholder{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.15);}
+.project-info{padding:20px 24px;}
+.project-tag{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+/* PROJECT NAME — Change to your actual project names */
+.project-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;color:var(--white);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--black);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--dark);padding:36px 32px;}
+.testimonial-stars{color:var(--orange);font-size:14px;letter-spacing:2px;margin-bottom:16px;}
+/* TESTIMONIAL TEXT — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:20px;}
+/* CUSTOMER NAME & DETAIL — Change to real customer names and project types */
+.testimonial-author{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;color:var(--white);}
+.testimonial-detail{font-size:12px;font-weight:300;color:var(--gray);margin-top:2px;}
+
+/* CTA */
+.cta{padding:100px 52px;background:var(--orange);text-align:center;}
+.cta-inner{max-width:700px;margin:0 auto;}
+.cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,100px);font-weight:900;letter-spacing:-2px;text-transform:uppercase;color:#fff;line-height:0.9;margin-bottom:20px;}
+.cta p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.8);margin-bottom:36px;line-height:1.7;}
+/* CTA PHONE — Change to your phone number */
+.cta-phone{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5vw,60px);font-weight:900;color:#fff;text-decoration:none;display:block;margin-bottom:16px;transition:opacity 0.2s;letter-spacing:-1px;}
+.cta-phone:hover{opacity:0.85;}
+.cta-note{font-size:13px;font-weight:300;color:rgba(255,255,255,0.6);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--dark);border-top:1px solid var(--border);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+/* FOOTER LOGO — Change to your business name */
+.footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:10px;}
+.footer-logo span{color:var(--orange);}
+/* FOOTER TAGLINE — Short description of your business */
+.footer-tagline{font-size:13px;font-weight:300;color:var(--gray);line-height:1.7;max-width:220px;}
+.footer-col-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--gray);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--orange);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change business name and year */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:12px;color:var(--orange);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}
+  .hero-row{flex-direction:column;align-items:flex-start;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
+  .services{padding:72px 20px;}
+  .services-grid{grid-template-columns:1fr;}
+  .why{padding:72px 20px;grid-template-columns:1fr;}
+  .projects{padding:72px 20px;}
+  .projects-grid{grid-template-columns:1fr;}
+  .testimonials{padding:72px 20px;}
+  .testimonials-grid{grid-template-columns:1fr;}
+  .cta{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Build</strong> · Standard Contractor Template<span>· $24.99</span></p>
+  <a href="/product.html?t=build" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "BUILD" and "ELECTRIC" to your business name -->
+  <a href="#" class="nav-logo">BUILD<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- NAV PHONE — Change to your phone number -->
+  <a href="tel:+15551234567" class="nav-cta">Call (555) 123-4567</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#projects">Projects</a>
+  <a href="#why">About</a>
+  <a href="#contact">Contact</a>
+  <!-- MOBILE PHONE — Change to your phone number -->
+  <a href="tel:+15551234567" class="mob-cta">Call Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your license type or specialty -->
+    <div class="hero-label">Licensed · Bonded · Insured</div>
+    <!-- HERO HEADLINE — Change to your trade and city -->
+    <h1>We Do The<br><span>Hard Work.</span></h1>
+    <div class="hero-row">
+      <!-- HERO SUBTEXT — Change to describe your business -->
+      <p class="hero-sub">Residential and commercial electrical services done right the first time. Serving the greater Houston area for over 12 years. No job too big, no problem too small.</p>
+      <div class="hero-actions">
+        <!-- CTA BUTTONS — Change phone number and text -->
+        <a href="tel:+15551234567" class="btn-primary">Call for a Free Quote</a>
+        <a href="#services" class="btn-secondary">Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<!-- STATS — Change all four numbers and labels to real stats -->
+<div class="stats-bar">
+  <div class="stat-item reveal"><div class="stat-num">12+</div><div class="stat-label">Years in Business</div></div>
+  <div class="stat-item reveal reveal-delay-1"><div class="stat-num">1,400+</div><div class="stat-label">Jobs Completed</div></div>
+  <div class="stat-item reveal reveal-delay-2"><div class="stat-num">100%</div><div class="stat-label">Licensed & Insured</div></div>
+  <div class="stat-item reveal reveal-delay-3"><div class="stat-num">5★</div><div class="stat-label">Google Rating</div></div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag reveal">What We Do</div>
+  <h2 class="section-title reveal">Our Services</h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change names and descriptions to your actual services -->
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-name">Residential Wiring</div>
+      <p class="service-desc">New construction wiring, panel upgrades, outlet installation, and whole-home rewiring. Done clean, done to code, done right.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <div class="service-name">Commercial Work</div>
+      <p class="service-desc">Office buildings, retail spaces, and industrial facilities. We handle projects of any size with minimal disruption to your operations.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <div class="service-name">Panel Upgrades</div>
+      <p class="service-desc">Older panel giving you trouble? We upgrade electrical panels to meet modern demand safely and efficiently. Fast turnaround guaranteed.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-name">Emergency Repairs</div>
+      <p class="service-desc">Electrical emergencies don't wait for business hours. We offer 24/7 emergency service because your safety can't wait until Monday.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">05</div>
+      <div class="service-name">EV Charger Install</div>
+      <p class="service-desc">Home and commercial EV charging station installation. Level 1 and Level 2 chargers installed safely by a licensed electrician.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">06</div>
+      <div class="service-name">Safety Inspections</div>
+      <p class="service-desc">Buying a home or concerned about your wiring? Our electrical safety inspections give you a complete picture of your system's health.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-left reveal">
+    <!-- WHY HEADLINE — Change to your own statement -->
+    <div class="section-tag">Why Choose Us</div>
+    <h2 class="why-headline">Built on<br><span>Reputation.</span></h2>
+    <!-- WHY BODY — Change to your own story -->
+    <p class="why-body">We started Build Electric in 2012 with one van and a simple belief — do the job right, treat people with respect, and the work will speak for itself. Over 1,400 jobs later, that hasn't changed.</p>
+    <a href="#contact" class="btn-primary">Get a Free Quote</a>
+  </div>
+  <div class="why-right reveal">
+    <!-- WHY ITEMS — Change icons, titles, and descriptions to your real differentiators -->
+    <div class="why-item">
+      <div class="why-icon">🔒</div>
+      <div><div class="why-title">Fully Licensed & Insured</div><p class="why-text">Every job is covered. We carry full liability and workers' comp so you never have to worry.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">⚡</div>
+      <div><div class="why-title">Same-Day Service</div><p class="why-text">Most jobs scheduled within 24 hours. Emergency calls answered around the clock, 365 days a year.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📋</div>
+      <div><div class="why-title">Upfront Pricing</div><p class="why-text">No surprises. We give you a written estimate before any work begins. What we quote is what you pay.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">✅</div>
+      <div><div class="why-title">Guaranteed Work</div><p class="why-text">All work is backed by our 2-year labor warranty. If something isn't right, we come back and fix it. No questions asked.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-tag reveal">Recent Work</div>
+  <h2 class="section-title reveal">Past Projects</h2>
+  <div class="projects-grid">
+    <!-- PROJECT CARDS — Replace placeholders with real project photos and names -->
+    <div class="project-card reveal">
+      <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+      <div class="project-info"><div class="project-tag">Commercial</div><div class="project-name">Downtown Office Building — Panel Upgrade</div></div>
+    </div>
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+      <div class="project-info"><div class="project-tag">Residential</div><div class="project-name">Whole-Home Rewire</div></div>
+    </div>
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-img"><div class="project-img-placeholder">Project Photo</div></div>
+      <div class="project-info"><div class="project-tag">EV Charging</div><div class="project-name">Level 2 Charger Install</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag reveal">Reviews</div>
+  <h2 class="section-title reveal">What Customers Say</h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews, names, and project types -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Called at 8pm on a Friday with a tripped breaker that wouldn't reset. They had someone out by 10pm. Fixed it fast, explained everything clearly, and charged a fair price. Can't ask for more."</p>
+      <div class="testimonial-author">Marcus D.</div>
+      <div class="testimonial-detail">Emergency repair · Homeowner</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Upgraded the panel in our office building with zero downtime. The crew was professional, cleaned up after themselves, and the work passed inspection on the first visit. Highly recommend."</p>
+      <div class="testimonial-author">Sandra K.</div>
+      <div class="testimonial-detail">Panel upgrade · Property manager</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Had them install an EV charger in my garage. They explained my options, gave me an honest recommendation, and had it done in one afternoon. Very clean work."</p>
+      <div class="testimonial-author">James W.</div>
+      <div class="testimonial-detail">EV charger installation</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <!-- CTA HEADLINE — Change to your own call to action -->
+    <h2 class="reveal">Ready to<br>Get Started?</h2>
+    <p class="reveal">Call us for a free estimate. Most quotes are same-day. No pressure, no obligation — just honest answers from a licensed electrician.</p>
+    <!-- PHONE NUMBER — Change to your real phone number -->
+    <a href="tel:+15551234567" class="cta-phone reveal">(555) 123-4567</a>
+    <!-- SERVICE AREA & HOURS — Change to your real service area and hours -->
+    <p class="cta-note reveal">Serving Houston & surrounding areas · Available 24/7 for emergencies</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO & TAGLINE — Change to your business name and description -->
+      <div class="footer-logo">BUILD<span>.</span></div>
+      <p class="footer-tagline">Licensed electrical contractor serving Houston and surrounding areas since 2012.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <!-- FOOTER SERVICES — Change to your actual services -->
+        <li><a href="#services">Residential Wiring</a></li>
+        <li><a href="#services">Commercial Work</a></li>
+        <li><a href="#services">Panel Upgrades</a></li>
+        <li><a href="#services">Emergency Repairs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#why">About Us</a></li>
+        <li><a href="#projects">Past Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Free Quote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:info@yourbusiness.com">info@yourbusiness.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Mon–Fri 7am–6pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change business name -->
+    <div class="footer-copy">© 2026 Build Electric. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.style.opacity = '1', 10); }
+  else { mobileMenu.style.opacity = '0'; setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.style.opacity = '0';
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
