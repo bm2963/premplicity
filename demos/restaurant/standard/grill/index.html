@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Grill House" to your restaurant name -->
+<title>Grill House — Steaks & Slow-Smoked BBQ</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --wood:#1C1108;
+  --wood-2:#241508;
+  --wood-3:#2C1A0C;
+  --wood-4:#361F10;
+  --red:#B22222;
+  --red-light:#C83030;
+  --red-dim:rgba(178,34,34,0.12);
+  --tan:#D4A96A;
+  --tan-light:#E0BC88;
+  --tan-dim:rgba(212,169,106,0.1);
+  --off-white:#F0E8D8;
+  --off-white-2:#E4D8C4;
+  --text-muted:rgba(240,232,216,0.5);
+  --border:rgba(240,232,216,0.08);
+  --border-red:rgba(178,34,34,0.25);
+  --border-tan:rgba(212,169,106,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wood);color:var(--off-white);overflow-x:hidden;}
+
+/* subtle wood grain texture overlay using CSS */
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.008) 0px,rgba(255,255,255,0.008) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(0deg,rgba(255,255,255,0.004) 0px,rgba(255,255,255,0.004) 1px,transparent 1px,transparent 80px);pointer-events:none;z-index:0;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(240,232,216,0.95);}
+.purchase-banner p strong{color:var(--off-white);font-weight:600;}
+.purchase-banner p span{opacity:0.6;margin-left:4px;}
+.banner-btn{background:var(--off-white);color:var(--red);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--off-white-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;transition:all 0.3s;}
+nav.scrolled{background:rgba(28,17,8,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "GRILL" and "HOUSE" to your restaurant name */
+.nav-logo{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:3px;color:var(--off-white);text-transform:uppercase;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--tan-light);}
+/* NAV CTA */
+.nav-cta{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:var(--off-white);padding:10px 22px;border:2px solid var(--red);transition:all 0.2s;}
+.nav-cta:hover{background:transparent;color:var(--red);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--off-white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--wood);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Anton',sans-serif;font-size:48px;letter-spacing:4px;text-transform:uppercase;color:var(--off-white);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--red);}
+.mobile-menu .mob-cta{font-size:20px !important;background:var(--red);color:var(--off-white) !important;padding:14px 48px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;overflow:hidden;}
+/* HERO LEFT — large text side */
+.hero-left{padding:160px 52px 80px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--wood);border-right:3px solid var(--red);position:relative;}
+/* decorative cross-hatch corner */
+.hero-corner{position:absolute;top:80px;left:52px;width:40px;height:40px;border-top:2px solid var(--red);border-left:2px solid var(--red);}
+.hero-corner-br{position:absolute;bottom:80px;right:0;width:40px;height:40px;border-bottom:2px solid var(--tan);border-right:2px solid var(--tan);}
+/* HERO LABEL — Change to your restaurant type -->
+.hero-label{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--tan);margin-bottom:20px;display:flex;align-items:center;gap:12px;animation:up 0.8s ease both;}
+.hero-label::before{content:'';width:20px;height:1px;background:var(--tan);}
+/* HERO HEADLINE — Change to your restaurant name and tagline */
+.hero h1{font-family:'Anton',sans-serif;font-size:clamp(72px,10vw,140px);line-height:0.9;letter-spacing:2px;text-transform:uppercase;color:var(--off-white);margin-bottom:28px;animation:up 0.8s 0.1s ease both;}
+.hero h1 span{color:var(--red);display:block;}
+/* HERO SUBTEXT — Describe your restaurant */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:380px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:up 0.8s 0.3s ease both;}
+.btn-primary{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:var(--off-white);padding:14px 32px;border:2px solid var(--red);transition:all 0.2s;display:inline-block;}
+.btn-primary:hover{background:transparent;color:var(--red);}
+.btn-secondary{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--tan);border:2px solid var(--tan);padding:14px 32px;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{background:var(--tan-dim);color:var(--tan-light);}
+/* HERO RIGHT — info side */
+.hero-right{background:var(--wood-2);display:flex;flex-direction:column;justify-content:flex-end;padding:160px 52px 80px;animation:up 0.8s 0.15s ease both;}
+/* SPECIALS — Change to your real specials or featured items */
+.hero-specials{display:flex;flex-direction:column;gap:1px;margin-bottom:40px;}
+.hero-specials-title{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--tan);margin-bottom:16px;}
+.hero-special{background:var(--wood-3);padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px;}
+.hero-special-name{font-size:15px;font-weight:500;color:var(--off-white);}
+.hero-special-price{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;color:var(--red);}
+/* HOURS — Change to your real hours -->
+.hero-hours{display:flex;flex-direction:column;gap:6px;padding-top:28px;border-top:1px solid var(--border);}
+.hero-hours-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--tan);opacity:0.7;}
+.hero-hours-val{font-size:13px;font-weight:300;color:var(--text-muted);}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MENU */
+.menu{padding:100px 52px;background:var(--wood-2);position:relative;z-index:1;}
+/* large Anton section header */
+.section-tag{font-family:'Anton',sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--tan);margin-bottom:10px;}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(56px,8vw,96px);letter-spacing:1px;text-transform:uppercase;color:var(--off-white);line-height:0.9;margin-bottom:52px;}
+.section-title span{color:var(--red);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.menu-item{background:var(--wood);padding:32px;display:flex;justify-content:space-between;align-items:start;gap:20px;transition:background 0.2s;position:relative;overflow:hidden;}
+.menu-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform 0.3s;transform-origin:bottom;}
+.menu-item:hover{background:var(--wood-3);}
+.menu-item:hover::before{transform:scaleY(1);}
+/* MENU ITEMS — Change all to your real menu items */
+.menu-item-name{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:1px;text-transform:uppercase;color:var(--off-white);margin-bottom:8px;}
+.menu-item-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.65;max-width:320px;}
+.menu-item-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tan);border:1px solid var(--border-tan);padding:3px 8px;margin-top:10px;}
+.menu-item-price{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:1px;color:var(--red);flex-shrink:0;white-space:nowrap;}
+
+/* WHY US */
+.why{padding:100px 52px;background:var(--wood-3);position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* WHY HEADLINE — Change to your own statement */
+.why-title{font-family:'Anton',sans-serif;font-size:clamp(48px,7vw,84px);letter-spacing:1px;text-transform:uppercase;color:var(--off-white);line-height:0.92;margin-bottom:20px;}
+.why-title span{color:var(--red);}
+/* WHY TEXT — Replace with your real story */
+.why-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;}
+.why-right{display:flex;flex-direction:column;gap:2px;background:var(--border);}
+.why-item{background:var(--wood);padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;transition:background 0.2s;}
+.why-item:hover{background:var(--wood-2);}
+.why-num{font-family:'Anton',sans-serif;font-size:28px;color:var(--red);line-height:1;}
+/* WHY ITEMS — Change titles and descriptions */
+.why-item-title{font-size:15px;font-weight:600;color:var(--off-white);margin-bottom:4px;}
+.why-item-text{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.65;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--wood-2);position:relative;z-index:1;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--wood);padding:40px 32px;}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:12px;height:12px;background:var(--red);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:var(--off-white-2);line-height:1.8;margin-bottom:20px;}
+.testimonial-author{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:1.5px;text-transform:uppercase;color:var(--tan);}
+.testimonial-detail{font-size:12px;font-weight:300;color:var(--text-muted);margin-top:3px;}
+
+/* CONTACT */
+.contact{padding:100px 52px;background:var(--red);position:relative;z-index:1;}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE */
+.contact-title{font-family:'Anton',sans-serif;font-size:clamp(56px,7vw,88px);letter-spacing:1px;text-transform:uppercase;color:var(--off-white);line-height:0.9;margin-bottom:32px;}
+.contact-detail-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--tan-light);margin-bottom:6px;opacity:0.9;}
+.contact-detail-val{font-size:15px;font-weight:300;color:rgba(240,232,216,0.8);line-height:1.65;margin-bottom:20px;}
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(28,17,8,0.25);border:1px solid rgba(240,232,216,0.2);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--off-white);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(240,232,216,0.4);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(240,232,216,0.5);}
+form select option{background:var(--wood);}
+form textarea{resize:none;height:90px;}
+.btn-submit{width:100%;padding:16px;background:var(--off-white);color:var(--red);border:none;font-family:'Anton',sans-serif;font-size:18px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--off-white-2);}
+
+/* FOOTER */
+footer{padding:48px 52px 24px;background:var(--wood);border-top:1px solid var(--border);position:relative;z-index:1;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+/* FOOTER LOGO — Change to your restaurant name */
+.footer-logo{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:3px;text-transform:uppercase;color:var(--off-white);}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-links a:hover{color:var(--tan-light);}
+.footer-copy{font-size:12px;color:rgba(240,232,216,0.2);}
+.footer-built a{font-size:12px;color:var(--tan);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.why{grid-template-columns:1fr;}.contact-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}.menu{padding:72px 20px;}.menu-grid{grid-template-columns:1fr;}
+  .why{padding:72px 20px;}.testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:36px 20px 20px;}.footer-inner{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Grill</strong> · Standard Restaurant Template<span>· $24.99</span></p>
+  <a href="/product.html?t=grill" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "GRILL" and "HOUSE" to your restaurant name -->
+  <a href="#" class="nav-logo">GRILL<span> HOUSE</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why">Our Way</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <!-- NAV CTA — Link to your reservation system -->
+  <a href="#contact" class="nav-cta">Book a Table</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu">Menu</a>
+  <a href="#why">Our Way</a>
+  <a href="#contact">Find Us</a>
+  <a href="#contact" class="mob-cta">Book a Table</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-corner"></div>
+    <div class="hero-corner-br"></div>
+    <!-- HERO LABEL — Change to your restaurant type -->
+    <div class="hero-label">Prime Steaks &amp; Wood-Smoked BBQ</div>
+    <!-- HERO HEADLINE — Change to your restaurant name and tagline -->
+    <h1>Real<br><span>Fire.</span></h1>
+    <!-- HERO SUBTEXT — Describe your restaurant -->
+    <p class="hero-sub">Prime beef, live fire, and zero apologies. We cook over real post oak, season with salt, and let the meat do the talking. No gimmicks. Just the best you'll have all year.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Table</a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <!-- TODAY'S SPECIALS — Change to your real daily specials -->
+    <div class="hero-specials">
+      <div class="hero-specials-title">Tonight's Features</div>
+      <div class="hero-special"><span class="hero-special-name">Dry-Aged Ribeye 16oz</span><span class="hero-special-price">$68</span></div>
+      <div class="hero-special"><span class="hero-special-name">Brisket Plate</span><span class="hero-special-price">$28</span></div>
+      <div class="hero-special"><span class="hero-special-name">Tomahawk for Two</span><span class="hero-special-price">$145</span></div>
+      <div class="hero-special"><span class="hero-special-name">Half Rack Ribs</span><span class="hero-special-price">$34</span></div>
+    </div>
+    <!-- HOURS — Change to your real hours -->
+    <div class="hero-hours">
+      <div class="hero-hours-label">Hours</div>
+      <div class="hero-hours-val">Tuesday – Thursday: 5pm – 10pm</div>
+      <div class="hero-hours-val">Friday – Saturday: 5pm – 11pm</div>
+      <div class="hero-hours-val">Sunday: 4pm – 9pm &nbsp;·&nbsp; Monday: Closed</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-tag reveal">What We're Serving</div>
+  <h2 class="section-title reveal">The <span>Menu</span></h2>
+  <div class="menu-grid">
+    <!-- MENU ITEMS — Change all to your real menu items -->
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">Ribeye — 16oz</div>
+        <div class="menu-item-desc">USDA Prime, dry-aged 28 days. Wood-fired over post oak. Compound butter, bone marrow jus. One of the best cuts in the city.</div>
+        <div class="menu-item-tag">12oz also available</div>
+      </div>
+      <div class="menu-item-price">$68</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Brisket Plate</div>
+        <div class="menu-item-desc">14-hour oak-smoked brisket. Housemade pickles, white bread, jalapeños, two sides. Texas style — no sauce needed.</div>
+        <div class="menu-item-tag">Texas Style</div>
+      </div>
+      <div class="menu-item-price">$28</div>
+    </div>
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">NY Strip — 14oz</div>
+        <div class="menu-item-desc">Prime strip, heavy charred crust, rested and served whole with roasted garlic and chimichurri verde.</div>
+      </div>
+      <div class="menu-item-price">$58</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Half Rack Ribs</div>
+        <div class="menu-item-desc">St. Louis-style pork ribs, 6-hour hickory smoke, dry rub finish, no sauce on the meat. With cornbread and slaw.</div>
+        <div class="menu-item-tag">Full rack available</div>
+      </div>
+      <div class="menu-item-price">$34</div>
+    </div>
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">Tomahawk — 36oz</div>
+        <div class="menu-item-desc">Bone-in prime ribeye for two. Full fire treatment — seared hard, rested, finished tableside with butter. Pre-order recommended.</div>
+        <div class="menu-item-tag">For Two · Pre-Order</div>
+      </div>
+      <div class="menu-item-price">$145</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Smoked Chicken</div>
+        <div class="menu-item-desc">Whole half bird, apple wood smoke, citrus brine, crispy skin finish. Served with roasted vegetables and housemade hot sauce.</div>
+      </div>
+      <div class="menu-item-price">$26</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="reveal">
+    <div class="section-tag">Our Way</div>
+    <!-- WHY HEADLINE — Change to your own statement -->
+    <h2 class="why-title">Meat.<br><span>Fire.</span><br>Done.</h2>
+    <!-- WHY TEXT — Replace with your real story -->
+    <p class="why-text">We opened in 2012 with one rule — cook great meat over real fire and don't overthink it. We source USDA Prime, build fires with post oak and hickory, and let the process do the work. No shortcuts. No freezers. No microwave in sight.</p>
+    <a href="#contact" class="btn-primary">Book a Table</a>
+  </div>
+  <div class="why-right reveal">
+    <!-- WHY ITEMS — Change titles and descriptions to your real differentiators -->
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div><div class="why-item-title">USDA Prime Only</div><p class="why-item-text">We don't use Choice or Select. Every steak is USDA Prime — the top 2% of American beef.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div><div class="why-item-title">Real Wood Fire</div><p class="why-item-text">Post oak and hickory. No gas assist. It takes longer and requires more skill. That's the point.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div><div class="why-item-title">Everything Housemade</div><p class="why-item-text">Every sauce, rub, pickle, and side made in-house from scratch. Nothing comes out of a bag or a can.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div><div class="why-item-title">Walk-In Weekends</div><p class="why-item-text">We seat walk-ins only on Friday and Saturday. First come, first served — the way it should be.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag reveal">What People Say</div>
+  <h2 class="section-title reveal">The <span>Reviews</span></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The ribeye was the best steak I've had in Houston. Full stop. The char on the outside and the butter finish made it perfect. I'll be back every single month."</p>
+      <div class="testimonial-author">Robert M.</div>
+      <div class="testimonial-detail">Ribeye regular</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The brisket plate was incredible. Perfect smoke ring, beautifully rendered fat cap. Better than most places I've been in Austin. That's saying something."</p>
+      <div class="testimonial-author">James T.</div>
+      <div class="testimonial-detail">BBQ enthusiast</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We ordered the tomahawk for two. It arrived looking like a trophy. The server sliced it tableside. One of the best dining experiences we've ever had anywhere."</p>
+      <div class="testimonial-author">Dana &amp; Chris P.</div>
+      <div class="testimonial-detail">Anniversary dinner</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <!-- CONTACT HEADLINE — Change to your own -->
+      <h2 class="contact-title">Come<br>Get<br>Some.</h2>
+      <div class="contact-detail-label">Address</div>
+      <!-- ADDRESS — Change to your real address -->
+      <div class="contact-detail-val">2214 Washington Ave<br>Houston, TX 77007</div>
+      <div class="contact-detail-label">Hours</div>
+      <!-- HOURS — Change to your real hours -->
+      <div class="contact-detail-val">Tue–Thu: 5–10pm &nbsp;·&nbsp; Fri–Sat: 5–11pm<br>Sun: 4–9pm &nbsp;·&nbsp; Mon: Closed</div>
+      <div class="contact-detail-label">Phone</div>
+      <!-- PHONE — Change to your real phone -->
+      <div class="contact-detail-val">(555) 123-4567</div>
+    </div>
+    <div class="reveal">
+      <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <input type="date" name="date">
+        <select name="party">
+          <option value="" disabled selected>Party Size</option>
+          <option>1–2 guests</option>
+          <option>3–4 guests</option>
+          <option>5–6 guests</option>
+          <option>Large party (7+)</option>
+        </select>
+        <textarea name="message" placeholder="Special occasion or requests?"></textarea>
+        <button type="submit" class="btn-submit">Book My Table</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <!-- FOOTER LOGO — Change to your restaurant name -->
+    <div class="footer-logo">GRILL<span> HOUSE</span></div>
+    <ul class="footer-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#why">Our Way</a></li>
+      <li><a href="#contact">Find Us</a></li>
+    </ul>
+    <!-- COPYRIGHT — Change restaurant name -->
+    <div class="footer-copy">© 2026 Grill House. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

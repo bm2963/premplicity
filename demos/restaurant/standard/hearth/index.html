@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Hearth Kitchen" to your restaurant name -->
+<title>Hearth Kitchen — Comfort Food & Community</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --brown:#2C1810;
+  --brown-2:#361E13;
+  --brown-3:#402515;
+  --brown-4:#4A2C1A;
+  --amber:#E8A030;
+  --amber-light:#F0B848;
+  --amber-dim:rgba(232,160,48,0.12);
+  --cream:#F5EDD8;
+  --cream-2:#EDE0C4;
+  --text-muted:rgba(245,237,216,0.5);
+  --border:rgba(245,237,216,0.08);
+  --border-amber:rgba(232,160,48,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--brown);color:var(--cream);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--amber);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:var(--brown);}
+.purchase-banner p strong{font-weight:700;}
+.purchase-banner p span{opacity:0.6;margin-left:4px;}
+.banner-btn{background:var(--brown);color:var(--amber);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--brown-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;transition:all 0.4s;}
+nav.scrolled{background:rgba(44,24,16,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "Hearth" to your restaurant name */
+.nav-logo{font-family:'Lora',serif;font-size:24px;font-weight:700;color:var(--cream);letter-spacing:0.5px;}
+.nav-logo span{color:var(--amber);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--amber);}
+/* NAV CTA — Change text and link to your reservation system */
+.nav-cta{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.5px;background:var(--amber);color:var(--brown);padding:10px 22px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--amber-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--cream);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--brown);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Lora',serif;font-size:36px;font-weight:400;font-style:italic;color:var(--cream);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--amber);}
+.mobile-menu .mob-cta{font-family:'DM Sans',sans-serif !important;font-style:normal;font-size:14px !important;font-weight:600;background:var(--amber);color:var(--brown) !important;padding:14px 48px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 52px 80px;}
+/* HERO IMAGE — Replace the gradient with a real restaurant photo using background-image */
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1A0A06 0%,#2C1810 40%,#1A0A06 100%);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,24,16,0.95) 0%,rgba(44,24,16,0.4) 60%,transparent 100%);}
+.hero-content{position:relative;z-index:1;max-width:700px;padding-bottom:0;animation:fadeUp 0.9s ease both;}
+/* HERO LABEL — Change to your restaurant type or tagline */
+.hero-label{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.hero-label::before{content:'';width:24px;height:1px;background:var(--amber);}
+/* HERO HEADLINE — Change to your restaurant name and tagline */
+.hero h1{font-family:'Lora',serif;font-size:clamp(52px,8vw,110px);font-weight:700;line-height:0.95;color:var(--cream);margin-bottom:24px;letter-spacing:-1px;}
+.hero h1 em{font-style:italic;color:var(--amber);}
+/* HERO SUBTEXT — Describe your restaurant */
+.hero-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:520px;margin-bottom:36px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;}
+/* CTA BUTTONS — Change text and links */
+.btn-primary{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;background:var(--amber);color:var(--brown);padding:15px 32px;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--amber-light);}
+.btn-secondary{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;background:transparent;color:var(--cream);border:1px solid rgba(245,237,216,0.25);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--amber);color:var(--amber);}
+/* HOURS & INFO — Change to your real hours and info */
+.hero-info{display:flex;gap:32px;flex-wrap:wrap;}
+.hero-info-item{display:flex;flex-direction:column;gap:3px;}
+.hero-info-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--amber);opacity:0.8;}
+.hero-info-val{font-size:13px;font-weight:300;color:var(--text-muted);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ABOUT STRIP */
+.about-strip{background:var(--amber);padding:20px 52px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.strip-text{font-family:'Lora',serif;font-size:18px;font-style:italic;font-weight:500;color:var(--brown);}
+.strip-link{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--brown);display:flex;align-items:center;gap:8px;transition:gap 0.2s;}
+.strip-link:hover{gap:12px;}
+
+/* MENU */
+.menu{padding:100px 52px;background:var(--brown-2);}
+.section-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-label::before{content:'';width:20px;height:1px;background:var(--amber);}
+.section-title{font-family:'Lora',serif;font-size:clamp(36px,4vw,56px);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:52px;}
+.section-title em{font-style:italic;color:var(--amber);}
+.menu-tabs{display:flex;gap:0;margin-bottom:48px;border-bottom:1px solid var(--border);}
+.menu-tab{font-size:13px;font-weight:500;letter-spacing:0.5px;color:var(--text-muted);padding:12px 24px;cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.menu-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
+.menu-tab:hover{color:var(--cream);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.menu-item{background:var(--brown-3);padding:28px 32px;display:flex;justify-content:space-between;align-items:start;gap:20px;transition:background 0.2s;}
+.menu-item:hover{background:var(--brown-4);}
+.menu-item-left{}
+/* MENU ITEMS — Change names, descriptions, and prices to your real menu */
+.menu-item-name{font-family:'Lora',serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:6px;}
+.menu-item-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.6;max-width:320px;}
+.menu-item-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--amber-dim);border:1px solid var(--border-amber);color:var(--amber);padding:3px 8px;margin-top:8px;}
+.menu-item-price{font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--amber);flex-shrink:0;}
+
+/* STORY */
+.story{padding:100px 52px;background:var(--brown);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.story-left{}
+.story-eyebrow{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.story-eyebrow::before{content:'';width:20px;height:1px;background:var(--amber);}
+/* STORY HEADLINE — Change to your own story headline */
+.story-title{font-family:'Lora',serif;font-size:clamp(36px,4vw,52px);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:20px;}
+.story-title em{font-style:italic;color:var(--amber);}
+/* STORY TEXT — Replace with your real restaurant story */
+.story-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.9;margin-bottom:32px;}
+.story-right{display:flex;flex-direction:column;gap:12px;}
+/* STORY IMAGES — Replace with real photos of your restaurant */
+.story-img{background:var(--brown-3);border-radius:2px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.story-img-main{aspect-ratio:4/3;}
+.story-img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.story-img-sm{aspect-ratio:1;}
+.story-img-placeholder{font-family:'Lora',serif;font-size:12px;font-style:italic;color:rgba(245,237,216,0.2);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--brown-2);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--brown);padding:40px 32px;}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:11px;height:11px;background:var(--amber);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-family:'Lora',serif;font-size:15px;font-style:italic;font-weight:400;color:var(--cream);line-height:1.75;margin-bottom:20px;}
+.testimonial-author{font-size:13px;font-weight:500;color:var(--amber);}
+.testimonial-detail{font-size:12px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT */
+.contact{padding:100px 52px;background:var(--brown-3);}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.contact-info{}
+/* CONTACT INFO — Change all to your real info */
+.contact-title{font-family:'Lora',serif;font-size:clamp(36px,4vw,52px);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:36px;}
+.contact-title em{font-style:italic;color:var(--amber);}
+.contact-details{display:flex;flex-direction:column;gap:24px;}
+.contact-detail-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;opacity:0.8;}
+.contact-detail-val{font-size:15px;font-weight:300;color:var(--cream);line-height:1.6;}
+.contact-form{}
+/* CONTACT FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:12px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(245,237,216,0.05);border:1px solid rgba(245,237,216,0.1);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--cream);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(245,237,216,0.3);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(232,160,48,0.4);}
+form select option{background:var(--brown);}
+form textarea{resize:none;height:100px;}
+.btn-submit{width:100%;padding:16px;background:var(--amber);color:var(--brown);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--amber-light);}
+
+/* FOOTER */
+footer{padding:48px 52px 24px;background:var(--brown);border-top:1px solid var(--border);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+/* FOOTER LOGO — Change to your restaurant name */
+.footer-logo{font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--cream);}
+.footer-logo span{color:var(--amber);}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-links a:hover{color:var(--amber);}
+.footer-copy{font-size:12px;color:rgba(245,237,216,0.2);}
+.footer-built a{font-size:12px;color:var(--amber);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.story{grid-template-columns:1fr;}.story-right{display:none;}.contact-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:0 20px 60px;}.about-strip{padding:16px 20px;}
+  .menu{padding:72px 20px;}.menu-grid{grid-template-columns:1fr;}
+  .story{padding:72px 20px;}.testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:36px 20px 20px;}.footer-inner{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Hearth</strong> · Standard Restaurant Template<span>· $24.99</span></p>
+  <a href="/product.html?t=hearth" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Hearth" to your restaurant name -->
+  <a href="#" class="nav-logo">Hearth<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#contact">Hours &amp; Location</a></li>
+  </ul>
+  <!-- NAV CTA — Change text; link to OpenTable, Resy, or your own booking page -->
+  <a href="#contact" class="nav-cta">Make a Reservation</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu">Menu</a>
+  <a href="#story">Our Story</a>
+  <a href="#contact">Hours &amp; Location</a>
+  <a href="#contact" class="mob-cta">Make a Reservation</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your restaurant type -->
+    <div class="hero-label">Neighborhood Restaurant &amp; Bar</div>
+    <!-- HERO HEADLINE — Change to your restaurant name and tagline -->
+    <h1>Food made<br>with <em>heart.</em></h1>
+    <!-- HERO SUBTEXT — Describe your restaurant -->
+    <p class="hero-sub">Honest cooking made from scratch, served in a room that feels like home. We've been feeding this neighborhood for over a decade — come pull up a chair.</p>
+    <div class="hero-actions">
+      <!-- RESERVATION LINK — Change to your booking platform or #contact -->
+      <a href="#contact" class="btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn-secondary">View the Menu</a>
+    </div>
+    <!-- HOURS & INFO — Change all to your real info -->
+    <div class="hero-info">
+      <div class="hero-info-item">
+        <div class="hero-info-label">Hours</div>
+        <div class="hero-info-val">Tue–Sun · 5pm–10pm</div>
+      </div>
+      <div class="hero-info-item">
+        <div class="hero-info-label">Location</div>
+        <!-- ADDRESS — Change to your real address -->
+        <div class="hero-info-val">1420 Main St, Houston TX</div>
+      </div>
+      <div class="hero-info-item">
+        <div class="hero-info-label">Reservations</div>
+        <!-- PHONE — Change to your real phone number -->
+        <div class="hero-info-val">(555) 123-4567</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <!-- STRIP TEXT — Change to your own short tagline -->
+  <div class="strip-text">"Scratch cooking. Familiar faces. The kind of place you come back to."</div>
+  <a href="#story" class="strip-link">Our Story →</a>
+</div>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-label reveal">What We're Serving</div>
+  <h2 class="section-title reveal">The <em>Menu.</em></h2>
+  <div class="menu-tabs">
+    <div class="menu-tab active">Starters</div>
+    <div class="menu-tab">Mains</div>
+    <div class="menu-tab">Desserts</div>
+    <div class="menu-tab">Drinks</div>
+  </div>
+  <div class="menu-grid">
+    <!-- MENU ITEMS — Change all names, descriptions, and prices to your real menu -->
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Soup of the Day</div>
+        <div class="menu-item-desc">Made fresh each morning from whatever's best at the market. Served with housemade bread.</div>
+        <div class="menu-item-tag">Chef's Choice</div>
+      </div>
+      <div class="menu-item-price">$9</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Cast Iron Cornbread</div>
+        <div class="menu-item-desc">Stone-ground cornmeal, jalapeño honey butter, finished with smoked sea salt.</div>
+      </div>
+      <div class="menu-item-price">$8</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Smoked Chicken Wings</div>
+        <div class="menu-item-desc">Six hours on the smoker, finished with our house hot sauce and pickled celery.</div>
+        <div class="menu-item-tag">Fan Favorite</div>
+      </div>
+      <div class="menu-item-price">$16</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Garden Salad</div>
+        <div class="menu-item-desc">Mixed lettuces, shaved radish, cucumber, roasted pumpkin seeds, apple cider vinaigrette.</div>
+      </div>
+      <div class="menu-item-price">$13</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Bone Marrow Toast</div>
+        <div class="menu-item-desc">Roasted bone marrow on grilled sourdough with herb salsa verde and sea salt.</div>
+      </div>
+      <div class="menu-item-price">$18</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Deviled Eggs</div>
+        <div class="menu-item-desc">Six halves with smoked paprika, crispy shallots, and a touch of Dijon. A Hearth classic.</div>
+        <div class="menu-item-tag">Since Day One</div>
+      </div>
+      <div class="menu-item-price">$11</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-left reveal">
+    <div class="story-eyebrow">Our Story</div>
+    <!-- STORY HEADLINE — Change to your own story headline -->
+    <h2 class="story-title">A place people<br><em>come back to.</em></h2>
+    <!-- STORY TEXT — Replace with your real restaurant story -->
+    <p class="story-text">Hearth opened in 2013 with a wood-fired oven, twelve seats, and a menu that changed every week based on what was good at the market. The room got bigger. The team grew. But the cooking stayed the same — honest, seasonal, made from scratch. We believe that the best meal you'll ever have is the one you share with people you love. We just set the table.</p>
+    <a href="#contact" class="btn-primary">Come Visit Us</a>
+  </div>
+  <div class="story-right reveal">
+    <!-- STORY IMAGES — Replace with real photos of your restaurant or team -->
+    <div class="story-img story-img-main"><div class="story-img-placeholder">Restaurant Photo</div></div>
+    <div class="story-img-row">
+      <div class="story-img story-img-sm"><div class="story-img-placeholder">Kitchen Photo</div></div>
+      <div class="story-img story-img-sm"><div class="story-img-placeholder">Food Photo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">What Guests Say</div>
+  <h2 class="section-title reveal">The kind of place you <em>remember.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I've been coming to Hearth for six years. Every single time the food is exactly what I need — warm, honest, and cooked with real care. It's my favorite restaurant in the city."</p>
+      <div class="testimonial-author">Sarah K.</div>
+      <div class="testimonial-detail">Regular guest</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We had our anniversary dinner here and the staff made it feel genuinely special without being stuffy. The food was incredible. We'll be back every year."</p>
+      <div class="testimonial-author">Marcus &amp; Diane T.</div>
+      <div class="testimonial-detail">Anniversary dinner</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The smoked chicken wings are the best I've had anywhere. I've tried to recreate them at home three times. I've given up and just come back here instead."</p>
+      <div class="testimonial-author">James P.</div>
+      <div class="testimonial-detail">Verified review</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <!-- CONTACT HEADLINE — Change to your own -->
+      <h2 class="contact-title">Come find <em>us.</em></h2>
+      <div class="contact-details">
+        <div>
+          <div class="contact-detail-label">Address</div>
+          <!-- ADDRESS — Change to your real address -->
+          <div class="contact-detail-val">1420 Main Street<br>Houston, TX 77002</div>
+        </div>
+        <div>
+          <div class="contact-detail-label">Hours</div>
+          <!-- HOURS — Change to your real hours -->
+          <div class="contact-detail-val">Tuesday – Thursday: 5pm – 9:30pm<br>Friday – Saturday: 5pm – 10:30pm<br>Sunday: 5pm – 9pm<br>Monday: Closed</div>
+        </div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <!-- PHONE — Change to your real phone number -->
+          <div class="contact-detail-val">(555) 123-4567</div>
+        </div>
+        <div>
+          <div class="contact-detail-label">Reservations</div>
+          <div class="contact-detail-val">Walk-ins welcome. Reservations recommended on weekends.<br>
+          <!-- RESERVATION NOTE — Update as needed -->
+          Call us or use the form to book.</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <input type="date" name="date" placeholder="Preferred Date">
+        <!-- PARTY SIZE — Adjust options as needed -->
+        <select name="party">
+          <option value="" disabled selected>Party Size</option>
+          <option>1–2 guests</option>
+          <option>3–4 guests</option>
+          <option>5–6 guests</option>
+          <option>7+ guests</option>
+        </select>
+        <textarea name="message" placeholder="Any special requests or occasions we should know about?"></textarea>
+        <button type="submit" class="btn-submit">Send Reservation Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <!-- FOOTER LOGO — Change to your restaurant name -->
+    <div class="footer-logo">Hearth<span>.</span></div>
+    <ul class="footer-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#contact">Hours &amp; Location</a></li>
+      <li><a href="#contact">Reservations</a></li>
+    </ul>
+    <!-- COPYRIGHT — Change restaurant name -->
+    <div class="footer-copy">© 2026 Hearth Kitchen. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
