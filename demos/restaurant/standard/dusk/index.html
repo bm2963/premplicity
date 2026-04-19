@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Dusk Bar & Kitchen" to your restaurant name -->
+<title>Dusk Bar & Kitchen — Cocktails & Late Night Dining</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --plum:#1A0F2E;
+  --plum-2:#221440;
+  --plum-3:#2A1A50;
+  --plum-4:#321F60;
+  --violet:#8B5CF6;
+  --violet-light:#A78BFA;
+  --violet-dim:rgba(139,92,246,0.12);
+  --rose:#F472B6;
+  --off-white:#F0EAF8;
+  --off-white-2:#E0D6F0;
+  --text-muted:rgba(240,234,248,0.45);
+  --border:rgba(240,234,248,0.07);
+  --border-violet:rgba(139,92,246,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--plum);color:var(--off-white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--violet);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.6;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--violet);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--off-white-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;transition:all 0.4s;}
+nav.scrolled{background:rgba(26,15,46,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "Dusk" to your restaurant name */
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--off-white);letter-spacing:1px;text-transform:uppercase;}
+.nav-logo span{color:var(--violet-light);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.5px;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--violet-light);}
+/* NAV CTA — Link to your reservation system */
+.nav-cta{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--violet-light);border:1px solid var(--border-violet);padding:10px 22px;transition:all 0.2s;}
+.nav-cta:hover{background:var(--violet-dim);border-color:var(--violet-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--off-white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--plum);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--off-white);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--violet-light);}
+.mobile-menu .mob-cta{font-size:14px !important;background:transparent;color:var(--violet-light) !important;border:1px solid var(--border-violet);padding:13px 40px;margin-top:8px;}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 80px;}
+/* HERO BG — Replace with a real photo using background-image */
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,#2A1A50 0%,#1A0F2E 60%,#0D0820 100%);}
+.hero-glow-1{position:absolute;top:10%;right:15%;width:400px;height:400px;background:radial-gradient(circle,rgba(139,92,246,0.12) 0%,transparent 70%);pointer-events:none;}
+.hero-glow-2{position:absolute;bottom:20%;left:20%;width:300px;height:300px;background:radial-gradient(circle,rgba(244,114,182,0.08) 0%,transparent 70%);pointer-events:none;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,15,46,0.98) 0%,rgba(26,15,46,0.3) 70%,transparent 100%);}
+.hero-content{position:relative;z-index:1;animation:fadeUp 0.9s ease both;}
+/* HERO LABEL — Change to your venue type */
+.hero-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--violet-light);margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.hero-label::before{content:'';width:24px;height:1px;background:var(--violet-light);}
+/* HERO HEADLINE — Change to your restaurant name and tagline */
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(64px,10vw,140px);font-weight:800;line-height:0.9;letter-spacing:-2px;text-transform:uppercase;color:var(--off-white);margin-bottom:32px;}
+.hero h1 span{color:var(--violet-light);}
+.hero-lower{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;padding-top:32px;border-top:1px solid var(--border);animation:fadeUp 0.9s 0.1s ease both;}
+/* HERO SUBTEXT — Describe your restaurant */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:480px;}
+.hero-right-lower{display:flex;flex-direction:column;gap:20px;align-items:flex-end;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;}
+.btn-primary{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--violet);color:#fff;padding:14px 28px;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--violet-light);}
+.btn-secondary{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--text-muted);border:1px solid var(--border-violet);padding:14px 28px;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--violet-light);color:var(--violet-light);}
+/* HOURS — Change to your real hours */
+.hero-hours{display:flex;gap:16px;justify-content:flex-end;flex-wrap:wrap;}
+.hero-hours-item{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-hours-item::before{content:'';width:4px;height:4px;background:var(--violet);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* MENU — COCKTAILS */
+.menu{padding:100px 52px;background:var(--plum-2);}
+.section-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--violet-light);margin-bottom:12px;opacity:0.8;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--off-white);line-height:0.95;margin-bottom:52px;}
+.section-title span{color:var(--violet-light);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.menu-item{background:var(--plum);padding:32px;display:flex;justify-content:space-between;align-items:start;gap:20px;transition:background 0.2s;}
+.menu-item:hover{background:var(--plum-3);}
+/* MENU ITEMS — Change all to your real cocktails and dishes */
+.menu-item-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.3px;color:var(--off-white);margin-bottom:6px;transition:color 0.2s;}
+.menu-item:hover .menu-item-name{color:var(--violet-light);}
+.menu-item-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.65;max-width:320px;}
+.menu-item-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:var(--violet-dim);border:1px solid var(--border-violet);color:var(--violet-light);padding:3px 8px;margin-top:8px;}
+.menu-item-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--violet-light);flex-shrink:0;}
+
+/* ATMOSPHERE */
+.atmo{padding:100px 52px;background:var(--plum);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.atmo-left{}
+/* ATMOSPHERE HEADLINE — Change to your own statement */
+.atmo-title{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--off-white);line-height:0.95;margin-bottom:20px;}
+.atmo-title span{color:var(--violet-light);}
+/* ATMOSPHERE TEXT — Replace with your real story */
+.atmo-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;}
+.atmo-right{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* ATMOSPHERE IMAGES — Replace with real photos of your space -->
+.atmo-img{background:var(--plum-2);border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.atmo-img:first-child{grid-column:1/-1;aspect-ratio:16/9;}
+.atmo-img:not(:first-child){aspect-ratio:1;}
+.atmo-img-placeholder{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(240,234,248,0.15);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--plum-2);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--plum);padding:40px 32px;}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:10px;height:10px;background:var(--violet);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:var(--off-white-2);line-height:1.8;margin-bottom:20px;}
+.testimonial-author{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--off-white);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:3px;letter-spacing:0.5px;}
+
+/* CONTACT */
+.contact{padding:100px 52px;background:var(--plum-3);}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-1px;text-transform:uppercase;color:var(--off-white);line-height:0.95;margin-bottom:32px;}
+.contact-title span{color:var(--violet-light);}
+.contact-details{display:flex;flex-direction:column;gap:20px;}
+.contact-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet-light);margin-bottom:5px;opacity:0.8;}
+.contact-val{font-size:15px;font-weight:300;color:rgba(240,234,248,0.75);line-height:1.6;}
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(240,234,248,0.05);border:1px solid var(--border-violet);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--off-white);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(240,234,248,0.25);}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--violet-light);}
+form select option{background:var(--plum);}
+form textarea{resize:none;height:90px;}
+.btn-submit{width:100%;padding:16px;background:var(--violet);color:#fff;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--violet-light);}
+
+/* FOOTER */
+footer{padding:48px 52px 24px;background:var(--plum);border-top:1px solid var(--border);}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+/* FOOTER LOGO — Change to your restaurant name */
+.footer-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--off-white);}
+.footer-logo span{color:var(--violet-light);}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-links a:hover{color:var(--violet-light);}
+.footer-copy{font-size:12px;color:rgba(240,234,248,0.2);}
+.footer-built a{font-size:12px;color:var(--violet-light);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.hero-lower{grid-template-columns:1fr;}.hero-actions{justify-content:flex-start;}.hero-hours{justify-content:flex-start;}.atmo{grid-template-columns:1fr;}.contact-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:0 20px 60px;}.menu{padding:72px 20px;}.menu-grid{grid-template-columns:1fr;}
+  .atmo{padding:72px 20px;}.atmo-right{display:none;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:36px 20px 20px;}.footer-inner{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Dusk</strong> · Standard Restaurant Template<span>· $24.99</span></p>
+  <a href="/product.html?t=dusk" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Dusk" to your restaurant name -->
+  <a href="#" class="nav-logo">DUSK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#atmo">The Space</a></li>
+    <li><a href="#contact">Visit Us</a></li>
+  </ul>
+  <!-- NAV CTA — Link to your reservation system -->
+  <a href="#contact" class="nav-cta">Reserve</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu">Menu</a>
+  <a href="#atmo">The Space</a>
+  <a href="#contact">Visit Us</a>
+  <a href="#contact" class="mob-cta">Reserve</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your venue type -->
+    <div class="hero-label">Bar &amp; Kitchen · Open Until 2am</div>
+    <!-- HERO HEADLINE — Change to your restaurant name and tagline -->
+    <h1>The night<br><span>starts here.</span></h1>
+    <div class="hero-lower">
+      <!-- HERO SUBTEXT — Describe your restaurant -->
+      <p class="hero-sub">Craft cocktails, small plates, and a room that gets better as the evening goes on. Dusk opens at 5 and closes when the last person is ready to leave. Come for a drink, stay for everything else.</p>
+      <div class="hero-right-lower">
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Reserve a Table</a>
+          <a href="#menu" class="btn-secondary">View Menu</a>
+        </div>
+        <!-- HOURS — Change to your real hours -->
+        <div class="hero-hours">
+          <div class="hero-hours-item">Wed–Sun: 5pm–2am</div>
+          <div class="hero-hours-item">Mon–Tue: Closed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-label reveal">What We're Pouring</div>
+  <h2 class="section-title reveal">Cocktails <span>&amp; Kitchen</span></h2>
+  <div class="menu-grid">
+    <!-- MENU ITEMS — Change all to your real cocktails and dishes -->
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">Violet Hour</div>
+        <div class="menu-item-desc">Gin, crème de violette, fresh lemon, egg white, lavender bitters. Our signature — since we opened.</div>
+        <div class="menu-item-tag">Signature</div>
+      </div>
+      <div class="menu-item-price">$16</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Last Light</div>
+        <div class="menu-item-desc">Mezcal, blood orange, Aperol, smoked sea salt rim, dried citrus garnish.</div>
+      </div>
+      <div class="menu-item-price">$15</div>
+    </div>
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">Dark Matter</div>
+        <div class="menu-item-desc">Bourbon, blackberry shrub, house-made bitters, rosemary smoke, single large cube.</div>
+        <div class="menu-item-tag">Bartender's Pick</div>
+      </div>
+      <div class="menu-item-price">$17</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Still Water</div>
+        <div class="menu-item-desc">Vodka, cucumber, mint, lime, topped with elderflower tonic. Light and clean.</div>
+      </div>
+      <div class="menu-item-price">$14</div>
+    </div>
+    <div class="menu-item reveal">
+      <div>
+        <div class="menu-item-name">Tuna Crudo</div>
+        <div class="menu-item-desc">Sashimi-grade tuna, ponzu, fried shallots, micro herbs, sesame oil.</div>
+      </div>
+      <div class="menu-item-price">$22</div>
+    </div>
+    <div class="menu-item reveal reveal-delay-1">
+      <div>
+        <div class="menu-item-name">Burrata</div>
+        <div class="menu-item-desc">Fresh burrata, roasted heirloom tomatoes, basil oil, flaky salt, sourdough toast.</div>
+        <div class="menu-item-tag">Fan Favorite</div>
+      </div>
+      <div class="menu-item-price">$18</div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE -->
+<section class="atmo" id="atmo">
+  <div class="atmo-left reveal">
+    <div class="section-label">The Space</div>
+    <!-- ATMOSPHERE HEADLINE — Change to your own statement -->
+    <h2 class="atmo-title">Built for <span>the night.</span></h2>
+    <!-- ATMOSPHERE TEXT — Replace with your real story -->
+    <p class="atmo-text">Dusk was designed around a single idea — a room where the evening actually gets better as it progresses. Low lighting, curated music, a bar built for lingering conversations, and a kitchen that stays open until close. We're not a place to rush through.</p>
+    <a href="#contact" class="btn-primary">Make a Reservation</a>
+  </div>
+  <div class="atmo-right reveal">
+    <!-- ATMOSPHERE IMAGES — Replace with real photos of your space -->
+    <div class="atmo-img"><div class="atmo-img-placeholder">Bar Photo</div></div>
+    <div class="atmo-img"><div class="atmo-img-placeholder">Interior Photo</div></div>
+    <div class="atmo-img"><div class="atmo-img-placeholder">Detail Photo</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">What Guests Say</div>
+  <h2 class="section-title reveal">Nights people <span>remember.</span></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The Violet Hour is the best cocktail I've had in this city. The atmosphere is exactly what a good bar should feel like — dark, warm, unhurried. We stayed until closing."</p>
+      <div class="testimonial-author">Sophie L.</div>
+      <div class="testimonial-detail">Regular guest</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We came for cocktails and ended up staying for food and three more rounds. The tuna crudo and the burrata are exceptional. The Dark Matter is now my go-to order everywhere."</p>
+      <div class="testimonial-author">Marcus &amp; Anya T.</div>
+      <div class="testimonial-detail">Date night</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Took a group of eight here for a birthday. The staff handled us perfectly — zero rushed feeling, great recommendations, and the food came out beautifully timed. Absolutely will return."</p>
+      <div class="testimonial-author">Rebecca H.</div>
+      <div class="testimonial-detail">Private event</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <!-- CONTACT HEADLINE — Change to your own -->
+      <h2 class="contact-title">Come in <span>tonight.</span></h2>
+      <div class="contact-details">
+        <div>
+          <div class="contact-label">Address</div>
+          <!-- ADDRESS — Change to your real address -->
+          <div class="contact-val">412 Main Street<br>Houston, TX 77002</div>
+        </div>
+        <div>
+          <div class="contact-label">Hours</div>
+          <!-- HOURS — Change to your real hours -->
+          <div class="contact-val">
+            Wednesday – Sunday: 5pm – 2am<br>
+            Monday &amp; Tuesday: Closed<br>
+            Kitchen closes at midnight
+          </div>
+        </div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <!-- PHONE — Change to your real phone -->
+          <div class="contact-val">(555) 123-4567</div>
+        </div>
+        <div>
+          <div class="contact-label">Reservations</div>
+          <div class="contact-val">Recommended Thursday–Saturday. Walk-ins welcome at the bar anytime.</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <input type="date" name="date" placeholder="Preferred Date">
+        <select name="party">
+          <option value="" disabled selected>Party Size</option>
+          <option>1–2 guests</option>
+          <option>3–4 guests</option>
+          <option>5–6 guests</option>
+          <option>7+ guests</option>
+        </select>
+        <textarea name="message" placeholder="Special occasion, event inquiry, or anything else?"></textarea>
+        <button type="submit" class="btn-submit">Request Reservation</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <!-- FOOTER LOGO — Change to your restaurant name -->
+    <div class="footer-logo">DUSK<span>.</span></div>
+    <ul class="footer-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#atmo">The Space</a></li>
+      <li><a href="#contact">Visit Us</a></li>
+      <li><a href="#contact">Reservations</a></li>
+    </ul>
+    <!-- COPYRIGHT — Change restaurant name -->
+    <div class="footer-copy">© 2026 Dusk Bar &amp; Kitchen. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
