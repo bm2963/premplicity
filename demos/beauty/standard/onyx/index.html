@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Onyx Salon" to your business name -->
+<title>Onyx Salon — Premium Hair & Beauty</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --black:#0A0A0A;
+  --black-2:#111111;
+  --black-3:#181818;
+  --black-4:#202020;
+  --gold:#C9A96E;
+  --gold-light:#DEC090;
+  --gold-dark:#A88A50;
+  --gold-dim:rgba(201,169,110,0.1);
+  --white:#FAFAF8;
+  --white-2:#F2F0EC;
+  --text-muted:rgba(250,250,248,0.45);
+  --border:rgba(250,250,248,0.07);
+  --border-gold:rgba(201,169,110,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--gold-dark);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(250,250,248,0.95);}
+.purchase-banner p strong{color:var(--white);font-weight:600;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--white);color:var(--gold-dark);font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--white-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 52px;transition:all 0.4s;}
+nav.scrolled{background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "ONYX" to your business name */
+.nav-logo{font-family:'Josefin Sans',sans-serif;font-size:22px;font-weight:100;letter-spacing:8px;text-transform:uppercase;color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+/* NAV CTA */
+.nav-cta{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--gold);border:1px solid var(--border-gold);padding:11px 24px;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold-dim);border-color:var(--gold);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Josefin Sans',sans-serif;font-size:28px;font-weight:100;letter-spacing:6px;text-transform:uppercase;color:var(--white);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu .mob-cta{font-size:14px !important;border:1px solid var(--border-gold);color:var(--gold) !important;padding:14px 48px;margin-top:8px;}
+
+/* HERO — full viewport, centered, large type */
+.hero{min-height:100vh;padding:140px 52px 80px;background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+/* gold diagonal accent lines */
+.hero-line-1{position:absolute;top:0;right:15%;width:1px;height:60%;background:linear-gradient(to bottom,transparent,rgba(201,169,110,0.15),transparent);transform:rotate(12deg);transform-origin:top;}
+.hero-line-2{position:absolute;bottom:0;right:10%;width:1px;height:50%;background:linear-gradient(to top,transparent,rgba(201,169,110,0.08),transparent);transform:rotate(-8deg);transform-origin:bottom;}
+.hero-content{position:relative;z-index:1;max-width:900px;}
+/* HERO LABEL — Change to your specialty */
+.hero-label{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:up 0.8s ease both;}
+.hero-label::before{content:'';width:30px;height:1px;background:var(--gold);}
+/* HERO HEADLINE — Change to your tagline */
+.hero h1{font-family:'Josefin Sans',sans-serif;font-size:clamp(52px,8vw,120px);font-weight:100;letter-spacing:4px;text-transform:uppercase;color:var(--white);line-height:0.95;margin-bottom:28px;animation:up 0.8s 0.1s ease both;}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--gold);}
+.hero-divider{display:flex;align-items:center;gap:20px;margin-bottom:28px;animation:up 0.8s 0.2s ease both;}
+.hero-divider-line{width:40px;height:1px;background:var(--gold);opacity:0.5;}
+.hero-divider-text{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);}
+/* HERO SUBTEXT — Describe your business */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:500px;margin-bottom:36px;animation:up 0.8s 0.3s ease both;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:up 0.8s 0.4s ease both;}
+.btn-primary{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:15px 36px;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-secondary{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--text-muted);border:1px solid var(--border-gold);padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+@keyframes up{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* SERVICES */
+.services{padding:100px 52px;background:var(--black-2);}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.section-title{font-family:'Josefin Sans',sans-serif;font-size:clamp(36px,4vw,56px);font-weight:100;letter-spacing:3px;text-transform:uppercase;color:var(--white);line-height:1.0;margin-bottom:60px;}
+.section-title em{font-style:italic;font-weight:300;color:var(--gold);}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.service-card{background:var(--black);padding:40px 28px;position:relative;transition:background 0.3s;}
+.service-card:hover{background:var(--black-3);}
+/* gold bottom line on hover */
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.4s;transform-origin:left;}
+.service-card:hover::after{transform:scaleX(1);}
+/* SERVICE NUM */
+.service-num{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+/* SERVICE CARDS — Change all to your real services */
+.service-name{font-family:'Josefin Sans',sans-serif;font-size:18px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);margin-bottom:12px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--gold);}
+.service-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.75;margin-bottom:20px;}
+.service-price{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:300;letter-spacing:2px;color:var(--gold);}
+
+/* EDITORIAL — full bleed horizontal grid */
+.editorial{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);}
+.editorial-img{background:var(--black-3);display:flex;align-items:center;justify-content:center;}
+.editorial-img:nth-child(1){aspect-ratio:3/4;}
+.editorial-img:nth-child(2){aspect-ratio:3/4;background:var(--black-4);}
+.editorial-img:nth-child(3){aspect-ratio:3/4;}
+/* EDITORIAL IMAGES — Replace with real photos of your work */
+.editorial-img-placeholder{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(250,250,248,0.15);}
+
+/* ABOUT */
+.about{padding:100px 52px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+/* ABOUT HEADLINE — Change to your own statement */
+.about-title{font-family:'Josefin Sans',sans-serif;font-size:clamp(36px,4vw,56px);font-weight:100;letter-spacing:3px;text-transform:uppercase;color:var(--white);line-height:1.0;margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:300;color:var(--gold);}
+/* ABOUT TEXT — Replace with your real story */
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;}
+.about-right{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+/* ABOUT STATS — Change to your real numbers and credentials */
+.about-stat-row{background:var(--black-2);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:background 0.2s;}
+.about-stat-row:hover{background:var(--black-3);}
+.about-stat-label{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+.about-stat-val{font-family:'Josefin Sans',sans-serif;font-size:24px;font-weight:100;color:var(--gold);letter-spacing:1px;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--black-2);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
+.testimonial{background:var(--black);padding:40px 32px;}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:10px;height:10px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:rgba(250,250,248,0.65);line-height:1.8;margin-bottom:20px;}
+.testimonial-author{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.testimonial-detail{font-size:12px;font-weight:300;color:var(--text-muted);margin-top:3px;}
+
+/* BOOKING */
+.booking{padding:100px 52px;background:var(--gold);}
+.booking-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Josefin Sans',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:100;letter-spacing:4px;text-transform:uppercase;color:var(--black);line-height:0.95;margin-bottom:16px;}
+.booking-sub{font-size:15px;font-weight:300;color:rgba(10,10,10,0.6);line-height:1.8;}
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(10,10,10,0.08);border:1px solid rgba(10,10,10,0.2);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--black);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(10,10,10,0.4);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(10,10,10,0.5);}
+form select option{background:var(--white);}
+form textarea{resize:none;height:90px;}
+.btn-submit{width:100%;padding:16px;background:var(--black);color:var(--gold);border:none;font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--black-3);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--black);border-top:1px solid var(--border);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+/* FOOTER LOGO — Change to your business name */
+.footer-logo{font-family:'Josefin Sans',sans-serif;font-size:20px;font-weight:100;letter-spacing:6px;text-transform:uppercase;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;max-width:200px;}
+.footer-col-title{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--gold);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(250,250,248,0.2);}
+.footer-built a{font-size:12px;color:var(--gold);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.about{grid-template-columns:1fr;}.booking-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}.services{padding:72px 20px;}.services-grid{grid-template-columns:1fr 1fr;}
+  .editorial{grid-template-columns:1fr;}.about{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .booking{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}.footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Onyx</strong> · Standard Salon Template<span>· $24.99</span></p>
+  <a href="/product.html?t=onyx" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "ONYX" to your business name -->
+  <a href="#" class="nav-logo">ONYX<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">Studio</a></li>
+    <li><a href="#booking">Book</a></li>
+  </ul>
+  <!-- NAV CTA — Link to your booking system -->
+  <a href="#booking" class="nav-cta">Book Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#about">Studio</a>
+  <a href="#booking">Book</a>
+  <a href="#booking" class="mob-cta">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-line-1"></div>
+  <div class="hero-line-2"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your specialty -->
+    <div class="hero-label">Premium Hair &amp; Beauty Salon</div>
+    <!-- HERO HEADLINE — Change to your tagline -->
+    <h1>Beauty<br>without <em>compromise.</em></h1>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <!-- TAGLINE — Change to your own -->
+      <div class="hero-divider-text">Precision · Artistry · Results</div>
+    </div>
+    <!-- HERO SUBTEXT — Describe your business -->
+    <p class="hero-sub">A premium salon experience built on the belief that great hair changes everything. Expert colorists, stylists, and beauty professionals working in a space designed for results.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn-secondary">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change all to your real services and pricing -->
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-name">Cut &amp; Style</div>
+      <p class="service-desc">Precision haircut with blow-dry and styling. Includes thorough consultation to understand your lifestyle and hair goals.</p>
+      <div class="service-price">From $85</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <div class="service-name">Color</div>
+      <p class="service-desc">Full color, highlights, balayage, and corrective work by our senior colorists. We use only professional-grade color systems.</p>
+      <div class="service-price">From $120</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">03</div>
+      <div class="service-name">Balayage</div>
+      <p class="service-desc">Hand-painted color technique for natural-looking, sun-kissed results. Low maintenance, high impact. Our most requested service.</p>
+      <div class="service-price">From $185</div>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">04</div>
+      <div class="service-name">Treatments</div>
+      <p class="service-desc">Keratin smoothing, deep conditioning, bond restoration, and scalp treatments to restore health and shine to damaged or over-processed hair.</p>
+      <div class="service-price">From $95</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL PHOTOS -->
+<div class="editorial">
+  <!-- EDITORIAL IMAGES — Replace with real photos of your work or clients -->
+  <div class="editorial-img"><div class="editorial-img-placeholder">Work Photo</div></div>
+  <div class="editorial-img"><div class="editorial-img-placeholder">Work Photo</div></div>
+  <div class="editorial-img"><div class="editorial-img-placeholder">Work Photo</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="reveal">
+    <div class="section-label">The Studio</div>
+    <!-- ABOUT HEADLINE — Change to your own statement -->
+    <h2 class="about-title">Craft <em>above</em><br>everything.</h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text">Onyx was built around a simple conviction — that the best salons aren't defined by their decor, they're defined by the skill and intention of the people in them. Our stylists are trained relentlessly, stay current with technique, and approach every client as an individual. We don't do cookie-cutter. We do exceptional.</p>
+    <a href="#booking" class="btn-primary">Book an Appointment</a>
+  </div>
+  <div class="about-right reveal">
+    <!-- ABOUT STATS — Change all to your real numbers and credentials -->
+    <div class="about-stat-row">
+      <div class="about-stat-label">Years Open</div>
+      <div class="about-stat-val">10+</div>
+    </div>
+    <div class="about-stat-row">
+      <div class="about-stat-label">Clients Served</div>
+      <div class="about-stat-val">3,000+</div>
+    </div>
+    <div class="about-stat-row">
+      <div class="about-stat-label">Google Rating</div>
+      <div class="about-stat-val">4.9 / 5</div>
+    </div>
+    <div class="about-stat-row">
+      <div class="about-stat-label">Certifications</div>
+      <div class="about-stat-val">Licensed Artists</div>
+    </div>
+    <div class="about-stat-row">
+      <div class="about-stat-label">Products Used</div>
+      <div class="about-stat-val">Professional Grade Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What <em>clients say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Best balayage I've ever had. My colorist took time to understand exactly what I was going for and delivered something even better. The result is natural, beautiful, and exactly right."</p>
+      <div class="testimonial-author">Victoria L.</div>
+      <div class="testimonial-detail">Color client · Regular</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I've been to a lot of premium salons and Onyx stands apart. The consultation alone was better than the actual service most places provide. Precision haircut, incredible style."</p>
+      <div class="testimonial-author">James H.</div>
+      <div class="testimonial-detail">Cut &amp; style regular</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The keratin treatment was life-changing. My stylist explained every step, managed my expectations perfectly, and the results exceeded all of them. I've been coming back ever since."</p>
+      <div class="testimonial-author">Rachel T.</div>
+      <div class="testimonial-detail">Treatment &amp; color client</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="reveal">
+      <!-- BOOKING HEADLINE — Change to your own -->
+      <h2 class="booking-title">Book<br>your<br>visit.</h2>
+      <p class="booking-sub">Fill out the form and we'll confirm your appointment within 24 hours. New clients receive a complimentary consultation before their service.</p>
+    </div>
+    <div class="reveal">
+      <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <!-- SERVICE OPTIONS — Change to your actual services -->
+        <select name="service">
+          <option value="" disabled selected>Which service?</option>
+          <option>Cut &amp; Style</option>
+          <option>Color</option>
+          <option>Balayage</option>
+          <option>Highlights</option>
+          <option>Hair Treatment</option>
+          <option>Color Correction</option>
+          <option>Not sure — need consultation</option>
+        </select>
+        <input type="date" name="date" placeholder="Preferred Date">
+        <textarea name="message" placeholder="Tell us about your hair and what you're hoping for..."></textarea>
+        <button type="submit" class="btn-submit">Request Appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your business name -->
+      <div class="footer-logo">ONYX<span>.</span></div>
+      <p class="footer-tagline">Premium hair and beauty salon. Excellence in every appointment.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <!-- FOOTER SERVICES — Change to your actual services -->
+        <li><a href="#services">Cut &amp; Style</a></li>
+        <li><a href="#services">Color</a></li>
+        <li><a href="#services">Balayage</a></li>
+        <li><a href="#services">Treatments</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Studio</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#booking">Book Now</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+        <li><a href="#booking">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yoursalon.com">hello@yoursalon.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Tue–Sat 9am–7pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change business name -->
+    <div class="footer-copy">© 2026 Onyx Salon. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

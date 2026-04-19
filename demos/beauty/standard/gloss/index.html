@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Gloss Beauty Bar" to your business name -->
+<title>Gloss Beauty Bar — Nails, Lashes & More</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --magenta:#E8156A;
+  --magenta-light:#F02878;
+  --magenta-dark:#C01058;
+  --magenta-dim:rgba(232,21,106,0.08);
+  --pink:#FFB3D1;
+  --pink-light:#FFD6E7;
+  --yellow:#FFE566;
+  --teal:#1CCFB8;
+  --white:#FFFFFF;
+  --off-white:#FFF8FB;
+  --text:#1A0812;
+  --text-muted:#8A4A68;
+  --border:rgba(26,8,18,0.1);
+  --border-light:rgba(26,8,18,0.06);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--magenta);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:500;color:rgba(255,255,255,0.95);}
+.purchase-banner p strong{color:#fff;font-weight:700;}
+.purchase-banner p span{font-weight:300;opacity:0.7;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--magenta);font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:100px;transition:all 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--pink-light);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;transition:all 0.4s;}
+nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);box-shadow:0 2px 24px rgba(232,21,106,0.06);}
+/* LOGO — Change "gloss" to your business name */
+.nav-logo{font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:var(--magenta);letter-spacing:-0.5px;}
+.nav-logo span{color:var(--text);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:600;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--magenta);}
+/* NAV CTA */
+.nav-cta{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;background:var(--magenta);color:#fff;padding:10px 24px;border-radius:100px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--magenta-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu a{font-family:'Outfit',sans-serif;font-size:40px;font-weight:900;color:var(--text);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--magenta);}
+.mobile-menu .mob-cta{font-size:18px !important;background:var(--magenta);color:#fff !important;padding:14px 48px;border-radius:100px;margin-top:8px;}
+
+/* HERO — bold magenta with large white type */
+.hero{min-height:100vh;padding:140px 52px 0;background:var(--magenta);position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;}
+/* playful circular shapes */
+.hero-circle-1{position:absolute;top:-15%;right:-5%;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;}
+.hero-circle-2{position:absolute;bottom:-20%;left:5%;width:300px;height:300px;border-radius:50%;background:rgba(255,179,209,0.1);pointer-events:none;}
+.hero-left{position:relative;z-index:1;padding-bottom:80px;}
+/* HERO EYEBROW — Change to your specialty */
+.hero-eyebrow{font-size:13px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.75);margin-bottom:20px;animation:up 0.7s ease both;}
+/* HERO HEADLINE — Change to your business name and tagline */
+.hero h1{font-family:'Outfit',sans-serif;font-size:clamp(56px,9vw,120px);font-weight:900;line-height:0.9;letter-spacing:-2px;color:#fff;margin-bottom:24px;animation:up 0.7s 0.1s ease both;}
+.hero h1 span{color:var(--yellow);display:block;}
+/* HERO SUBTEXT — Describe your business */
+.hero-sub{font-size:17px;font-weight:400;color:rgba(255,255,255,0.8);line-height:1.75;max-width:440px;margin-bottom:32px;animation:up 0.7s 0.2s ease both;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;animation:up 0.7s 0.3s ease both;}
+/* CTA BUTTONS */
+.btn-white{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;background:#fff;color:var(--magenta);padding:15px 36px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-white:hover{background:var(--pink-light);transform:translateY(-2px);}
+.btn-outline{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);padding:15px 36px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.1);}
+/* HERO BADGES — Change to your real stats */
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;animation:up 0.7s 0.4s ease both;}
+.hero-badge{font-size:12px;font-weight:700;background:rgba(255,255,255,0.15);color:#fff;padding:8px 18px;border-radius:100px;}
+/* HERO RIGHT — price cards */
+.hero-right{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;padding-bottom:80px;animation:up 0.7s 0.15s ease both;}
+.price-card{background:#fff;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.price-card-name{font-size:15px;font-weight:700;color:var(--text);}
+.price-card-sub{font-size:12px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+.price-card-price{font-size:20px;font-weight:900;color:var(--magenta);flex-shrink:0;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* WAVE DIVIDER */
+.wave{background:var(--magenta);line-height:0;}
+.wave svg{display:block;width:100%;}
+
+/* SERVICES */
+.services{padding:100px 52px;background:var(--white);}
+.section-tag{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--magenta);margin-bottom:10px;}
+.section-title{font-family:'Outfit',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-1.5px;color:var(--text);line-height:0.95;margin-bottom:60px;}
+.section-title em{font-style:italic;font-weight:700;color:var(--magenta);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.service-card{background:var(--off-white);border-radius:20px;padding:32px;position:relative;overflow:hidden;transition:all 0.2s;}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(232,21,106,0.12);}
+/* colored top accent — varies per card */
+.service-card:nth-child(1){border-top:4px solid var(--magenta);}
+.service-card:nth-child(2){border-top:4px solid var(--teal);}
+.service-card:nth-child(3){border-top:4px solid var(--yellow);}
+.service-card:nth-child(4){border-top:4px solid var(--pink);}
+.service-card:nth-child(5){border-top:4px solid var(--magenta);}
+.service-card:nth-child(6){border-top:4px solid var(--teal);}
+/* SERVICE CARDS — Change all to your real services */
+.service-name{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-0.3px;}
+.service-desc{font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.7;margin-bottom:16px;}
+.service-price{font-size:14px;font-weight:700;color:var(--magenta);}
+
+/* ABOUT */
+.about{padding:100px 52px;background:var(--off-white);}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* ABOUT HEADLINE — Change to your own story headline */
+.about-title{font-family:'Outfit',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-1.5px;color:var(--text);line-height:0.95;margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:700;color:var(--magenta);}
+/* ABOUT TEXT — Replace with your real story */
+.about-text{font-size:16px;font-weight:400;color:var(--text-muted);line-height:1.8;margin-bottom:32px;}
+/* STATS — Change to your real numbers */
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px;}
+.stat-box{background:#fff;border-radius:16px;padding:20px;text-align:center;}
+.stat-num{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:var(--magenta);letter-spacing:-1px;line-height:1;}
+.stat-label{font-size:12px;font-weight:600;color:var(--text-muted);margin-top:4px;}
+.btn-magenta{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;background:var(--magenta);color:#fff;padding:15px 36px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-magenta:hover{background:var(--magenta-light);transform:translateY(-2px);}
+.about-right{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* ABOUT IMAGES — Replace with real photos */
+.about-img{background:var(--pink-light);border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.about-img:first-child{grid-column:1/-1;aspect-ratio:16/9;}
+.about-img:not(:first-child){aspect-ratio:1;}
+.about-img-placeholder{font-size:12px;font-weight:600;color:var(--text-muted);font-style:italic;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 52px;background:var(--white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--off-white);border-radius:20px;padding:32px;}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:14px;}
+.star{width:13px;height:13px;background:var(--magenta);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:14px;font-weight:400;color:var(--text);line-height:1.75;margin-bottom:18px;}
+.testimonial-author{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--text);}
+.testimonial-detail{font-size:12px;font-weight:500;color:var(--text-muted);margin-top:2px;}
+
+/* BOOKING */
+.booking{padding:100px 52px;background:var(--magenta);}
+.booking-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Outfit',sans-serif;font-size:clamp(44px,6vw,72px);font-weight:900;letter-spacing:-2px;color:#fff;line-height:0.95;margin-bottom:16px;}
+.booking-sub{font-size:16px;font-weight:400;color:rgba(255,255,255,0.75);line-height:1.75;}
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.25);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;color:#fff;outline:none;transition:border 0.2s;border-radius:12px;}
+form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,0.5);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(255,255,255,0.7);}
+form select option{background:var(--magenta-dark);}
+form textarea{resize:none;height:90px;}
+.btn-submit{width:100%;padding:16px;background:#fff;color:var(--magenta);border:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.3px;cursor:pointer;transition:all 0.2s;border-radius:12px;}
+.btn-submit:hover{background:var(--pink-light);transform:translateY(-1px);}
+
+/* FOOTER */
+footer{padding:60px 52px 28px;background:var(--text);}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+/* FOOTER LOGO — Change to your business name */
+.footer-logo{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:var(--magenta);margin-bottom:10px;}
+.footer-logo span{color:#fff;}
+.footer-tagline{font-size:13px;font-weight:400;color:rgba(255,255,255,0.35);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--magenta);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.4);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--magenta);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:12px;color:var(--magenta);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.about-inner{grid-template-columns:1fr;}.about-right{display:none;}.booking-inner{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 0;grid-template-columns:1fr;}.hero-left{padding-bottom:60px;}
+  .services{padding:72px 20px;}.services-grid{grid-template-columns:1fr;}
+  .about{padding:72px 20px;}.testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .booking{padding:72px 20px;}
+  footer{padding:48px 20px 24px;}.footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Gloss</strong> · Standard Salon Template<span>· $24.99</span></p>
+  <a href="/product.html?t=gloss" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "gloss" to your business name -->
+  <a href="#" class="nav-logo">gloss<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking">Book</a></li>
+  </ul>
+  <!-- NAV CTA -->
+  <a href="#booking" class="nav-cta">Book Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#about">About</a>
+  <a href="#booking">Book</a>
+  <a href="#booking" class="mob-cta">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-circle-1"></div>
+  <div class="hero-circle-2"></div>
+  <div class="hero-left">
+    <!-- HERO EYEBROW — Change to your specialty -->
+    <div class="hero-eyebrow">Nails · Lashes · Brows · Facials</div>
+    <!-- HERO HEADLINE — Change to your business name and tagline -->
+    <h1>Beauty<br><span>your way.</span></h1>
+    <!-- HERO SUBTEXT — Describe your business -->
+    <p class="hero-sub">Your one-stop beauty bar for nails, lashes, brows, and skin. No judgment, no fuss — just good vibes and great results. Walk-ins welcome.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-white">Book Now</a>
+      <a href="#services" class="btn-outline">See Services</a>
+    </div>
+    <!-- BADGES — Change to your real stats or features -->
+    <div class="hero-badges">
+      <div class="hero-badge">Walk-Ins Welcome</div>
+      <div class="hero-badge">Same-Day Booking</div>
+      <div class="hero-badge">Open 7 Days</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <!-- PRICE CARDS — Change all to your real services and prices -->
+    <div class="price-card">
+      <div><div class="price-card-name">Gel Manicure</div><div class="price-card-sub">Hands only · 45 min</div></div>
+      <div class="price-card-price">$55</div>
+    </div>
+    <div class="price-card">
+      <div><div class="price-card-name">Lash Extensions</div><div class="price-card-sub">Classic full set · 90 min</div></div>
+      <div class="price-card-price">$120</div>
+    </div>
+    <div class="price-card">
+      <div><div class="price-card-name">Brow Lamination</div><div class="price-card-sub">Includes tint · 60 min</div></div>
+      <div class="price-card-price">$80</div>
+    </div>
+    <div class="price-card">
+      <div><div class="price-card-name">Express Facial</div><div class="price-card-sub">30 min glow treatment</div></div>
+      <div class="price-card-price">$65</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE DIVIDER -->
+<div class="wave">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+    <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#FFFFFF"/>
+  </svg>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag reveal">What We Do</div>
+  <h2 class="section-title reveal">All your<br><em>faves.</em></h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change all to your real services -->
+    <div class="service-card reveal">
+      <div class="service-name">Gel Manicure</div>
+      <p class="service-desc">Long-lasting gel polish in any color — classic, French, ombre, or nail art. Includes shaping, cuticle care, and a full gel application that lasts 3+ weeks.</p>
+      <div class="service-price">From $55</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-name">Pedicure</div>
+      <p class="service-desc">Classic or gel pedicure with foot soak, scrub, massage, and polish. Pick your color, relax, and leave with beautiful feet. Add-ons available.</p>
+      <div class="service-price">From $60</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-name">Lash Extensions</div>
+      <p class="service-desc">Classic, hybrid, or volume lash sets applied by certified technicians. Customized to your eye shape, lifestyle, and the look you want. Fills every 2–3 weeks.</p>
+      <div class="service-price">From $120</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Lash Lift &amp; Tint</div>
+      <p class="service-desc">Curl and define your natural lashes without extensions. Add a tint for the mascara-free look. Lasts 6–8 weeks. Zero maintenance.</p>
+      <div class="service-price">From $85</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-name">Brow Shaping &amp; Tinting</div>
+      <p class="service-desc">Precision brow design including waxing, threading, or tweezing. Add a tint for fuller-looking brows without daily makeup. Lamination also available.</p>
+      <div class="service-price">From $45</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-name">Express Facial</div>
+      <p class="service-desc">A 30-minute skin refresh when you don't have an hour but you still want to glow. Cleanse, exfoliate, mask, and hydrate. Quick, effective, and worth it.</p>
+      <div class="service-price">From $65</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="reveal">
+      <div class="section-tag">About Us</div>
+      <!-- ABOUT HEADLINE — Change to your own story headline -->
+      <h2 class="about-title">Your beauty<br>bar, <em>bestie.</em></h2>
+      <!-- ABOUT TEXT — Replace with your real story -->
+      <p class="about-text">Gloss opened because we believed getting beautiful should feel fun, not stressful. No intimidating atmosphere, no confusing booking process — just a welcoming space with talented people who genuinely love what they do. Walk-ins always welcome, appointments always preferred.</p>
+      <!-- STATS — Change to your real numbers -->
+      <div class="about-stats">
+        <div class="stat-box"><div class="stat-num">5+</div><div class="stat-label">Years open</div></div>
+        <div class="stat-box"><div class="stat-num">4.9</div><div class="stat-label">Rating</div></div>
+        <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Days a week</div></div>
+      </div>
+      <a href="#booking" class="btn-magenta">Book Your Visit</a>
+    </div>
+    <div class="about-right reveal">
+      <!-- ABOUT IMAGES — Replace with real photos of your studio -->
+      <div class="about-img"><div class="about-img-placeholder">Studio Photo</div></div>
+      <div class="about-img"><div class="about-img-placeholder">Nail Photo</div></div>
+      <div class="about-img"><div class="about-img-placeholder">Lash Photo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag reveal">Reviews</div>
+  <h2 class="section-title reveal">The <em>love.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Best nail tech I've ever had. She remembered exactly what I had last time, suggested the perfect color for my skin tone, and the manicure lasted almost a month. I'm never going anywhere else."</p>
+      <div class="testimonial-author">Jasmine C.</div>
+      <div class="testimonial-detail">Gel manicure · Bi-weekly</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Got lash extensions for the first time and I'm obsessed. The set was exactly what I described and they feel so light. The studio is super cute and everyone was so welcoming."</p>
+      <div class="testimonial-author">Tanya M.</div>
+      <div class="testimonial-detail">Lash extensions · New client</div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Walked in without an appointment on a Saturday and was seen within 20 minutes. Brow shaping was perfection. Recommend to literally everyone who asks where I get my brows done."</p>
+      <div class="testimonial-author">Priya K.</div>
+      <div class="testimonial-detail">Brow shaping · Walk-in</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="reveal">
+      <!-- BOOKING HEADLINE — Change to your own -->
+      <h2 class="booking-title">Let's get you<br>booked.</h2>
+      <p class="booking-sub">Fill out the form and we'll confirm your appointment ASAP. Walk-ins also always welcome — first come, first served.</p>
+    </div>
+    <div class="reveal">
+      <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+      <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <!-- SERVICE OPTIONS — Change to your actual services -->
+        <select name="service">
+          <option value="" disabled selected>What do you want?</option>
+          <option>Gel Manicure</option>
+          <option>Pedicure</option>
+          <option>Lash Extensions</option>
+          <option>Lash Lift &amp; Tint</option>
+          <option>Brow Shaping &amp; Tinting</option>
+          <option>Express Facial</option>
+          <option>Mani + Pedi Combo</option>
+        </select>
+        <input type="date" name="date">
+        <textarea name="message" placeholder="Any requests, inspo, or questions?"></textarea>
+        <button type="submit" class="btn-submit">Book My Appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your business name -->
+      <div class="footer-logo">gloss<span>.</span></div>
+      <p class="footer-tagline">Your neighborhood beauty bar. Nails, lashes, brows, and facials — open 7 days a week.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <!-- FOOTER SERVICES — Change to your actual services -->
+        <li><a href="#services">Nails</a></li>
+        <li><a href="#services">Lash Extensions</a></li>
+        <li><a href="#services">Brow Services</a></li>
+        <li><a href="#services">Facials</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Studio</div>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#booking">Book Now</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+        <li><a href="#booking">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hi@glossbeauty.com">hi@yourstudio.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Mon–Sun 9am–8pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change business name -->
+    <div class="footer-copy">© 2026 Gloss Beauty Bar. All rights reserved.</div>
+    <div class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => mobileMenu.style.display = 'none', 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => mobileMenu.style.display = 'none', 300); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
