@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Harvest" to your restaurant name -->
+<title>Harvest — Brunch & All-Day Café</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --yellow:#F5C842;
+  --yellow-light:#FFD95A;
+  --yellow-dark:#D4A820;
+  --yellow-pale:#FFF8DC;
+  --green:#2D5A3D;
+  --green-light:#3D7A52;
+  --green-dim:rgba(45,90,61,0.08);
+  --white:#FEFCF7;
+  --off-white:#F5F0E4;
+  --off-white-2:#EDE6D4;
+  --text:#1A1A0A;
+  --text-muted:#5A5A3A;
+  --text-light:#8A8A6A;
+  --border:rgba(26,26,10,0.08);
+  --border-light:rgba(26,26,10,0.05);
+  --border-green:rgba(45,90,61,0.15);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--green);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:300;color:rgba(254,252,247,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:500;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--yellow);color:var(--green);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--yellow-light);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(254,252,247,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "Harvest" to your restaurant name */
+.nav-logo{font-family:'Fraunces',serif;font-size:24px;font-style:italic;color:var(--text);letter-spacing:-0.5px;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--green);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:600;background:var(--green);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--green-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--yellow);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(40px,8vw,60px);font-style:italic;color:var(--text);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--green);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:rgba(26,26,10,0.4);letter-spacing:1px;}
+.mob-cta{display:inline-block;font-size:12px !important;font-weight:600;background:var(--green);color:#fff !important;padding:12px 28px;}
+
+/* HERO — bold split yellow/white */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+/* HERO LEFT — big yellow panel */
+.hero-left{background:var(--yellow);padding:160px 64px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+/* big decorative circle */
+.hero-circle{position:absolute;bottom:-20%;right:-15%;width:500px;height:500px;border-radius:50%;background:rgba(45,90,61,0.06);pointer-events:none;}
+/* HERO EYEBROW — Change to your restaurant type */
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:24px;display:flex;align-items:center;gap:10px;animation:up 0.8s ease both;}
+.hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--green);}
+/* HERO HEADLINE — Change to your restaurant tagline */
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(56px,7vw,104px);font-weight:500;font-style:italic;line-height:0.88;letter-spacing:-2px;color:var(--text);margin-bottom:24px;animation:up 0.8s 0.1s ease both;}
+/* HERO SUBTEXT — Describe your restaurant */
+.hero-sub{font-size:16px;font-weight:300;color:rgba(26,26,10,0.6);line-height:1.8;max-width:400px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:up 0.8s 0.3s ease both;}
+.btn-green{font-size:13px;font-weight:600;background:var(--green);color:#fff;padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-green:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-outline-green{font-size:13px;font-weight:400;background:transparent;color:var(--green);border:1.5px solid var(--green);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-outline-green:hover{background:var(--green-dim);}
+/* HERO RIGHT — image side */
+.hero-right{background:var(--off-white);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* HERO IMAGE — Replace with a real photo of your restaurant */
+.hero-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#e8f0d0 0%,#c8d8a0 40%,#a8c870 100%);}
+.hero-image-label{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(26,26,10,0.2);}
+/* floating hours card */
+.hero-hours-card{position:absolute;bottom:40px;left:40px;background:var(--white);padding:20px 24px;box-shadow:0 8px 32px rgba(26,26,10,0.08);}
+.hero-hours-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.hero-hours-row{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE STRIP — yellow */
+.marquee-strip{overflow:hidden;padding:14px 0;background:var(--green);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(245,200,66,0.7);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:3px;height:3px;border-radius:50%;background:var(--yellow);opacity:0.5;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* INTRO STATS */
+.intro-strip{background:var(--yellow-pale);display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.intro-div{background:var(--border);}
+.intro-item{padding:44px 32px;text-align:center;}
+/* STATS — Change all to your real info */
+.intro-num{font-family:'Fraunces',serif;font-size:44px;font-style:italic;color:var(--green);line-height:1;margin-bottom:8px;letter-spacing:-1px;}
+.intro-label{font-size:10px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+
+/* PHILOSOPHY — green panel */
+.philosophy{padding:100px 60px;background:var(--green);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* PHILOSOPHY HEADLINE — Change to your own */
+.philosophy-headline{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;line-height:1.0;letter-spacing:-1px;color:#fff;}
+.philosophy-headline em{font-style:normal;color:var(--yellow);}
+/* PHILOSOPHY TEXT — Replace with your real philosophy */
+.philosophy-text{font-size:16px;font-weight:300;color:rgba(254,252,247,0.6);line-height:1.85;}
+.philosophy-text strong{color:#fff;font-weight:500;}
+
+/* MENU — categorized with tabs */
+.menu-section{padding:100px 60px;background:var(--white);}
+.section-label{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;color:var(--text);line-height:1.0;margin-bottom:52px;letter-spacing:-1px;}
+/* MENU TABS */
+.menu-tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:48px;overflow-x:auto;}
+.menu-tab{font-size:12px;font-weight:500;letter-spacing:0.5px;color:var(--text-muted);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.2s;white-space:nowrap;}
+.menu-tab.active{color:var(--green);border-bottom-color:var(--green);}
+.menu-tab:hover{color:var(--text);}
+.menu-panel{display:none;}
+.menu-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-light);}
+/* MENU ITEMS — Change all to your real menu items */
+.menu-item{background:var(--white);padding:28px 32px;display:flex;justify-content:space-between;align-items:baseline;gap:20px;transition:background 0.2s;}
+.menu-item:hover{background:var(--off-white);}
+.menu-item-name{font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:var(--text);margin-bottom:5px;}
+.menu-item-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.6;max-width:300px;}
+.menu-item-price{font-family:'Fraunces',serif;font-size:18px;font-style:italic;color:var(--green);flex-shrink:0;}
+
+/* FARM SOURCES — editorial grid */
+.farm-section{padding:100px 60px;background:var(--off-white);}
+.farm-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;}
+.farm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+/* FARM SOURCE CARDS — Change all to your real suppliers */
+.farm-card{background:var(--white);padding:36px 28px;transition:background 0.2s;}
+.farm-card:hover{background:var(--yellow-pale);}
+.farm-card::before{content:'';display:block;width:32px;height:3px;background:var(--yellow);margin-bottom:20px;}
+.farm-num{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:12px;}
+.farm-name{font-family:'Fraunces',serif;font-size:20px;font-style:italic;color:var(--text);margin-bottom:6px;}
+.farm-location{font-size:12px;font-weight:400;color:var(--green);margin-bottom:8px;}
+.farm-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.65;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 1fr 2fr;height:480px;gap:1px;background:var(--border);}
+.gallery-item{background:var(--off-white-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real food/restaurant photos */
+.gallery-item:nth-child(1){background:linear-gradient(160deg,#e8f0c8,#c8d890);}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,#f5e8a0,#e0cc60);}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,#d8e8b0,#b8d070);}
+.gallery-label{font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:1px;color:rgba(26,26,10,0.2);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--off-white);padding:44px 36px;border-radius:2px;transition:background 0.2s;}
+.testimonial:hover{background:var(--yellow-pale);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:11px;height:11px;background:var(--yellow-dark);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real guest reviews */
+.testimonial-text{font-size:15px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:24px;}
+.testimonial-author-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:32px;height:32px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-style:italic;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:500;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* BOOKING CTA — yellow bottom section */
+.booking{padding:100px 60px;background:var(--yellow);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Fraunces',serif;font-size:clamp(44px,6vw,76px);font-style:italic;line-height:0.95;letter-spacing:-1.5px;color:var(--text);margin-bottom:16px;}
+.booking-title em{font-style:normal;color:var(--green);}
+.booking-sub{font-size:16px;font-weight:300;color:rgba(26,26,10,0.55);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(254,252,247,0.6);border:1.5px solid rgba(26,26,10,0.15);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--text);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(26,26,10,0.35);}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--green);background:rgba(254,252,247,0.9);}
+form select option{background:var(--white);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--green);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--green-light);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--text);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your restaurant name */
+.footer-logo{font-family:'Fraunces',serif;font-size:26px;font-style:italic;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:var(--yellow);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(254,252,247,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;opacity:0.7;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:rgba(254,252,247,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(254,252,247,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change restaurant name */
+.footer-copy{font-size:12px;color:rgba(254,252,247,0.2);}
+.footer-built a{font-size:11px;color:rgba(245,200,66,0.3);transition:color 0.2s;}
+.footer-built a:hover{color:var(--yellow);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.philosophy{grid-template-columns:1fr;gap:32px;}.booking{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}
+  .intro-strip{grid-template-columns:1fr 1fr;}.intro-div{display:none;}
+  .philosophy{padding:80px 20px;}.menu-section{padding:80px 20px;}
+  .menu-panel.active{grid-template-columns:1fr;}
+  .farm-section{padding:80px 20px;}.farm-header{flex-direction:column;align-items:flex-start;}.farm-grid{grid-template-columns:1fr 1fr;}
+  .gallery{height:auto;grid-template-columns:1fr;}.gallery-item{height:220px;}
+  .testimonials{padding:80px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .booking{padding:80px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Harvest</strong> · Premium Restaurant Template<span>· $39.99</span></p>
+  <a href="/product.html?t=harvest" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Harvest" to your restaurant name -->
+  <a href="#" class="nav-logo"><em>Harvest</em><span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#farm">Our Farms</a></li>
+    <li><a href="#booking">Reserve</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#booking" class="nav-cta">Book a Table</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#menu">Menu</a>
+    <a href="#farm">Our Farms</a>
+    <a href="#booking">Reserve</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#booking" class="mob-cta">Book Now</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-circle"></div>
+    <!-- HERO EYEBROW — Change to your restaurant type -->
+    <div class="hero-eyebrow">Farm-to-Table Brunch &amp; Café</div>
+    <!-- HERO HEADLINE — Change to your restaurant tagline -->
+    <h1>Good morning.<br>Good food.<br>Good earth.</h1>
+    <!-- HERO SUBTEXT — Describe your restaurant -->
+    <p class="hero-sub">A sun-drenched brunch café built around what's fresh, local, and grown with intention. Open mornings and afternoons, Wednesday through Sunday.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-green">Book a Table</a>
+      <a href="#menu" class="btn-outline-green">See the Menu</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-bg"></div>
+    <!-- HERO IMAGE — Replace with a real restaurant interior or food photo -->
+    <div class="hero-image-label">Restaurant Photography</div>
+    <!-- HOURS CARD — Change to your real hours -->
+    <div class="hero-hours-card">
+      <div class="hero-hours-title">Today's Hours</div>
+      <!-- HOURS — Change to your real hours -->
+      <div class="hero-hours-row">Wednesday – Friday · 8am – 3pm</div>
+      <div class="hero-hours-row">Saturday – Sunday · 7:30am – 4pm</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP — Change items to your real offerings -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Farm-to-Table<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Locally Sourced<div class="marquee-dot"></div></div>
+    <div class="marquee-item">All-Day Brunch<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Seasonal Menu<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Natural Wines<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Farm-to-Table<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Locally Sourced<div class="marquee-dot"></div></div>
+    <div class="marquee-item">All-Day Brunch<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Seasonal Menu<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Natural Wines<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<!-- STATS — Change all to your real info -->
+<div class="intro-strip">
+  <div class="intro-item reveal"><div class="intro-num" data-count="6">0</div><div class="intro-label">Local Farm Partners</div></div>
+  <div class="intro-div"></div>
+  <div class="intro-item reveal reveal-delay-1"><div class="intro-num" data-count="2018">0</div><div class="intro-label">Established</div></div>
+  <div class="intro-div"></div>
+  <div class="intro-item reveal reveal-delay-2"><div class="intro-num" data-count="95">0</div><div class="intro-label">% Locally Sourced</div></div>
+  <div class="intro-div"></div>
+  <div class="intro-item reveal reveal-delay-3"><div class="intro-num" data-count="4.9" data-decimal="1">0</div><div class="intro-label">Google Rating</div></div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy reveal">
+  <div>
+    <!-- PHILOSOPHY HEADLINE — Change to your own -->
+    <h2 class="philosophy-headline">Grown with<br>intention.<br>Cooked with <em>love.</em></h2>
+  </div>
+  <div>
+    <!-- PHILOSOPHY TEXT — Replace with your real philosophy -->
+    <p class="philosophy-text">We built Harvest around a single question: what if a restaurant's menu started at the farm, not the kitchen? Every dish we serve reflects what's in season this week, grown within 100 miles, by farmers we know by name. <strong>We change our menu constantly</strong> — because the land changes constantly, and that's exactly how it should be.</p>
+  </div>
+</section>
+
+<!-- MENU — tabbed -->
+<section class="menu-section" id="menu">
+  <div class="section-label reveal">What We're Serving</div>
+  <h2 class="section-title reveal">This week's <em>menu.</em></h2>
+  <!-- MENU TABS — Change to your real menu categories -->
+  <div class="menu-tabs reveal">
+    <button class="menu-tab active" data-tab="morning">Morning</button>
+    <button class="menu-tab" data-tab="midday">Midday</button>
+    <button class="menu-tab" data-tab="drinks">Drinks</button>
+    <button class="menu-tab" data-tab="sweets">Sweets</button>
+  </div>
+  <!-- MORNING MENU — Change all to your real menu items -->
+  <div class="menu-panel active" id="tab-morning">
+    <div class="menu-item"><div><div class="menu-item-name">Ricotta Toast</div><p class="menu-item-desc">House sourdough, whipped ricotta, seasonal stone fruit, honey, pistachios</p></div><div class="menu-item-price">$14</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Poached Eggs &amp; Greens</div><p class="menu-item-desc">Farm eggs, wilted greens, chili crisp butter, grains, radish, lemon</p></div><div class="menu-item-price">$17</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Shakshuka</div><p class="menu-item-desc">Slow-cooked tomato, peppers, farm eggs, feta, za'atar, grilled bread</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">French Toast</div><p class="menu-item-desc">Brioche, seasonal compote, crème fraîche, toasted seeds, maple</p></div><div class="menu-item-price">$15</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Grain Bowl</div><p class="menu-item-desc">Farro, roasted sweet potato, pickled cabbage, soft egg, tahini, herbs</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Smashed Avocado</div><p class="menu-item-desc">Multigrain toast, heirloom tomato, microgreens, chili flakes, lime</p></div><div class="menu-item-price">$14</div></div>
+  </div>
+  <!-- MIDDAY MENU — Change all to your real menu items -->
+  <div class="menu-panel" id="tab-midday">
+    <div class="menu-item"><div><div class="menu-item-name">Summer Harvest Salad</div><p class="menu-item-desc">Seasonal leaves, roasted beets, goat cheese, candied walnuts, apple cider vinaigrette</p></div><div class="menu-item-price">$17</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Roasted Vegetable Flatbread</div><p class="menu-item-desc">House-baked flatbread, seasonal roasted vegetables, labneh, herbs, chili oil</p></div><div class="menu-item-price">$18</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Chicken Salad Sandwich</div><p class="menu-item-desc">Free-range chicken, tarragon mayo, celery, grapes, sourdough, dressed greens</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Soup of the Day</div><p class="menu-item-desc">Made from whatever's best at market this week. Ask your server.</p></div><div class="menu-item-price">$12</div></div>
+  </div>
+  <!-- DRINKS MENU — Change all to your real drinks -->
+  <div class="menu-panel" id="tab-drinks">
+    <div class="menu-item"><div><div class="menu-item-name">Cold Brew</div><p class="menu-item-desc">House-brewed, 18-hour steep, served over ice. Add oat milk or seasonal syrup</p></div><div class="menu-item-price">$6</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Seasonal Latte</div><p class="menu-item-desc">Rotating seasonal flavors — ask what's current. Always made with oat milk</p></div><div class="menu-item-price">$7</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Fresh Juice</div><p class="menu-item-desc">Pressed daily, changes with the season. Currently: apple, ginger, turmeric, lemon</p></div><div class="menu-item-price">$8</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Natural Wine by the Glass</div><p class="menu-item-desc">A rotating selection of low-intervention wines. Ask for our current pours</p></div><div class="menu-item-price">From $12</div></div>
+  </div>
+  <!-- SWEETS MENU — Change all to your real sweets -->
+  <div class="menu-panel" id="tab-sweets">
+    <div class="menu-item"><div><div class="menu-item-name">Seasonal Tart</div><p class="menu-item-desc">Buttery pastry, seasonal filling. Changes daily — ask what's in today</p></div><div class="menu-item-price">$9</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Cardamom Morning Bun</div><p class="menu-item-desc">Laminated dough, cardamom sugar, orange zest. Baked fresh every morning</p></div><div class="menu-item-price">$6</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Olive Oil Cake</div><p class="menu-item-desc">Orange and almond, crème fraîche, seasonal fruit, toasted pistachios</p></div><div class="menu-item-price">$10</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">House Granola</div><p class="menu-item-desc">Oat, seed, and nut granola with seasonal yogurt and honey from our apiary partner</p></div><div class="menu-item-price">$9</div></div>
+  </div>
+</section>
+
+<!-- FARM SOURCES -->
+<section class="farm-section" id="farm">
+  <div class="farm-header reveal">
+    <div>
+      <div class="section-label">Where It Comes From</div>
+      <h2 class="section-title" style="margin-bottom:0;">Our farm <em>partners.</em></h2>
+    </div>
+    <!-- FARM NOTE — Change to your own -->
+    <p style="font-size:13px;font-weight:300;color:var(--text-muted);max-width:240px;line-height:1.7;">We visit every farm on this list. These aren't vendors — they're partners.</p>
+  </div>
+  <div class="farm-grid">
+    <!-- FARM CARDS — Change all to your real farm partners -->
+    <div class="farm-card reveal">
+      <div class="farm-num">01</div>
+      <div class="farm-name">Lazy Creek Farm</div>
+      <div class="farm-location">Brenham, TX · 80mi</div>
+      <p class="farm-desc">Eggs, seasonal vegetables, herbs, and edible flowers. Family-run for three generations.</p>
+    </div>
+    <div class="farm-card reveal reveal-delay-1">
+      <div class="farm-num">02</div>
+      <div class="farm-name">Sunridge Orchards</div>
+      <div class="farm-location">Fredericksburg, TX · 140mi</div>
+      <p class="farm-desc">Stone fruit, peaches, and apples. We build our seasonal compotes around whatever's ready.</p>
+    </div>
+    <div class="farm-card reveal reveal-delay-2">
+      <div class="farm-num">03</div>
+      <div class="farm-name">Millstone Mill</div>
+      <div class="farm-location">Austin, TX · 160mi</div>
+      <p class="farm-desc">Heirloom grain flours. Every loaf of our sourdough starts here.</p>
+    </div>
+    <div class="farm-card reveal reveal-delay-3">
+      <div class="farm-num">04</div>
+      <div class="farm-name">Wild Branch Apiary</div>
+      <div class="farm-location">Navasota, TX · 60mi</div>
+      <p class="farm-desc">Single-origin Texas honeys, rotating by season and hive location. Try them all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<!-- GALLERY IMAGES — Replace all with real food/restaurant photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Food Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Interior Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Farm Photography</div></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Guest Reviews</div>
+  <h2 class="section-title reveal">What people <em>are saying.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real guest reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The best brunch in Houston, and it's not close. The ricotta toast alone is worth the drive. Everything tastes like it was grown specifically for that morning."</p>
+      <div class="testimonial-author-row"><div class="testimonial-initial">J</div><div><div class="testimonial-name">Jessica T.</div><div class="testimonial-detail">Weekend regular</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I love that the menu changes. It means every visit is different, and it always reflects what's actually in season. It's how restaurants should work."</p>
+      <div class="testimonial-author-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Marcus B.</div><div class="testimonial-detail">Monthly visitor</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Brought my mom for her birthday brunch. She said it was the most beautiful meal she'd had in years. The seasonal latte and the olive oil cake sealed it."</p>
+      <div class="testimonial-author-row"><div class="testimonial-initial">L</div><div><div class="testimonial-name">Laura S.</div><div class="testimonial-detail">Birthday brunch</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking" id="booking">
+  <div class="reveal">
+    <!-- BOOKING HEADLINE — Change to your own -->
+    <h2 class="booking-title">Join us<br>for <em>brunch.</em></h2>
+    <p class="booking-sub">Book a table or drop in — we always hold walk-in spots. Reservations recommended for weekend mornings.</p>
+  </div>
+  <div class="reveal">
+    <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <input type="date" name="date">
+      <!-- TIME OPTIONS — Change to your real available times -->
+      <select name="time"><option value="" disabled selected>Preferred time</option><option>8:00 AM</option><option>8:30 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option></select>
+      <select name="party"><option value="" disabled selected>Party size</option><option>1–2 guests</option><option>3–4 guests</option><option>5–6 guests</option><option>Larger party — please call</option></select>
+      <textarea name="notes" placeholder="Dietary restrictions or special requests?"></textarea>
+      <button type="submit" class="btn-submit">Reserve My Table</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your restaurant name -->
+      <div class="footer-logo"><em>Harvest</em><span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your restaurant -->
+      <p class="footer-tagline">Farm-to-table brunch and all-day café in Houston. Open Wed–Sun from 8am.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Menu</div>
+      <ul>
+        <li><a href="#menu">Morning</a></li>
+        <li><a href="#menu">Midday</a></li>
+        <li><a href="#menu">Drinks</a></li>
+        <li><a href="#menu">Sweets</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Visit</div>
+      <ul>
+        <li><a href="#farm">Our Farms</a></li>
+        <li><a href="#booking">Book a Table</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+        <li><a href="#booking">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourrestaurant.com">hello@yourrestaurant.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Wed–Sun 8am–4pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change restaurant name -->
+    <span class="footer-copy">© 2026 Harvest Restaurant. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// FULL-SCREEN MENU
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+
+// ODOMETER COUNTER
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+
+// INTERSECTION OBSERVER
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    const counter = e.target.querySelector('[data-count]');
+    if (counter) animateCount(counter);
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .intro-item').forEach(el => observer.observe(el));
+
+// MENU TABS
+document.querySelectorAll('.menu-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.closest('section');
+    group.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+    group.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Apex Construction" to your company name -->
+<title>Apex Construction — General Contractor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --orange:#FF6B2B;
+  --orange-light:#FF8A50;
+  --orange-dark:#E05520;
+  --orange-dim:rgba(255,107,43,0.08);
+  --orange-pale:#FFF3ED;
+  --white:#FFFFFF;
+  --off-white:#F8F6F3;
+  --light:#F0EDE8;
+  --black:#111111;
+  --black-2:#191919;
+  --black-3:#222222;
+  --text:#111111;
+  --text-muted:#666560;
+  --text-light:#999890;
+  --border:rgba(17,17,17,0.1);
+  --border-light:rgba(17,17,17,0.06);
+  --border-orange:rgba(255,107,43,0.2);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.7);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.4;margin-left:4px;}
+.banner-btn{background:var(--orange);color:#fff;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--orange-light);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);box-shadow:0 2px 20px rgba(0,0,0,0.04);}
+/* LOGO — Change "APEX" to your company name */
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--black);}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--black);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--orange-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--black);border-radius:1px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--orange);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,10vw,72px);letter-spacing:3px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--black);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:1px;}
+.mob-cta{display:inline-block;font-size:12px !important;font-weight:700;background:var(--black);color:#fff !important;padding:12px 28px;}
+
+/* HERO — orange left, image right */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-left{background:var(--orange);padding:160px 64px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+/* big decorative number */
+.hero-bg-num{position:absolute;bottom:-5%;right:-5%;font-family:'Bebas Neue',sans-serif;font-size:320px;line-height:1;color:rgba(0,0,0,0.06);pointer-events:none;letter-spacing:-10px;}
+/* HERO LABEL — Change to your company type */
+.hero-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:24px;display:flex;align-items:center;gap:12px;animation:up 0.8s ease both;}
+.hero-label::before{content:'';width:20px;height:3px;background:rgba(255,255,255,0.4);}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,9vw,130px);letter-spacing:-1px;line-height:0.88;color:#fff;margin-bottom:24px;animation:up 0.8s 0.1s ease both;position:relative;z-index:1;}
+.hero h1 em{font-style:normal;color:var(--black);}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.7);line-height:1.8;max-width:420px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;position:relative;z-index:1;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:up 0.8s 0.3s ease both;position:relative;z-index:1;}
+.btn-white{font-size:13px;font-weight:700;background:#fff;color:var(--orange);padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-white:hover{background:var(--off-white);transform:translateY(-1px);}
+.btn-outline-white{font-size:13px;font-weight:500;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-outline-white:hover{border-color:#fff;}
+/* HERO RIGHT — image */
+.hero-right{background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* HERO IMAGE — Replace with a real project photo */
+.hero-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2a2010,#181008);}
+.hero-image-label{position:relative;z-index:1;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.1);}
+/* floating credentials card */
+.hero-cred-card{position:absolute;bottom:40px;left:40px;right:40px;background:#fff;padding:20px 24px;display:flex;gap:24px;flex-wrap:wrap;}
+.hero-cred-item{font-size:11px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-cred-item::before{content:'';width:8px;height:8px;background:var(--orange);flex-shrink:0;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE STRIP */
+.marquee-strip{overflow:hidden;padding:14px 0;background:var(--black);}
+.marquee-inner{display:flex;animation:marquee 20s linear infinite;white-space:nowrap;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:rgba(255,255,255,0.4);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);opacity:0.6;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* STATS STRIP */
+.stats-strip{background:var(--orange-pale);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border-orange);border-bottom:1px solid var(--border-orange);}
+.stat-item{padding:44px 32px;text-align:center;border-right:1px solid var(--border-orange);}
+.stat-item:last-child{border-right:none;}
+/* STATS — Change all to your real numbers */
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:60px;letter-spacing:-1px;color:var(--orange);line-height:1;margin-bottom:6px;}
+.stat-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+
+/* SERVICES — tabbed */
+.services{padding:100px 60px;background:var(--white);}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:var(--orange);margin-bottom:8px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:-1px;line-height:0.9;color:var(--black);margin-bottom:52px;}
+.section-title em{font-style:normal;color:var(--orange);}
+/* TABS */
+.services-tabs{display:flex;gap:0;border-bottom:2px solid var(--border-light);margin-bottom:52px;}
+.tab-btn{font-size:13px;font-weight:600;letter-spacing:0.3px;color:var(--text-muted);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;}
+.tab-btn.active{color:var(--black);border-bottom-color:var(--orange);}
+.tab-btn:hover{color:var(--black);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-light);}
+/* SERVICE ITEMS — Change all to your real services */
+.service-item{background:var(--white);padding:40px 36px;transition:background 0.2s;position:relative;overflow:hidden;}
+.service-item:hover{background:var(--orange-pale);}
+.service-item::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transition:transform 0.3s;}
+.service-item:hover::after{transform:scaleX(1);}
+.service-item-num{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;color:var(--text-light);margin-bottom:14px;}
+.service-item-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:var(--black);margin-bottom:8px;transition:color 0.2s;}
+.service-item:hover .service-item-name{color:var(--orange);}
+.service-item-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.75;}
+
+/* PROJECTS — horizontal scroll */
+.projects{padding:100px 0 0;background:var(--off-white);overflow:hidden;}
+.projects-header{padding:0 60px 48px;display:flex;align-items:flex-end;justify-content:space-between;}
+.projects-header .section-title{margin-bottom:0;}
+.projects-scroll{display:flex;gap:1px;overflow-x:auto;background:var(--border-light);}
+.projects-scroll::-webkit-scrollbar{height:3px;}
+.projects-scroll::-webkit-scrollbar-track{background:var(--border-light);}
+.projects-scroll::-webkit-scrollbar-thumb{background:var(--orange);}
+/* PROJECT CARDS — Change to your real projects */
+.project-card{min-width:360px;flex-shrink:0;background:var(--white);overflow:hidden;transition:background 0.2s;}
+.project-card:hover{background:var(--orange-pale);}
+/* PROJECT PHOTO — Replace with real project photos */
+.project-photo{height:260px;background:var(--light);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.project-photo-bg{position:absolute;inset:0;}
+.project-card:nth-child(1) .project-photo{background:linear-gradient(160deg,#2a2010,#181008);}
+.project-card:nth-child(2) .project-photo{background:linear-gradient(160deg,#1a2010,#101408);}
+.project-card:nth-child(3) .project-photo{background:linear-gradient(160deg,#201810,#140e08);}
+.project-card:nth-child(4) .project-photo{background:linear-gradient(160deg,#181818,#101010);}
+.project-card:nth-child(5) .project-photo{background:linear-gradient(160deg,#1a1a10,#101008);}
+.project-photo-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.1);}
+.project-info{padding:24px 28px;}
+.project-type{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.project-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--black);margin-bottom:4px;}
+.project-meta{font-size:12px;font-weight:300;color:var(--text-muted);}
+
+/* PROCESS */
+.process{padding:100px 60px;background:var(--black);}
+.process .section-label{color:var(--orange);}
+.process .section-title{color:#fff;}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.05);margin-top:52px;}
+/* PROCESS STEPS — Change all to your real process */
+.process-step{background:var(--black-2);padding:44px 32px;position:relative;transition:background 0.2s;}
+.process-step:hover{background:var(--black-3);}
+.process-step-num{font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:-2px;color:rgba(255,107,43,0.08);line-height:1;margin-bottom:16px;}
+.process-step-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;margin-bottom:8px;}
+.process-step-desc{font-size:13px;font-weight:300;color:rgba(255,255,255,0.4);line-height:1.7;}
+.process-step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transition:transform 0.4s;}
+.process-step:hover::before{transform:scaleX(1);}
+
+/* ABOUT SPLIT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+/* ABOUT IMAGE — Replace with real team/job site photo */
+.about-image{background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2a2010,#141008);}
+.about-image-label{position:relative;z-index:1;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.1);}
+.about-content{padding:80px 72px;background:var(--off-white);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,5.5vw,80px);letter-spacing:-1px;line-height:0.9;color:var(--black);margin-bottom:20px;}
+.about-title em{font-style:normal;color:var(--orange);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+.btn-orange{font-size:13px;font-weight:700;background:var(--orange);color:#fff;padding:14px 36px;transition:all 0.2s;display:inline-block;}
+.btn-orange:hover{background:var(--orange-light);}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.about-cred{font-size:12px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.about-cred::before{content:'';width:8px;height:8px;background:var(--orange);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--off-white);padding:44px 36px;position:relative;overflow:hidden;transition:background 0.2s;}
+.testimonial:hover{background:var(--orange-pale);}
+.testimonial::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--orange);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:11px;height:11px;background:var(--orange);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:15px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:24px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--black);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA — big orange section */
+.contact{padding:100px 60px;background:var(--orange);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,112px);letter-spacing:-2px;line-height:0.88;color:#fff;margin-bottom:16px;}
+.contact-title em{font-style:normal;color:var(--black);}
+.contact-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.25);font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,0.45);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.2);}
+form select option{background:var(--orange-dark);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--black);color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--black-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:var(--orange);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);line-height:1.7;max-width:220px;}
+.footer-col-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(255,107,43,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--orange);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.about{grid-template-columns:1fr;}.about-image{display:none;}.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}
+  .stats-strip{grid-template-columns:1fr 1fr;}
+  .services{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .projects{padding:72px 0 0;}.projects-header{padding:0 20px 36px;}
+  .process{padding:72px 20px;}.process-grid{grid-template-columns:1fr 1fr;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Apex</strong> · Premium Contractor Template<span>· $39.99</span></p>
+  <a href="/product.html?t=apex" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "APEX" to your company name -->
+  <a href="#" class="nav-logo">APEX<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Quote</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#contact" class="mob-cta">Get a Quote</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-bg-num">22</div>
+    <!-- HERO LABEL — Change to your company type and city -->
+    <div class="hero-label">General Contractor · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your company tagline -->
+    <h1>Built<br>to <em>last.</em></h1>
+    <!-- HERO SUBTEXT — Describe your company -->
+    <p class="hero-sub">Premium commercial and residential construction. Ground-up builds, major renovations, and everything in between — done right, on time, every time.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-white">Get a Quote</a>
+      <a href="#projects" class="btn-outline-white">Our Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-bg"></div>
+    <!-- HERO IMAGE — Replace with a real project photo -->
+    <div class="hero-image-label">Project Photography</div>
+    <!-- CREDENTIALS CARD — Change to your real credentials -->
+    <div class="hero-cred-card">
+      <div class="hero-cred-item">Licensed &amp; Bonded</div>
+      <div class="hero-cred-item">$5M Liability</div>
+      <div class="hero-cred-item">OSHA Certified</div>
+      <div class="hero-cred-item">BBB A+ Rated</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP — Change items to your real services/keywords -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Commercial Construction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Custom Home Builds<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Design-Build<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Renovations<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Commercial Construction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Custom Home Builds<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Design-Build<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Renovations<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- STATS STRIP — Change all to your real numbers -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num" data-count="22">0</div><div class="stat-label">Years in Business</div></div>
+  <div class="stat-item reveal reveal-delay-1"><div class="stat-num" data-count="400">0</div><div class="stat-label">Projects Completed</div></div>
+  <div class="stat-item reveal reveal-delay-2"><div class="stat-num" data-count="98">0</div><div class="stat-label">% On-Time Delivery</div></div>
+  <div class="stat-item reveal reveal-delay-3"><div class="stat-num" data-count="4.9" data-decimal="1">0</div><div class="stat-label">Google Rating</div></div>
+</div>
+
+<!-- SERVICES — tabbed -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Build</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <!-- TABS — Change tab names to your real service categories -->
+  <div class="services-tabs reveal">
+    <button class="tab-btn active" data-tab="commercial">Commercial</button>
+    <button class="tab-btn" data-tab="residential">Residential</button>
+    <button class="tab-btn" data-tab="renovation">Renovation</button>
+  </div>
+  <!-- COMMERCIAL — Change all to your real services -->
+  <div class="tab-panel active" id="tab-commercial">
+    <div class="service-item"><div class="service-item-num">01</div><div class="service-item-name">New Construction</div><p class="service-item-desc">Ground-up commercial builds from foundation to finish. Office buildings, retail, warehouses, and mixed-use. Full project management included.</p></div>
+    <div class="service-item"><div class="service-item-num">02</div><div class="service-item-name">Tenant Improvements</div><p class="service-item-desc">Interior build-outs for commercial tenants. We work directly with landlords, property managers, and tenants to deliver on-time, on-budget results.</p></div>
+    <div class="service-item"><div class="service-item-num">03</div><div class="service-item-name">Design-Build</div><p class="service-item-desc">Single-source delivery combining architecture, engineering, and construction under one contract. Faster delivery, tighter budgets, less risk.</p></div>
+    <div class="service-item"><div class="service-item-num">04</div><div class="service-item-name">Pre-Construction</div><p class="service-item-desc">Early engagement services including estimating, scheduling, and value engineering before construction begins. This is where we save clients money.</p></div>
+  </div>
+  <!-- RESIDENTIAL — Change all to your real services -->
+  <div class="tab-panel" id="tab-residential">
+    <div class="service-item"><div class="service-item-num">01</div><div class="service-item-name">Custom Home Builds</div><p class="service-item-desc">Fully custom residential construction from land to certificate of occupancy. We work alongside your architect or provide design-build services.</p></div>
+    <div class="service-item"><div class="service-item-num">02</div><div class="service-item-name">Home Additions</div><p class="service-item-desc">Seamlessly integrated additions that match your existing home's structure and aesthetic. Master suites, second stories, and attached garages.</p></div>
+    <div class="service-item"><div class="service-item-num">03</div><div class="service-item-name">Outdoor Living</div><p class="service-item-desc">Covered patios, outdoor kitchens, pool houses, and full backyard transformations. Built to the same standard as everything inside.</p></div>
+    <div class="service-item"><div class="service-item-num">04</div><div class="service-item-name">ADUs</div><p class="service-item-desc">Accessory dwelling units designed to maximize property value. Detached guest houses, garage conversions, and above-garage apartments.</p></div>
+  </div>
+  <!-- RENOVATION — Change all to your real services -->
+  <div class="tab-panel" id="tab-renovation">
+    <div class="service-item"><div class="service-item-num">01</div><div class="service-item-name">Full Renovation</div><p class="service-item-desc">Complete interior gut-renovations. We manage the complexity of occupied or older structures so you don't manage multiple contractors.</p></div>
+    <div class="service-item"><div class="service-item-num">02</div><div class="service-item-name">Kitchen &amp; Bath</div><p class="service-item-desc">High-end kitchen and bathroom remodels. Custom cabinetry, tile, plumbing, electrical, and finish carpentry all under one roof.</p></div>
+    <div class="service-item"><div class="service-item-num">03</div><div class="service-item-name">Commercial Renovation</div><p class="service-item-desc">Occupied-space renovations with phased scheduling to minimize business disruption. Retail, office, restaurant, and hospitality environments.</p></div>
+    <div class="service-item"><div class="service-item-num">04</div><div class="service-item-name">Historic Renovation</div><p class="service-item-desc">Preservation and rehabilitation of historic structures. We understand the technical and regulatory requirements of older buildings.</p></div>
+  </div>
+</section>
+
+<!-- PROJECTS — horizontal scroll -->
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Our Work</div>
+      <h2 class="section-title" style="margin-bottom:0;">Recent <em>projects.</em></h2>
+    </div>
+    <a href="#contact" style="font-size:13px;font-weight:700;background:var(--black);color:#fff;padding:13px 28px;white-space:nowrap;" href="#contact">Discuss Your Project</a>
+  </div>
+  <div class="projects-scroll reveal">
+    <!-- PROJECT CARDS — Change all to your real projects -->
+    <div class="project-card">
+      <div class="project-photo"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Commercial · New Construction</div><div class="project-name">Riverside Office Park</div><div class="project-meta">Houston, TX · 2024 · 38,000 sq ft</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Residential · Custom Build</div><div class="project-name">Memorial Custom Estate</div><div class="project-meta">Memorial, TX · 2024 · 7,200 sq ft</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Renovation · Commercial</div><div class="project-name">Midtown Mixed-Use</div><div class="project-meta">Midtown, TX · 2023 · 22,000 sq ft</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Residential · Addition</div><div class="project-name">Tanglewood Second Floor</div><div class="project-meta">Tanglewood, TX · 2023 · 3,100 sq ft</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Commercial · TI</div><div class="project-name">Greenway Medical Suites</div><div class="project-meta">Greenway, TX · 2023 · 9,400 sq ft</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label reveal">How We Work</div>
+  <h2 class="section-title reveal">Our <em>process.</em></h2>
+  <div class="process-grid">
+    <!-- PROCESS STEPS — Change all to your real process -->
+    <div class="process-step reveal">
+      <div class="process-step-num">01</div>
+      <div class="process-step-name">Consultation</div>
+      <p class="process-step-desc">A direct conversation about your project, timeline, and budget. No pressure, no pitch — just an honest assessment of what it takes.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="process-step-num">02</div>
+      <div class="process-step-name">Pre-Construction</div>
+      <p class="process-step-desc">Detailed estimating, scheduling, and value engineering before construction begins. This is where we catch problems before they cost money.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="process-step-num">03</div>
+      <div class="process-step-name">Construction</div>
+      <p class="process-step-desc">Weekly owner updates, real-time schedule tracking, and a dedicated superintendent on every project. You're always in the loop.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="process-step-num">04</div>
+      <div class="process-step-name">Closeout</div>
+      <p class="process-step-desc">Thorough punch list, warranty documentation, and a final walkthrough that doesn't end until you're genuinely satisfied.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real team or job site photo -->
+    <div class="about-image-label">Team Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Company</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">22 years of<br><em>showing up.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Apex was built by two tradesmen who believed that most construction problems aren't craft problems — they're communication problems. We built our company around a simple standard: tell clients the truth, do what you said you'd do, and be on site when you're supposed to be. After 22 years and 400+ projects, that standard hasn't changed.</p>
+    <a href="#contact" class="btn-orange reveal">Get a Quote</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Texas GC License #GC-XXXXXX</div>
+      <div class="about-cred">OSHA 30-Hour — All Supervisors</div>
+      <div class="about-cred">$5M General Liability · Bonded</div>
+      <div class="about-cred">AGC Member · BBB A+ Rated</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What clients <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We've used four contractors over the years. Apex is the only one that came in on budget, on schedule, and actually communicated through the whole project. It's refreshing."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Michael R.</div><div class="testimonial-detail">Riverside Office Park</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Building a custom home is supposed to be stressful. With Apex it wasn't. Weekly updates, honest cost conversations, and the final product exceeded everything we hoped for."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">S</div><div><div class="testimonial-name">Sarah &amp; Tom K.</div><div class="testimonial-detail">Memorial Custom Estate</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The renovation was done in occupied space with tenants still in the building. Apex managed the scheduling perfectly — tenants barely noticed construction was happening."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">J</div><div><div class="testimonial-name">James W.</div><div class="testimonial-detail">Midtown Mixed-Use</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Let's build<br><em>something.</em></h2>
+    <p class="contact-sub">Tell us about your project and we'll respond within one business day with an honest assessment and a clear path forward.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- PROJECT TYPE — Change to your actual categories -->
+      <select name="type"><option value="" disabled selected>Project type?</option><option>Commercial New Construction</option><option>Tenant Improvement</option><option>Custom Home Build</option><option>Home Addition</option><option>Renovation</option><option>Not sure yet</option></select>
+      <input type="text" name="budget" placeholder="Approximate budget range">
+      <textarea name="message" placeholder="Brief project description..."></textarea>
+      <button type="submit" class="btn-submit">Send My Project Details</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">APEX<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your company -->
+      <p class="footer-tagline">Premium general contractor serving Houston and surrounding areas since 2003.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <!-- FOOTER LINKS — Change to your actual services -->
+        <li><a href="#services">Commercial</a></li>
+        <li><a href="#services">Residential</a></li>
+        <li><a href="#services">Renovation</a></li>
+        <li><a href="#services">Design-Build</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li>
+        <!-- ADDRESS — Change to your real address -->
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Licensed · Bonded · Insured</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Apex Construction. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// FULL-SCREEN MENU
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+
+// ODOMETER COUNTER
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+
+// INTERSECTION OBSERVER
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    const counter = e.target.querySelector('[data-count]');
+    if (counter) animateCount(counter);
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .stat-item').forEach(el => observer.observe(el));
+
+// TABS
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

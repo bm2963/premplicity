@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Éclat Boutique" to your store name -->
+<title>Éclat Boutique — Fashion & Accessories</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --pink:#F23D7A;
+  --pink-light:#F55A90;
+  --pink-dark:#D42060;
+  --pink-pale:#FFF0F5;
+  --pink-pale-2:#FFE0EC;
+  --white:#FFFFFF;
+  --off-white:#FAFAFA;
+  --light:#F5F5F5;
+  --black:#111111;
+  --black-2:#1A1A1A;
+  --text:#111111;
+  --text-muted:#666666;
+  --text-light:#999999;
+  --border:rgba(17,17,17,0.08);
+  --border-light:rgba(17,17,17,0.05);
+  --border-pink:rgba(242,61,122,0.2);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--pink);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:700;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--black);color:#fff;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;border-radius:100px;}
+.banner-btn:hover{background:var(--black-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);box-shadow:0 2px 20px rgba(0,0,0,0.04);}
+/* LOGO — Change "ÉCLAT" to your store name */
+.nav-logo{font-size:20px;font-weight:900;letter-spacing:-0.5px;color:var(--text);}
+.nav-logo span{color:var(--pink);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:700;background:var(--pink);color:#fff;padding:10px 24px;border-radius:100px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--pink-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--pink);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-size:clamp(44px,9vw,68px);font-weight:900;letter-spacing:-2px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--black);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.5);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:700;background:var(--black);color:#fff !important;padding:12px 28px;border-radius:100px;}
+
+/* HERO — full pink left panel + white right */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-left{background:var(--pink);padding:160px 64px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+/* decorative circle */
+.hero-circle{position:absolute;bottom:-20%;right:-20%;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none;}
+/* HERO LABEL — Change to your store type */
+.hero-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:20px;animation:up 0.8s ease both;}
+/* HERO HEADLINE — Change to your store tagline */
+.hero h1{font-size:clamp(60px,8vw,104px);font-weight:900;letter-spacing:-3px;line-height:0.88;color:#fff;margin-bottom:20px;animation:up 0.8s 0.1s ease both;position:relative;z-index:1;}
+/* HERO SUBTEXT — Describe your store */
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.7);line-height:1.8;max-width:400px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;position:relative;z-index:1;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:up 0.8s 0.3s ease both;position:relative;z-index:1;}
+.btn-white{font-size:13px;font-weight:700;background:#fff;color:var(--pink);padding:15px 36px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-white:hover{background:var(--off-white);transform:translateY(-2px);}
+.btn-outline-white{font-size:13px;font-weight:500;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4);padding:15px 32px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-outline-white:hover{border-color:#fff;}
+/* HERO RIGHT — editorial product grid */
+.hero-right{background:var(--off-white);display:grid;grid-template-rows:2fr 1fr;gap:1px;background:var(--border-light);}
+.hero-product-main{background:var(--pink-pale);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.hero-product-main-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--pink-pale-2),var(--pink-pale));}
+/* HERO PRODUCT IMAGES — Replace with real product photos */
+.hero-product-label{position:relative;z-index:1;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(242,61,122,0.3);}
+.hero-product-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-light);}
+.hero-product-sm{background:var(--light);display:flex;align-items:center;justify-content:center;}
+.hero-product-sm:nth-child(1){background:var(--pink-pale);}
+.hero-product-sm:nth-child(2){background:var(--light);}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--black);}
+.marquee-inner{display:flex;animation:marquee 18s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);padding:0 36px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.marquee-dot{width:5px;height:5px;border-radius:50%;background:var(--pink);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* CATEGORIES */
+.categories{padding:80px 60px;background:var(--white);}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:12px;}
+.section-title{font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-2px;line-height:0.95;color:var(--text);margin-bottom:48px;}
+.section-title em{font-style:italic;font-weight:700;color:var(--pink);}
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+/* CATEGORY CARDS — Change all to your real product categories */
+.category-card{position:relative;overflow:hidden;aspect-ratio:3/4;display:flex;align-items:flex-end;cursor:pointer;transition:transform 0.3s;}
+.category-card:hover{transform:scale(1.02);}
+.category-card-bg{position:absolute;inset:0;transition:transform 0.4s;}
+.category-card:hover .category-card-bg{transform:scale(1.05);}
+.category-card:nth-child(1) .category-card-bg{background:linear-gradient(160deg,#ffd0e0,#ffb0cc);}
+.category-card:nth-child(2) .category-card-bg{background:linear-gradient(160deg,#f0f0f0,#e0e0e0);}
+.category-card:nth-child(3) .category-card-bg{background:linear-gradient(160deg,#ffe0b0,#ffc880);}
+.category-card:nth-child(4) .category-card-bg{background:linear-gradient(160deg,#d0e8ff,#b0d0f8);}
+.category-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,17,0.5) 0%,transparent 50%);}
+.category-card-info{position:relative;z-index:1;padding:20px;}
+.category-card-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.3px;margin-bottom:2px;}
+.category-card-count{font-size:12px;font-weight:400;color:rgba(255,255,255,0.6);}
+
+/* PRODUCTS — featured grid */
+.products{padding:80px 60px;background:var(--off-white);}
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+/* PRODUCT CARDS — Change all to your real products */
+.product-card{background:var(--white);overflow:hidden;transition:all 0.2s;cursor:pointer;}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}
+.product-img{aspect-ratio:3/4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.product-img-bg{position:absolute;inset:0;}
+/* PRODUCT IMAGES — Replace with real product photos */
+.product-card:nth-child(1) .product-img{background:linear-gradient(160deg,#ffd0e0,#ffb0cc);}
+.product-card:nth-child(2) .product-img{background:linear-gradient(160deg,#f0f0f0,#e0e0e0);}
+.product-card:nth-child(3) .product-img{background:linear-gradient(160deg,#ffe0b0,#ffc880);}
+.product-card:nth-child(4) .product-img{background:linear-gradient(160deg,#d0e8d0,#b0d8b0);}
+.product-img-label{position:relative;z-index:1;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(17,17,17,0.15);}
+/* pink badge */
+.product-badge{position:absolute;top:12px;left:12px;background:var(--pink);color:#fff;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:100px;z-index:1;}
+.product-info{padding:16px 18px;}
+.product-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.product-name{font-size:15px;font-weight:700;letter-spacing:-0.3px;color:var(--text);margin-bottom:6px;}
+.product-price{font-size:16px;font-weight:800;color:var(--pink);}
+.product-price-original{font-size:13px;font-weight:400;color:var(--text-light);text-decoration:line-through;margin-left:6px;}
+
+/* EDITORIAL STRIP */
+.editorial{padding:0;background:var(--pink);display:grid;grid-template-columns:1fr 1fr;min-height:60vh;}
+.editorial-content{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;}
+/* EDITORIAL HEADLINE — Change to your own */
+.editorial-title{font-size:clamp(44px,6vw,80px);font-weight:900;letter-spacing:-2.5px;line-height:0.9;color:#fff;margin-bottom:20px;}
+.editorial-title em{font-style:italic;font-weight:700;}
+.editorial-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:36px;}
+.btn-black{font-size:13px;font-weight:700;background:var(--black);color:#fff;padding:15px 36px;border-radius:100px;transition:all 0.2s;display:inline-block;}
+.btn-black:hover{background:var(--black-2);transform:translateY(-1px);}
+.editorial-image{background:var(--pink-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.editorial-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--pink-pale-2),var(--pink-pale));}
+/* EDITORIAL IMAGE — Replace with a real lifestyle/lookbook photo */
+.editorial-image-label{position:relative;z-index:1;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(242,61,122,0.3);}
+
+/* ABOUT */
+.about{padding:80px 60px;background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* ABOUT HEADLINE — Change to your own */
+.about-title{font-size:clamp(40px,5vw,60px);font-weight:900;letter-spacing:-2px;line-height:0.95;color:var(--text);margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:700;color:var(--pink);}
+/* ABOUT TEXT — Replace with your real story */
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:28px;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px;}
+.about-stat{background:var(--pink-pale);padding:18px 20px;text-align:center;}
+/* ABOUT STATS — Change to your real numbers */
+.about-stat-num{font-size:32px;font-weight:900;letter-spacing:-1px;color:var(--pink);line-height:1;}
+.about-stat-label{font-size:11px;font-weight:500;color:var(--text-muted);margin-top:3px;}
+.about-image{background:var(--pink-pale);aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--pink-pale-2),var(--pink-pale));}
+/* ABOUT IMAGE — Replace with a real store interior or team photo */
+.about-image-label{position:relative;z-index:1;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(242,61,122,0.3);}
+
+/* TESTIMONIALS */
+.testimonials{padding:80px 60px;background:var(--off-white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.testimonial{background:var(--white);padding:36px 32px;border-radius:2px;transition:all 0.2s;}
+.testimonial:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,0.06);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:12px;height:12px;background:var(--pink);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:400;color:var(--text);line-height:1.75;margin-bottom:20px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:32px;height:32px;background:var(--pink);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:700;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+
+/* NEWSLETTER CTA */
+.newsletter{padding:80px 60px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* NEWSLETTER HEADLINE — Change to your own */
+.newsletter-title{font-size:clamp(44px,6vw,72px);font-weight:900;letter-spacing:-2.5px;line-height:0.9;color:#fff;}
+.newsletter-title em{font-style:italic;color:var(--pink);}
+.newsletter-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,0.4);line-height:1.75;margin-top:16px;}
+/* CONTACT FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select{width:100%;padding:14px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);font-family:'Outfit',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;border-radius:4px;}
+form input::placeholder{color:rgba(255,255,255,0.3);}
+form input:focus,form select:focus{border-color:var(--pink);background:rgba(255,255,255,0.1);}
+form select option{background:#1A1A1A;}
+.btn-submit{width:100%;padding:16px;background:var(--pink);color:#fff;border:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.3px;cursor:pointer;transition:background 0.2s;border-radius:4px;}
+.btn-submit:hover{background:var(--pink-light);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black-2);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your store name */
+.footer-logo{font-size:22px;font-weight:900;letter-spacing:-0.5px;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:var(--pink);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);margin-bottom:18px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change store name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(242,61,122,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--pink);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.editorial{grid-template-columns:1fr;}.about{grid-template-columns:1fr;}.newsletter{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}
+  .categories{padding:60px 20px;}.categories-grid{grid-template-columns:1fr 1fr;}
+  .products{padding:60px 20px;}.products-header{flex-direction:column;align-items:flex-start;gap:16px;}.products-grid{grid-template-columns:1fr 1fr;}
+  .editorial-content{padding:72px 20px;}
+  .about{padding:60px 20px;}.about-stats{grid-template-columns:1fr 1fr 1fr;}
+  .testimonials{padding:60px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .newsletter{padding:60px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Éclat</strong> · Premium Retail Template<span>· $39.99</span></p>
+  <a href="/product.html?t=eclat" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "ÉCLAT" to your store name -->
+  <a href="#" class="nav-logo">ÉCLAT<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Shop</a></li>
+    <li><a href="#products">New Arrivals</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#products" class="nav-cta">Shop Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#categories">Shop</a>
+    <a href="#products">New In</a>
+    <a href="#about">About</a>
+    <a href="#newsletter">Contact</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#products" class="mob-cta">Shop Now</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-circle"></div>
+    <!-- HERO LABEL — Change to your store type -->
+    <div class="hero-label">Fashion Boutique · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your store tagline -->
+    <h1>Dress like<br>yourself,<br>only better.</h1>
+    <!-- HERO SUBTEXT — Describe your store -->
+    <p class="hero-sub">Curated fashion for women who know what they want. New arrivals weekly, always edited, always on point.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-white">Shop New Arrivals</a>
+      <a href="#categories" class="btn-outline-white">Browse All</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-product-main">
+      <div class="hero-product-main-bg"></div>
+      <!-- HERO PRODUCT IMAGE — Replace with a real product or model photo -->
+      <div class="hero-product-label">Hero Product Photography</div>
+    </div>
+    <div class="hero-product-row">
+      <!-- HERO SMALL PRODUCT IMAGES — Replace with real product photos -->
+      <div class="hero-product-sm"></div>
+      <div class="hero-product-sm"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real categories/taglines -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">New Arrivals Weekly<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Curated Fashion<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Dresses<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Accessories<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Shoes<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">New Arrivals Weekly<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Curated Fashion<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Dresses<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Accessories<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Shoes<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-label reveal">Shop By Category</div>
+  <h2 class="section-title reveal">What are you<br><em>looking for?</em></h2>
+  <div class="categories-grid">
+    <!-- CATEGORY CARDS — Change all to your real product categories -->
+    <div class="category-card reveal">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Dresses</div>
+        <!-- PRODUCT COUNT — Change to your real count -->
+        <div class="category-card-count">48 styles</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-1">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Tops &amp; Sets</div>
+        <div class="category-card-count">64 styles</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-2">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Accessories</div>
+        <div class="category-card-count">32 styles</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-3">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Shoes</div>
+        <div class="category-card-count">28 styles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS — featured -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="section-label">Just Dropped</div>
+      <h2 class="section-title" style="margin-bottom:0;">New <em>arrivals.</em></h2>
+    </div>
+    <a href="#categories" style="font-size:13px;font-weight:700;color:var(--pink);display:flex;align-items:center;gap:8px;white-space:nowrap;">View All <span>→</span></a>
+  </div>
+  <div class="products-grid">
+    <!-- PRODUCT CARDS — Change all to your real products, prices, and tags -->
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-badge">New</div>
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product Photo</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Dresses</div>
+        <div class="product-name">Floral Wrap Midi Dress</div>
+        <div class="product-price">$89</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-img">
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product Photo</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Tops</div>
+        <div class="product-name">Linen Co-ord Set</div>
+        <div class="product-price">$112</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-img">
+        <div class="product-badge">Sale</div>
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product Photo</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Accessories</div>
+        <div class="product-name">Woven Tote Bag</div>
+        <div class="product-price">$54 <span class="product-price-original">$72</span></div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-img">
+        <div class="product-badge">New</div>
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product Photo</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Shoes</div>
+        <div class="product-name">Block Heel Mule</div>
+        <div class="product-price">$98</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL / LOOKBOOK -->
+<section class="editorial">
+  <div class="editorial-content reveal">
+    <!-- EDITORIAL HEADLINE — Change to your own -->
+    <h2 class="editorial-title">The summer<br><em>edit.</em></h2>
+    <p class="editorial-sub">Our seasonal lookbook is here. Shop the full collection, styled exactly how we meant it to be worn.</p>
+    <a href="#categories" class="btn-black">Shop the Edit</a>
+  </div>
+  <div class="editorial-image">
+    <div class="editorial-image-bg"></div>
+    <!-- EDITORIAL IMAGE — Replace with a real lifestyle or lookbook photo -->
+    <div class="editorial-image-label">Lookbook Photography</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="reveal">
+    <div class="section-label">The Boutique</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title">Style should<br>feel like <em>you.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text">Éclat opened because we believed every woman deserves access to fashion that actually fits her life — not just the trend cycle. We edit our collection weekly, stock sizes inclusively, and genuinely care that you leave feeling like the best version of yourself.</p>
+    <!-- ABOUT STATS — Change to your real numbers -->
+    <div class="about-stats">
+      <div class="about-stat"><div class="about-stat-num" data-count="5">0</div><div class="about-stat-label">Years open</div></div>
+      <div class="about-stat"><div class="about-stat-num" data-count="200">0</div><div class="about-stat-label">Styles in stock</div></div>
+      <div class="about-stat"><div class="about-stat-num" data-count="4.9" data-decimal="1">0</div><div class="about-stat-label">Google rating</div></div>
+    </div>
+    <a href="#newsletter" style="font-size:13px;font-weight:700;background:var(--text);color:#fff;padding:14px 32px;display:inline-block;border-radius:100px;transition:background 0.2s;" href="#newsletter">Get In Touch</a>
+  </div>
+  <div class="reveal">
+    <div class="about-image">
+      <div class="about-image-bg"></div>
+      <!-- ABOUT IMAGE — Replace with a real store interior or team photo -->
+      <div class="about-image-label">Store Photography</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Reviews</div>
+  <h2 class="section-title reveal">What our <em>customers say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"My absolute favorite boutique in Houston. They always have something new, everything fits beautifully, and the staff genuinely helps you find what works for you."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Madison L.</div><div class="testimonial-detail">Regular customer · 3 years</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I got my wedding guest dress here and I received more compliments on it than anyone else at the wedding. The quality is incredible for the price."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">T</div><div><div class="testimonial-name">Taylor R.</div><div class="testimonial-detail">Wedding guest dress</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I shop here every season. The edit is always so perfectly curated — I never have to think too hard. Just trust the boutique and you'll walk out looking amazing."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">N</div><div><div class="testimonial-name">Natalie K.</div><div class="testimonial-detail">Seasonal shopper</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER / CONTACT CTA -->
+<section class="newsletter" id="newsletter">
+  <div class="reveal">
+    <!-- NEWSLETTER HEADLINE — Change to your own -->
+    <h2 class="newsletter-title">Stay in<br>the <em>loop.</em></h2>
+    <p class="newsletter-sub">New arrivals every week. Be the first to know — and get 10% off your first order when you sign up.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- INQUIRY TYPE — Change to your real options -->
+      <select name="type"><option value="" disabled selected>What can we help with?</option><option>General Inquiry</option><option>Order Question</option><option>Custom Styling</option><option>Wholesale / Press</option><option>Just saying hi!</option></select>
+      <button type="submit" class="btn-submit">Get In Touch</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your store name -->
+      <div class="footer-logo">ÉCLAT<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your store -->
+      <p class="footer-tagline">Curated fashion boutique in Houston, TX. New arrivals every week.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Shop</div>
+      <ul>
+        <!-- FOOTER LINKS — Change to your real categories -->
+        <li><a href="#categories">Dresses</a></li>
+        <li><a href="#categories">Tops &amp; Sets</a></li>
+        <li><a href="#categories">Accessories</a></li>
+        <li><a href="#categories">Shoes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Boutique</div>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#products">New Arrivals</a></li>
+        <li><a href="#newsletter">Contact</a></li>
+        <li><a href="#newsletter">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourstore.com">hello@yourstore.com</a></li>
+        <!-- ADDRESS — Change to your real address -->
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Mon–Sat 10am–7pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change store name -->
+    <span class="footer-copy">© 2026 Éclat Boutique. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .about-stat').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

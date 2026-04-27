@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Sotto" to your restaurant name -->
+<title>Sotto — Breakfast & Pancake House</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --red:#E8422A;
+  --red-light:#F05540;
+  --red-dark:#C43520;
+  --red-dim:rgba(232,66,42,0.08);
+  --cream:#FFF8F0;
+  --cream-2:#F5EDE0;
+  --cream-3:#EDE0CC;
+  --black:#1A1108;
+  --black-2:#221808;
+  --black-3:#2A2010;
+  --text-muted:#6A5A40;
+  --text-light:#9A8A70;
+  --border:rgba(26,17,8,0.1);
+  --border-light:rgba(26,17,8,0.06);
+  --border-red:rgba(232,66,42,0.2);
+  --yellow:#FFD93D;
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--black);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,248,240,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--black);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--black-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(255,248,240,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "SOTTO" to your restaurant name */
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--black);}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--black);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:700;background:var(--red);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--red-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--black);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--red);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,10vw,72px);letter-spacing:3px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--yellow);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:rgba(255,248,240,0.5);letter-spacing:1px;}
+.mob-cta{display:inline-block;font-size:12px !important;font-weight:700;background:var(--black);color:var(--cream) !important;padding:12px 28px;}
+
+/* HERO — full-bleed bold, huge type */
+.hero{min-height:100vh;background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+/* HERO IMAGE — Replace with a real restaurant photo */
+.hero-image{position:absolute;inset:0;background:linear-gradient(160deg,#2a1808 0%,#1a1008 50%,#0a0808 100%);}
+/* gradient at bottom for text readability */
+.hero-image::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.15) 35%,rgba(26,17,8,0.85) 70%,rgba(26,17,8,0.98) 100%);}
+.hero-image-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(255,248,240,0.08);pointer-events:none;}
+.hero-content{position:relative;z-index:1;padding:0 60px 0;}
+/* big bold top label */
+.hero-label-row{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid rgba(255,248,240,0.08);margin-bottom:40px;animation:up 0.8s ease both;}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,248,240,0.4);}
+.hero-label-right{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+/* HERO HEADLINE — Change to your restaurant tagline */
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,15vw,200px);letter-spacing:-2px;line-height:0.85;color:var(--cream);margin-bottom:0;animation:up 0.8s 0.1s ease both;}
+.hero h1 span{color:var(--red);display:block;}
+/* hero bottom row */
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;padding:40px 0 64px;gap:40px;animation:up 0.8s 0.2s ease both;}
+/* HERO SUBTEXT — Describe your restaurant */
+.hero-sub{font-family:'Lora',serif;font-size:17px;font-style:italic;color:rgba(255,248,240,0.55);line-height:1.75;max-width:500px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn-red{font-size:13px;font-weight:700;background:var(--red);color:#fff;padding:15px 36px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-red:hover{background:var(--red-light);transform:translateY(-1px);}
+.btn-cream{font-size:13px;font-weight:500;background:transparent;color:var(--cream);border:1px solid rgba(255,248,240,0.2);padding:15px 32px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-cream:hover{border-color:rgba(255,248,240,0.5);}
+/* HERO STATS strip */
+.hero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,248,240,0.07);}
+.hero-stat{padding:20px 28px;border-right:1px solid rgba(255,248,240,0.05);}
+.hero-stat:last-child{border-right:none;}
+/* STATS — Change all to your real numbers */
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:1px;color:var(--red);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:10px;font-weight:400;color:rgba(255,248,240,0.3);letter-spacing:0.5px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE STRIP */
+.marquee-strip{overflow:hidden;padding:14px 0;background:var(--red);}
+.marquee-inner{display:flex;animation:marquee 18s linear infinite;white-space:nowrap;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:rgba(255,248,240,0.8);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,248,240,0.3);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SIGNATURE STACKS — featured items */
+.stacks{padding:100px 60px;background:var(--cream);}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:var(--red);margin-bottom:8px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:-1px;line-height:0.9;color:var(--black);margin-bottom:56px;}
+.section-title em{font-style:normal;color:var(--red);}
+.stacks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+/* STACK CARDS — Change all to your real signature dishes */
+.stack-card{background:var(--cream);padding:0;overflow:hidden;transition:background 0.2s;}
+.stack-card:hover{background:var(--cream-2);}
+/* STACK PHOTO — Replace with real food photos */
+.stack-photo{height:240px;background:var(--cream-3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.stack-photo-bg{position:absolute;inset:0;}
+.stack-photo:nth-child(1) .stack-photo-bg{background:linear-gradient(160deg,#e8c8a0,#d0a870);}
+.stack-card:nth-child(1) .stack-photo{background:linear-gradient(160deg,#e8c8a0,#c89860);}
+.stack-card:nth-child(2) .stack-photo{background:linear-gradient(160deg,#c8d8a0,#a0b870);}
+.stack-card:nth-child(3) .stack-photo{background:linear-gradient(160deg,#e8a898,#d08070);}
+.stack-photo-label{font-family:'Lora',serif;font-size:11px;font-style:italic;letter-spacing:1px;color:rgba(26,17,8,0.2);}
+.stack-info{padding:28px 32px;}
+.stack-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.stack-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--black);margin-bottom:6px;}
+.stack-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;margin-bottom:14px;}
+.stack-price{font-family:'Lora',serif;font-size:18px;font-style:italic;color:var(--red);}
+
+/* FULL MENU — tabbed */
+.menu-section{padding:100px 60px;background:var(--black-2);}
+.menu-section .section-label{color:var(--red);}
+.menu-section .section-title{color:var(--cream);}
+/* MENU TABS */
+.menu-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,248,240,0.08);margin-bottom:48px;overflow-x:auto;}
+.menu-tab{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,248,240,0.35);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;white-space:nowrap;}
+.menu-tab.active{color:var(--red);border-bottom-color:var(--red);}
+.menu-tab:hover{color:var(--cream);}
+.menu-panel{display:none;}
+.menu-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,248,240,0.04);}
+/* MENU ITEMS — Change all to your real menu */
+.menu-item{background:var(--black-2);padding:24px 28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;transition:background 0.2s;}
+.menu-item:hover{background:var(--black-3);}
+.menu-item-name{font-family:'Lora',serif;font-size:18px;font-style:italic;color:var(--cream);margin-bottom:4px;}
+.menu-item-desc{font-size:12px;font-weight:300;color:rgba(255,248,240,0.35);line-height:1.6;max-width:280px;}
+.menu-item-price{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--red);flex-shrink:0;}
+
+/* ABOUT SPLIT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+/* ABOUT IMAGE — Replace with a real photo */
+.about-image{background:var(--cream-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#e8c8a0,#c09060);}
+.about-image-label{position:relative;z-index:1;font-family:'Lora',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(26,17,8,0.2);}
+.about-content{padding:80px 72px;background:var(--cream-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,5vw,80px);letter-spacing:-1px;line-height:0.9;color:var(--black);margin-bottom:20px;}
+.about-title em{font-style:normal;color:var(--red);}
+.about-text{font-family:'Lora',serif;font-size:16px;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+.btn-black{font-size:13px;font-weight:700;background:var(--black);color:var(--cream);padding:14px 36px;transition:all 0.2s;display:inline-block;}
+.btn-black:hover{background:var(--black-2);}
+/* ABOUT CREDENTIALS — Change to your real credentials */
+.about-creds{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.about-cred{font-size:12px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.about-cred::before{content:'';width:14px;height:2px;background:var(--red);flex-shrink:0;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;height:400px;gap:1px;background:var(--border);}
+.gallery-item{background:var(--cream-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real food photos */
+.gallery-item:nth-child(1){background:linear-gradient(160deg,#e8c0a0,#d09060);}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,#c8d090,#a0b060);}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,#e8a890,#d07060);}
+.gallery-label{font-family:'Lora',serif;font-size:10px;font-style:italic;letter-spacing:2px;color:rgba(26,17,8,0.15);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--cream);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--black);padding:44px 36px;transition:background 0.2s;}
+.testimonial:hover{background:var(--black-2);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:12px;height:12px;background:var(--red);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real reviews */
+.testimonial-text{font-family:'Lora',serif;font-size:16px;font-style:italic;color:rgba(255,248,240,0.65);line-height:1.75;margin-bottom:24px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:32px;height:32px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--cream);}
+.testimonial-detail{font-size:11px;font-weight:300;color:rgba(255,248,240,0.35);margin-top:2px;}
+
+/* BOOKING CTA — red section */
+.booking{padding:100px 60px;background:var(--red);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,112px);letter-spacing:-2px;line-height:0.88;color:#fff;margin-bottom:16px;}
+.booking-title em{font-style:normal;color:var(--yellow);}
+.booking-sub{font-family:'Lora',serif;font-size:17px;font-style:italic;color:rgba(255,248,240,0.65);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select{width:100%;padding:14px 18px;background:rgba(255,248,240,0.12);border:1.5px solid rgba(255,248,240,0.2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;}
+form input::placeholder{color:rgba(255,248,240,0.4);}
+form input:focus,form select:focus{border-color:rgba(255,248,240,0.6);}
+form select option{background:var(--red-dark);}
+.btn-submit{width:100%;padding:16px;background:var(--black);color:var(--cream);border:none;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--black-2);}
+.form-note{font-size:11px;font-weight:300;color:rgba(255,248,240,0.35);margin-top:8px;text-align:center;}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your restaurant name */
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--cream);margin-bottom:12px;}
+.footer-logo span{color:var(--red);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(255,248,240,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:rgba(255,248,240,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--cream);}
+.footer-bottom{border-top:1px solid rgba(255,248,240,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change restaurant name */
+.footer-copy{font-size:12px;color:rgba(255,248,240,0.2);}
+.footer-built a{font-size:11px;color:rgba(232,66,42,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--red);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.about{grid-template-columns:1fr;}.about-image{display:none;}.booking{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-content{padding:0 20px;}.hero-bottom{grid-template-columns:1fr;}.hero-actions{flex-wrap:wrap;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .stacks{padding:72px 20px;}.stacks-grid{grid-template-columns:1fr;}
+  .menu-section{padding:72px 20px;}.menu-panel.active{grid-template-columns:1fr;}
+  .about-content{padding:72px 20px;}
+  .gallery{height:auto;grid-template-columns:1fr;}.gallery-item{height:220px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .booking{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Sotto</strong> · Premium Restaurant Template<span>· $39.99</span></p>
+  <a href="/product.html?t=sotto" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "SOTTO" to your restaurant name -->
+  <a href="#" class="nav-logo">SOTTO<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#stacks">Signature</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking">Order</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#booking" class="nav-cta">Order Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#stacks">Signature</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#booking">Order</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#booking" class="mob-cta">Order Now</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-image">
+    <!-- HERO IMAGE — Replace with a real restaurant photo -->
+    <div class="hero-image-label">Restaurant Photography Goes Here</div>
+  </div>
+  <div class="hero-content">
+    <!-- HERO LABEL ROW — Change labels to match your restaurant -->
+    <div class="hero-label-row">
+      <div class="hero-label">Breakfast &amp; Pancake House · Houston, TX</div>
+      <!-- HOURS LABEL — Change to your real hours -->
+      <div class="hero-label-right">Open Daily 7am – 3pm</div>
+    </div>
+    <!-- HERO HEADLINE — Change to your restaurant tagline -->
+    <h1>Stacked.<br><span>Hot.</span><br>Yours.</h1>
+    <div class="hero-bottom">
+      <!-- HERO SUBTEXT — Describe your restaurant -->
+      <p class="hero-sub">The city's best breakfast, served the way breakfast should be — generous, unfussy, and made from scratch every single morning since 2008.</p>
+      <div class="hero-actions">
+        <a href="#stacks" class="btn-red">See the Menu</a>
+        <a href="#booking" class="btn-cream">Order Online</a>
+      </div>
+    </div>
+  </div>
+  <!-- HERO STATS — Change all to your real numbers -->
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" data-count="2008">0</div><div class="hero-stat-label">Est.</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="16">0</div><div class="hero-stat-label">Pancake varieties</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="7">0</div><div class="hero-stat-label">Days a week</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP — Change items to your real offerings -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Buttermilk Stacks<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Made From Scratch<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Open Daily 7am<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Fresh Press Coffee<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Breakfast All Day<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Buttermilk Stacks<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Made From Scratch<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Open Daily 7am<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Fresh Press Coffee<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Breakfast All Day<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SIGNATURE STACKS -->
+<section class="stacks" id="stacks">
+  <div class="section-label reveal">House Favorites</div>
+  <h2 class="section-title reveal">The <em>signatures.</em></h2>
+  <div class="stacks-grid">
+    <!-- SIGNATURE ITEMS — Change all to your real signature dishes -->
+    <div class="stack-card reveal">
+      <div class="stack-photo"><div class="stack-photo-label">Food Photography</div></div>
+      <div class="stack-info">
+        <div class="stack-tag">The Classic</div>
+        <div class="stack-name">Buttermilk Stack</div>
+        <p class="stack-desc">Three thick buttermilk pancakes, whipped butter, real maple syrup, powdered sugar. The one that started it all. Available since day one.</p>
+        <div class="stack-price">$13</div>
+      </div>
+    </div>
+    <div class="stack-card reveal reveal-delay-1">
+      <div class="stack-photo"><div class="stack-photo-label">Food Photography</div></div>
+      <div class="stack-info">
+        <div class="stack-tag">Weekend Special</div>
+        <div class="stack-name">Strawberry Shortstack</div>
+        <p class="stack-desc">Buttermilk pancakes, fresh strawberry compote, lemon curd whipped cream, candied almonds, powdered sugar. Made for Saturdays.</p>
+        <div class="stack-price">$16</div>
+      </div>
+    </div>
+    <div class="stack-card reveal reveal-delay-2">
+      <div class="stack-photo"><div class="stack-photo-label">Food Photography</div></div>
+      <div class="stack-info">
+        <div class="stack-tag">Fan Favorite</div>
+        <div class="stack-name">Bacon &amp; Brown Butter</div>
+        <p class="stack-desc">Fluffy pancakes, house-rendered brown butter, crispy candied bacon crumbles, maple glaze, sea salt. The sweet and salty answer to everything.</p>
+        <div class="stack-price">$17</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL MENU — tabbed -->
+<section class="menu-section" id="menu">
+  <div class="section-label reveal">The Full Spread</div>
+  <h2 class="section-title reveal">Our <em>menu.</em></h2>
+  <!-- MENU TABS — Change to your real categories -->
+  <div class="menu-tabs reveal">
+    <button class="menu-tab active" data-tab="pancakes">Pancakes</button>
+    <button class="menu-tab" data-tab="plates">Breakfast Plates</button>
+    <button class="menu-tab" data-tab="sides">Sides</button>
+    <button class="menu-tab" data-tab="drinks">Drinks</button>
+  </div>
+  <!-- PANCAKES — Change all to your real pancake menu -->
+  <div class="menu-panel active" id="tab-pancakes">
+    <div class="menu-item"><div><div class="menu-item-name">Buttermilk Classic</div><p class="menu-item-desc">Three pancakes, whipped butter, real maple syrup</p></div><div class="menu-item-price">$13</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Blueberry Lemon</div><p class="menu-item-desc">Fresh blueberry compote, lemon zest, powdered sugar, butter</p></div><div class="menu-item-price">$15</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Chocolate Chip</div><p class="menu-item-desc">House pancakes, semi-sweet chocolate chips, whipped cream, maple syrup</p></div><div class="menu-item-price">$14</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Cinnamon Roll Stack</div><p class="menu-item-desc">Cinnamon swirl pancakes, cream cheese glaze, candied pecan</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Banana Foster</div><p class="menu-item-desc">Caramelized banana, brown sugar butter, rum glaze, toasted coconut</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Pumpkin Spice</div><p class="menu-item-desc">Seasonal pumpkin batter, spiced butter, maple cream, pepitas</p></div><div class="menu-item-price">$15</div></div>
+  </div>
+  <!-- BREAKFAST PLATES — Change all to your real plates -->
+  <div class="menu-panel" id="tab-plates">
+    <div class="menu-item"><div><div class="menu-item-name">The Full House</div><p class="menu-item-desc">Two eggs any style, choice of protein, hash browns, toast or biscuit</p></div><div class="menu-item-price">$16</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Eggs Benedict</div><p class="menu-item-desc">Canadian bacon, poached eggs, house hollandaise, English muffin, hash browns</p></div><div class="menu-item-price">$17</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Country Biscuit &amp; Gravy</div><p class="menu-item-desc">House biscuits, sausage cream gravy, two eggs any style</p></div><div class="menu-item-price">$14</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Veggie Scramble</div><p class="menu-item-desc">Three eggs, seasonal vegetables, goat cheese, fresh herbs, wheat toast</p></div><div class="menu-item-price">$15</div></div>
+  </div>
+  <!-- SIDES — Change all to your real sides -->
+  <div class="menu-panel" id="tab-sides">
+    <div class="menu-item"><div><div class="menu-item-name">Crispy Hash Browns</div><p class="menu-item-desc">Shredded and pan-fried golden, seasoned well, served hot</p></div><div class="menu-item-price">$5</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Smoked Bacon</div><p class="menu-item-desc">Three slices, applewood smoked, crispy</p></div><div class="menu-item-price">$5</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Country Sausage Links</div><p class="menu-item-desc">House seasoned, four links, pan-seared</p></div><div class="menu-item-price">$5</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Fresh Fruit Cup</div><p class="menu-item-desc">Seasonal cut fruit, mint</p></div><div class="menu-item-price">$6</div></div>
+  </div>
+  <!-- DRINKS — Change all to your real drinks -->
+  <div class="menu-panel" id="tab-drinks">
+    <div class="menu-item"><div><div class="menu-item-name">House Drip Coffee</div><p class="menu-item-desc">Free refills. House blend, medium roast, brewed fresh hourly</p></div><div class="menu-item-price">$4</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Fresh Orange Juice</div><p class="menu-item-desc">Squeezed daily, every morning</p></div><div class="menu-item-price">$6</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Housemade Lemonade</div><p class="menu-item-desc">Classic or seasonal strawberry. Sweetened with cane sugar</p></div><div class="menu-item-price">$5</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Milkshake</div><p class="menu-item-desc">Vanilla, chocolate, or strawberry. Made with house ice cream</p></div><div class="menu-item-price">$8</div></div>
+  </div>
+</section>
+
+<!-- ABOUT SPLIT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real photo of your restaurant or kitchen -->
+    <div class="about-image-label">Restaurant Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Story</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Scratch <em>kitchen.</em><br>Real people.</h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Sotto opened in 2008 with one griddle, two cooks, and a determination to serve the best breakfast in Houston. We haven't changed our buttermilk batter since. Everything that comes out of our kitchen is made from scratch, every morning, by a team that actually cares about the food on your plate.</p>
+    <a href="#menu" class="btn-black reveal">See the Full Menu</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Made from scratch every morning</div>
+      <div class="about-cred">Open 7 days a week since 2008</div>
+      <div class="about-cred">Free-range eggs &amp; local dairy</div>
+      <div class="about-cred">No frozen product. Ever.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<!-- GALLERY IMAGES — Replace all with real food/restaurant photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Pancake Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Interior Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Kitchen Photography</div></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Reviews</div>
+  <h2 class="section-title reveal">What people <em>are saying.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The bacon brown butter pancakes are genuinely one of the best things I've ever eaten. I come here every weekend. The line is always worth it."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">T</div><div><div class="testimonial-name">Tyler R.</div><div class="testimonial-detail">Weekend regular · 3 years</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"My kids ask to go to Sotto every Saturday morning. The chocolate chip pancakes are the size of your face and the coffee is genuinely excellent."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">A</div><div><div class="testimonial-name">Amanda K.</div><div class="testimonial-detail">Family regular</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I've eaten breakfast in 30+ cities. The eggs benedict here is top five, easily. The hollandaise is made properly and the staff is genuinely friendly."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">D</div><div><div class="testimonial-name">Derek M.</div><div class="testimonial-detail">Visiting from Dallas</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking" id="booking">
+  <div class="reveal">
+    <!-- BOOKING HEADLINE — Change to your own -->
+    <h2 class="booking-title">Come get<br><em>breakfast.</em></h2>
+    <p class="booking-sub">Reserve a table or order ahead. Walk-ins always welcome — we hold spots every morning for anyone who shows up hungry.</p>
+  </div>
+  <div class="reveal">
+    <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <input type="date" name="date">
+      <!-- TIME OPTIONS — Change to your real available times -->
+      <select name="time"><option value="" disabled selected>What time?</option><option>7:00 AM</option><option>7:30 AM</option><option>8:00 AM</option><option>8:30 AM</option><option>9:00 AM</option><option>9:30 AM</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>12:00 PM</option></select>
+      <select name="party"><option value="" disabled selected>How many?</option><option>1–2 people</option><option>3–4 people</option><option>5–6 people</option><option>7+ people — call us</option></select>
+      <button type="submit" class="btn-submit">Reserve My Table</button>
+    </form>
+    <!-- PHONE — Change to your real phone -->
+    <p class="form-note">Walk-ins always welcome · (555) 123-4567</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your restaurant name -->
+      <div class="footer-logo">SOTTO<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your restaurant -->
+      <p class="footer-tagline">Breakfast and pancakes made from scratch. Open daily in Houston, TX.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Menu</div>
+      <ul>
+        <!-- FOOTER LINKS — Change to your real sections -->
+        <li><a href="#stacks">Signatures</a></li>
+        <li><a href="#menu">Pancakes</a></li>
+        <li><a href="#menu">Breakfast Plates</a></li>
+        <li><a href="#menu">Drinks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Visit</div>
+      <ul>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#booking">Reserve</a></li>
+        <li><a href="#booking">Order Online</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourrestaurant.com">hello@yourrestaurant.com</a></li>
+        <!-- ADDRESS — Change to your real address -->
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Daily 7am – 3pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change restaurant name -->
+    <span class="footer-copy">© 2026 Sotto Breakfast House. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// FULL-SCREEN MENU
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+
+// ODOMETER COUNTER
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+
+// INTERSECTION OBSERVER
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    const counter = e.target.querySelector('[data-count]');
+    if (counter) animateCount(counter);
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+
+// MENU TABS
+document.querySelectorAll('.menu-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.closest('section');
+    group.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+    group.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
