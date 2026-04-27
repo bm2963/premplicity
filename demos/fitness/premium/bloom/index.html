@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Bloom Wellness" to your studio name -->
+<title>Bloom Wellness — Fitness & Nutrition Coaching</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --rose:#E8A0B4;
+  --rose-light:#F0B8C8;
+  --rose-dark:#C4728A;
+  --rose-pale:#FDF0F4;
+  --rose-pale-2:#F8E0E8;
+  --cream:#FDF5F0;
+  --cream-2:#F5EAE0;
+  --cream-3:#EDE0D4;
+  --lavender:#C4A8D4;
+  --lavender-pale:#F4EEF8;
+  --green:#7A9E7E;
+  --green-pale:#EEF4EE;
+  --mauve:#6B3F5E;
+  --mauve-2:#5A3050;
+  --text:#3A1E30;
+  --text-muted:#7A5A6A;
+  --text-light:#AA8A9A;
+  --border:rgba(58,30,48,0.08);
+  --border-light:rgba(58,30,48,0.05);
+  --border-rose:rgba(232,160,180,0.25);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--mauve);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:300;color:rgba(253,245,240,0.9);}
+.purchase-banner p strong{color:var(--cream);font-weight:500;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--rose);color:var(--mauve);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--rose-light);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(253,245,240,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+.nav-logo{font-family:'Fraunces',serif;font-size:24px;font-style:italic;color:var(--text);}
+.nav-logo span{color:var(--rose-dark);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{font-size:13px;font-weight:600;background:var(--mauve);color:var(--cream);padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--mauve-2);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--rose-pale-2);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(40px,8vw,60px);font-style:italic;color:var(--text);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--mauve);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:var(--text-muted);}
+.mob-cta{display:inline-block;font-size:12px !important;font-weight:600;background:var(--mauve);color:var(--cream) !important;padding:12px 28px;}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--rose-pale);position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 60px 80px;gap:60px;}
+.hero-petal-1{position:absolute;top:-10%;right:-5%;width:500px;height:500px;border-radius:60% 40% 55% 45% / 45% 55% 40% 60%;background:rgba(232,160,180,0.15);pointer-events:none;}
+.hero-petal-2{position:absolute;bottom:-15%;left:-5%;width:360px;height:360px;border-radius:40% 60% 45% 55% / 55% 45% 60% 40%;background:rgba(196,168,212,0.1);pointer-events:none;}
+/* HERO EYEBROW — Change to your studio type */
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--rose-dark);margin-bottom:24px;display:flex;align-items:center;gap:10px;animation:up 0.9s 0.2s ease both;}
+.hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--rose-dark);}
+/* HERO HEADLINE — Change to your studio tagline */
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(52px,6vw,88px);font-weight:400;font-style:italic;line-height:0.95;letter-spacing:-1.5px;color:var(--text);margin-bottom:20px;animation:up 0.9s 0.3s ease both;position:relative;z-index:1;}
+.hero h1 em{font-style:normal;color:var(--mauve);}
+/* HERO SUBTEXT — Describe your studio */
+.hero-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:440px;margin-bottom:36px;animation:up 0.9s 0.45s ease both;position:relative;z-index:1;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;animation:up 0.9s 0.6s ease both;}
+.btn-mauve{font-size:13px;font-weight:600;background:var(--mauve);color:var(--cream);padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-mauve:hover{background:var(--mauve-2);transform:translateY(-1px);}
+.btn-rose{font-size:13px;font-weight:400;background:transparent;color:var(--mauve);border:1.5px solid var(--border-rose);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-rose:hover{background:var(--rose-pale-2);}
+/* HERO BADGES — Change to your real credentials */
+.hero-badges{display:flex;gap:18px;flex-wrap:wrap;animation:up 0.9s 0.75s ease both;position:relative;z-index:1;}
+.hero-badge{font-size:11px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose-dark);flex-shrink:0;}
+/* HERO RIGHT — image with floating stat cards */
+.hero-right{position:relative;z-index:1;animation:up 0.9s 0.15s ease both;}
+.hero-image{width:100%;aspect-ratio:4/5;background:var(--rose-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--rose-pale-2),var(--cream-3));}
+/* HERO IMAGE — Replace with a real coach or studio photo */
+.hero-image-label{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(58,30,48,0.2);}
+.hero-stat-card{position:absolute;background:var(--cream);padding:16px 20px;box-shadow:0 8px 32px rgba(58,30,48,0.08);}
+.hero-stat-card:nth-child(3){bottom:48px;left:-28px;}
+.hero-stat-card:nth-child(4){top:60px;right:-28px;}
+.hero-stat-num{font-family:'Fraunces',serif;font-size:36px;font-style:italic;color:var(--mauve);line-height:1;}
+.hero-stat-label{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* STATS STRIP */
+.stats-strip{background:var(--cream);display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr;border-top:1px solid var(--border-rose);border-bottom:1px solid var(--border-rose);}
+.stats-div{background:var(--border-rose);}
+.stat-item{padding:40px 32px;text-align:center;}
+/* STATS — Change all to your real numbers */
+.stat-num{font-family:'Fraunces',serif;font-size:48px;font-style:italic;color:var(--mauve);line-height:1;margin-bottom:6px;letter-spacing:-1px;}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--rose-dark);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(253,245,240,0.8);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:rgba(253,245,240,0.4);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* PROGRAMS */
+.programs{padding:100px 60px;background:var(--cream);}
+.section-label{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose-dark);margin-bottom:12px;}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;color:var(--text);line-height:1.0;margin-bottom:56px;letter-spacing:-1px;}
+.section-title em{font-style:normal;color:var(--mauve);}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+/* PROGRAM CARDS — Change all to your real programs */
+.program-card{padding:44px 36px;position:relative;overflow:hidden;transition:all 0.3s;}
+.program-card:nth-child(1){background:var(--rose-pale);}
+.program-card:nth-child(2){background:var(--lavender-pale);}
+.program-card:nth-child(3){background:var(--green-pale);}
+.program-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(196,114,138,0.1);}
+.program-dot{width:12px;height:12px;border-radius:50%;margin-bottom:24px;}
+.program-card:nth-child(1) .program-dot{background:var(--rose-dark);}
+.program-card:nth-child(2) .program-dot{background:var(--lavender);}
+.program-card:nth-child(3) .program-dot{background:var(--green);}
+.program-name{font-family:'Fraunces',serif;font-size:26px;font-style:italic;color:var(--text);margin-bottom:10px;transition:color 0.2s;}
+.program-card:hover .program-name{color:var(--mauve);}
+.program-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.75;margin-bottom:20px;}
+.program-detail{display:flex;gap:16px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border);}
+.program-detail-item{font-size:11px;font-weight:500;color:var(--text-muted);}
+
+/* PHILOSOPHY */
+.philosophy{padding:100px 60px;background:var(--mauve);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.philosophy-headline{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;line-height:1.0;letter-spacing:-1px;color:var(--cream);}
+.philosophy-headline em{font-style:normal;color:var(--rose-light);}
+.philosophy-text{font-size:16px;font-weight:300;color:rgba(253,245,240,0.6);line-height:1.85;}
+.philosophy-text strong{color:var(--cream);font-weight:500;}
+
+/* HOW IT WORKS */
+.how-it-works{padding:100px 60px;background:var(--rose-pale);}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-rose);margin-top:52px;}
+.step{background:var(--cream);padding:44px 32px;transition:background 0.2s;}
+.step:hover{background:var(--rose-pale-2);}
+/* STEPS — Change all to your real process */
+.step-icon{font-size:28px;margin-bottom:16px;line-height:1;}
+.step-name{font-family:'Fraunces',serif;font-size:22px;font-style:italic;color:var(--text);margin-bottom:8px;}
+.step-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+.about-image{background:var(--rose-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#f8e0e8,#edd0d8);}
+/* ABOUT IMAGE — Replace with a real coach photo */
+.about-image-label{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(58,30,48,0.2);}
+.about-content{padding:80px 72px;background:var(--cream-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Fraunces',serif;font-size:clamp(40px,4.5vw,60px);font-style:italic;color:var(--text);line-height:1.05;margin-bottom:20px;letter-spacing:-0.5px;}
+.about-title em{font-style:normal;color:var(--mauve);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.9;margin-bottom:32px;}
+.btn-dark{font-size:13px;font-weight:600;background:var(--text);color:var(--cream);padding:14px 36px;transition:background 0.2s;display:inline-block;}
+.btn-dark:hover{background:var(--mauve);}
+.about-creds{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.about-cred{font-size:12px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+/* CREDENTIALS — Change to your real credentials */
+.about-cred::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose-dark);flex-shrink:0;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;height:420px;gap:1px;background:var(--border);}
+.gallery-item{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real coaching/studio photos */
+.gallery-item:nth-child(1){background:linear-gradient(160deg,#f8e0e8,#f0c8d8);}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,#f4eef8,#ddd0e8);}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,#eef4ee,#d0e0d0);}
+.gallery-label{font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:1px;color:rgba(58,30,48,0.15);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--cream);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--rose-pale);padding:44px 36px;transition:all 0.2s;}
+.testimonial:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(196,114,138,0.1);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:11px;height:11px;background:var(--rose-dark);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-result{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--mauve);margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border-rose);}
+.testimonial-text{font-size:14px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:22px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:32px;height:32px;background:var(--rose-dark);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-style:italic;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* PRICING */
+.pricing{padding:100px 60px;background:var(--rose-pale-2);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;}
+/* PRICING CARDS — Change all to your real pricing tiers */
+.pricing-card{background:var(--cream);padding:48px 36px;transition:background 0.2s;}
+.pricing-card:hover{background:var(--rose-pale);}
+.pricing-card.featured{background:var(--mauve);}
+.pricing-tier{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose-dark);margin-bottom:20px;}
+.pricing-card.featured .pricing-tier{color:rgba(253,245,240,0.5);}
+.pricing-name{font-family:'Fraunces',serif;font-size:28px;font-style:italic;color:var(--text);margin-bottom:6px;}
+.pricing-card.featured .pricing-name{color:var(--cream);}
+.pricing-price{font-family:'Fraunces',serif;font-size:64px;font-style:italic;color:var(--text);line-height:1;margin-bottom:4px;letter-spacing:-2px;}
+.pricing-card.featured .pricing-price{color:var(--cream);}
+.pricing-period{font-size:13px;font-weight:300;color:var(--text-muted);margin-bottom:32px;}
+.pricing-card.featured .pricing-period{color:rgba(253,245,240,0.4);}
+.pricing-divider{height:1px;background:var(--border);margin-bottom:28px;}
+.pricing-card.featured .pricing-divider{background:rgba(253,245,240,0.15);}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;}
+.pricing-feature{font-size:13px;font-weight:300;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.pricing-card.featured .pricing-feature{color:rgba(253,245,240,0.65);}
+.pricing-feature::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose-dark);flex-shrink:0;}
+.pricing-card.featured .pricing-feature::before{background:rgba(253,245,240,0.4);}
+.btn-price{display:block;text-align:center;font-size:12px;font-weight:600;padding:13px;border:1.5px solid var(--border-rose);color:var(--mauve);transition:all 0.2s;}
+.btn-price:hover{background:var(--rose-pale-2);}
+.btn-price-cream{background:var(--cream);color:var(--mauve);border-color:var(--cream);}
+.btn-price-cream:hover{background:var(--rose-pale);}
+
+/* BOOKING CTA */
+.booking{padding:100px 60px;background:var(--rose-pale);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Fraunces',serif;font-size:clamp(44px,6vw,72px);font-style:italic;line-height:0.95;letter-spacing:-1px;color:var(--text);margin-bottom:16px;}
+.booking-title em{font-style:normal;color:var(--mauve);}
+.booking-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.8;}
+/* BOOKING FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:var(--cream);border:1.5px solid var(--border-rose);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--text);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:var(--text-light);}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--mauve);}
+form select option{background:var(--cream);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--mauve);color:var(--cream);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--mauve-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--text);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your studio name */
+.footer-logo{font-family:'Fraunces',serif;font-size:26px;font-style:italic;color:var(--cream);margin-bottom:12px;}
+.footer-logo span{color:var(--rose);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(253,245,240,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:18px;opacity:0.7;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:rgba(253,245,240,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--cream);}
+.footer-bottom{border-top:1px solid rgba(253,245,240,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change studio name */
+.footer-copy{font-size:12px;color:rgba(253,245,240,0.2);}
+.footer-built a{font-size:11px;color:rgba(232,160,180,0.3);transition:color 0.2s;}
+.footer-built a:hover{color:var(--rose);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;padding:120px 60px 60px;}.hero-right{display:none;}.philosophy{grid-template-columns:1fr;gap:32px;}.about{grid-template-columns:1fr;}.about-image{display:none;}.booking{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;}
+  .stats-strip{grid-template-columns:1fr 1fr;}.stats-div{display:none;}
+  .programs{padding:72px 20px;}.programs-grid{grid-template-columns:1fr;}
+  .philosophy{padding:72px 20px;}.how-it-works{padding:72px 20px;}.steps-grid{grid-template-columns:1fr 1fr;}
+  .about-content{padding:72px 20px;}
+  .gallery{height:auto;grid-template-columns:1fr;}.gallery-item{height:220px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .pricing{padding:72px 20px;}.pricing-grid{grid-template-columns:1fr;}
+  .booking{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Bloom</strong> · Premium Fitness Template<span>· $39.99</span></p>
+  <a href="/product.html?t=bloom" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Bloom" to your studio name -->
+  <a href="#" class="nav-logo"><em>Bloom</em><span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#booking">Book</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#booking" class="nav-cta">Start Today</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#programs">Programs</a>
+    <a href="#about">About</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#booking">Book</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#booking" class="mob-cta">Start Today</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-petal-1"></div>
+  <div class="hero-petal-2"></div>
+  <div>
+    <!-- HERO EYEBROW — Change to your studio type -->
+    <div class="hero-eyebrow">Fitness &amp; Nutrition Coaching</div>
+    <!-- HERO HEADLINE — Change to your studio tagline -->
+    <h1>Feel radiant.<br>Live <em>fully.</em><br>Bloom.</h1>
+    <!-- HERO SUBTEXT — Describe your studio -->
+    <p class="hero-sub">Personalized wellness coaching for women who want to feel as good as they look — and finally stop starting over.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-mauve">Start Today</a>
+      <a href="#programs" class="btn-rose">View Programs</a>
+    </div>
+    <!-- HERO BADGES — Change to your real credentials -->
+    <div class="hero-badges">
+      <div class="hero-badge">ACE Certified</div>
+      <div class="hero-badge">Precision Nutrition L2</div>
+      <div class="hero-badge">500+ Clients</div>
+      <div class="hero-badge">Online &amp; In-Person</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image">
+      <div class="hero-image-bg"></div>
+      <!-- HERO IMAGE — Replace with a real coach or studio photo -->
+      <div class="hero-image-label">Coach Photography</div>
+    </div>
+    <!-- FLOATING STAT CARDS — Change to your real numbers -->
+    <div class="hero-stat-card">
+      <div class="hero-stat-num" data-count="500">0</div>
+      <div class="hero-stat-label">Clients coached</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="hero-stat-num" data-count="8">0</div>
+      <div class="hero-stat-label">Years experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP — Change items to your real offerings -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Nutrition Coaching<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Fitness Programming<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Accountability &amp; Support<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Online &amp; In-Person<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Sustainable Results<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Nutrition Coaching<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Fitness Programming<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Accountability &amp; Support<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Online &amp; In-Person<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Sustainable Results<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- STATS — Change all to your real numbers -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num" data-count="500">0</div><div class="stat-label">Clients Coached</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-1"><div class="stat-num" data-count="8">0</div><div class="stat-label">Years Coaching</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-2"><div class="stat-num" data-count="92">0</div><div class="stat-label">% Client Retention</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-3"><div class="stat-num" data-count="4.9" data-decimal="1">0</div><div class="stat-label">Google Rating</div></div>
+</div>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="section-label reveal">What We Offer</div>
+  <h2 class="section-title reveal">Our <em>programs.</em></h2>
+  <div class="programs-grid">
+    <!-- PROGRAM CARDS — Change all to your real programs -->
+    <div class="program-card reveal">
+      <div class="program-dot"></div>
+      <div class="program-name">Nutrition Coaching</div>
+      <p class="program-desc">Personalized nutrition plans built around your lifestyle and preferences — not a generic meal plan. Weekly check-ins and real adjustments based on your progress.</p>
+      <div class="program-detail">
+        <div class="program-detail-item">1:1 Coaching</div>
+        <div class="program-detail-item">Weekly Check-ins</div>
+        <div class="program-detail-item">Online or In-Person</div>
+      </div>
+    </div>
+    <div class="program-card reveal reveal-delay-1">
+      <div class="program-dot"></div>
+      <div class="program-name">Fitness Programming</div>
+      <p class="program-desc">Custom workout plans built for your schedule, equipment, and goals. Whether you train at home, a gym, or with us — designed for you, not a template.</p>
+      <div class="program-detail">
+        <div class="program-detail-item">Custom Plan</div>
+        <div class="program-detail-item">Any Equipment</div>
+        <div class="program-detail-item">App Access</div>
+      </div>
+    </div>
+    <div class="program-card reveal reveal-delay-2">
+      <div class="program-dot"></div>
+      <div class="program-name">Total Wellness</div>
+      <p class="program-desc">Nutrition, fitness, sleep, and stress management combined into one holistic coaching relationship. For women who want to change everything, sustainably.</p>
+      <div class="program-detail">
+        <div class="program-detail-item">Full-Spectrum</div>
+        <div class="program-detail-item">Bi-Weekly Calls</div>
+        <div class="program-detail-item">Unlimited Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy reveal">
+  <div>
+    <!-- PHILOSOPHY HEADLINE — Change to your own -->
+    <h2 class="philosophy-headline">You don't need<br>to hustle to <em>heal.</em></h2>
+  </div>
+  <div>
+    <!-- PHILOSOPHY TEXT — Replace with your real philosophy -->
+    <p class="philosophy-text">We built Bloom around one belief — that <strong>lasting change comes from consistency and compassion, not punishment and restriction.</strong> We don't do crash diets or extreme programs. We do personalized plans, real support, and the patience to let the process actually work.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="section-label reveal">The Journey</div>
+  <h2 class="section-title reveal">How it <em>works.</em></h2>
+  <div class="steps-grid">
+    <!-- STEPS — Change all to your real process. Note: the flower icons below are decorative only -->
+    <div class="step reveal">
+      <div class="step-icon">🌱</div>
+      <div class="step-name">Discovery Call</div>
+      <p class="step-desc">A free 30-minute conversation about your goals, history, and what you need. No pressure, no pitch — just listening.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-icon">🌿</div>
+      <div class="step-name">Custom Plan</div>
+      <p class="step-desc">Your personalized nutrition and fitness plan, built from scratch. Ready within 5 business days of your discovery call.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-icon">🌸</div>
+      <div class="step-name">Weekly Support</div>
+      <p class="step-desc">Regular check-ins to review progress, answer questions, and adjust the plan. You're never doing this alone.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-icon">🌺</div>
+      <div class="step-name">Lasting Results</div>
+      <p class="step-desc">We teach you to sustain results independently. The goal is for you to not need a coach eventually — we genuinely mean that.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real coach photo -->
+    <div class="about-image-label">Coach Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">Your Coach</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Real guidance from<br>someone who <em>gets it.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">I started Bloom after watching women succeed short-term and struggle long-term with their health. The problem was never their willpower — it was the approach. I built this practice around sustainable change, habit over hustle, and the belief that how you feel matters as much as how you look.</p>
+    <a href="#booking" class="btn-dark reveal">Book a Free Discovery Call</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">ACE Certified Personal Trainer</div>
+      <div class="about-cred">Precision Nutrition Level 2</div>
+      <div class="about-cred">Functional Movement Specialist</div>
+      <div class="about-cred">8 years coaching experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY — Replace all with real coaching/studio photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Studio Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Session Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Lifestyle Photography</div></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Stories</div>
+  <h2 class="section-title reveal">Real women. <em>Real results.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <!-- TRANSFORMATION RESULT — Change to a real client result -->
+      <p class="testimonial-result">Lost 22lbs — kept it off for 2 years.</p>
+      <p class="testimonial-text">"I'd tried every diet. What made Bloom different was that it wasn't a diet. I have a completely different relationship with food now and I actually feel free."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">J</div><div><div class="testimonial-name">Jessica M.</div><div class="testimonial-detail">Total Wellness · 2 years</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <!-- TRANSFORMATION RESULT — Change to a real client result -->
+      <p class="testimonial-result">Consistent at the gym for 14 months straight.</p>
+      <p class="testimonial-text">"The plan was built around my actual life — not some ideal schedule. That's why it worked when nothing else did."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">K</div><div><div class="testimonial-name">Karen R.</div><div class="testimonial-detail">Fitness Programming</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <!-- TRANSFORMATION RESULT — Change to a real client result -->
+      <p class="testimonial-result">More energy, better sleep, new relationship with food.</p>
+      <p class="testimonial-text">"I came because I was exhausted. The holistic approach addressed everything at once. I feel like a completely different person."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">A</div><div><div class="testimonial-name">Amanda T.</div><div class="testimonial-detail">Total Wellness</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Investment</div>
+  <h2 class="section-title reveal">Coaching <em>options.</em></h2>
+  <div class="pricing-grid">
+    <!-- PRICING CARDS — Change all to your real pricing tiers -->
+    <div class="pricing-card reveal">
+      <div class="pricing-tier">Foundation</div>
+      <div class="pricing-name">Nutrition</div>
+      <div class="pricing-price">$149</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Custom nutrition plan</div>
+        <div class="pricing-feature">Weekly check-ins</div>
+        <div class="pricing-feature">App access</div>
+        <div class="pricing-feature">Email support</div>
+      </div>
+      <a href="#booking" class="btn-price">Get Started</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-tier">Most Popular</div>
+      <div class="pricing-name">Nutrition + Fitness</div>
+      <div class="pricing-price">$229</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Custom nutrition plan</div>
+        <div class="pricing-feature">Custom fitness programming</div>
+        <div class="pricing-feature">Weekly check-ins</div>
+        <div class="pricing-feature">App access &amp; tracking</div>
+        <div class="pricing-feature">Priority support</div>
+      </div>
+      <a href="#booking" class="btn-price btn-price-cream">Get Started</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-tier">Complete</div>
+      <div class="pricing-name">Total Wellness</div>
+      <div class="pricing-price">$349</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Everything in Nutrition + Fitness</div>
+        <div class="pricing-feature">Sleep &amp; stress coaching</div>
+        <div class="pricing-feature">Bi-weekly video calls</div>
+        <div class="pricing-feature">Unlimited messaging</div>
+        <div class="pricing-feature">Monthly progress review</div>
+      </div>
+      <a href="#booking" class="btn-price">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking" id="booking">
+  <div class="reveal">
+    <!-- BOOKING HEADLINE — Change to your own -->
+    <h2 class="booking-title">Begin your<br><em>bloom.</em></h2>
+    <p class="booking-sub">Start with a free 30-minute discovery call. No pressure, no pitch — just a conversation about where you are and where you want to be.</p>
+  </div>
+  <div class="reveal">
+    <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- PROGRAM OPTIONS — Change to your actual programs -->
+      <select name="program"><option value="" disabled selected>Which program interests you?</option><option>Nutrition Coaching</option><option>Fitness Programming</option><option>Total Wellness</option><option>Not sure yet</option></select>
+      <select name="goal"><option value="" disabled selected>Primary goal?</option><option>Lose Weight</option><option>Build Strength &amp; Tone</option><option>Improve Energy &amp; Health</option><option>Better Relationship with Food</option><option>Overall Lifestyle Change</option></select>
+      <textarea name="message" placeholder="Tell me a bit about where you are and what you're hoping for..."></textarea>
+      <button type="submit" class="btn-submit">Book My Free Discovery Call</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your studio name -->
+      <div class="footer-logo"><em>Bloom</em><span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your studio -->
+      <p class="footer-tagline">Fitness and nutrition coaching for women who want lasting results. Houston, TX.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Programs</div>
+      <ul>
+        <li><a href="#programs">Nutrition Coaching</a></li>
+        <li><a href="#programs">Fitness Programming</a></li>
+        <li><a href="#programs">Total Wellness</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Studio</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#booking">Book a Call</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+        <li><a href="#booking">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourcoach.com">hello@yourcoach.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Online &amp; In-Person</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change studio name -->
+    <span class="footer-copy">© 2026 Bloom Wellness. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .stat-item, .hero-stat-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
