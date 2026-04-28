@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Grove" to your store name -->
+<title>Grove — Organic & Botanical Goods</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --green:#4A6741;
+  --green-light:#5A8050;
+  --green-dark:#344A2E;
+  --green-pale:#F0F4EE;
+  --green-pale-2:#E4EDE0;
+  --linen:#F5EFE0;
+  --linen-2:#EDE3CC;
+  --linen-3:#E0D4B4;
+  --brown:#2A1E0A;
+  --brown-2:#3A2C14;
+  --brown-3:#4A3C20;
+  --text:#1E1408;
+  --text-muted:#6A5830;
+  --text-light:#9A8A60;
+  --border:rgba(30,20,8,0.08);
+  --border-light:rgba(30,20,8,0.05);
+  --border-green:rgba(74,103,65,0.15);
+  --amber:#C4882A;
+  --amber-pale:#FDF5E4;
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--green-dark);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:300;color:rgba(245,239,224,0.9);}
+.purchase-banner p strong{color:var(--linen);font-weight:500;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--amber);color:var(--brown);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:#D89A38;}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(245,239,224,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "Grove" to your store name */
+.nav-logo{font-family:'Fraunces',serif;font-size:26px;font-style:italic;color:var(--text);}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:600;background:var(--green);color:var(--linen);padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--green-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--green-dark);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(44px,8vw,64px);font-style:italic;color:var(--linen);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--amber);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:rgba(245,239,224,0.4);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:600;background:var(--amber);color:var(--brown) !important;padding:12px 28px;}
+
+/* HERO — full viewport, editorial split */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+/* HERO LEFT — image side */
+.hero-left{background:var(--green-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-left-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--green-pale),#c8d8b8);}
+/* HERO IMAGE — Replace with a real store/product photo */
+.hero-left-label{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(30,20,8,0.2);}
+/* botanical texture accent */
+.hero-left::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),transparent);}
+/* HERO RIGHT — content */
+.hero-right{background:var(--linen);padding:160px 72px 80px 80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+/* decorative ring */
+.hero-ring{position:absolute;bottom:-10%;right:-15%;width:400px;height:400px;border-radius:50%;border:40px solid rgba(74,103,65,0.05);pointer-events:none;}
+/* HERO EYEBROW — Change to your store type */
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:up 0.9s ease both;}
+.hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--green);border-radius:1px;}
+/* HERO HEADLINE — Change to your store tagline */
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(52px,5.5vw,84px);font-style:italic;line-height:0.95;letter-spacing:-1px;color:var(--text);margin-bottom:20px;animation:up 0.9s 0.1s ease both;position:relative;z-index:1;}
+.hero h1 em{font-style:normal;color:var(--green);}
+/* HERO SUBTEXT — Describe your store */
+.hero-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:420px;margin-bottom:36px;animation:up 0.9s 0.25s ease both;position:relative;z-index:1;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;animation:up 0.9s 0.4s ease both;position:relative;z-index:1;}
+.btn-green{font-size:13px;font-weight:600;background:var(--green);color:var(--linen);padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-green:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-outline{font-size:13px;font-weight:400;background:transparent;color:var(--text);border:1.5px solid var(--border);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--green);color:var(--green);}
+/* HERO BADGES — Change to your real credentials */
+.hero-badges{display:flex;gap:20px;flex-wrap:wrap;animation:up 0.9s 0.55s ease both;position:relative;z-index:1;}
+.hero-badge{font-size:11px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--green);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(245,239,224,0.7);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--amber);opacity:0.6;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* CATEGORIES */
+.categories{padding:80px 60px;background:var(--linen);}
+.section-label{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;color:var(--text);line-height:1.0;margin-bottom:48px;letter-spacing:-0.5px;}
+.section-title em{font-style:normal;color:var(--green);}
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+/* CATEGORY CARDS — Change all to your real product categories */
+.category-card{position:relative;overflow:hidden;aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:transform 0.3s;}
+.category-card:hover{transform:translateY(-3px);}
+.category-card-bg{position:absolute;inset:0;transition:transform 0.4s;}
+.category-card:hover .category-card-bg{transform:scale(1.03);}
+.category-card:nth-child(1) .category-card-bg{background:linear-gradient(160deg,var(--green-pale-2),#a8c898);}
+.category-card:nth-child(2) .category-card-bg{background:linear-gradient(160deg,var(--linen-2),var(--linen-3));}
+.category-card:nth-child(3) .category-card-bg{background:linear-gradient(160deg,#e8d8b0,#d8c490);}
+.category-card:nth-child(4) .category-card-bg{background:linear-gradient(160deg,#d0e8d0,#a8c8a8);}
+.category-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(30,20,8,0.55) 0%,transparent 50%);}
+.category-card-info{position:relative;z-index:1;padding:20px;}
+.category-card-name{font-family:'Fraunces',serif;font-size:20px;font-style:italic;color:var(--linen);margin-bottom:3px;}
+.category-card-count{font-size:12px;font-weight:300;color:rgba(245,239,224,0.65);}
+
+/* FEATURED PRODUCTS */
+.products{padding:80px 60px;background:var(--green-pale);}
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+/* PRODUCT CARDS — Change all to your real products */
+.product-card{background:var(--linen);overflow:hidden;transition:all 0.2s;}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(30,20,8,0.08);}
+.product-img{aspect-ratio:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* PRODUCT IMAGES — Replace with real product photos */
+.product-card:nth-child(1) .product-img{background:linear-gradient(160deg,var(--green-pale-2),#b8d0a8);}
+.product-card:nth-child(2) .product-img{background:linear-gradient(160deg,var(--linen-2),#e0d0a0);}
+.product-card:nth-child(3) .product-img{background:linear-gradient(160deg,var(--amber-pale),#f0d888);}
+.product-card:nth-child(4) .product-img{background:linear-gradient(160deg,var(--green-pale),#c0d8b0);}
+.product-img-label{font-family:'Fraunces',serif;font-size:10px;font-style:italic;letter-spacing:2px;color:rgba(30,20,8,0.15);}
+/* new badge */
+.product-badge{position:absolute;top:10px;left:10px;background:var(--green);color:var(--linen);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;z-index:1;}
+.product-info{padding:16px 18px;}
+.product-category{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:4px;opacity:0.8;}
+.product-name{font-family:'Fraunces',serif;font-size:17px;font-style:italic;color:var(--text);margin-bottom:5px;}
+.product-desc{font-size:12px;font-weight:300;color:var(--text-muted);line-height:1.5;margin-bottom:10px;}
+.product-price{font-family:'Fraunces',serif;font-size:18px;font-style:italic;color:var(--green);}
+
+/* PHILOSOPHY — deep green panel */
+.philosophy{padding:100px 60px;background:var(--brown);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* PHILOSOPHY HEADLINE — Change to your own */
+.philosophy-headline{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-style:italic;line-height:1.05;letter-spacing:-0.5px;color:var(--linen);}
+.philosophy-headline em{font-style:normal;color:var(--amber);}
+/* PHILOSOPHY TEXT — Replace with your real philosophy */
+.philosophy-text{font-size:16px;font-weight:300;color:rgba(245,239,224,0.5);line-height:1.9;}
+.philosophy-text strong{color:var(--linen);font-weight:400;}
+
+/* ABOUT SPLIT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:65vh;}
+.about-image{background:var(--green-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--green-pale),#a8c890);}
+/* ABOUT IMAGE — Replace with real store/team photo */
+.about-image-label{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:2px;color:rgba(30,20,8,0.2);}
+.about-content{padding:80px 72px;background:var(--linen-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Fraunces',serif;font-size:clamp(40px,4.5vw,60px);font-style:italic;color:var(--text);line-height:1.05;margin-bottom:20px;letter-spacing:-0.5px;}
+.about-title em{font-style:normal;color:var(--green);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.9;margin-bottom:32px;}
+.btn-brown{font-size:13px;font-weight:600;background:var(--brown);color:var(--linen);padding:14px 36px;transition:background 0.2s;display:inline-block;}
+.btn-brown:hover{background:var(--brown-2);}
+/* VALUES — Change to your real values */
+.about-values{margin-top:32px;display:flex;flex-direction:column;gap:8px;}
+.about-value{font-size:13px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.about-value::before{content:'';width:20px;height:1.5px;background:var(--green);flex-shrink:0;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;height:480px;gap:1px;background:var(--border);}
+.gallery-item{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real store/product photos */
+.gallery-item:nth-child(1){background:linear-gradient(160deg,#c0d8a8,#90b870);}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,var(--linen-2),#d8c888);}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,var(--green-pale-2),#a8c890);}
+.gallery-label{font-family:'Fraunces',serif;font-size:11px;font-style:italic;letter-spacing:1px;color:rgba(30,20,8,0.15);}
+
+/* TESTIMONIALS */
+.testimonials{padding:80px 60px;background:var(--linen);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.testimonial{background:var(--green-pale);padding:40px 32px;transition:all 0.2s;}
+.testimonial:hover{background:var(--green-pale-2);transform:translateY(-2px);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:11px;height:11px;background:var(--amber);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:300;color:var(--text);line-height:1.8;margin-bottom:20px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:32px;height:32px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-style:italic;color:var(--linen);flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA */
+.contact{padding:80px 60px;background:var(--green);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-family:'Fraunces',serif;font-size:clamp(52px,7vw,88px);font-style:italic;line-height:0.92;letter-spacing:-1px;color:var(--linen);margin-bottom:16px;}
+.contact-title em{font-style:normal;color:var(--amber);}
+.contact-sub{font-size:16px;font-weight:300;color:rgba(245,239,224,0.6);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(245,239,224,0.12);border:1.5px solid rgba(245,239,224,0.2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--linen);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(245,239,224,0.4);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(245,239,224,0.55);}
+form select option{background:var(--green-dark);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--brown);color:var(--linen);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--brown-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--brown);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your store name */
+.footer-logo{font-family:'Fraunces',serif;font-size:28px;font-style:italic;color:var(--linen);margin-bottom:12px;}
+.footer-logo span{color:var(--amber);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(245,239,224,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:18px;opacity:0.7;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:rgba(245,239,224,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--linen);}
+.footer-bottom{border-top:1px solid rgba(245,239,224,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change store name */
+.footer-copy{font-size:12px;color:rgba(245,239,224,0.2);}
+.footer-built a{font-size:11px;color:rgba(196,136,42,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--amber);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-left{display:none;}.about{grid-template-columns:1fr;}.about-image{display:none;}.philosophy{grid-template-columns:1fr;gap:32px;}.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-right{padding:120px 20px 60px;}
+  .categories{padding:60px 20px;}.categories-grid{grid-template-columns:1fr 1fr;}
+  .products{padding:60px 20px;}.products-header{flex-direction:column;align-items:flex-start;gap:16px;}.products-grid{grid-template-columns:1fr 1fr;}
+  .philosophy{padding:72px 20px;}.about-content{padding:72px 20px;}
+  .gallery{height:auto;grid-template-columns:1fr;}.gallery-item{height:220px;}
+  .testimonials{padding:60px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:60px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Grove</strong> · Premium Retail Template<span>· $39.99</span></p>
+  <a href="/product.html?t=grove" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Grove" to your store name -->
+  <a href="#" class="nav-logo"><em>Grove</em><span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Shop</a></li>
+    <li><a href="#products">New In</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- NAV CTA — Change text -->
+  <a href="#products" class="nav-cta">Shop Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#categories">Shop</a>
+    <a href="#products">New In</a>
+    <a href="#about">Our Story</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#products" class="mob-cta">Shop Now</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-left-bg"></div>
+    <!-- HERO IMAGE — Replace with a real store/product photo -->
+    <div class="hero-left-label">Store Photography</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-ring"></div>
+    <!-- HERO EYEBROW — Change to your store type and city -->
+    <div class="hero-eyebrow">Organic &amp; Botanical Goods · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your store tagline -->
+    <h1>Good for you.<br><em>Good for</em><br>the earth.</h1>
+    <!-- HERO SUBTEXT — Describe your store -->
+    <p class="hero-sub">A curated shop for organic skincare, botanical wellness, and thoughtfully made goods. Every product we carry is something we'd use ourselves — and we only stock things we can stand behind.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-green">Shop New Arrivals</a>
+      <a href="#categories" class="btn-outline">Browse All</a>
+    </div>
+    <!-- HERO BADGES — Change to your real credentials -->
+    <div class="hero-badges">
+      <div class="hero-badge">Certified Organic</div>
+      <div class="hero-badge">Cruelty-Free Only</div>
+      <div class="hero-badge">Small Batch &amp; Indie</div>
+      <div class="hero-badge">Houston, TX</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real categories/taglines -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Organic Skincare<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Botanical Wellness<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Natural Home Goods<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Small Batch Producers<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Cruelty-Free Always<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Organic Skincare<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Botanical Wellness<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Natural Home Goods<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Small Batch Producers<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Cruelty-Free Always<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-label reveal">Shop By Category</div>
+  <h2 class="section-title reveal">What are you<br><em>looking for?</em></h2>
+  <div class="categories-grid">
+    <!-- CATEGORY CARDS — Change all to your real product categories -->
+    <div class="category-card reveal">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Skincare</div>
+        <!-- PRODUCT COUNT — Change to your real count -->
+        <div class="category-card-count">42 products</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-1">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Wellness</div>
+        <div class="category-card-count">28 products</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-2">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Home & Ritual</div>
+        <div class="category-card-count">35 products</div>
+      </div>
+    </div>
+    <div class="category-card reveal reveal-delay-3">
+      <div class="category-card-bg"></div>
+      <div class="category-card-overlay"></div>
+      <div class="category-card-info">
+        <div class="category-card-name">Body Care</div>
+        <div class="category-card-count">24 products</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="section-label">Just Arrived</div>
+      <h2 class="section-title" style="margin-bottom:0;">New <em>in store.</em></h2>
+    </div>
+    <a href="#categories" style="font-size:13px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:8px;white-space:nowrap;">Browse All <span>→</span></a>
+  </div>
+  <div class="products-grid">
+    <!-- PRODUCT CARDS — Change all to your real products -->
+    <div class="product-card reveal">
+      <div class="product-img">
+        <div class="product-badge">New</div>
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Skincare</div>
+        <div class="product-name">Rosehip Face Oil</div>
+        <p class="product-desc">Cold-pressed, organic. 30ml.</p>
+        <div class="product-price">$48</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-img">
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Wellness</div>
+        <div class="product-name">Reishi Mushroom Blend</div>
+        <p class="product-desc">Adaptogen powder. 60 servings.</p>
+        <div class="product-price">$38</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-img">
+        <div class="product-badge">New</div>
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Home &amp; Ritual</div>
+        <div class="product-name">Beeswax Pillar Candle</div>
+        <p class="product-desc">Hand-poured, honey scented. 40hr burn.</p>
+        <div class="product-price">$32</div>
+      </div>
+    </div>
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-img">
+        <!-- PRODUCT IMAGE — Replace with a real product photo -->
+        <div class="product-img-label">Product</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Body Care</div>
+        <div class="product-name">Calendula Body Butter</div>
+        <p class="product-desc">Whipped, unscented. Sensitive skin.</p>
+        <div class="product-price">$42</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy reveal">
+  <div>
+    <!-- PHILOSOPHY HEADLINE — Change to your own -->
+    <h2 class="philosophy-headline">We only stock<br>what we'd use<br><em>ourselves.</em></h2>
+  </div>
+  <div>
+    <!-- PHILOSOPHY TEXT — Replace with your real philosophy -->
+    <p class="philosophy-text">Grove started as a personal frustration. We couldn't find a shop that took ingredient sourcing seriously without making it feel clinical or exclusive. <strong>So we built one.</strong> Every product on our shelves has been tested, vetted, and approved by someone on our team. We'd rather carry 100 products we believe in than 1,000 that just fill space.</p>
+  </div>
+</section>
+
+<!-- ABOUT SPLIT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real store or team photo -->
+    <div class="about-image-label">Store Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">Our Story</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Rooted in what<br><em>actually works.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Grove opened in 2019 with a single rule: if we wouldn't put it on our own skin or in our own bodies, it doesn't belong on our shelves. Every brand we carry is small-batch, ethically sourced, and genuinely effective — chosen through months of testing, not because of how the packaging looks.</p>
+    <a href="#products" class="btn-brown reveal">Shop Our Collection</a>
+    <!-- VALUES — Change to your real values -->
+    <div class="about-values reveal">
+      <div class="about-value">Certified organic ingredients only</div>
+      <div class="about-value">Cruelty-free and vegan where possible</div>
+      <div class="about-value">Small producers and indie brands</div>
+      <div class="about-value">Plastic-free packaging whenever available</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY — Replace all with real store/product photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Store Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Product Detail</div></div>
+  <div class="gallery-item"><div class="gallery-label">Lifestyle Shot</div></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Reviews</div>
+  <h2 class="section-title reveal">What customers <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I've been trying to clean up my skincare routine for two years. Grove is the only shop that made it feel approachable instead of overwhelming. The rosehip oil changed my skin completely."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">C</div><div><div class="testimonial-name">Clara M.</div><div class="testimonial-detail">Regular customer · 2 years</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The staff knows every product inside and out. I came in not knowing what I needed and left with exactly the right things. It's a genuinely knowledgeable team."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">B</div><div><div class="testimonial-name">Ben T.</div><div class="testimonial-detail">Wellness section customer</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"My favorite shop in Houston, period. The beeswax candles are extraordinary and the calendula body butter is something I buy in multiples now. Irreplaceable."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">N</div><div><div class="testimonial-name">Nadia R.</div><div class="testimonial-detail">Loyal customer</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Come visit<br>the <em>grove.</em></h2>
+    <p class="contact-sub">In-store or online — we're here to help you find exactly what you need. Drop in, call us, or send a note and we'll get back to you same day.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- INQUIRY TYPE — Change to your real options -->
+      <select name="type"><option value="" disabled selected>What can we help with?</option><option>Product Recommendation</option><option>Order Question</option><option>Wholesale / Press</option><option>Stock &amp; Availability</option><option>General Question</option></select>
+      <textarea name="message" placeholder="Tell us what you're looking for..."></textarea>
+      <button type="submit" class="btn-submit">Send Us a Note</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your store name -->
+      <div class="footer-logo"><em>Grove</em><span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your store -->
+      <p class="footer-tagline">Organic and botanical goods, carefully curated. Houston, TX.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Shop</div>
+      <ul>
+        <!-- FOOTER LINKS — Change to your real categories -->
+        <li><a href="#categories">Skincare</a></li>
+        <li><a href="#categories">Wellness</a></li>
+        <li><a href="#categories">Home &amp; Ritual</a></li>
+        <li><a href="#categories">Body Care</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Store</div>
+      <ul>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#products">New Arrivals</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourstore.com">hello@yourstore.com</a></li>
+        <!-- ADDRESS — Change to your real address -->
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Mon–Sat 10am–7pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change store name -->
+    <span class="footer-copy">© 2026 Grove. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

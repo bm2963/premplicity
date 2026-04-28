@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Crest Remodeling" to your company name -->
+<title>Crest Remodeling — Home Renovation Specialists</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --blue:#4A9EBF;
+  --blue-light:#5BB4D6;
+  --blue-dark:#2E7A9A;
+  --blue-pale:#EEF7FB;
+  --blue-pale-2:#D8EEF6;
+  --navy:#1A3A4A;
+  --navy-2:#122A38;
+  --white:#FFFFFF;
+  --off-white:#F8FAFB;
+  --light:#F0F4F6;
+  --text:#1A2E38;
+  --text-muted:#5A7A8A;
+  --text-light:#8AAABB;
+  --border:rgba(26,58,74,0.08);
+  --border-light:rgba(26,58,74,0.05);
+  --border-blue:rgba(74,158,191,0.2);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--navy);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.7);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.4;margin-left:4px;}
+.banner-btn{background:var(--blue);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;border-radius:4px;}
+.banner-btn:hover{background:var(--blue-light);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);box-shadow:0 2px 24px rgba(26,58,74,0.06);}
+/* LOGO — Change "CREST" to your company name */
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--text);}
+.nav-logo span{color:var(--blue);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{font-size:13px;font-weight:700;background:var(--blue);color:#fff;padding:10px 24px;border-radius:6px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--blue-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--navy);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-size:clamp(40px,8vw,60px);font-weight:800;letter-spacing:-1.5px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--blue-light);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.35);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:700;background:var(--blue);color:#fff !important;padding:12px 28px;border-radius:6px;}
+
+/* HERO — full viewport, split layout */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;overflow:hidden;}
+/* HERO LEFT — content */
+.hero-left{background:var(--white);padding:160px 64px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;}
+/* big decorative arc */
+.hero-arc{position:absolute;bottom:-20%;right:-15%;width:480px;height:480px;border-radius:50%;border:60px solid var(--blue-pale);pointer-events:none;}
+/* HERO LABEL — Change to your company type */
+.hero-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:up 0.8s ease both;}
+.hero-label::before{content:'';width:20px;height:2px;background:var(--blue);border-radius:2px;}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-size:clamp(52px,6vw,88px);font-weight:800;letter-spacing:-2.5px;line-height:0.92;color:var(--text);margin-bottom:20px;animation:up 0.8s 0.1s ease both;}
+.hero h1 em{font-style:normal;color:var(--blue);}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:16px;font-weight:400;color:var(--text-muted);line-height:1.8;max-width:460px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;animation:up 0.8s 0.3s ease both;}
+.btn-blue{font-size:13px;font-weight:700;background:var(--blue);color:#fff;padding:15px 36px;border-radius:6px;transition:all 0.2s;display:inline-block;}
+.btn-blue:hover{background:var(--blue-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(74,158,191,0.3);}
+.btn-outline{font-size:13px;font-weight:500;background:transparent;color:var(--text);border:1.5px solid var(--border);padding:15px 32px;border-radius:6px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+/* trust badges */
+.hero-trust{display:flex;gap:20px;flex-wrap:wrap;animation:up 0.8s 0.45s ease both;}
+.hero-trust-item{font-size:11px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-trust-item::before{content:'✓';color:var(--blue);font-weight:700;}
+/* HERO RIGHT — blue stats panel */
+.hero-right{background:var(--navy);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:60px 52px;}
+/* decorative circles */
+.hero-right-circle-1{position:absolute;top:-15%;right:-15%;width:400px;height:400px;border-radius:50%;border:1px solid rgba(74,158,191,0.12);}
+.hero-right-circle-2{position:absolute;bottom:-20%;left:-20%;width:360px;height:360px;border-radius:50%;background:rgba(74,158,191,0.04);}
+/* HERO IMAGE — Replace with a real project photo */
+.hero-right-image{position:relative;z-index:1;background:var(--navy-2);width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;margin-bottom:32px;overflow:hidden;}
+.hero-right-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--navy-2),rgba(26,58,74,0.5));}
+.hero-right-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.12);}
+/* HERO STATS — Change all to your real numbers */
+.hero-stats-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);}
+.hero-stat{background:var(--navy);padding:24px 28px;}
+.hero-stat-num{font-size:40px;font-weight:800;letter-spacing:-1.5px;color:var(--blue-light);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);letter-spacing:1px;text-transform:uppercase;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--blue);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.8);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.4);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SERVICES — tabbed */
+.services{padding:100px 60px;background:var(--white);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+.section-title{font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:0.95;color:var(--text);margin-bottom:52px;}
+.section-title em{font-style:italic;font-weight:600;color:var(--blue);}
+.services-tabs{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.tab-btn{font-size:13px;font-weight:600;color:var(--text-muted);padding:10px 24px;border:1.5px solid var(--border);background:none;cursor:pointer;border-radius:100px;transition:all 0.2s;}
+.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.tab-btn:hover:not(.active){border-color:var(--blue);color:var(--blue);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--off-white);padding:36px 32px;border-radius:12px;border:1.5px solid transparent;transition:all 0.2s;}
+.service-card:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateY(-2px);box-shadow:0 8px 32px rgba(74,158,191,0.1);}
+.service-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;opacity:0.7;}
+.service-name{font-size:20px;font-weight:700;letter-spacing:-0.3px;color:var(--text);margin-bottom:8px;}
+.service-desc{font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.7;}
+
+/* PROJECTS — horizontal scroll */
+.projects{padding:100px 0 0;background:var(--light);overflow:hidden;}
+.projects-header{padding:0 60px 48px;display:flex;align-items:flex-end;justify-content:space-between;}
+.projects-scroll{display:flex;gap:16px;overflow-x:auto;padding:0 60px 60px;}
+.projects-scroll::-webkit-scrollbar{height:4px;}
+.projects-scroll::-webkit-scrollbar-track{background:var(--border-light);}
+.projects-scroll::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px;}
+/* PROJECT CARDS — Change all to your real projects */
+.project-card{min-width:340px;flex-shrink:0;background:var(--white);border-radius:12px;overflow:hidden;transition:all 0.2s;box-shadow:0 2px 12px rgba(26,58,74,0.06);}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(26,58,74,0.12);}
+/* PROJECT PHOTO — Replace with real project photos */
+.project-photo{height:220px;background:var(--blue-pale-2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.project-photo-1{background:linear-gradient(160deg,var(--blue-pale-2),#b8dde8);}
+.project-photo-2{background:linear-gradient(160deg,#d8eef6,#a0cfe0);}
+.project-photo-3{background:linear-gradient(160deg,var(--blue-pale),#c8e4f0);}
+.project-photo-4{background:linear-gradient(160deg,#c0d8e4,#90b8cc);}
+.project-photo-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(26,58,74,0.2);}
+.project-info{padding:20px 24px;}
+.project-type{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:5px;}
+.project-name{font-size:17px;font-weight:700;letter-spacing:-0.3px;color:var(--text);margin-bottom:4px;}
+.project-meta{font-size:12px;font-weight:400;color:var(--text-muted);}
+
+/* PROCESS */
+.process{padding:100px 60px;background:var(--navy);}
+.process .section-label{color:rgba(74,158,191,0.8);}
+.process .section-title{color:#fff;}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:52px;}
+/* PROCESS STEPS — Change all to your real process */
+.process-step{background:rgba(255,255,255,0.04);padding:40px 30px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);transition:all 0.2s;}
+.process-step:hover{background:rgba(74,158,191,0.08);border-color:rgba(74,158,191,0.2);}
+.process-step-num{font-size:48px;font-weight:800;letter-spacing:-2px;color:rgba(74,158,191,0.15);line-height:1;margin-bottom:16px;}
+.process-step-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-0.3px;}
+.process-step-desc{font-size:13px;font-weight:400;color:rgba(255,255,255,0.4);line-height:1.7;}
+
+/* ABOUT SPLIT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+/* ABOUT IMAGE — Replace with real team or job site photo */
+.about-image{background:var(--blue-pale-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--blue-pale-2),#a0c8d8);}
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(26,58,74,0.2);}
+.about-content{padding:80px 72px;background:var(--off-white);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-size:clamp(40px,4.5vw,60px);font-weight:800;letter-spacing:-2px;line-height:0.95;color:var(--text);margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:600;color:var(--blue);}
+.about-text{font-size:15px;font-weight:400;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+.btn-navy{font-size:13px;font-weight:700;background:var(--navy);color:#fff;padding:14px 36px;border-radius:6px;transition:background 0.2s;display:inline-block;}
+.btn-navy:hover{background:var(--navy-2);}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.about-cred{font-size:12px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:8px;}
+.about-cred::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px;}
+.testimonial{background:var(--off-white);padding:40px 32px;border-radius:12px;border:1.5px solid transparent;transition:all 0.2s;}
+.testimonial:hover{border-color:var(--border-blue);transform:translateY(-2px);box-shadow:0 8px 32px rgba(74,158,191,0.08);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:12px;height:12px;background:var(--blue);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:15px;font-weight:400;color:var(--text);line-height:1.75;margin-bottom:22px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:700;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA */
+.contact{padding:100px 60px;background:var(--blue);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-size:clamp(48px,6vw,80px);font-weight:800;letter-spacing:-2.5px;line-height:0.9;color:#fff;margin-bottom:16px;}
+.contact-title em{font-style:italic;font-weight:600;}
+.contact-sub{font-size:16px;font-weight:400;color:rgba(255,255,255,0.65);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.25);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;border-radius:6px;}
+form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,0.45);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.2);}
+form select option{background:var(--blue-dark);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--navy);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;border-radius:6px;}
+.btn-submit:hover{background:var(--navy-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--navy);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-size:20px;font-weight:800;letter-spacing:-0.5px;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:var(--blue-light);}
+.footer-tagline{font-size:13px;font-weight:400;color:rgba(255,255,255,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:18px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(74,158,191,0.4);transition:color 0.2s;}
+.footer-built a:hover{color:var(--blue-light);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.about{grid-template-columns:1fr;}.about-image{display:none;}.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}
+  .services{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .projects{padding:72px 0 0;}.projects-header{padding:0 20px 32px;}.projects-scroll{padding:0 20px 48px;}
+  .process{padding:72px 20px;}.process-grid{grid-template-columns:1fr 1fr;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Crest</strong> · Premium Contractor Template<span>· $39.99</span></p>
+  <a href="/product.html?t=crest" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "CREST" to your company name -->
+  <a href="#" class="nav-logo">CREST<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Quote</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#contact" class="mob-cta">Get a Quote</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-arc"></div>
+    <!-- HERO LABEL — Change to your company type and city -->
+    <div class="hero-label">Home Remodeling · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your company tagline -->
+    <h1>Your home,<br><em>reimagined.</em></h1>
+    <!-- HERO SUBTEXT — Describe your company -->
+    <p class="hero-sub">We design and build home renovations that actually match how you live. Kitchens, bathrooms, additions, and full remodels — done with care, delivered with pride.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-blue">Get a Free Quote</a>
+      <a href="#projects" class="btn-outline">See Our Work</a>
+    </div>
+    <!-- TRUST BADGES — Change to your real credentials -->
+    <div class="hero-trust">
+      <div class="hero-trust-item">Licensed & Insured</div>
+      <div class="hero-trust-item">10-Year Warranty</div>
+      <div class="hero-trust-item">Free Estimates</div>
+      <div class="hero-trust-item">BBB A+ Rated</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-circle-1"></div>
+    <div class="hero-right-circle-2"></div>
+    <div class="hero-right-image">
+      <div class="hero-right-image-bg"></div>
+      <!-- HERO IMAGE — Replace with a real project photo -->
+      <div class="hero-right-image-label">Project Photography</div>
+    </div>
+    <!-- HERO STATS — Change all to your real numbers -->
+    <div class="hero-stats-grid">
+      <div class="hero-stat"><div class="hero-stat-num" data-count="18">0</div><div class="hero-stat-label">Years in business</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-count="600">0</div><div class="hero-stat-label">Projects completed</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-count="97">0</div><div class="hero-stat-label">% client satisfaction</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real services/taglines -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Kitchen Remodeling<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Bathroom Renovation<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Home Additions<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Interior Remodeling<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Kitchen Remodeling<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Bathroom Renovation<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Home Additions<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Interior Remodeling<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SERVICES — tabbed -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <!-- TABS — Change tab names to your real service categories -->
+  <div class="services-tabs reveal">
+    <button class="tab-btn active" data-tab="interior">Interior</button>
+    <button class="tab-btn" data-tab="exterior">Exterior</button>
+    <button class="tab-btn" data-tab="additions">Additions</button>
+  </div>
+  <!-- INTERIOR SERVICES — Change all to your real services -->
+  <div class="tab-panel active" id="tab-interior">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Kitchen Remodeling</div><p class="service-desc">Full kitchen transformations from layout redesign to custom cabinetry, countertops, appliances, and finish work. We handle permits, plumbing, and electrical in-house.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Bathroom Renovation</div><p class="service-desc">Master suites, guest baths, and powder rooms. Tile work, custom showers, freestanding tubs, vanities, and heated floors. Done right, tiled to last.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Whole-Home Remodel</div><p class="service-desc">Complete interior renovations that transform your home while you're living in it. Phased scheduling, dedicated project manager, and weekly progress updates.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Flooring</div><p class="service-desc">Hardwood, tile, LVP, and carpet installation. We remove the old, prep the subfloor properly, and install to manufacturer specs with a written warranty.</p></div>
+  </div>
+  <!-- EXTERIOR SERVICES — Change all to your real services -->
+  <div class="tab-panel" id="tab-exterior">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Outdoor Living</div><p class="service-desc">Covered patios, pergolas, outdoor kitchens, and fire pit areas. We design and build spaces that extend your living area into the backyard.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Exterior Painting</div><p class="service-desc">Full exterior repaints including prep, primer, and two finish coats. We use premium exterior paint systems with a 5-year color retention guarantee.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Siding &amp; Trim</div><p class="service-desc">Fiber cement, vinyl, and wood siding replacement. Includes soffit, fascia, and trim work for a complete, finished exterior appearance.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Windows &amp; Doors</div><p class="service-desc">Window and door replacement with proper flashing, insulation, and finishing. Energy-efficient options available with utility rebate guidance.</p></div>
+  </div>
+  <!-- ADDITIONS SERVICES — Change all to your real services -->
+  <div class="tab-panel" id="tab-additions">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Room Additions</div><p class="service-desc">Master suites, in-law suites, sunrooms, and bonus rooms seamlessly integrated with your existing structure. Full architectural and engineering coordination included.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Second Story</div><p class="service-desc">Full second-story additions that double your square footage without expanding your footprint. Structural engineering, permits, and inspections handled entirely in-house.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Garage Conversion</div><p class="service-desc">Convert your attached garage into a livable space — home office, gym, studio, or ADU. Includes insulation, HVAC, electrical, and finish work.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">ADUs</div><p class="service-desc">Detached guest houses and backyard cottages that add property value and rental income potential. Design, permits, and construction all in one contract.</p></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title" style="margin-bottom:0;">Recent <em>projects.</em></h2>
+    </div>
+    <a href="#contact" class="btn-navy">Start Your Project</a>
+  </div>
+  <div class="projects-scroll reveal">
+    <!-- PROJECT CARDS — Change all to your real projects -->
+    <div class="project-card">
+      <div class="project-photo project-photo-1"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Kitchen Remodel</div><div class="project-name">Memorial Modern Kitchen</div><div class="project-meta">Memorial, TX · 2024 · $85,000</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-2"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Master Bath</div><div class="project-name">River Oaks Master Suite</div><div class="project-meta">River Oaks, TX · 2024 · $62,000</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-3"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Home Addition</div><div class="project-name">Heights Second Story</div><div class="project-meta">Houston Heights, TX · 2023 · $210,000</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-4"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Full Remodel</div><div class="project-name">Tanglewood Whole-Home</div><div class="project-meta">Tanglewood, TX · 2023 · $320,000</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal">Our <em>process.</em></h2>
+  <div class="process-grid">
+    <!-- PROCESS STEPS — Change all to your real process -->
+    <div class="process-step reveal">
+      <div class="process-step-num">01</div>
+      <div class="process-step-name">Free Consultation</div>
+      <p class="process-step-desc">We visit your home, understand your goals, and provide an honest scope-of-work and budget estimate. No pressure, no obligation.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="process-step-num">02</div>
+      <div class="process-step-name">Design & Planning</div>
+      <p class="process-step-desc">We develop your design, finalize material selections, pull permits, and create a detailed project schedule before construction begins.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="process-step-num">03</div>
+      <div class="process-step-name">Construction</div>
+      <p class="process-step-desc">A dedicated crew and project manager on your job every day. Weekly photo updates and a direct line to your PM throughout the build.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="process-step-num">04</div>
+      <div class="process-step-name">Final Walkthrough</div>
+      <p class="process-step-desc">A thorough punch list process and final walkthrough that doesn't close until every detail is exactly right. Backed by our 10-year warranty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real team or job site photo -->
+    <div class="about-image-label">Team Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">Our Story</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Built on trust,<br>driven by <em>craft.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Crest was founded by two brothers who grew up watching their father renovate homes the right way — with patience, attention to detail, and genuine pride in the finished product. Eighteen years later, we still operate the same way. Every project gets our full attention, every client gets our personal cell number, and every job is backed by a warranty we're happy to honor.</p>
+    <a href="#contact" class="btn-blue reveal">Get a Free Quote</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Texas GC License #GC-XXXXXX</div>
+      <div class="about-cred">NARI Certified Remodeler</div>
+      <div class="about-cred">$5M General Liability</div>
+      <div class="about-cred">BBB A+ Rated</div>
+      <div class="about-cred">OSHA 30 Certified</div>
+      <div class="about-cred">10-Year Workmanship Warranty</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What homeowners <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We've used two contractors before Crest. The difference is staggering. They showed up when they said they would, communicated constantly, and the kitchen is genuinely beautiful."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">L</div><div><div class="testimonial-name">Lauren &amp; Mike T.</div><div class="testimonial-detail">Memorial Modern Kitchen</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Adding a second story to our house was terrifying on paper. Crest made it feel manageable. The project manager was incredible — patient, proactive, and genuinely talented."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">D</div><div><div class="testimonial-name">David R.</div><div class="testimonial-detail">Heights Second Story</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The master bathroom is now my favorite room in the house. The tile work is flawless. I've had contractors in the industry tell me it's some of the best finish work they've seen."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">S</div><div><div class="testimonial-name">Sandra K.</div><div class="testimonial-detail">River Oaks Master Suite</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Ready to<br><em>start?</em></h2>
+    <p class="contact-sub">Tell us about your project and we'll be in touch within one business day with an honest assessment and a path forward.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- PROJECT TYPE — Change to your actual categories -->
+      <select name="type"><option value="" disabled selected>What are you looking to remodel?</option><option>Kitchen</option><option>Bathroom</option><option>Whole-Home Remodel</option><option>Home Addition</option><option>Second Story</option><option>ADU / Guest House</option><option>Other</option></select>
+      <input type="text" name="budget" placeholder="Approximate budget range">
+      <textarea name="message" placeholder="Brief project description..."></textarea>
+      <button type="submit" class="btn-submit">Send My Project Details</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">CREST<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your company -->
+      <p class="footer-tagline">Home remodeling specialists serving Houston and surrounding areas since 2006.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Kitchen Remodeling</a></li>
+        <li><a href="#services">Bathroom Renovation</a></li>
+        <li><a href="#services">Home Additions</a></li>
+        <li><a href="#services">Whole-Home Remodel</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Licensed · Bonded · Insured</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Crest Remodeling. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

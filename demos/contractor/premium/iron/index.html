@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Iron & Co." to your company name -->
+<title>Iron & Co. — Premium Specialty Contractor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --black:#0A0A0A;
+  --charcoal:#141414;
+  --charcoal-2:#1C1C1C;
+  --charcoal-3:#242424;
+  --charcoal-4:#2C2C2C;
+  --gold:#C9922A;
+  --gold-light:#E0A830;
+  --gold-pale:#F5D878;
+  --gold-dim:rgba(201,146,42,0.08);
+  --gold-border:rgba(201,146,42,0.2);
+  --ivory:#F5F0E8;
+  --ivory-2:#EDE5D4;
+  --ivory-3:#E0D5C0;
+  --text-muted:rgba(245,240,232,0.45);
+  --border:rgba(245,240,232,0.07);
+  --border-gold:rgba(201,146,42,0.15);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--charcoal);color:var(--ivory);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--gold);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:var(--black);}
+.purchase-banner p strong{font-weight:700;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--black);color:var(--gold);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--charcoal);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(20,20,20,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "IRON" to your company name */
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--ivory);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:1px;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--ivory);}
+/* NAV CTA */
+.nav-cta{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:11px 28px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--gold-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--ivory);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,72px);letter-spacing:3px;color:var(--ivory);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:var(--text-muted);}
+.mob-cta{display:inline-block;font-size:11px !important;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--gold);color:var(--black) !important;padding:12px 28px;}
+
+/* HERO — full viewport, image-forward */
+.hero{min-height:100vh;background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+/* HERO IMAGE — Replace with a real project photo */
+.hero-image{position:absolute;inset:0;background:linear-gradient(160deg,#1a1408,#0a0804);}
+.hero-image::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 35%,rgba(10,10,10,0.8) 70%,rgba(10,10,10,0.97) 100%);}
+.hero-image-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:rgba(245,240,232,0.06);pointer-events:none;}
+/* gold left accent */
+.hero-accent{position:absolute;left:60px;top:20%;bottom:20%;width:1px;background:linear-gradient(180deg,transparent,var(--gold),transparent);opacity:0.4;}
+.hero-content{position:relative;z-index:1;padding:0 60px 0;}
+/* HERO LABEL — Change to your company type */
+.hero-label-row{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(245,240,232,0.06);margin-bottom:40px;animation:up 0.8s ease both;}
+.hero-label{font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);}
+.hero-label-right{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14vw,190px);letter-spacing:-2px;line-height:0.85;color:var(--ivory);animation:up 0.8s 0.1s ease both;}
+.hero h1 em{font-style:normal;color:var(--gold);display:block;}
+/* HERO BOTTOM ROW */
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;padding:40px 0 64px;gap:40px;animation:up 0.8s 0.2s ease both;}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:480px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn-gold{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:16px 40px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{font-size:12px;font-weight:400;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--ivory);border:1px solid rgba(245,240,232,0.2);padding:16px 32px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-outline:hover{border-color:rgba(245,240,232,0.5);}
+/* HERO STATS */
+.hero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(245,240,232,0.06);animation:up 0.8s 0.35s ease both;}
+.hero-stat{padding:22px 28px;border-right:1px solid rgba(245,240,232,0.05);}
+.hero-stat:last-child{border-right:none;}
+/* STATS — Change all to your real numbers */
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;color:var(--gold);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:10px;font-weight:400;color:var(--text-muted);letter-spacing:1px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--gold);}
+.marquee-inner{display:flex;animation:marquee 20s linear infinite;white-space:nowrap;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:rgba(10,10,10,0.7);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:rgba(10,10,10,0.25);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SERVICES — tabbed */
+.services{padding:100px 60px;background:var(--charcoal);}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--gold);margin-bottom:8px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:-1px;line-height:0.9;color:var(--ivory);margin-bottom:52px;}
+.section-title em{font-style:normal;color:var(--gold);}
+.services-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.tab-btn{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn:hover{color:var(--ivory);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--charcoal);padding:40px 36px;transition:background 0.2s;position:relative;overflow:hidden;}
+.service-card:hover{background:var(--charcoal-2);}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+.service-card:hover::before{transform:scaleX(1);}
+.service-num{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(201,146,42,0.3);margin-bottom:14px;}
+.service-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--ivory);margin-bottom:8px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--gold);}
+.service-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.75;}
+
+/* PROJECTS — horizontal scroll */
+.projects{padding:100px 0 0;background:var(--black);overflow:hidden;}
+.projects-header{padding:0 60px 48px;display:flex;align-items:flex-end;justify-content:space-between;}
+.projects-scroll{display:flex;gap:1px;overflow-x:auto;background:var(--border);}
+.projects-scroll::-webkit-scrollbar{height:2px;}
+.projects-scroll::-webkit-scrollbar-thumb{background:var(--gold);}
+/* PROJECT CARDS — Change all to your real projects */
+.project-card{min-width:380px;flex-shrink:0;background:var(--charcoal);overflow:hidden;transition:background 0.2s;}
+.project-card:hover{background:var(--charcoal-2);}
+/* PROJECT PHOTO — Replace with real project photos */
+.project-photo{height:280px;background:var(--charcoal-2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.project-photo:nth-child(1){background:linear-gradient(160deg,#201808,#100804);}
+.project-info{padding:24px 28px;}
+.project-type{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.project-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--ivory);margin-bottom:4px;}
+.project-meta{font-size:12px;font-weight:300;color:var(--text-muted);}
+.project-photo-label{font-size:10px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.08);}
+
+/* ABOUT SPLIT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+.about-image{background:var(--charcoal-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#201808,#0a0804);}
+/* ABOUT IMAGE — Replace with real team or job site photo */
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.08);}
+.about-content{padding:80px 72px;background:var(--charcoal-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,5.5vw,80px);letter-spacing:-1px;line-height:0.9;color:var(--ivory);margin-bottom:20px;}
+.about-title em{font-style:normal;color:var(--gold);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+.btn-ivory{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--ivory);color:var(--black);padding:14px 36px;transition:all 0.2s;display:inline-block;}
+.btn-ivory:hover{background:var(--ivory-2);}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;}
+.about-cred{font-size:12px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:12px;}
+.about-cred::before{content:'';width:20px;height:1px;background:var(--gold);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--charcoal);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--charcoal-2);padding:44px 36px;transition:background 0.2s;}
+.testimonial:hover{background:var(--charcoal-3);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:11px;height:11px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:15px;font-weight:300;color:rgba(245,240,232,0.6);line-height:1.8;margin-bottom:24px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);}
+.testimonial-name{font-size:13px;font-weight:500;color:var(--ivory);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA — gold panel */
+.contact{padding:100px 60px;background:var(--gold);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,8vw,112px);letter-spacing:-2px;line-height:0.88;color:var(--black);margin-bottom:16px;}
+.contact-title em{font-style:normal;color:rgba(10,10,10,0.5);}
+.contact-sub{font-size:16px;font-weight:300;color:rgba(10,10,10,0.55);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(10,10,10,0.1);border:1.5px solid rgba(10,10,10,0.15);font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--black);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(10,10,10,0.35);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(10,10,10,0.4);background:rgba(10,10,10,0.15);}
+form select option{background:var(--gold);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--black);color:var(--gold);border:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--charcoal);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:4px;color:var(--ivory);margin-bottom:12px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;max-width:220px;}
+.footer-col-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--ivory);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(245,240,232,0.2);}
+.footer-built a{font-size:11px;color:rgba(201,146,42,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--gold);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.about{grid-template-columns:1fr;}.about-image{display:none;}.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-content{padding:0 20px;}.hero-bottom{grid-template-columns:1fr;}.hero-actions{flex-wrap:wrap;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .services{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .projects{padding:72px 0 0;}.projects-header{padding:0 20px 36px;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Iron</strong> · Premium Contractor Template<span>· $39.99</span></p>
+  <a href="/product.html?t=iron" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "IRON" to your company name -->
+  <a href="#" class="nav-logo">IRON<span>&amp;</span>CO</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Quote</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#contact" class="mob-cta">Get a Quote</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-image">
+    <!-- HERO IMAGE — Replace with a real project photo -->
+    <div class="hero-image-label">Project Photography</div>
+  </div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL ROW — Change labels to your company type and status -->
+    <div class="hero-label-row">
+      <div class="hero-label">Specialty Contractor · Houston, TX</div>
+      <div class="hero-label-right">Est. 2001 · Licensed &amp; Insured</div>
+    </div>
+    <!-- HERO HEADLINE — Change to your company tagline -->
+    <h1>Precision.<br><em>Craft.</em><br>Legacy.</h1>
+    <div class="hero-bottom">
+      <!-- HERO SUBTEXT — Describe your company -->
+      <p class="hero-sub">We build to last. Premium metalwork, custom fabrication, and specialty construction for clients who understand that quality isn't a line item — it's the whole point.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-gold">Get a Quote</a>
+        <a href="#projects" class="btn-outline">View Our Work</a>
+      </div>
+    </div>
+  </div>
+  <!-- HERO STATS — Change all to your real numbers -->
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" data-count="24">0</div><div class="hero-stat-label">Years in business</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="500">0</div><div class="hero-stat-label">Projects completed</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="100">0</div><div class="hero-stat-label">% client referrals</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real services/keywords -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Custom Fabrication<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Structural Steel<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Commercial Construction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Specialty Trades<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Custom Fabrication<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Structural Steel<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Commercial Construction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Specialty Trades<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SERVICES — tabbed -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <!-- TABS — Change tab names to your real service categories -->
+  <div class="services-tabs reveal">
+    <button class="tab-btn active" data-tab="fabrication">Fabrication</button>
+    <button class="tab-btn" data-tab="construction">Construction</button>
+    <button class="tab-btn" data-tab="restoration">Restoration</button>
+  </div>
+  <!-- FABRICATION — Change all to your real services -->
+  <div class="tab-panel active" id="tab-fabrication">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Custom Metalwork</div><p class="service-desc">Bespoke steel, iron, and aluminum fabrication for architectural, commercial, and industrial applications. Designed to spec, built to outlast the structure around it.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Structural Steel</div><p class="service-desc">Structural steel fabrication and erection for commercial buildings, industrial facilities, and specialty structures. Engineered and certified in-house.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Architectural Elements</div><p class="service-desc">Staircases, railings, gates, facades, and custom architectural metalwork. Built to the designer's exact specification with the craftsmanship to match.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Industrial Fabrication</div><p class="service-desc">Heavy industrial fabrication for refineries, plants, and manufacturing facilities. ASME and AWS certified welders on every industrial project.</p></div>
+  </div>
+  <!-- CONSTRUCTION — Change all to your real services -->
+  <div class="tab-panel" id="tab-construction">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Commercial Build-Out</div><p class="service-desc">Full commercial construction from foundation to finish. We self-perform structural, mechanical, and specialty work that other contractors subcontract out.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Industrial Construction</div><p class="service-desc">Industrial facility construction and expansion. Process piping, equipment setting, and complex mechanical installations in operating facilities.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Design-Build</div><p class="service-desc">Single-source project delivery from concept through construction. Our in-house engineering team integrates design and build under one accountable contract.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Specialty Installations</div><p class="service-desc">Crane-assisted heavy lifts, precision equipment installation, and specialty rigging for complex mechanical and structural projects.</p></div>
+  </div>
+  <!-- RESTORATION — Change all to your real services -->
+  <div class="tab-panel" id="tab-restoration">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Historic Metalwork</div><p class="service-desc">Restoration and replication of historic iron and steel elements. We match original profiles, finishes, and joinery methods to preserve architectural authenticity.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Structural Repair</div><p class="service-desc">Structural steel repair, reinforcement, and replacement for aging commercial and industrial buildings. Non-destructive testing and full engineering documentation provided.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Coating &amp; Finishing</div><p class="service-desc">Industrial coatings, galvanizing, powder coating, and specialty finishes applied in our own facility. SSPC certified surface preparation and application.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Maintenance Programs</div><p class="service-desc">Scheduled inspection and maintenance programs for steel structures, equipment supports, and architectural metalwork. Annual reporting and documented work history.</p></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title" style="margin-bottom:0;">Our <em>work.</em></h2>
+    </div>
+    <a href="#contact" style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:13px 28px;display:inline-block;white-space:nowrap;">Start a Project</a>
+  </div>
+  <div class="projects-scroll reveal">
+    <!-- PROJECT CARDS — Change all to your real projects -->
+    <div class="project-card">
+      <div class="project-photo" style="background:linear-gradient(160deg,#201808,#100c04);"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Fabrication · Architectural</div><div class="project-name">Downtown Tower Facade</div><div class="project-meta">Houston, TX · 2024 · 8,400 lbs steel</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo" style="background:linear-gradient(160deg,#181408,#0c0a04);"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Construction · Industrial</div><div class="project-name">Refinery Expansion Unit</div><div class="project-meta">Pasadena, TX · 2024 · Complex process</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo" style="background:linear-gradient(160deg,#201a08,#100e04);"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Restoration · Historic</div><div class="project-name">1923 Heights Building</div><div class="project-meta">Houston Heights · 2023 · Period-authentic</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo" style="background:linear-gradient(160deg,#1a1408,#0e0c04);"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Fabrication · Commercial</div><div class="project-name">Museum Entry Gate System</div><div class="project-meta">Houston, TX · 2023 · Custom design</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo" style="background:linear-gradient(160deg,#181208,#0c0804);"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Construction · Design-Build</div><div class="project-name">River Oaks Residence</div><div class="project-meta">River Oaks, TX · 2023 · Full package</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real team or shop photo -->
+    <div class="about-image-label">Shop Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Company</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">24 years of<br>doing it <em>right.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Iron &amp; Co. was built by tradesmen who refused to cut corners — and couldn't understand why the industry accepted it as normal. Since 2001 we've operated one way: every job gets our best work, every client gets the truth, and every piece of steel that leaves our shop or site carries our name. We intend to keep it that way.</p>
+    <a href="#contact" class="btn-gold reveal">Get a Quote</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Texas GC License · AWS D1.1 Certified</div>
+      <div class="about-cred">AISC Certified Fabricator</div>
+      <div class="about-cred">SSPC Certified Coating Inspector</div>
+      <div class="about-cred">$10M General Liability · Bonded</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What clients <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We've used seven fabricators over 20 years in development. Iron &amp; Co. are in a completely different class. Their shop drawings are engineering documents, not sketches. The finished work is immaculate."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">R</div><div><div class="testimonial-name">Robert A.</div><div class="testimonial-detail">Downtown Tower Facade</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The refinery expansion was a high-consequence project with zero tolerance for error. Iron delivered on every metric — safety, schedule, quality, and coordination. Exceptional."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">D</div><div><div class="testimonial-name">David K.</div><div class="testimonial-detail">Refinery Expansion</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The museum gate is one of the most-photographed elements in our building. Visitors ask about it constantly. It's craft at the level where it becomes art."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Maria S.</div><div class="testimonial-detail">Museum Entry Gate</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Let's build<br><em>something</em><br>lasting.</h2>
+    <p class="contact-sub">Tell us about your project. We'll respond within one business day with an honest assessment and a clear path forward.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- PROJECT TYPE — Change to your actual categories -->
+      <select name="type"><option value="" disabled selected>Project type?</option><option>Custom Metalwork / Fabrication</option><option>Structural Steel</option><option>Commercial Construction</option><option>Industrial Construction</option><option>Restoration</option><option>Design-Build</option><option>Other</option></select>
+      <input type="text" name="budget" placeholder="Approximate budget range">
+      <textarea name="message" placeholder="Brief project description..."></textarea>
+      <button type="submit" class="btn-submit">Send My Project Details</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">IRON<span>&amp;</span>CO</div>
+      <!-- FOOTER TAGLINE — Change to describe your company -->
+      <p class="footer-tagline">Premium fabrication and specialty construction serving Houston since 2001.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Custom Metalwork</a></li>
+        <li><a href="#services">Structural Steel</a></li>
+        <li><a href="#services">Industrial Construction</a></li>
+        <li><a href="#services">Restoration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Licensed · Bonded · Insured</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Iron &amp; Co. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
