@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Flux Gym" to your gym name -->
+<title>Flux Gym — HIIT & CrossFit Training</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --navy:#0A1628;
+  --navy-2:#0F1E35;
+  --navy-3:#162540;
+  --navy-4:#1C2D4C;
+  --navy-5:#223558;
+  --blue:#0066FF;
+  --blue-light:#2280FF;
+  --blue-pale:#E8F0FF;
+  --blue-dim:rgba(0,102,255,0.1);
+  --blue-border:rgba(0,102,255,0.25);
+  --white:#FFFFFF;
+  --off-white:#F4F6F8;
+  --text-muted:rgba(255,255,255,0.45);
+  --border:rgba(255,255,255,0.07);
+  --border-blue:rgba(0,102,255,0.2);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--blue);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:700;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--navy);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--navy-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(10,22,40,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "FLUX" to your gym name */
+.nav-logo{font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--white);}
+.nav-logo span{color:var(--blue-light);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:700;background:var(--blue);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--blue-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--blue);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-size:clamp(44px,9vw,68px);font-weight:700;letter-spacing:-2px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--navy);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.5);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:700;background:var(--navy);color:#fff !important;padding:12px 28px;}
+
+/* HERO — full viewport, dark navy, huge type */
+.hero{min-height:100vh;background:var(--navy);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+/* blue glow */
+.hero-glow{position:absolute;top:20%;left:30%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,102,255,0.08) 0%,transparent 65%);pointer-events:none;}
+/* HERO IMAGE — Replace with a real gym/training photo */
+.hero-image{position:absolute;inset:0;background:linear-gradient(160deg,#0f1e35,#0a1628);}
+.hero-image::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,22,40,0) 0%,rgba(10,22,40,0.6) 50%,rgba(10,22,40,0.97) 85%);}
+.hero-image-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.05);pointer-events:none;}
+.hero-content{position:relative;z-index:1;padding:0 60px 0;}
+/* HERO LABEL — Change to your gym type and city */
+.hero-label-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:36px;animation:up 0.8s ease both;}
+.hero-label{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);}
+.hero-label-right{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);}
+/* HERO HEADLINE — Change to your gym tagline */
+.hero h1{font-size:clamp(72px,13vw,180px);font-weight:700;letter-spacing:-4px;line-height:0.86;color:var(--white);animation:up 0.8s 0.1s ease both;}
+.hero h1 em{font-style:normal;color:var(--blue-light);display:block;}
+/* HERO BOTTOM */
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;padding:36px 0 60px;gap:40px;animation:up 0.8s 0.2s ease both;}
+/* HERO SUBTEXT — Describe your gym */
+.hero-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.75;max-width:480px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn-blue{font-size:13px;font-weight:700;background:var(--blue);color:#fff;padding:16px 40px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-blue:hover{background:var(--blue-light);transform:translateY(-1px);}
+.btn-outline{font-size:13px;font-weight:500;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2);padding:16px 32px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5);}
+/* HERO STATS */
+.hero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.06);animation:up 0.8s 0.35s ease both;}
+.hero-stat{padding:20px 28px;border-right:1px solid rgba(255,255,255,0.05);}
+.hero-stat:last-child{border-right:none;}
+/* STATS — Change all to your real numbers */
+.hero-stat-num{font-size:40px;font-weight:700;letter-spacing:-1.5px;color:var(--blue-light);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:10px;font-weight:500;color:var(--text-muted);letter-spacing:0.5px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--blue);}
+.marquee-inner{display:flex;animation:marquee 18s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* CLASSES — tabbed */
+.classes{padding:100px 60px;background:var(--navy-2);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue-light);margin-bottom:12px;}
+.section-title{font-size:clamp(44px,6vw,80px);font-weight:700;letter-spacing:-2.5px;line-height:0.92;color:var(--white);margin-bottom:52px;}
+.section-title em{font-style:italic;font-weight:500;color:var(--blue-light);}
+.classes-tabs{display:flex;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.tab-btn{font-size:12px;font-weight:600;letter-spacing:0.5px;color:var(--text-muted);padding:10px 24px;border:1px solid var(--border);background:none;cursor:pointer;transition:all 0.2s;}
+.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.tab-btn:hover:not(.active){border-color:rgba(0,102,255,0.4);color:var(--white);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+/* CLASS CARDS — Change all to your real classes */
+.class-card{background:var(--navy-2);padding:40px 36px;transition:background 0.2s;position:relative;overflow:hidden;}
+.class-card:hover{background:var(--navy-3);}
+.class-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--blue);transform:scaleY(0);transition:transform 0.3s;}
+.class-card:hover::before{transform:scaleY(1);}
+.class-intensity{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:10px;}
+.class-name{font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--white);margin-bottom:8px;transition:color 0.2s;}
+.class-card:hover .class-name{color:var(--blue-light);}
+.class-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.7;margin-bottom:16px;}
+.class-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.class-meta-item{font-size:11px;font-weight:600;color:var(--text-muted);}
+
+/* SCHEDULE */
+.schedule{padding:100px 60px;background:var(--navy);}
+.schedule-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);margin-top:52px;}
+/* SCHEDULE — Change all days, classes, and times to your real schedule */
+.schedule-day{background:var(--navy-2);}
+.schedule-day-header{background:var(--navy-4);padding:14px 10px;text-align:center;}
+.schedule-day-name{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+.schedule-slots{display:flex;flex-direction:column;}
+.schedule-slot{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;}
+.schedule-slot:hover{background:var(--navy-3);}
+.schedule-slot-time{font-size:9px;font-weight:600;color:var(--text-muted);margin-bottom:2px;letter-spacing:0.5px;}
+.schedule-slot-class{font-size:11px;font-weight:600;color:var(--white);}
+.schedule-slot-coach{font-size:10px;font-weight:300;color:var(--text-muted);}
+.schedule-slot.blue .schedule-slot-class{color:var(--blue-light);}
+.schedule-slot.bright .schedule-slot-class{color:#60CFFF;}
+
+/* TRAINERS */
+.trainers{padding:100px 60px;background:var(--navy-2);}
+.trainers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
+/* TRAINER CARDS — Change all to your real trainers */
+.trainer-card{background:var(--navy-2);overflow:hidden;transition:background 0.2s;}
+.trainer-card:hover{background:var(--navy-3);}
+/* TRAINER PHOTO — Replace with real headshots */
+.trainer-img{aspect-ratio:3/4;background:var(--navy-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.trainer-img-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--navy-3),var(--navy));}
+.trainer-img-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+/* blue bottom line reveal */
+.trainer-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transition:transform 0.3s;}
+.trainer-card:hover .trainer-img::after{transform:scaleX(1);}
+.trainer-info{padding:24px 28px;}
+.trainer-specialty{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:5px;}
+.trainer-name{font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--white);margin-bottom:4px;}
+.trainer-certs{font-size:12px;font-weight:300;color:var(--text-muted);}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:65vh;}
+/* ABOUT IMAGE — Replace with real gym photo */
+.about-image{background:var(--navy-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 40% 40%,rgba(0,102,255,0.06),var(--navy-4));}
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+.about-content{padding:80px 72px;background:var(--navy-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-size:clamp(44px,5vw,68px);font-weight:700;letter-spacing:-2px;line-height:0.92;color:var(--white);margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:500;color:var(--blue-light);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.about-cred{font-size:13px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:12px;}
+.about-cred::before{content:'';width:20px;height:2px;background:var(--blue);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--navy);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--navy-2);padding:44px 36px;transition:background 0.2s;}
+.testimonial:hover{background:var(--navy-3);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:12px;height:12px;background:var(--blue);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real member reviews */
+.testimonial-text{font-size:15px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:24px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--blue-light);}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--white);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* PRICING */
+.pricing{padding:100px 60px;background:var(--navy-2);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
+/* PRICING CARDS — Change all to your real pricing */
+.pricing-card{background:var(--navy-3);padding:48px 36px;transition:background 0.2s;}
+.pricing-card:hover{background:var(--navy-4);}
+.pricing-card.featured{background:var(--blue);}
+.pricing-tier{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:16px;}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.5);}
+.pricing-name{font-size:26px;font-weight:700;letter-spacing:-0.5px;color:var(--white);margin-bottom:6px;}
+.pricing-price{font-size:64px;font-weight:700;letter-spacing:-3px;color:var(--white);line-height:1;margin-bottom:4px;}
+.pricing-period{font-size:13px;font-weight:300;color:var(--text-muted);margin-bottom:32px;}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.5);}
+.pricing-divider{height:1px;background:var(--border);margin-bottom:28px;}
+.pricing-card.featured .pricing-divider{background:rgba(255,255,255,0.15);}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;}
+.pricing-feature{font-size:13px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.pricing-card.featured .pricing-feature{color:rgba(255,255,255,0.7);}
+.pricing-feature::before{content:'';width:16px;height:2px;background:var(--blue);flex-shrink:0;}
+.pricing-card.featured .pricing-feature::before{background:rgba(255,255,255,0.4);}
+.btn-price{display:block;text-align:center;font-size:12px;font-weight:700;padding:14px;border:1px solid var(--blue-border);color:var(--blue-light);transition:all 0.2s;}
+.btn-price:hover{background:var(--blue-dim);}
+.btn-price-white{background:#fff;color:var(--blue);border-color:#fff;}
+.btn-price-white:hover{background:var(--off-white);}
+
+/* CTA */
+.cta{padding:100px 60px;background:var(--blue);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CTA HEADLINE — Change to your own */
+.cta-title{font-size:clamp(52px,7vw,96px);font-weight:700;letter-spacing:-3px;line-height:0.88;color:#fff;margin-bottom:16px;}
+.cta-title em{font-style:italic;font-weight:500;}
+.cta-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select{width:100%;padding:14px 18px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;}
+form input::placeholder{color:rgba(255,255,255,0.4);}
+form input:focus,form select:focus{border-color:rgba(255,255,255,0.6);}
+form select option{background:var(--blue);}
+.btn-submit{width:100%;padding:16px;background:var(--navy);color:#fff;border:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--navy-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--navy);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your gym name */
+.footer-logo{font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--blue-light);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:18px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change gym name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(0,102,255,0.4);transition:color 0.2s;}
+.footer-built a:hover{color:var(--blue-light);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.about{grid-template-columns:1fr;}.about-image{display:none;}.cta{grid-template-columns:1fr;}.schedule-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-content{padding:0 20px;}.hero-bottom{grid-template-columns:1fr;}.hero-actions{flex-wrap:wrap;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .classes{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .schedule{padding:72px 20px;}.schedule-grid{grid-template-columns:1fr 1fr;}
+  .trainers{padding:72px 20px;}.trainers-grid{grid-template-columns:1fr 1fr;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .pricing{padding:72px 20px;}.pricing-grid{grid-template-columns:1fr;}
+  .cta{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Flux</strong> · Premium Fitness Template<span>· $39.99</span></p>
+  <a href="/product.html?t=flux" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "FLUX" to your gym name -->
+  <a href="#" class="nav-logo">FLUX<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#trainers">Trainers</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Start Free Trial</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#classes">Classes</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#trainers">Trainers</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#cta" class="mob-cta">Free Trial</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-image">
+    <!-- HERO IMAGE — Replace with a real gym/training photo -->
+    <div class="hero-image-label">Gym Photography</div>
+  </div>
+  <div class="hero-content">
+    <!-- HERO LABEL ROW — Change to your gym type and location -->
+    <div class="hero-label-row">
+      <div class="hero-label">HIIT &amp; CrossFit · Houston, TX</div>
+      <div class="hero-label-right">First Class Free</div>
+    </div>
+    <!-- HERO HEADLINE — Change to your gym tagline -->
+    <h1>Train<br><em>harder.</em></h1>
+    <div class="hero-bottom">
+      <!-- HERO SUBTEXT — Describe your gym -->
+      <p class="hero-sub">High-intensity training built around results. Expert coaches, science-backed programming, and a community that pushes you past what you thought was possible.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-blue">Start Free Trial</a>
+        <a href="#classes" class="btn-outline">View Classes</a>
+      </div>
+    </div>
+  </div>
+  <!-- HERO STATS — Change all to your real numbers -->
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" data-count="800">0</div><div class="hero-stat-label">Active members</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="20">0</div><div class="hero-stat-label">Classes per week</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="8">0</div><div class="hero-stat-label">Expert coaches</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real offerings -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">HIIT Training<div class="marquee-dot"></div></div>
+    <div class="marquee-item">CrossFit<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Strength &amp; Conditioning<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Olympic Lifting<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Open Gym<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">HIIT Training<div class="marquee-dot"></div></div>
+    <div class="marquee-item">CrossFit<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Strength &amp; Conditioning<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Olympic Lifting<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Open Gym<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- CLASSES — tabbed -->
+<section class="classes" id="classes">
+  <div class="section-label reveal">What We Offer</div>
+  <h2 class="section-title reveal">Our <em>classes.</em></h2>
+  <!-- TABS — Change to your real class categories -->
+  <div class="classes-tabs reveal">
+    <button class="tab-btn active" data-tab="hiit">HIIT</button>
+    <button class="tab-btn" data-tab="strength">Strength</button>
+    <button class="tab-btn" data-tab="specialty">Specialty</button>
+  </div>
+  <!-- HIIT CLASSES — Change all to your real classes -->
+  <div class="tab-panel active" id="tab-hiit">
+    <div class="class-card reveal"><div class="class-intensity">High Intensity</div><div class="class-name">Flux HIIT</div><p class="class-desc">Our signature class. 45 minutes of interval-based training combining cardio and functional movements. Scalable for all fitness levels.</p><div class="class-meta"><div class="class-meta-item">45 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 16</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-intensity">Max Effort</div><div class="class-name">Tabata Burn</div><p class="class-desc">20 seconds on, 10 seconds off. Eight rounds, multiple stations. The most efficient workout we offer — leave nothing in the tank.</p><div class="class-meta"><div class="class-meta-item">30 min</div><div class="class-meta-item">Intermediate+</div><div class="class-meta-item">Max 12</div></div></div>
+    <div class="class-card reveal"><div class="class-intensity">Cardio Focus</div><div class="class-name">Row &amp; Run</div><p class="class-desc">Alternating rowing machine intervals with track runs. Builds cardiovascular capacity and mental toughness simultaneously.</p><div class="class-meta"><div class="class-meta-item">50 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 14</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-intensity">Competition Prep</div><div class="class-name">WOD Class</div><p class="class-desc">Workout of the Day — constantly varied functional movements performed at high intensity. Our CrossFit-style class for those chasing performance.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">Advanced</div><div class="class-meta-item">Max 10</div></div></div>
+  </div>
+  <!-- STRENGTH CLASSES — Change all to your real classes -->
+  <div class="tab-panel" id="tab-strength">
+    <div class="class-card reveal"><div class="class-intensity">Strength Focus</div><div class="class-name">Barbell Club</div><p class="class-desc">Periodized strength programming focused on squat, bench, and deadlift. Progressive overload with coach guidance every session.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 10</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-intensity">Technique</div><div class="class-name">Olympic Lifting</div><p class="class-desc">Clean, jerk, and snatch technique with progressive loading. Coached closely — this class focuses on skill development as much as strength.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">Beginner friendly</div><div class="class-meta-item">Max 8</div></div></div>
+    <div class="class-card reveal"><div class="class-intensity">Hybrid</div><div class="class-name">Strength &amp; Conditioning</div><p class="class-desc">Heavy compound lifts followed by a metabolic conditioning finisher. The best of both worlds — strength base with cardiovascular output.</p><div class="class-meta"><div class="class-meta-item">55 min</div><div class="class-meta-item">Intermediate+</div><div class="class-meta-item">Max 12</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-intensity">Foundational</div><div class="class-name">Foundations</div><p class="class-desc">Movement fundamentals, technique coaching, and introductory loading for members new to strength training or CrossFit-style workouts.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">Beginners only</div><div class="class-meta-item">Max 8</div></div></div>
+  </div>
+  <!-- SPECIALTY CLASSES — Change all to your real classes -->
+  <div class="tab-panel" id="tab-specialty">
+    <div class="class-card reveal"><div class="class-intensity">Recovery</div><div class="class-name">Mobility &amp; Stretch</div><p class="class-desc">Active recovery and flexibility work. Addresses common movement restrictions, reduces injury risk, and improves performance in every other class.</p><div class="class-meta"><div class="class-meta-item">45 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 16</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-intensity">Core Focus</div><div class="class-name">Core &amp; Carry</div><p class="class-desc">Loaded carries, core stability, and anti-rotation work. Builds the functional strength that transfers to every other movement pattern.</p><div class="class-meta"><div class="class-meta-item">40 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 14</div></div></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule" id="schedule">
+  <div class="section-label reveal">Weekly Schedule</div>
+  <h2 class="section-title reveal">This week's <em>timetable.</em></h2>
+  <!-- SCHEDULE — Change all to your real schedule -->
+  <div class="schedule-grid reveal">
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Mon</div></div><div class="schedule-slots"><div class="schedule-slot blue"><div class="schedule-slot-time">6:00 AM</div><div class="schedule-slot-class">Flux HIIT</div><div class="schedule-slot-coach">Coach Alex</div></div><div class="schedule-slot"><div class="schedule-slot-time">12:00 PM</div><div class="schedule-slot-class">Barbell Club</div><div class="schedule-slot-coach">Coach Sam</div></div><div class="schedule-slot bright"><div class="schedule-slot-time">6:00 PM</div><div class="schedule-slot-class">WOD Class</div><div class="schedule-slot-coach">Coach Jay</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Tue</div></div><div class="schedule-slots"><div class="schedule-slot"><div class="schedule-slot-time">6:00 AM</div><div class="schedule-slot-class">S&amp;C</div><div class="schedule-slot-coach">Coach Sam</div></div><div class="schedule-slot blue"><div class="schedule-slot-time">5:30 PM</div><div class="schedule-slot-class">Tabata Burn</div><div class="schedule-slot-coach">Coach Alex</div></div><div class="schedule-slot"><div class="schedule-slot-time">7:00 PM</div><div class="schedule-slot-class">Olympic Lifting</div><div class="schedule-slot-coach">Coach Lee</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Wed</div></div><div class="schedule-slots"><div class="schedule-slot blue"><div class="schedule-slot-time">6:00 AM</div><div class="schedule-slot-class">Flux HIIT</div><div class="schedule-slot-coach">Coach Jay</div></div><div class="schedule-slot"><div class="schedule-slot-time">12:00 PM</div><div class="schedule-slot-class">Mobility</div><div class="schedule-slot-coach">Coach Lee</div></div><div class="schedule-slot bright"><div class="schedule-slot-time">6:00 PM</div><div class="schedule-slot-class">Barbell Club</div><div class="schedule-slot-coach">Coach Sam</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Thu</div></div><div class="schedule-slots"><div class="schedule-slot"><div class="schedule-slot-time">6:00 AM</div><div class="schedule-slot-class">Row &amp; Run</div><div class="schedule-slot-coach">Coach Alex</div></div><div class="schedule-slot blue"><div class="schedule-slot-time">5:30 PM</div><div class="schedule-slot-class">WOD Class</div><div class="schedule-slot-coach">Coach Jay</div></div><div class="schedule-slot"><div class="schedule-slot-time">7:00 PM</div><div class="schedule-slot-class">Core &amp; Carry</div><div class="schedule-slot-coach">Coach Lee</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Fri</div></div><div class="schedule-slots"><div class="schedule-slot blue"><div class="schedule-slot-time">6:00 AM</div><div class="schedule-slot-class">Flux HIIT</div><div class="schedule-slot-coach">Coach Sam</div></div><div class="schedule-slot"><div class="schedule-slot-time">12:00 PM</div><div class="schedule-slot-class">Olympic Lifting</div><div class="schedule-slot-coach">Coach Lee</div></div><div class="schedule-slot bright"><div class="schedule-slot-time">6:00 PM</div><div class="schedule-slot-class">S&amp;C</div><div class="schedule-slot-coach">Coach Alex</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Sat</div></div><div class="schedule-slots"><div class="schedule-slot blue"><div class="schedule-slot-time">8:00 AM</div><div class="schedule-slot-class">Flux HIIT</div><div class="schedule-slot-coach">Coach Jay</div></div><div class="schedule-slot"><div class="schedule-slot-time">9:30 AM</div><div class="schedule-slot-class">Barbell Club</div><div class="schedule-slot-coach">Coach Sam</div></div><div class="schedule-slot bright"><div class="schedule-slot-time">11:00 AM</div><div class="schedule-slot-class">WOD Class</div><div class="schedule-slot-coach">Coach Alex</div></div></div></div>
+    <div class="schedule-day"><div class="schedule-day-header"><div class="schedule-day-name">Sun</div></div><div class="schedule-slots"><div class="schedule-slot blue"><div class="schedule-slot-time">9:00 AM</div><div class="schedule-slot-class">Flux HIIT</div><div class="schedule-slot-coach">Coach Lee</div></div><div class="schedule-slot"><div class="schedule-slot-time">10:30 AM</div><div class="schedule-slot-class">Mobility</div><div class="schedule-slot-coach">Coach Jay</div></div></div></div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="trainers" id="trainers">
+  <div class="section-label reveal">The Coaches</div>
+  <h2 class="section-title reveal">Our <em>trainers.</em></h2>
+  <div class="trainers-grid">
+    <!-- TRAINER CARDS — Change all to your real trainers -->
+    <div class="trainer-card reveal">
+      <div class="trainer-img"><div class="trainer-img-bg"></div><div class="trainer-img-label">Coach Photo</div></div>
+      <div class="trainer-info"><div class="trainer-specialty">Head Coach · HIIT · WOD</div><div class="trainer-name">Alex Rivera</div><div class="trainer-certs">CF-L3 · USAW Level 2 · 10 years coaching</div></div>
+    </div>
+    <div class="trainer-card reveal reveal-delay-1">
+      <div class="trainer-img"><div class="trainer-img-bg"></div><div class="trainer-img-label">Coach Photo</div></div>
+      <div class="trainer-info"><div class="trainer-specialty">Strength Coach · Olympic Lifting</div><div class="trainer-name">Sam Torres</div><div class="trainer-certs">NSCA-CSCS · USAW Coach · Former competitor</div></div>
+    </div>
+    <div class="trainer-card reveal reveal-delay-2">
+      <div class="trainer-img"><div class="trainer-img-bg"></div><div class="trainer-img-label">Coach Photo</div></div>
+      <div class="trainer-info"><div class="trainer-specialty">Mobility · Recovery · Core</div><div class="trainer-name">Jay Lee</div><div class="trainer-certs">CF-L2 · FMS · NASM CPT · Yoga certified</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real gym photo -->
+    <div class="about-image-label">Gym Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Gym</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Built for people<br>who want <em>results.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Flux was built because we were tired of gyms that prioritized aesthetics over outcomes. We designed every class, hired every coach, and chose every piece of equipment with one question: does this make our members fitter? The answer has to be yes — every time.</p>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">CF-L3 Head Coach on every class</div>
+      <div class="about-cred">Science-backed programming — updated monthly</div>
+      <div class="about-cred">State-of-the-art equipment — rowers, barbells, rigs</div>
+      <div class="about-cred">No contracts — cancel anytime</div>
+    </div>
+    <a href="#cta" style="font-size:13px;font-weight:700;background:var(--blue);color:#fff;padding:14px 36px;display:inline-block;transition:background 0.2s;" href="#cta">Start Your Free Trial</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Member Reviews</div>
+  <h2 class="section-title reveal">What members <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real member reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I've been a member for 14 months and the results have been beyond anything I expected. The coaches genuinely care and the programming is exceptional."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Marcus B.</div><div class="testimonial-detail">Member · 14 months</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The WOD classes are the hardest thing I've ever done. I've lost 30 pounds and can deadlift more than I weigh. This gym actually works."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">T</div><div><div class="testimonial-name">Tasha W.</div><div class="testimonial-detail">Member · 8 months</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Sam's Olympic Lifting class changed how I train. I came in knowing nothing about the snatch and now I compete locally. The technical coaching is world-class."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">R</div><div><div class="testimonial-name">Ryan K.</div><div class="testimonial-detail">Olympic Lifting member</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Membership</div>
+  <h2 class="section-title reveal">Choose your <em>plan.</em></h2>
+  <div class="pricing-grid">
+    <!-- PRICING CARDS — Change all to your real pricing -->
+    <div class="pricing-card reveal">
+      <div class="pricing-tier">Starter</div>
+      <div class="pricing-name">8 Classes</div>
+      <div class="pricing-price">$99</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">8 classes per month</div>
+        <div class="pricing-feature">All class types</div>
+        <div class="pricing-feature">App scheduling</div>
+        <div class="pricing-feature">Open gym access</div>
+      </div>
+      <a href="#cta" class="btn-price">Get Started</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-tier">Most Popular</div>
+      <div class="pricing-name">Unlimited</div>
+      <div class="pricing-price">$149</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Unlimited classes</div>
+        <div class="pricing-feature">All class types</div>
+        <div class="pricing-feature">Priority booking</div>
+        <div class="pricing-feature">Open gym 24/7</div>
+        <div class="pricing-feature">1 guest pass / month</div>
+      </div>
+      <a href="#cta" class="btn-price btn-price-white">Get Started</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-tier">Elite</div>
+      <div class="pricing-name">Unlimited + Coaching</div>
+      <div class="pricing-price">$229</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Everything in Unlimited</div>
+        <div class="pricing-feature">Monthly 1:1 coaching session</div>
+        <div class="pricing-feature">Custom programming</div>
+        <div class="pricing-feature">Nutrition check-ins</div>
+        <div class="pricing-feature">Competition prep</div>
+      </div>
+      <a href="#cta" class="btn-price">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="reveal">
+    <!-- CTA HEADLINE — Change to your own -->
+    <h2 class="cta-title">Start your<br><em>free trial.</em></h2>
+    <p class="cta-sub">Your first class is on us. Come in, train hard, and see what Flux is about. No credit card, no commitment.</p>
+  </div>
+  <div class="reveal">
+    <!-- CTA FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- CLASS OPTIONS — Change to your real classes -->
+      <select name="class"><option value="" disabled selected>Which class for your trial?</option><option>Flux HIIT</option><option>Barbell Club</option><option>WOD Class</option><option>Foundations (beginner)</option><option>Not sure — recommend one for me</option></select>
+      <select name="goal"><option value="" disabled selected>Primary goal?</option><option>Lose Weight</option><option>Build Strength</option><option>Improve Fitness</option><option>Competition Prep</option><option>General Health</option></select>
+      <button type="submit" class="btn-submit">Claim My Free Class</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your gym name -->
+      <div class="footer-logo">FLUX<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your gym -->
+      <p class="footer-tagline">HIIT and CrossFit training in Houston. Coaches who care. Results that show.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Train</div>
+      <ul>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#trainers">Trainers</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Gym</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#cta">Free Trial</a></li>
+        <li><a href="#cta">Gift Cards</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourgym.com">hello@yourgym.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Open 7 days</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change gym name -->
+    <span class="footer-copy">© 2026 Flux Gym. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

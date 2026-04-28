@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Bastion Services" to your company name -->
+<title>Bastion Services — Roofing & Structural Contractors</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --navy:#0D1B2A;
+  --navy-2:#122030;
+  --navy-3:#172638;
+  --navy-4:#1D2D42;
+  --navy-5:#23354C;
+  --slate:#4A7FA5;
+  --slate-light:#5A95BE;
+  --slate-dark:#366080;
+  --slate-pale:#EEF4F8;
+  --slate-pale-2:#DDE8F0;
+  --slate-dim:rgba(74,127,165,0.1);
+  --slate-border:rgba(74,127,165,0.2);
+  --white:#FFFFFF;
+  --off-white:#F8FAFB;
+  --text-muted:rgba(255,255,255,0.45);
+  --border:rgba(255,255,255,0.07);
+  --border-slate:rgba(74,127,165,0.15);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--slate-dark);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.8);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.4;margin-left:4px;}
+.banner-btn{background:var(--white);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--off-white);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(13,27,42,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "BASTION" to your company name */
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-0.3px;color:var(--white);}
+.nav-logo span{color:var(--slate-light);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+/* NAV CTA */
+.nav-cta{font-size:13px;font-weight:700;background:var(--slate);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--slate-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:1px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--navy-2);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-size:clamp(44px,8vw,64px);font-weight:800;letter-spacing:-1.5px;color:var(--white);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--slate-light);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.35);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:700;background:var(--slate);color:#fff !important;padding:12px 28px;}
+
+/* HERO — navy authority, split layout */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;overflow:hidden;}
+.hero-left{background:var(--navy);padding:160px 64px 80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+/* subtle diagonal stripe accent */
+.hero-stripe{position:absolute;top:0;bottom:0;right:-60px;width:120px;background:linear-gradient(180deg,transparent,rgba(74,127,165,0.04),transparent);transform:skewX(-8deg);pointer-events:none;}
+/* HERO LABEL — Change to your company type */
+.hero-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--slate-light);margin-bottom:20px;display:flex;align-items:center;gap:12px;animation:up 0.8s ease both;}
+.hero-label::before{content:'';width:20px;height:3px;background:var(--slate);border-radius:2px;}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-size:clamp(52px,6vw,88px);font-weight:800;letter-spacing:-2.5px;line-height:0.9;color:var(--white);margin-bottom:24px;animation:up 0.8s 0.1s ease both;position:relative;z-index:1;}
+.hero h1 em{font-style:normal;color:var(--slate-light);}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:16px;font-weight:400;color:var(--text-muted);line-height:1.8;max-width:440px;margin-bottom:36px;animation:up 0.8s 0.2s ease both;position:relative;z-index:1;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px;animation:up 0.8s 0.3s ease both;position:relative;z-index:1;}
+.btn-slate{font-size:13px;font-weight:700;background:var(--slate);color:#fff;padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-slate:hover{background:var(--slate-light);transform:translateY(-1px);}
+.btn-outline{font-size:13px;font-weight:500;background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.15);padding:15px 32px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.4);}
+/* trust badges */
+.hero-trust{display:flex;gap:20px;flex-wrap:wrap;animation:up 0.8s 0.45s ease both;position:relative;z-index:1;}
+.hero-trust-item{font-size:11px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-trust-item::before{content:'✓';color:var(--slate-light);font-weight:700;}
+/* HERO RIGHT — dark panel with stats and image */
+.hero-right{background:var(--navy-2);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+/* HERO IMAGE — Replace with a real project photo */
+.hero-image{flex:1;background:var(--navy-3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.hero-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--navy-3),var(--navy));}
+.hero-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.08);}
+/* stats panel at bottom of hero right */
+.hero-right-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.hero-right-stat{background:var(--navy-2);padding:24px 28px;}
+/* STATS — Change all to your real numbers */
+.hero-right-stat-num{font-size:40px;font-weight:800;letter-spacing:-1.5px;color:var(--slate-light);line-height:1;margin-bottom:4px;}
+.hero-right-stat-label{font-size:10px;font-weight:500;color:var(--text-muted);letter-spacing:0.5px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--slate-dark);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SERVICES — tabbed */
+.services{padding:100px 60px;background:var(--navy-2);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--slate-light);margin-bottom:12px;}
+.section-title{font-size:clamp(44px,6vw,80px);font-weight:800;letter-spacing:-2.5px;line-height:0.92;color:var(--white);margin-bottom:52px;}
+.section-title em{font-style:italic;font-weight:600;color:var(--slate-light);}
+.services-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.tab-btn{font-size:13px;font-weight:600;color:var(--text-muted);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.tab-btn.active{color:var(--slate-light);border-bottom-color:var(--slate);}
+.tab-btn:hover{color:var(--white);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--navy-3);padding:36px 32px;border:1px solid transparent;transition:all 0.2s;}
+.service-card:hover{border-color:var(--slate-border);background:var(--navy-4);}
+.service-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate-light);margin-bottom:12px;opacity:0.7;}
+.service-name{font-size:20px;font-weight:700;letter-spacing:-0.3px;color:var(--white);margin-bottom:8px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--slate-light);}
+.service-desc{font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.7;}
+
+/* PROJECTS — horizontal scroll */
+.projects{padding:100px 0 0;background:var(--navy);overflow:hidden;}
+.projects-header{padding:0 60px 48px;display:flex;align-items:flex-end;justify-content:space-between;}
+.projects-scroll{display:flex;gap:16px;overflow-x:auto;padding:0 60px 60px;}
+.projects-scroll::-webkit-scrollbar{height:3px;}
+.projects-scroll::-webkit-scrollbar-thumb{background:var(--slate);}
+/* PROJECT CARDS — Change all to your real projects */
+.project-card{min-width:340px;flex-shrink:0;background:var(--navy-2);overflow:hidden;transition:all 0.2s;}
+.project-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(13,27,42,0.5);}
+/* PROJECT PHOTO — Replace with real project photos */
+.project-photo{height:220px;background:var(--navy-3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.project-photo-1{background:linear-gradient(160deg,var(--navy-3),var(--navy));}
+.project-photo-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+.project-info{padding:22px 24px;}
+.project-type{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate-light);margin-bottom:5px;}
+.project-name{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:var(--white);margin-bottom:4px;}
+.project-meta{font-size:12px;font-weight:400;color:var(--text-muted);}
+
+/* PROCESS */
+.process{padding:100px 60px;background:var(--navy-2);}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px;}
+/* PROCESS STEPS — Change all to your real process */
+.process-step{background:var(--navy-3);padding:40px 28px;border-top:3px solid var(--slate-dark);transition:all 0.2s;}
+.process-step:hover{border-top-color:var(--slate);background:var(--navy-4);}
+.process-step-num{font-size:48px;font-weight:800;letter-spacing:-2px;color:rgba(74,127,165,0.1);line-height:1;margin-bottom:16px;}
+.process-step-name{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:var(--white);margin-bottom:8px;}
+.process-step-desc{font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.7;}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:65vh;}
+/* ABOUT IMAGE — Replace with real team or job site photo */
+.about-image{background:var(--navy-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--navy-3),var(--navy));}
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+.about-content{padding:80px 72px;background:var(--navy-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-size:clamp(44px,5vw,68px);font-weight:800;letter-spacing:-2px;line-height:0.92;color:var(--white);margin-bottom:20px;}
+.about-title em{font-style:italic;font-weight:600;color:var(--slate-light);}
+.about-text{font-size:15px;font-weight:400;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;}
+.about-cred{font-size:12px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:8px;}
+.about-cred::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--slate);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--navy);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;}
+.testimonial{background:var(--navy-2);padding:40px 32px;border:1px solid transparent;transition:all 0.2s;}
+.testimonial:hover{border-color:var(--slate-border);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:11px;height:11px;background:var(--slate);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:15px;font-weight:400;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:22px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--slate-dim);border:1px solid var(--slate-border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--slate-light);}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--white);}
+.testimonial-detail{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA */
+.contact{padding:100px 60px;background:var(--slate-dark);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:0.88;color:#fff;margin-bottom:16px;}
+.contact-title em{font-style:italic;font-weight:600;color:rgba(255,255,255,0.5);}
+.contact-sub{font-size:16px;font-weight:400;color:rgba(255,255,255,0.55);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.15);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:400;color:#fff;outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,0.35);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(255,255,255,0.45);}
+form select option{background:var(--slate-dark);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--navy);color:#fff;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--navy-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--navy);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-size:20px;font-weight:800;letter-spacing:-0.3px;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--slate-light);}
+.footer-tagline{font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate-light);margin-bottom:18px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:400;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(74,127,165,0.4);transition:color 0.2s;}
+.footer-built a:hover{color:var(--slate-light);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}.about{grid-template-columns:1fr;}.about-image{display:none;}.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-left{padding:120px 20px 60px;}
+  .services{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .projects{padding:72px 0 0;}.projects-header{padding:0 20px 36px;}.projects-scroll{padding:0 20px 48px;}
+  .process{padding:72px 20px;}.process-grid{grid-template-columns:1fr 1fr;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Bastion</strong> · Premium Contractor Template<span>· $39.99</span></p>
+  <a href="/product.html?t=bastion" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "BASTION" to your company name -->
+  <a href="#" class="nav-logo">BASTION<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Quote</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#contact" class="mob-cta">Get a Quote</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-stripe"></div>
+    <!-- HERO LABEL — Change to your company type and city -->
+    <div class="hero-label">Roofing &amp; Structural · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your company tagline -->
+    <h1>Built to<br>protect<br><em>what matters.</em></h1>
+    <!-- HERO SUBTEXT — Describe your company -->
+    <p class="hero-sub">Roofing, waterproofing, and structural contracting for residential and commercial clients who need work done right — the first time, every time.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-slate">Get a Free Quote</a>
+      <a href="#projects" class="btn-outline">View Our Work</a>
+    </div>
+    <!-- TRUST BADGES — Change to your real credentials -->
+    <div class="hero-trust">
+      <div class="hero-trust-item">Licensed &amp; Insured</div>
+      <div class="hero-trust-item">$5M Liability</div>
+      <div class="hero-trust-item">Free Estimates</div>
+      <div class="hero-trust-item">Emergency Response</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image">
+      <div class="hero-image-bg"></div>
+      <!-- HERO IMAGE — Replace with a real project photo -->
+      <div class="hero-image-label">Project Photography</div>
+    </div>
+    <!-- HERO STATS — Change all to your real numbers -->
+    <div class="hero-right-stats">
+      <div class="hero-right-stat"><div class="hero-right-stat-num" data-count="20">0</div><div class="hero-right-stat-label">Years in business</div></div>
+      <div class="hero-right-stat"><div class="hero-right-stat-num" data-count="1200">0</div><div class="hero-right-stat-label">Projects completed</div></div>
+      <div class="hero-right-stat"><div class="hero-right-stat-num" data-count="24">0</div><div class="hero-right-stat-label">Hour emergency response</div></div>
+      <div class="hero-right-stat"><div class="hero-right-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-right-stat-label">Google rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real services/keywords -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Roofing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Waterproofing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Structural Repair<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Storm Damage<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Roofing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Waterproofing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Structural Repair<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Storm Damage<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Licensed &amp; Insured<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SERVICES — tabbed -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <!-- TABS — Change to your real service categories -->
+  <div class="services-tabs reveal">
+    <button class="tab-btn active" data-tab="roofing">Roofing</button>
+    <button class="tab-btn" data-tab="structural">Structural</button>
+    <button class="tab-btn" data-tab="emergency">Emergency</button>
+  </div>
+  <!-- ROOFING — Change all to your real services -->
+  <div class="tab-panel active" id="tab-roofing">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Roof Replacement</div><p class="service-desc">Full tear-off and replacement for residential and commercial roofs. We work with asphalt shingle, metal, TPO, EPDM, and modified bitumen systems.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Roof Repair</div><p class="service-desc">Leak diagnosis and targeted repairs that address the actual source — not just the symptom. We provide a written warranty on every repair we complete.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Flat Roofing</div><p class="service-desc">Commercial flat roof installation and maintenance. TPO, EPDM, and modified bitumen systems installed by certified applicators with manufacturer warranties available.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Waterproofing</div><p class="service-desc">Below-grade and above-grade waterproofing for foundations, decks, balconies, and flat roofs. Includes drainage solutions and long-term moisture management.</p></div>
+  </div>
+  <!-- STRUCTURAL — Change all to your real services -->
+  <div class="tab-panel" id="tab-structural">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Foundation Repair</div><p class="service-desc">Pier installation, crack repair, and stabilization for residential and light commercial foundations. Engineering consultation and permitted work on every project.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Structural Steel</div><p class="service-desc">Beam replacement, header installation, and structural steel repair. We work with licensed structural engineers to ensure every repair is designed and documented properly.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Storm Damage Restoration</div><p class="service-desc">Full structural assessment and restoration after wind, hail, and flood events. We work directly with insurance adjusters and document everything for your claim.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Masonry &amp; Chimney</div><p class="service-desc">Tuckpointing, brick repair, chimney rebuilding, and masonry waterproofing. Restores structural integrity and prevents water infiltration at critical transition points.</p></div>
+  </div>
+  <!-- EMERGENCY — Change all to your real emergency services -->
+  <div class="tab-panel" id="tab-emergency">
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">24-Hour Emergency Response</div><p class="service-desc">Immediate dispatch for active leaks, storm damage, and structural emergencies. We arrive within hours — not days — to secure your property and prevent further loss.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Emergency Tarping</div><p class="service-desc">Rapid temporary weatherproofing after storm events. Properly secured tarping that protects your property until permanent repairs can be completed.</p></div>
+    <div class="service-card reveal"><div class="service-num">03</div><div class="service-name">Insurance Claim Support</div><p class="service-desc">We've worked with every major insurer operating in Texas. We document damage thoroughly, communicate directly with adjusters, and advocate for a fair settlement.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">04</div><div class="service-name">Board-Up &amp; Securing</div><p class="service-desc">Emergency board-up and structural securing for damaged openings, compromised walls, and unsafe structures after storm or impact events.</p></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title" style="margin-bottom:0;">Recent <em>projects.</em></h2>
+    </div>
+    <a href="#contact" class="btn-slate">Get a Quote</a>
+  </div>
+  <div class="projects-scroll reveal">
+    <!-- PROJECT CARDS — Change all to your real projects -->
+    <div class="project-card">
+      <div class="project-photo project-photo-1"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Roofing · Commercial</div><div class="project-name">Westheimer Office Complex</div><div class="project-meta">Houston, TX · 2024 · 28,000 sq ft TPO</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-1" style="background:linear-gradient(160deg,var(--navy-4),var(--navy-2));"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Storm Damage · Residential</div><div class="project-name">Memorial Hail Restoration</div><div class="project-meta">Memorial, TX · 2024 · 42 homes</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-1" style="background:linear-gradient(160deg,var(--navy-3),var(--navy-5));"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Structural · Foundation</div><div class="project-name">River Oaks Foundation Repair</div><div class="project-meta">River Oaks, TX · 2024 · Complex underpinning</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-1" style="background:linear-gradient(160deg,var(--navy-2),var(--navy-4));"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Waterproofing · Commercial</div><div class="project-name">Galleria Parking Deck</div><div class="project-meta">Houston, TX · 2023 · Full deck coating</div></div>
+    </div>
+    <div class="project-card">
+      <div class="project-photo project-photo-1" style="background:linear-gradient(160deg,var(--navy-5),var(--navy-3));"><div class="project-photo-label">Project Photo</div></div>
+      <div class="project-info"><div class="project-type">Roofing · Residential</div><div class="project-name">Heights Historic Re-Roof</div><div class="project-meta">Houston Heights · 2023 · Metal standing seam</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label reveal">How We Work</div>
+  <h2 class="section-title reveal">Our <em>process.</em></h2>
+  <div class="process-grid">
+    <!-- PROCESS STEPS — Change all to your real process -->
+    <div class="process-step reveal">
+      <div class="process-step-num">01</div>
+      <div class="process-step-name">Free Inspection</div>
+      <p class="process-step-desc">A thorough, no-obligation inspection with written documentation of every finding. We don't upsell — we tell you exactly what we see.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="process-step-num">02</div>
+      <div class="process-step-name">Detailed Quote</div>
+      <p class="process-step-desc">A line-item proposal with material specifications, labor breakdown, and timeline. No vague language, no surprise costs after you sign.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="process-step-num">03</div>
+      <div class="process-step-name">Expert Execution</div>
+      <p class="process-step-desc">A dedicated crew with a site supervisor on every job. Daily progress updates and a direct line to your project manager throughout.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="process-step-num">04</div>
+      <div class="process-step-name">Warranty &amp; Closeout</div>
+      <p class="process-step-desc">Final inspection, warranty documentation, and a walkthrough that closes only when you're completely satisfied. We stand behind our work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real team or job site photo -->
+    <div class="about-image-label">Team Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Company</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">20 years of<br>protecting <em>homes.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Bastion started as a two-man roofing crew in 2004. Today we're one of Houston's most trusted structural contractors — but the standard hasn't changed. Every job gets the same attention we'd give our own home. Every client gets the truth, even when the truth is expensive. And every warranty we write is one we intend to honor.</p>
+    <a href="#contact" class="btn-slate reveal">Get a Free Quote</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Texas GC License #GC-XXXXXX</div>
+      <div class="about-cred">$5M General Liability</div>
+      <div class="about-cred">GAF Master Elite Contractor</div>
+      <div class="about-cred">BBB A+ Rated</div>
+      <div class="about-cred">HAAG Certified Inspector</div>
+      <div class="about-cred">24-Hour Emergency Response</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What clients <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"After the hailstorm we had three contractors give us quotes. Bastion was the only one who showed us exactly what was damaged and why. They handled the insurance claim better than we could have ourselves."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">J</div><div><div class="testimonial-name">Jim &amp; Carol M.</div><div class="testimonial-detail">Storm damage restoration</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"We manage a portfolio of 12 commercial properties. Bastion is the only roofing contractor we use. Their documentation, response time, and quality of work are in a different category."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">R</div><div><div class="testimonial-name">Robert A.</div><div class="testimonial-detail">Commercial property manager</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Called them at 11pm after a tree came through our roof. They had someone on-site within 2 hours with tarps and equipment. The repair team was there first thing in the morning. Incredible service."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">S</div><div><div class="testimonial-name">Sarah T.</div><div class="testimonial-detail">Emergency response client</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Get your<br>free <em>quote.</em></h2>
+    <p class="contact-sub">Tell us about your project. We'll respond within one business day with an honest assessment and a written proposal.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- PROJECT TYPE — Change to your actual categories -->
+      <select name="type"><option value="" disabled selected>Type of project?</option><option>Roof Replacement</option><option>Roof Repair</option><option>Storm Damage</option><option>Waterproofing</option><option>Foundation / Structural</option><option>Emergency Service</option><option>Commercial Roofing</option><option>Other</option></select>
+      <input type="text" name="address" placeholder="Property Address">
+      <textarea name="message" placeholder="Brief description of the issue or project..."></textarea>
+      <button type="submit" class="btn-submit">Request Free Inspection</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">BASTION<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your company -->
+      <p class="footer-tagline">Roofing, waterproofing, and structural contracting in Houston since 2004.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Roofing</a></li>
+        <li><a href="#services">Waterproofing</a></li>
+        <li><a href="#services">Structural Repair</a></li>
+        <li><a href="#services">Emergency Response</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">24-Hour Emergency Line</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Bastion Services. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-right-stat').forEach(el => observer.observe(el));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

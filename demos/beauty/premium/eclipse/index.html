@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Eclipse" to your salon name -->
+<title>Eclipse — Luxury Hair & Beauty</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --black:#080808;
+  --black-2:#0F0F0F;
+  --black-3:#161616;
+  --black-4:#1E1E1E;
+  --black-5:#262626;
+  --gold:#C9A84C;
+  --gold-light:#E0C068;
+  --gold-dark:#A88030;
+  --gold-dim:rgba(201,168,76,0.08);
+  --gold-border:rgba(201,168,76,0.18);
+  --ivory:#F5F0E8;
+  --ivory-2:#EDE5D4;
+  --ivory-dim:rgba(245,240,232,0.5);
+  --ivory-muted:rgba(245,240,232,0.35);
+  --border:rgba(201,168,76,0.1);
+  --border-light:rgba(245,240,232,0.06);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--ivory);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--gold-dark);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:300;color:rgba(245,240,232,0.85);}
+.purchase-banner p strong{color:var(--ivory);font-weight:500;}
+.purchase-banner p span{opacity:0.45;margin-left:4px;}
+.banner-btn{background:var(--ivory);color:var(--black);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--ivory-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 60px;transition:all 0.5s;}
+nav.scrolled{background:rgba(8,8,8,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "Eclipse" to your salon name */
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;font-style:italic;color:var(--ivory);letter-spacing:0.5px;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:40px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-links a{font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--ivory-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+/* NAV CTA */
+.nav-cta{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-border);padding:10px 24px;transition:all 0.2s;}
+.nav-cta:hover{background:var(--gold-dim);border-color:var(--gold);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:1px;background:var(--ivory);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--black-2);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,8vw,64px);font-style:italic;color:var(--ivory);opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:300;color:var(--ivory-muted);letter-spacing:1px;}
+.mob-cta{display:inline-block;font-size:11px !important;font-weight:400;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--gold-border);color:var(--gold) !important;padding:11px 28px;}
+
+/* HERO — cinematic full viewport */
+.hero{min-height:100vh;background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 40px 80px;}
+/* radial gold glow */
+.hero-glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:900px;height:700px;background:radial-gradient(ellipse,rgba(201,168,76,0.05) 0%,transparent 65%);pointer-events:none;}
+/* subtle vertical lines */
+.hero-line-l{position:absolute;left:60px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.08),transparent);}
+.hero-line-r{position:absolute;right:60px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.08),transparent);}
+.hero-content{position:relative;z-index:1;max-width:860px;}
+/* HERO EYEBROW — Change to your salon type */
+.hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:36px;animation:up 1s 0.2s ease both;}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--gold);opacity:0.4;}
+.hero-eyebrow span{font-size:10px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--gold);}
+/* HERO HEADLINE — Change to your salon tagline */
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,11vw,148px);font-weight:300;font-style:italic;line-height:0.88;letter-spacing:-2px;color:var(--ivory);margin-bottom:24px;animation:up 1s 0.35s ease both;}
+.hero h1 em{font-style:normal;font-weight:400;color:var(--gold);}
+/* HERO SUBTEXT — Describe your salon */
+.hero-sub{font-size:13px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--ivory-muted);margin-bottom:56px;animation:up 1s 0.5s ease both;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:24px;animation:up 1s 0.65s ease both;}
+.btn-primary{font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:16px 48px;transition:all 0.3s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-ghost{font-size:11px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:var(--ivory-muted);border:1px solid rgba(245,240,232,0.1);padding:16px 36px;transition:all 0.2s;display:inline-block;}
+.btn-ghost:hover{border-color:rgba(245,240,232,0.3);color:var(--ivory);}
+/* scroll indicator */
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;animation:up 1s 0.9s ease both;}
+.hero-scroll span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(245,240,232,0.15);}
+.scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--gold),transparent);animation:pulse 2s ease-in-out infinite;opacity:0.6;}
+@keyframes pulse{0%,100%{opacity:0.2;}50%{opacity:0.7;}}
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* STATS STRIP */
+.stats-strip{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.stats-div{background:var(--border);}
+.stat-item{padding:44px 32px;text-align:center;}
+/* STATS — Change all to your real info */
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;font-style:italic;color:var(--gold);line-height:1;margin-bottom:8px;letter-spacing:-1px;}
+.stat-label{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--ivory-muted);}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--gold-dark);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:11px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.7);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:3px;height:3px;border-radius:50%;background:rgba(245,240,232,0.3);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SERVICES */
+.services{padding:100px 60px;background:var(--black-2);}
+.section-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.section-eyebrow-line{width:24px;height:1px;background:var(--gold);opacity:0.4;}
+.section-eyebrow span{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,72px);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.0;margin-bottom:56px;letter-spacing:-0.5px;}
+.section-title em{font-style:normal;color:var(--gold);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--black-2);padding:48px 40px;position:relative;overflow:hidden;transition:background 0.3s;}
+.service-card:hover{background:var(--black-3);}
+/* gold bottom reveal */
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.5s;}
+.service-card:hover::after{transform:scaleX(1);}
+.service-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--ivory);margin-bottom:12px;letter-spacing:0.3px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--gold-light);}
+.service-desc{font-size:14px;font-weight:300;color:var(--ivory-muted);line-height:1.8;margin-bottom:20px;}
+.service-price{font-size:13px;font-weight:300;letter-spacing:1px;color:var(--gold);}
+
+/* ABOUT — full split */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;}
+/* ABOUT IMAGE — Replace with real salon/model photo */
+.about-image{background:var(--black-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 40% 40%,rgba(201,168,76,0.04),var(--black-3));}
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:rgba(245,240,232,0.08);}
+/* gold accent line */
+.about-image::after{content:'';position:absolute;top:10%;bottom:10%;right:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.2),transparent);}
+.about-content{padding:80px 72px;background:var(--black-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,68px);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.05;margin-bottom:20px;letter-spacing:-0.5px;}
+.about-title em{font-style:normal;color:var(--gold);}
+.about-text{font-size:15px;font-weight:300;color:var(--ivory-muted);line-height:1.9;margin-bottom:32px;}
+.btn-gold{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;background:var(--gold);color:var(--black);padding:15px 40px;transition:all 0.2s;display:inline-block;}
+.btn-gold:hover{background:var(--gold-light);}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{margin-top:40px;padding-top:32px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;}
+.about-cred{font-size:12px;font-weight:300;color:var(--ivory-muted);display:flex;align-items:center;gap:14px;}
+.about-cred::before{content:'';width:20px;height:1px;background:var(--gold);opacity:0.5;flex-shrink:0;}
+
+/* STYLISTS — editorial portrait grid */
+.stylists{padding:100px 60px;background:var(--black);}
+.stylists-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+/* STYLIST CARDS — Change all to your real team */
+.stylist-card{overflow:hidden;transition:all 0.2s;}
+.stylist-card:hover{transform:translateY(-3px);}
+/* STYLIST PHOTO — Replace with real headshots */
+.stylist-img{aspect-ratio:2/3;background:var(--black-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.stylist-img-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 40% 30%,rgba(201,168,76,0.04),var(--black-4));}
+.stylist-img-label{position:relative;z-index:1;font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.07);}
+/* gold bottom line reveal */
+.stylist-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.4s;transform-origin:left;}
+.stylist-card:hover .stylist-img::after{transform:scaleX(1);}
+.stylist-info{padding:20px 0;}
+.stylist-role{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0.8;}
+.stylist-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;color:var(--ivory);margin-bottom:4px;letter-spacing:0.3px;}
+.stylist-spec{font-size:12px;font-weight:300;color:var(--ivory-muted);}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 2fr 1fr;height:540px;gap:1px;background:var(--border);}
+.gallery-item{background:var(--black-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real salon/work photos */
+.gallery-item:nth-child(1){background:radial-gradient(ellipse at 50% 40%,rgba(201,168,76,0.06),var(--black-4));}
+.gallery-item:nth-child(2){background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.04),var(--black));}
+.gallery-item:nth-child(3){background:radial-gradient(ellipse at 50% 60%,rgba(201,168,76,0.05),var(--black-3));}
+.gallery-label{font-size:10px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.07);}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--black-2);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
+.testimonial{background:var(--black-3);padding:52px 40px;transition:background 0.2s;}
+.testimonial:hover{background:var(--black-4);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:24px;}
+.star{width:10px;height:10px;background:var(--gold-dark);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;font-weight:300;color:var(--ivory-dim);line-height:1.65;margin-bottom:32px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-dot{width:30px;height:30px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--gold);}
+.testimonial-name{font-size:13px;font-weight:400;color:var(--ivory);margin-bottom:2px;}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--ivory-muted);}
+
+/* BOOKING CTA */
+.booking{padding:100px 60px;background:var(--black-4);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+/* BOOKING HEADLINE — Change to your own */
+.booking-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;font-style:italic;line-height:0.9;letter-spacing:-1px;color:var(--ivory);margin-bottom:20px;}
+.booking-title em{font-style:normal;color:var(--gold);}
+.booking-sub{font-size:15px;font-weight:300;color:var(--ivory-muted);line-height:1.85;margin-bottom:36px;}
+/* HOURS — Change to your real hours */
+.hours-list{display:flex;flex-direction:column;}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-light);}
+.hours-day{font-size:11px;font-weight:300;color:var(--ivory-muted);}
+.hours-time{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--ivory);}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 20px;background:rgba(245,240,232,0.03);border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;color:var(--ivory);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(245,240,232,0.18);}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--gold-border);}
+form select option{background:var(--black-3);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--gold);color:var(--black);border:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--gold-light);}
+.booking-note{font-size:11px;font-weight:300;color:rgba(245,240,232,0.2);margin-top:10px;text-align:center;letter-spacing:0.5px;}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black);border-top:1px solid var(--border-light);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your salon name */
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--ivory);margin-bottom:12px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--ivory-muted);line-height:1.7;max-width:200px;opacity:0.7;}
+.footer-col-title{font-size:9px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;opacity:0.8;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--ivory-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid var(--border-light);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change salon name */
+.footer-copy{font-size:12px;color:rgba(245,240,232,0.15);}
+.footer-built a{font-size:11px;color:rgba(201,168,76,0.3);transition:color 0.2s;}
+.footer-built a:hover{color:var(--gold);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.about{grid-template-columns:1fr;}.about-image{display:none;}.booking{grid-template-columns:1fr;}.gallery{grid-template-columns:1fr 1fr;height:auto;}.gallery-item{height:280px;}.gallery-item:last-child{display:none;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 72px;}.hero-line-l,.hero-line-r{display:none;}
+  .stats-strip{grid-template-columns:1fr 1fr;}.stats-div{display:none;}
+  .services{padding:72px 20px;}.services-grid{grid-template-columns:1fr;}
+  .about-content{padding:72px 20px;}
+  .stylists{padding:72px 20px;}.stylists-grid{grid-template-columns:1fr 1fr;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .booking{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Eclipse</strong> · Premium Salon Template<span>· $39.99</span></p>
+  <a href="/product.html?t=eclipse" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Eclipse" to your salon name -->
+  <a href="#" class="nav-logo"><em>Eclipse</em><span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#stylists">The Team</a></li>
+    <li><a href="#booking">Reserve</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Reserve Now</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#stylists">The Team</a>
+    <a href="#booking">Reserve</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#booking" class="mob-cta">Reserve Now</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-line-l"></div>
+  <div class="hero-line-r"></div>
+  <div class="hero-content">
+    <!-- HERO EYEBROW — Change to your salon type and city -->
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Luxury Hair Atelier · Houston, Texas</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+    <!-- HERO HEADLINE — Change to your salon tagline -->
+    <h1>Beauty in<br><em>the dark.</em></h1>
+    <!-- HERO SUBTEXT — Describe your salon in one line -->
+    <p class="hero-sub">Gold-standard colour · Precision cuts · Private appointments</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Reserve an Appointment</a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- STATS STRIP — Change all to your real info -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num" data-count="14">0</div><div class="stat-label">Years Open</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-1"><div class="stat-num" data-count="5">0</div><div class="stat-label">Master Stylists</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-2"><div class="stat-num" data-count="2200">0</div><div class="stat-label">Clients Served</div></div>
+  <div class="stats-div"></div>
+  <div class="stat-item reveal reveal-delay-3"><div class="stat-num" data-count="4.9" data-decimal="1">0</div><div class="stat-label">Google Rating</div></div>
+</div>
+
+<!-- MARQUEE — Change items to your real services/keywords -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Precision Colour<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Balayage<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Colour Correction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Bridal Hair<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Keratin Treatments<div class="marquee-dot"></div></div>
+    <div class="marquee-item">By Appointment Only<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Precision Colour<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Balayage<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Colour Correction<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Bridal Hair<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Keratin Treatments<div class="marquee-dot"></div></div>
+    <div class="marquee-item">By Appointment Only<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-eyebrow reveal"><div class="section-eyebrow-line"></div><span>What We Offer</span></div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change all to your real services and prices -->
+    <div class="service-card reveal">
+      <div class="service-name">Cut &amp; Style</div>
+      <p class="service-desc">A thorough consultation before scissors touch your hair. Precision cutting adapted to your face, lifestyle, and how you actually style at home.</p>
+      <div class="service-price">From $95</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-name">Colour</div>
+      <p class="service-desc">Single process, highlights, and full colour by our senior colourists. Professional-grade only — we never compromise on the chemistry or the result.</p>
+      <div class="service-price">From $145</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-name">Balayage</div>
+      <p class="service-desc">Hand-painted results that look genuinely effortless. Our most requested service and the one that separates a great colourist from the rest.</p>
+      <div class="service-price">From $235</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Colour Correction</div>
+      <p class="service-desc">Restoring hair that's been damaged or incorrectly coloured. We assess carefully, plan precisely, and execute over as many sessions as your hair actually needs.</p>
+      <div class="service-price">Consultation required</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-name">Bridal &amp; Events</div>
+      <p class="service-desc">Trial sessions and day-of styling for brides and their parties. We travel to your venue. Book consultations at least 10 weeks before your date.</p>
+      <div class="service-price">From $295</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-name">Treatments</div>
+      <p class="service-desc">Deep conditioning, bond restoration, and scalp therapy using premium systems. Includes consultation and a bespoke at-home routine recommendation.</p>
+      <div class="service-price">From $90</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SPLIT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real salon or model photo -->
+    <div class="about-image-label">Salon Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-eyebrow reveal"><div class="section-eyebrow-line"></div><span>The Studio</span></div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">Where craft<br>becomes <em>art.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Eclipse was built around one conviction — that the best hair work happens when there's no rush. We limit our bookings, extend our appointments, and select every stylist for their precision as much as their instinct. The result is a studio where the standard isn't just high — it's something clients feel the moment they sit down.</p>
+    <a href="#booking" class="btn-gold reveal">Reserve an Appointment</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">Licensed &amp; Certified — All Stylists</div>
+      <div class="about-cred">Kerastase &amp; Olaplex Partner Studio</div>
+      <div class="about-cred">4.9 Stars · 900+ Google Reviews</div>
+      <div class="about-cred">By Appointment Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- STYLISTS -->
+<section class="stylists" id="stylists">
+  <div class="section-eyebrow reveal"><div class="section-eyebrow-line"></div><span>The Atelier</span></div>
+  <h2 class="section-title reveal">Our <em>stylists.</em></h2>
+  <div class="stylists-grid">
+    <!-- STYLIST CARDS — Change all to your real team -->
+    <div class="stylist-card reveal">
+      <div class="stylist-img"><div class="stylist-img-bg"></div><div class="stylist-img-label">Portrait</div></div>
+      <div class="stylist-info">
+        <div class="stylist-role">Founder · Creative Director</div>
+        <div class="stylist-name">Vivienne Noir</div>
+        <div class="stylist-spec">Balayage · Colour Correction · Bridal</div>
+      </div>
+    </div>
+    <div class="stylist-card reveal reveal-delay-1">
+      <div class="stylist-img"><div class="stylist-img-bg"></div><div class="stylist-img-label">Portrait</div></div>
+      <div class="stylist-info">
+        <div class="stylist-role">Senior Colourist</div>
+        <div class="stylist-name">Rafael Cruz</div>
+        <div class="stylist-spec">Editorial Colour · Blondes · Highlights</div>
+      </div>
+    </div>
+    <div class="stylist-card reveal reveal-delay-2">
+      <div class="stylist-img"><div class="stylist-img-bg"></div><div class="stylist-img-label">Portrait</div></div>
+      <div class="stylist-info">
+        <div class="stylist-role">Stylist · Treatment Specialist</div>
+        <div class="stylist-name">Zara Okafor</div>
+        <div class="stylist-spec">Textured Hair · Keratin · Scalp Care</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY — Replace all with real salon/work photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Atelier Interior</div></div>
+  <div class="gallery-item"><div class="gallery-label">Editorial Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Colour Work</div></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div style="text-align:center;margin-bottom:56px;" class="reveal">
+    <div class="section-eyebrow" style="justify-content:center;"><div class="section-eyebrow-line"></div><span>Client Reviews</span><div class="section-eyebrow-line"></div></div>
+    <h2 class="section-title" style="margin-top:16px;">What our <em>clients say.</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Vivienne did my hair for my wedding. She understood exactly what I wanted and delivered something beyond what I imagined. There's no one else I'd trust."</p>
+      <div class="testimonial-row"><div class="testimonial-dot">E</div><div><div class="testimonial-name">Elena M.</div><div class="testimonial-detail">Bridal client</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Rafael fixed a colour disaster from another salon in one visit. I genuinely didn't believe it was possible. The skill level here is exceptional."</p>
+      <div class="testimonial-row"><div class="testimonial-dot">C</div><div><div class="testimonial-name">Claire T.</div><div class="testimonial-detail">Colour correction</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"The most peaceful salon I've ever been in. Unhurried, deeply attentive, and the results speak entirely for themselves. Eclipse is genuinely in a class of its own."</p>
+      <div class="testimonial-row"><div class="testimonial-dot">N</div><div><div class="testimonial-name">Natasha R.</div><div class="testimonial-detail">Regular client · 3 years</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking" id="booking">
+  <div class="reveal">
+    <!-- BOOKING HEADLINE — Change to your own -->
+    <h2 class="booking-title">Reserve your<br><em>appointment.</em></h2>
+    <p class="booking-sub">Every appointment is confirmed personally and given the time it actually needs. We don't rush — and we don't compromise.</p>
+    <!-- HOURS — Change all to your real hours -->
+    <div class="hours-list">
+      <div class="hours-row"><span class="hours-day">Tuesday – Friday</span><span class="hours-time">9am – 7pm</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">9am – 5pm</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday – Monday</span><span class="hours-time">Closed</span></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <!-- BOOKING FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- SERVICE OPTIONS — Change to your actual services -->
+      <select name="service"><option value="" disabled selected>Which service?</option><option>Cut &amp; Style</option><option>Colour</option><option>Balayage</option><option>Colour Correction</option><option>Bridal &amp; Events</option><option>Treatment</option><option>Not sure — consultation please</option></select>
+      <!-- STYLIST OPTIONS — Change to your actual team names -->
+      <select name="stylist"><option value="" disabled selected>Preferred stylist?</option><option>Vivienne Noir</option><option>Rafael Cruz</option><option>Zara Okafor</option><option>No preference</option></select>
+      <input type="date" name="date">
+      <textarea name="message" placeholder="Anything we should know before your appointment?"></textarea>
+      <button type="submit" class="btn-submit">Request Appointment</button>
+    </form>
+    <!-- PHONE — Change to your real phone number -->
+    <p class="booking-note">For immediate assistance · (555) 123-4567</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your salon name -->
+      <div class="footer-logo"><em>Eclipse</em><span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your salon -->
+      <p class="footer-tagline">A luxury hair atelier in Houston. By appointment only.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Cut &amp; Style</a></li>
+        <li><a href="#services">Colour</a></li>
+        <li><a href="#services">Balayage</a></li>
+        <li><a href="#services">Bridal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Atelier</div>
+      <ul>
+        <li><a href="#stylists">The Team</a></li>
+        <li><a href="#booking">Reserve</a></li>
+        <li><a href="#booking">Gift Cards</a></li>
+        <li><a href="#booking">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yoursalon.com">hello@yoursalon.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Tue–Sat · By Appointment</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change salon name -->
+    <span class="footer-copy">© 2026 Eclipse Atelier. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .stat-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
