@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Strike Gym" to your gym name -->
+<title>Strike Gym — Boxing, MMA & Martial Arts</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --black:#0A0A0A;
+  --black-2:#111111;
+  --black-3:#181818;
+  --black-4:#202020;
+  --black-5:#282828;
+  --red:#E8212A;
+  --red-light:#F03038;
+  --red-dark:#C01820;
+  --red-dim:rgba(232,33,42,0.08);
+  --red-border:rgba(232,33,42,0.2);
+  --white:#FFFFFF;
+  --off-white:#F8F8F8;
+  --text-muted:rgba(255,255,255,0.45);
+  --border:rgba(255,255,255,0.07);
+  --border-red:rgba(232,33,42,0.15);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.9);}
+.purchase-banner p strong{color:#fff;font-weight:700;}
+.purchase-banner p span{opacity:0.5;margin-left:4px;}
+.banner-btn{background:var(--black);color:#fff;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--black-2);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;transition:all 0.3s;}
+nav.scrolled{background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+/* LOGO — Change "STRIKE" to your gym name */
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--white);}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.5px;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+/* NAV CTA */
+.nav-cta{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--red);color:#fff;padding:11px 28px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--red-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--red);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,72px);letter-spacing:3px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--black);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.5);}
+.mob-cta{display:inline-block;font-size:12px !important;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--black);color:#fff !important;padding:12px 28px;}
+
+/* HERO — full black, massive type */
+.hero{min-height:100vh;background:var(--black);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;}
+/* HERO IMAGE — Replace with a real gym/fighter photo */
+.hero-image{position:absolute;inset:0;background:linear-gradient(160deg,#1a0808,#0a0808);}
+.hero-image::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0) 0%,rgba(10,10,10,0.4) 40%,rgba(10,10,10,0.92) 75%,rgba(10,10,10,0.99) 100%);}
+.hero-image-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.05);pointer-events:none;}
+/* diagonal red slash accent */
+.hero-slash{position:absolute;top:0;right:15%;width:3px;height:100%;background:linear-gradient(180deg,transparent,var(--red),transparent);opacity:0.3;}
+.hero-content{position:relative;z-index:1;padding:0 60px 0;}
+/* HERO LABEL — Change to your gym type and city */
+.hero-label-row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:32px;animation:up 0.8s ease both;}
+.hero-label{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);}
+.hero-label-right{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+/* HERO HEADLINE — Change to your gym tagline */
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,15vw,200px);letter-spacing:-2px;line-height:0.85;color:var(--white);animation:up 0.8s 0.1s ease both;}
+.hero h1 em{font-style:normal;color:var(--red);display:block;}
+/* HERO BOTTOM */
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;padding:36px 0 60px;gap:40px;animation:up 0.8s 0.2s ease both;}
+/* HERO SUBTEXT — Describe your gym */
+.hero-sub{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:460px;}
+.hero-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn-red{font-size:13px;font-weight:700;background:var(--red);color:#fff;padding:16px 40px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-red:hover{background:var(--red-light);transform:translateY(-1px);}
+.btn-outline{font-size:13px;font-weight:500;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2);padding:16px 32px;transition:all 0.2s;display:inline-block;white-space:nowrap;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5);}
+/* HERO STATS */
+.hero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.06);animation:up 0.8s 0.35s ease both;}
+.hero-stat{padding:20px 28px;border-right:1px solid rgba(255,255,255,0.05);}
+.hero-stat:last-child{border-right:none;}
+/* STATS — Change all to your real numbers */
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;color:var(--red);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:10px;font-weight:400;color:var(--text-muted);letter-spacing:0.5px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--red);}
+.marquee-inner{display:flex;animation:marquee 18s linear infinite;white-space:nowrap;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:rgba(255,255,255,0.8);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* CLASSES — tabbed */
+.classes{padding:100px 60px;background:var(--black-2);}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--red);margin-bottom:8px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:-1px;line-height:0.9;color:var(--white);margin-bottom:52px;}
+.section-title em{font-style:normal;color:var(--red);}
+.classes-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.tab-btn{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--text-muted);padding:12px 28px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
+.tab-btn:hover{color:var(--white);}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+/* CLASS CARDS — Change all to your real classes */
+.class-card{background:var(--black-2);padding:40px 36px;transition:background 0.2s;position:relative;overflow:hidden;}
+.class-card:hover{background:var(--black-3);}
+.class-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform 0.3s;}
+.class-card:hover::before{transform:scaleY(1);}
+.class-level{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.class-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:var(--white);margin-bottom:8px;transition:color 0.2s;}
+.class-card:hover .class-name{color:var(--red);}
+.class-desc{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.7;margin-bottom:16px;}
+.class-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.class-meta-item{font-size:11px;font-weight:600;color:var(--text-muted);}
+
+/* COACHES — editorial list */
+.coaches{padding:100px 60px;background:var(--black);}
+.coaches-list{margin-top:56px;display:flex;flex-direction:column;}
+/* COACH ROWS — Change all to your real coaches */
+.coach-row{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:36px;padding:28px 0;border-bottom:1px solid var(--border);transition:background 0.2s;}
+.coach-row:hover .coach-name{color:var(--red);}
+.coach-initial{width:52px;height:52px;background:var(--red-dim);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);}
+.coach-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.5px;color:var(--white);transition:color 0.2s;}
+.coach-role{font-size:12px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+.coach-tag{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:var(--black-3);color:var(--text-muted);padding:8px 16px;border:1px solid var(--border);transition:all 0.2s;white-space:nowrap;}
+.coach-row:hover .coach-tag{background:var(--red-dim);border-color:var(--red-border);color:var(--red);}
+.coach-years{font-size:12px;font-weight:500;color:var(--text-muted);white-space:nowrap;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;height:440px;gap:1px;background:var(--border);}
+.gallery-item{background:var(--black-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* GALLERY IMAGES — Replace all with real gym/training photos */
+.gallery-item:nth-child(1){background:linear-gradient(160deg,#200808,#100404);}
+.gallery-item:nth-child(2){background:linear-gradient(160deg,#181818,#0a0a0a);}
+.gallery-item:nth-child(3){background:linear-gradient(160deg,#1a0808,#0e0606);}
+.gallery-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:65vh;}
+/* ABOUT IMAGE — Replace with real gym photo */
+.about-image{background:var(--black-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-image-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1a0808,#0a0404);}
+.about-image-label{position:relative;z-index:1;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.07);}
+.about-content{padding:80px 72px;background:var(--black-2);display:flex;flex-direction:column;justify-content:center;}
+/* ABOUT CONTENT — Change all to your real story */
+.about-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,5.5vw,80px);letter-spacing:-1px;line-height:0.9;color:var(--white);margin-bottom:20px;}
+.about-title em{font-style:normal;color:var(--red);}
+.about-text{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:32px;}
+/* CREDENTIALS — Change to your real credentials */
+.about-creds{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.about-cred{font-size:13px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:12px;}
+.about-cred::before{content:'';width:20px;height:2px;background:var(--red);flex-shrink:0;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--black);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:52px;}
+.testimonial{background:var(--black-2);padding:44px 36px;transition:background 0.2s;}
+.testimonial:hover{background:var(--black-3);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:20px;}
+.star{width:12px;height:12px;background:var(--red);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+/* TESTIMONIALS — Replace with real member reviews */
+.testimonial-text{font-size:15px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:24px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;}
+.testimonial-name{font-size:13px;font-weight:600;color:var(--white);}
+.testimonial-detail{font-size:11px;font-weight:300;color:var(--text-muted);margin-top:2px;}
+
+/* PRICING */
+.pricing{padding:100px 60px;background:var(--black-2);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
+/* PRICING CARDS — Change all to your real pricing */
+.pricing-card{background:var(--black-3);padding:48px 36px;transition:background 0.2s;}
+.pricing-card:hover{background:var(--black-4);}
+.pricing-card.featured{background:var(--red);}
+.pricing-tier{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--red);margin-bottom:16px;}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.5);}
+.pricing-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--white);margin-bottom:6px;}
+.pricing-price{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:-2px;color:var(--white);line-height:1;margin-bottom:4px;}
+.pricing-period{font-size:13px;font-weight:300;color:var(--text-muted);margin-bottom:32px;}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.5);}
+.pricing-divider{height:1px;background:var(--border);margin-bottom:28px;}
+.pricing-card.featured .pricing-divider{background:rgba(255,255,255,0.15);}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;}
+.pricing-feature{font-size:13px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.pricing-card.featured .pricing-feature{color:rgba(255,255,255,0.7);}
+.pricing-feature::before{content:'';width:16px;height:2px;background:var(--red);flex-shrink:0;}
+.pricing-card.featured .pricing-feature::before{background:rgba(255,255,255,0.4);}
+.btn-price{display:block;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:14px;border:1px solid var(--red-border);color:var(--red);transition:all 0.2s;}
+.btn-price:hover{background:var(--red-dim);}
+.btn-price-white{background:#fff;color:var(--red);border-color:#fff;}
+.btn-price-white:hover{background:var(--off-white);}
+
+/* CTA */
+.cta{padding:100px 60px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CTA HEADLINE — Change to your own */
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,8vw,112px);letter-spacing:-2px;line-height:0.88;color:var(--white);margin-bottom:16px;}
+.cta-title em{font-style:normal;color:var(--red);}
+.cta-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select{width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--white);outline:none;transition:border 0.2s;}
+form input::placeholder{color:rgba(255,255,255,0.25);}
+form input:focus,form select:focus{border-color:var(--red-border);}
+form select option{background:var(--black-3);}
+.btn-submit{width:100%;padding:16px;background:var(--red);color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--red-light);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--black);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your gym name */
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:4px;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--red);}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;max-width:200px;}
+.footer-col-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--red);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:300;color:var(--text-muted);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change gym name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(232,33,42,0.35);transition:color 0.2s;}
+.footer-built a:hover{color:var(--red);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.about{grid-template-columns:1fr;}.about-image{display:none;}.cta{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  nav{padding:14px 20px;top:36px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero-content{padding:0 20px;}.hero-bottom{grid-template-columns:1fr;}.hero-actions{flex-wrap:wrap;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .classes{padding:72px 20px;}.tab-panel.active{grid-template-columns:1fr;}
+  .coaches{padding:72px 20px;}.coach-row{grid-template-columns:auto 1fr;gap:16px;}.coach-tag,.coach-years{display:none;}
+  .gallery{height:auto;grid-template-columns:1fr;}.gallery-item{height:220px;}
+  .about-content{padding:72px 20px;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .pricing{padding:72px 20px;}.pricing-grid{grid-template-columns:1fr;}
+  .cta{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Strike</strong> · Premium Fitness Template<span>· $39.99</span></p>
+  <a href="/product.html?t=strike" class="banner-btn">View Template Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "STRIKE" to your gym name -->
+  <a href="#" class="nav-logo">STRIKE<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#cta">Join</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Start Free Trial</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#classes">Classes</a>
+    <a href="#coaches">Coaches</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#cta">Join</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <!-- MOBILE MENU CONTACT — Change to your real phone -->
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#cta" class="mob-cta">Free Trial</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-image"><div class="hero-image-label">Gym Photography</div></div>
+  <div class="hero-slash"></div>
+  <div class="hero-content">
+    <!-- HERO LABEL — Change to your gym type and city -->
+    <div class="hero-label-row">
+      <div class="hero-label">Boxing · MMA · Martial Arts · Houston, TX</div>
+      <div class="hero-label-right">First Class Free</div>
+    </div>
+    <!-- HERO HEADLINE — Change to your gym tagline -->
+    <h1>Fight<br><em>ready.</em></h1>
+    <div class="hero-bottom">
+      <!-- HERO SUBTEXT — Describe your gym -->
+      <p class="hero-sub">Elite combat sports training for all levels. Whether you're stepping in a ring for the first time or competing professionally — we build fighters who are ready for anything.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-red">Start Free Trial</a>
+        <a href="#classes" class="btn-outline">View Classes</a>
+      </div>
+    </div>
+  </div>
+  <!-- HERO STATS — Change all to your real numbers -->
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" data-count="500">0</div><div class="hero-stat-label">Active members</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="12">0</div><div class="hero-stat-label">Expert coaches</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="15">0</div><div class="hero-stat-label">Years open</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real offerings -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Boxing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Muay Thai<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Brazilian Jiu-Jitsu<div class="marquee-dot"></div></div>
+    <div class="marquee-item">MMA<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Kickboxing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Boxing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Muay Thai<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Brazilian Jiu-Jitsu<div class="marquee-dot"></div></div>
+    <div class="marquee-item">MMA<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Kickboxing<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Houston TX<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- CLASSES — tabbed -->
+<section class="classes" id="classes">
+  <div class="section-label reveal">What We Offer</div>
+  <h2 class="section-title reveal">Our <em>classes.</em></h2>
+  <!-- TABS — Change to your real class categories -->
+  <div class="classes-tabs reveal">
+    <button class="tab-btn active" data-tab="striking">Striking</button>
+    <button class="tab-btn" data-tab="grappling">Grappling</button>
+    <button class="tab-btn" data-tab="fitness">Fitness</button>
+  </div>
+  <!-- STRIKING — Change all to your real classes -->
+  <div class="tab-panel active" id="tab-striking">
+    <div class="class-card reveal"><div class="class-level">All Levels</div><div class="class-name">Boxing Fundamentals</div><p class="class-desc">Stance, footwork, punching mechanics, and defensive movement. Built for beginners and experienced fighters looking to sharpen technique.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 12</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-level">Intermediate+</div><div class="class-name">Muay Thai</div><p class="class-desc">The art of eight limbs. Punches, kicks, elbows, and knees. Traditional Thai boxing techniques combined with modern training methodology.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">Intermediate+</div><div class="class-meta-item">Max 10</div></div></div>
+    <div class="class-card reveal"><div class="class-level">All Levels</div><div class="class-name">Kickboxing</div><p class="class-desc">High-energy combination of punches and kicks. Great for fitness and self-defense. Pad work and bag work every session.</p><div class="class-meta"><div class="class-meta-item">50 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 14</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-level">Advanced</div><div class="class-name">Sparring Class</div><p class="class-desc">Controlled live sparring with experienced partners. Invitation only — requires coach approval and minimum 6 months of training.</p><div class="class-meta"><div class="class-meta-item">75 min</div><div class="class-meta-item">Advanced only</div><div class="class-meta-item">Max 8</div></div></div>
+  </div>
+  <!-- GRAPPLING — Change all to your real classes -->
+  <div class="tab-panel" id="tab-grappling">
+    <div class="class-card reveal"><div class="class-level">All Levels</div><div class="class-name">Brazilian Jiu-Jitsu</div><p class="class-desc">The ground game. Takedowns, positional control, submissions, and escapes. Gi and no-gi classes available throughout the week.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 12</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-level">Intermediate+</div><div class="class-name">Wrestling</div><p class="class-desc">Takedowns, clinch work, and top control. Essential for MMA and competition grappling. Builds the physical and mental toughness that separates competitors.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">Intermediate+</div><div class="class-meta-item">Max 10</div></div></div>
+    <div class="class-card reveal"><div class="class-level">Advanced</div><div class="class-name">MMA Integration</div><p class="class-desc">Full mixed martial arts training. Striking transitions to grappling, cage work, and ground-and-pound. For fighters with a base in multiple disciplines.</p><div class="class-meta"><div class="class-meta-item">90 min</div><div class="class-meta-item">Advanced</div><div class="class-meta-item">Max 8</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-level">All Levels</div><div class="class-name">No-Gi Submission</div><p class="class-desc">Submission grappling without the gi. Heel hooks, leg locks, and modern submission wrestling techniques in a competition-focused environment.</p><div class="class-meta"><div class="class-meta-item">60 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 12</div></div></div>
+  </div>
+  <!-- FITNESS — Change all to your real classes -->
+  <div class="tab-panel" id="tab-fitness">
+    <div class="class-card reveal"><div class="class-level">All Levels</div><div class="class-name">Bag Work Circuit</div><p class="class-desc">Heavy bag, speed bag, and double-end bag circuits with conditioning rounds. Burns calories and builds real striking power simultaneously.</p><div class="class-meta"><div class="class-meta-item">45 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 16</div></div></div>
+    <div class="class-card reveal reveal-delay-1"><div class="class-level">All Levels</div><div class="class-name">Fighter Conditioning</div><p class="class-desc">The conditioning program used by our competitive fighters. Explosive strength, anaerobic capacity, and mental toughness built in every session.</p><div class="class-meta"><div class="class-meta-item">50 min</div><div class="class-meta-item">All levels</div><div class="class-meta-item">Max 14</div></div></div>
+  </div>
+</section>
+
+<!-- COACHES — editorial list -->
+<section class="coaches" id="coaches">
+  <div class="section-label reveal">The Coaches</div>
+  <h2 class="section-title reveal">Our <em>team.</em></h2>
+  <div class="coaches-list">
+    <!-- COACH ROWS — Change all to your real coaches -->
+    <div class="coach-row reveal">
+      <div class="coach-initial">D</div>
+      <div><div class="coach-name">Diego Reyes</div><div class="coach-role">Head Coach · Boxing · MMA</div></div>
+      <div class="coach-tag">Former Pro · 14-2</div>
+      <div class="coach-years">18 yrs</div>
+    </div>
+    <div class="coach-row reveal reveal-delay-1">
+      <div class="coach-initial">M</div>
+      <div><div class="coach-name">Marcus Webb</div><div class="coach-role">BJJ Head Coach · Wrestling</div></div>
+      <div class="coach-tag">BJJ Black Belt</div>
+      <div class="coach-years">12 yrs</div>
+    </div>
+    <div class="coach-row reveal reveal-delay-2">
+      <div class="coach-initial">A</div>
+      <div><div class="coach-name">Ariya Petchdam</div><div class="coach-role">Muay Thai · Kickboxing</div></div>
+      <div class="coach-tag">Lumpinee Champion</div>
+      <div class="coach-years">10 yrs</div>
+    </div>
+    <div class="coach-row reveal">
+      <div class="coach-initial">K</div>
+      <div><div class="coach-name">Keisha Jones</div><div class="coach-role">Fitness · Conditioning · Boxing</div></div>
+      <div class="coach-tag">NSCA-CSCS · CF-L2</div>
+      <div class="coach-years">7 yrs</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY — Replace all with real gym/training photos -->
+<div class="gallery">
+  <div class="gallery-item"><div class="gallery-label">Gym Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Training Photography</div></div>
+  <div class="gallery-item"><div class="gallery-label">Competition Photography</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-bg"></div>
+    <!-- ABOUT IMAGE — Replace with a real gym or team photo -->
+    <div class="about-image-label">Gym Photography</div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">The Gym</div>
+    <!-- ABOUT HEADLINE — Change to your own -->
+    <h2 class="about-title reveal">15 years of<br>building <em>fighters.</em></h2>
+    <!-- ABOUT TEXT — Replace with your real story -->
+    <p class="about-text reveal">Strike opened in 2009 with one goal: build the most technically sound fighters in Houston. We've trained regional champions, professional competitors, and thousands of everyday members who wanted to learn to fight, get fit, or both. The standard in our gym is the same for every person who walks through the door — work hard, respect the craft, and get better every session.</p>
+    <a href="#cta" style="font-size:13px;font-weight:700;background:var(--red);color:#fff;padding:14px 36px;display:inline-block;transition:background 0.2s;margin-bottom:32px;" href="#cta">Start Your Free Trial</a>
+    <!-- CREDENTIALS — Change to your real credentials -->
+    <div class="about-creds reveal">
+      <div class="about-cred">USA Boxing Certified Gym</div>
+      <div class="about-cred">IBJJF Affiliated — BJJ Program</div>
+      <div class="about-cred">USMTO Certified Muay Thai</div>
+      <div class="about-cred">Regional &amp; National Champions Trained</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Member Reviews</div>
+  <h2 class="section-title reveal">What members <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real member reviews -->
+    <div class="testimonial reveal">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Diego is one of the best boxing coaches I've ever trained with. His technical knowledge is extraordinary and he has a gift for communicating it. I've improved more in 6 months than in the previous 3 years."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">T</div><div><div class="testimonial-name">Tyler R.</div><div class="testimonial-detail">Boxing member · 6 months</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"Marcus's BJJ program is legitimate. I've trained at several academies and the level of instruction here is as good as anywhere. The culture is welcoming — no ego, just learning."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">C</div><div><div class="testimonial-name">Chris M.</div><div class="testimonial-detail">BJJ member · 2 years</div></div></div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testimonial-text">"I joined for fitness and stayed for the sport. Keisha's conditioning class is brutal in the best possible way. I'm in the best shape of my life at 42."</p>
+      <div class="testimonial-row"><div class="testimonial-initial">S</div><div><div class="testimonial-name">Sandra K.</div><div class="testimonial-detail">Fitness member · 1 year</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Membership</div>
+  <h2 class="section-title reveal">Choose your <em>plan.</em></h2>
+  <div class="pricing-grid">
+    <!-- PRICING CARDS — Change all to your real pricing -->
+    <div class="pricing-card reveal">
+      <div class="pricing-tier">Starter</div>
+      <div class="pricing-name">8 Classes</div>
+      <div class="pricing-price">$89</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">8 classes per month</div>
+        <div class="pricing-feature">All class types</div>
+        <div class="pricing-feature">App scheduling</div>
+        <div class="pricing-feature">Open mat access</div>
+      </div>
+      <a href="#cta" class="btn-price">Get Started</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-tier">Most Popular</div>
+      <div class="pricing-name">Unlimited</div>
+      <div class="pricing-price">$139</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Unlimited classes</div>
+        <div class="pricing-feature">All class types</div>
+        <div class="pricing-feature">Priority booking</div>
+        <div class="pricing-feature">Open mat anytime</div>
+        <div class="pricing-feature">1 guest pass / month</div>
+      </div>
+      <a href="#cta" class="btn-price btn-price-white">Get Started</a>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-tier">Elite</div>
+      <div class="pricing-name">Fighter Program</div>
+      <div class="pricing-price">$219</div>
+      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Everything in Unlimited</div>
+        <div class="pricing-feature">Competition team access</div>
+        <div class="pricing-feature">Monthly private coaching</div>
+        <div class="pricing-feature">Fight camp access</div>
+        <div class="pricing-feature">Amateur fight support</div>
+      </div>
+      <a href="#cta" class="btn-price">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="reveal">
+    <!-- CTA HEADLINE — Change to your own -->
+    <h2 class="cta-title">Start your<br><em>free class.</em></h2>
+    <p class="cta-sub">First class is on us. No credit card, no pressure. Come in, train hard, and decide if Strike is your gym.</p>
+  </div>
+  <div class="reveal">
+    <!-- CTA FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- CLASS OPTIONS — Change to your real classes -->
+      <select name="class"><option value="" disabled selected>Which class for your trial?</option><option>Boxing Fundamentals</option><option>Muay Thai</option><option>Kickboxing</option><option>BJJ</option><option>Bag Work Circuit</option><option>Not sure — recommend one</option></select>
+      <select name="experience"><option value="" disabled selected>Your experience level?</option><option>Complete beginner</option><option>Some martial arts experience</option><option>Regular practitioner</option><option>Competitive fighter</option></select>
+      <button type="submit" class="btn-submit">Claim My Free Class</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your gym name -->
+      <div class="footer-logo">STRIKE<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your gym -->
+      <p class="footer-tagline">Boxing, MMA, and martial arts training in Houston. All levels welcome.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Train</div>
+      <ul>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#coaches">Coaches</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#cta">Free Trial</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Gym</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#cta">Join Now</a></li>
+        <li><a href="#cta">Gift Cards</a></li>
+        <li><a href="#cta">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Find Us</div>
+      <ul>
+        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+        <li><a href="mailto:hello@yourgym.com">hello@yourgym.com</a></li>
+        <li><a href="#">Houston, TX</a></li>
+        <li><a href="#">Open 7 Days</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change gym name -->
+    <span class="footer-copy">© 2026 Strike Gym. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
