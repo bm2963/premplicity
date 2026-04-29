@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Spotless Cleaning" to your company name -->
+<title>Spotless Cleaning — Residential House Cleaning</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --green:#2EB87A;
+  --green-light:#42D090;
+  --green-dark:#229960;
+  --green-pale:#EDFBF4;
+  --green-pale-2:#D6F5E6;
+  --white:#FFFFFF;
+  --off-white:#F8FAFB;
+  --light:#F2F7F5;
+  --text:#0E2018;
+  --text-muted:#4A7060;
+  --text-light:#80AA98;
+  --border:rgba(14,32,24,0.08);
+  --border-light:rgba(14,32,24,0.05);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--green-dark);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.85);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.45;margin-left:4px;}
+.banner-btn{background:#fff;color:var(--green-dark);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--green-pale);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 60px;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "Spotless" to your company name */
+.nav-logo{font-size:20px;font-weight:700;color:var(--text);}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{font-size:13px;font-weight:700;background:var(--green);color:#fff;padding:10px 24px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--green-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 40px;opacity:0;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:8px;}
+.mobile-menu a{font-size:28px;font-weight:700;color:var(--text);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--green);}
+.mobile-menu-bottom{position:absolute;bottom:40px;left:40px;right:40px;}
+.mob-cta{display:block;text-align:center;font-size:14px;font-weight:700;background:var(--green);color:#fff;padding:14px;}
+
+/* HERO — bright, clean, centered */
+.hero{padding:140px 60px 80px;background:var(--green-pale);text-align:center;}
+/* HERO EYEBROW — Change to your company type */
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:16px;}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-size:clamp(40px,5.5vw,72px);font-weight:700;letter-spacing:-2px;line-height:1.0;color:var(--text);margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;color:var(--green);}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:17px;font-weight:400;color:var(--text-muted);line-height:1.75;max-width:500px;margin:0 auto 36px;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+.btn-green{font-size:14px;font-weight:700;background:var(--green);color:#fff;padding:15px 40px;transition:all 0.2s;display:inline-block;}
+.btn-green:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-outline{font-size:14px;font-weight:500;background:transparent;color:var(--text);border:2px solid var(--border);padding:15px 28px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--green);color:var(--green);}
+/* TRUST BADGES — Change to your real credentials */
+.hero-trust{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;}
+.trust-item{font-size:12px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.trust-item::before{content:'✓';color:var(--green);font-weight:700;}
+
+/* SERVICES */
+.services{padding:80px 60px;background:var(--white);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.section-title{font-size:clamp(30px,4vw,46px);font-weight:700;letter-spacing:-1.5px;color:var(--text);margin-bottom:40px;line-height:1.05;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--off-white);padding:36px 28px;border:1.5px solid transparent;transition:all 0.2s;}
+.service-card:hover{border-color:var(--green);background:var(--green-pale);transform:translateY(-2px);}
+.service-icon{font-size:28px;margin-bottom:14px;}
+.service-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.service-desc{font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.7;}
+
+/* PRICING */
+.pricing{padding:80px 60px;background:var(--off-white);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+/* PRICING CARDS — Change all to your real pricing */
+.pricing-card{background:var(--white);padding:40px 32px;border:1.5px solid var(--border-light);text-align:center;transition:all 0.2s;}
+.pricing-card:hover{border-color:var(--green);}
+.pricing-card.featured{background:var(--green);border-color:var(--green);}
+.pricing-tier{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.6);}
+.pricing-name{font-size:22px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.pricing-card.featured .pricing-name{color:#fff;}
+.pricing-price{font-size:52px;font-weight:700;letter-spacing:-2px;color:var(--green);line-height:1;margin-bottom:4px;}
+.pricing-card.featured .pricing-price{color:#fff;}
+.pricing-period{font-size:13px;color:var(--text-muted);margin-bottom:24px;}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.55);}
+.pricing-divider{height:1px;background:var(--border-light);margin-bottom:20px;}
+.pricing-card.featured .pricing-divider{background:rgba(255,255,255,0.15);}
+.pricing-features{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;text-align:left;}
+.pricing-feature{font-size:13px;font-weight:400;color:var(--text-muted);display:flex;align-items:center;gap:8px;}
+.pricing-card.featured .pricing-feature{color:rgba(255,255,255,0.7);}
+.pricing-feature::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.pricing-card.featured .pricing-feature::before{color:rgba(255,255,255,0.6);}
+.btn-price{display:block;text-align:center;font-size:13px;font-weight:700;padding:13px;background:var(--green-pale);color:var(--green);border:none;transition:all 0.2s;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;}
+.btn-price:hover{background:var(--green-pale-2);}
+.btn-price-white{background:#fff;color:var(--green);}
+.btn-price-white:hover{background:var(--green-pale);}
+
+/* TESTIMONIALS */
+.testimonials{padding:80px 60px;background:var(--white);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+.testimonial{background:var(--green-pale);padding:32px 28px;}
+.testimonial-stars{display:flex;gap:2px;margin-bottom:14px;}
+.star{font-size:14px;color:var(--green);}
+/* TESTIMONIALS — Replace with real customer reviews */
+.testimonial-text{font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.75;margin-bottom:18px;}
+.testimonial-name{font-size:13px;font-weight:700;color:var(--text);}
+.testimonial-detail{font-size:11px;color:var(--text-light);margin-top:2px;}
+
+/* CONTACT */
+.contact{padding:80px 60px;background:var(--green);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-size:clamp(28px,3.5vw,48px);font-weight:700;letter-spacing:-1.5px;color:#fff;margin-bottom:12px;line-height:1.05;}
+.contact-title em{font-style:normal;opacity:0.6;}
+.contact-sub{font-size:15px;font-weight:400;color:rgba(255,255,255,0.65);line-height:1.75;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:13px 16px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.2);font-family:'DM Sans',sans-serif;font-size:14px;color:#fff;outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,0.45);}
+form input:focus,form select:focus,form textarea:focus{border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.2);}
+form select option{background:var(--green-dark);}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:15px;background:#fff;color:var(--green-dark);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--green-pale);}
+
+/* FOOTER */
+footer{padding:56px 60px 28px;background:var(--text);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;}
+.footer-logo span{color:var(--green-light);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);line-height:1.7;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(255,255,255,0.15);transition:color 0.2s;}
+.footer-built a:hover{color:rgba(255,255,255,0.5);}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:100px 20px 60px;}
+  .services{padding:60px 20px;}.services-grid{grid-template-columns:1fr;}
+  .pricing{padding:60px 20px;}.pricing-grid{grid-template-columns:1fr;}
+  .testimonials{padding:60px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:60px 20px;grid-template-columns:1fr;}
+  footer{padding:40px 20px 20px;}.footer-top{grid-template-columns:1fr;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Spotless</strong> · Standard Home Services Template<span>· $24.99</span></p>
+  <a href="/product.html?t=spotless" class="banner-btn">View Details</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Spotless" to your company name -->
+  <a href="#" class="nav-logo">Spotless<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Book Now</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Clean</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Book Now</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <a href="#contact" class="mob-cta">Book a Clean</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <!-- HERO EYEBROW — Change to your company type and city -->
+  <div class="hero-eyebrow">House Cleaning Service · Houston, TX</div>
+  <!-- HERO HEADLINE — Change to your company tagline -->
+  <h1>A <em>cleaner home,</em> every week.</h1>
+  <!-- HERO SUBTEXT — Describe your company -->
+  <p class="hero-sub">Professional residential cleaning for Houston homeowners. Recurring cleans, move-in/out service, and deep cleans. Insured and background-checked team.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-green">Book a Clean</a>
+    <a href="#pricing" class="btn-outline">See Pricing</a>
+  </div>
+  <!-- TRUST BADGES — Change to your real credentials -->
+  <div class="hero-trust">
+    <div class="trust-item">Fully Insured</div>
+    <div class="trust-item">Background Checked</div>
+    <div class="trust-item">Eco-Friendly Products</div>
+    <div class="trust-item">Satisfaction Guaranteed</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our cleaning services.</h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change all to your real services -->
+    <div class="service-card reveal">
+      <div class="service-icon">🏠</div>
+      <div class="service-name">Standard Clean</div>
+      <p class="service-desc">Weekly or bi-weekly recurring cleans. Kitchens, bathrooms, bedrooms, and living areas. Consistent team, consistent results.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">✨</div>
+      <div class="service-name">Deep Clean</div>
+      <p class="service-desc">A thorough top-to-bottom clean covering areas your regular service doesn't reach. Perfect for first-time clients or seasonal refreshes.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">📦</div>
+      <div class="service-name">Move In / Move Out</div>
+      <p class="service-desc">Comprehensive cleaning for empty homes. We get it spotless for new occupants or help you get your deposit back.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏢</div>
+      <div class="service-name">Office Cleaning</div>
+      <p class="service-desc">Regular commercial cleaning for small offices and co-working spaces. Before-hours or after-hours scheduling available.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">🪟</div>
+      <div class="service-name">Add-On Services</div>
+      <p class="service-desc">Interior windows, inside oven, inside refrigerator, laundry, and organization. Add to any standard or deep clean.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">🎉</div>
+      <div class="service-name">Post-Event Cleaning</div>
+      <p class="service-desc">After your party or event, we handle the cleanup so you don't have to. Available next-day or same-day upon request.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Transparent Pricing</div>
+  <h2 class="section-title reveal">Simple, clear pricing.</h2>
+  <div class="pricing-grid">
+    <!-- PRICING CARDS — Change all to your real pricing -->
+    <div class="pricing-card reveal">
+      <div class="pricing-tier">Standard</div>
+      <div class="pricing-name">Regular Clean</div>
+      <div class="pricing-price">$120</div>
+      <div class="pricing-period">per visit · 2–3 bed home</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Kitchen & bathrooms</div>
+        <div class="pricing-feature">All bedrooms & living areas</div>
+        <div class="pricing-feature">Vacuuming & mopping</div>
+        <div class="pricing-feature">Eco-friendly products</div>
+      </div>
+      <button class="btn-price" onclick="document.getElementById('contact').scrollIntoView()">Book Now</button>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-tier">Most Popular</div>
+      <div class="pricing-name">Deep Clean</div>
+      <div class="pricing-price">$220</div>
+      <div class="pricing-period">per visit · 2–3 bed home</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Everything in Regular</div>
+        <div class="pricing-feature">Baseboards & window sills</div>
+        <div class="pricing-feature">Inside cabinets & drawers</div>
+        <div class="pricing-feature">Light fixtures & fans</div>
+        <div class="pricing-feature">Behind & under furniture</div>
+      </div>
+      <button class="btn-price btn-price-white" onclick="document.getElementById('contact').scrollIntoView()">Book Now</button>
+    </div>
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-tier">Specialty</div>
+      <div class="pricing-name">Move In / Out</div>
+      <div class="pricing-price">$280</div>
+      <div class="pricing-period">per visit · 2–3 bed home</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature">Deep clean everything</div>
+        <div class="pricing-feature">Inside all appliances</div>
+        <div class="pricing-feature">Inside all closets</div>
+        <div class="pricing-feature">Garage sweep included</div>
+      </div>
+      <button class="btn-price" onclick="document.getElementById('contact').scrollIntoView()">Book Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Reviews</div>
+  <h2 class="section-title reveal">What customers say.</h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real customer reviews -->
+    <div class="testimonial reveal"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"I've tried four cleaning services in Houston. Spotless is the only one that actually cleans the way I would myself. Consistent, thorough, and they remember my preferences."</p><div class="testimonial-name">Amanda H.</div><div class="testimonial-detail">Bi-weekly recurring client</div></div>
+    <div class="testimonial reveal reveal-delay-1"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"Used them for a move-out clean. Got my full deposit back. The landlord actually asked who did it. Worth every penny."</p><div class="testimonial-name">Chris W.</div><div class="testimonial-detail">Move-out clean</div></div>
+    <div class="testimonial reveal reveal-delay-2"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"The deep clean before my house went on the market made a real difference. House sold in 4 days. Coincidence? Maybe. But the house looked incredible."</p><div class="testimonial-name">Rachel N.</div><div class="testimonial-detail">Pre-listing deep clean</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Book your <em>clean.</em></h2>
+    <p class="contact-sub">Tell us about your home and what you need. We'll confirm your appointment within one business day.</p>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- SERVICE TYPE — Change to your real services -->
+      <select name="service"><option value="" disabled selected>Type of clean?</option><option>Regular / Recurring Clean</option><option>Deep Clean</option><option>Move In Clean</option><option>Move Out Clean</option><option>Office Cleaning</option><option>Post-Event Clean</option></select>
+      <!-- HOME SIZE — Change to your real options -->
+      <select name="size"><option value="" disabled selected>Home size?</option><option>Studio / 1 Bedroom</option><option>2 Bedrooms</option><option>3 Bedrooms</option><option>4+ Bedrooms</option><option>Office / Commercial</option></select>
+      <textarea name="message" placeholder="Anything we should know?"></textarea>
+      <button type="submit" class="btn-submit">Request Booking</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">Spotless<span>.</span></div>
+      <p class="footer-tagline">Professional residential and commercial cleaning in Houston, TX. Insured, background-checked, and satisfaction guaranteed.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul><li><a href="#services">Regular Cleans</a></li><li><a href="#services">Deep Cleans</a></li><li><a href="#services">Move In/Out</a></li><li><a href="#services">Office Cleaning</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul><li><a href="tel:+15551234567">(555) 123-4567</a></li><li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li><li><a href="#">Houston, TX</a></li><li><a href="#">Mon–Sat 8am–6pm</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Spotless Cleaning. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 300); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+  document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
