@@ -379,7 +379,7 @@ footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:40
       <div class="check-row" data-industry="salon"><div class="check-box"></div><span class="check-label">Salon & Beauty</span><span class="check-count">10</span></div>
       <div class="check-row" data-industry="restaurant"><div class="check-box"></div><span class="check-label">Restaurant</span><span class="check-count">10</span></div>
       <div class="check-row" data-industry="contractor"><div class="check-box"></div><span class="check-label">Contractor</span><span class="check-count">10</span></div>
-      <div class="check-row" data-industry="home servicess"><div class="check-box"></div><span class="check-label">home services</span><span class="check-count">10</span></div>
+      <div class="check-row" data-industry="home services"><div class="check-box"></div><span class="check-label">home services</span><span class="check-count">10</span></div>
       <div class="check-row" data-industry="fitness"><div class="check-box"></div><span class="check-label">Fitness</span><span class="check-count">10</span></div>
     </div>
     <div class="sidebar-divider"></div>
@@ -971,7 +971,7 @@ function closeDrawer() {
   setTimeout(() => { drawerOverlay.style.display='none'; }, 350);
   document.body.style.overflow='';
 }
-const INDS = [{key:'salon',label:'Salon & Beauty',count:10},{key:'restaurant',label:'Restaurant',count:10},{key:'contractor',label:'Contractor',count:10},{key:'home services',label:'home services',count:10},{key:'fitness',label:'Fitness',count:10}];
+const INDS = [{key:'Salon & Beauty',label:'Salon & Beauty',count:10},{key:'Restaurant',label:'Restaurant',count:10},{key:'Contractor',label:'Contractor',count:10},{key:'Home Services',label:'Home Services',count:10},{key:'Fitness',label:'Fitness',count:10}];
 const STYS = [{key:'dark',label:'Dark theme'},{key:'light',label:'Light theme'},{key:'animated',label:'Animated'},{key:'minimal',label:'Minimal'}];
 function renderDrawer() {
   const secLabel = t => `<span style="font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);display:block;margin-bottom:12px;">${t}</span>`;
