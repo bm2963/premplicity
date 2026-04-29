@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PAGE TITLE — Change "Pipe Plumbing" to your company name -->
+<title>Pipe Plumbing — Premium Residential & Commercial Plumbing</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --slate:#2C4A6E;
+  --slate-2:#364E74;
+  --slate-3:#40587A;
+  --slate-light:#4A6890;
+  --slate-pale:#EEF3F9;
+  --slate-pale-2:#DDE6F2;
+  --lime:#8BC34A;
+  --lime-light:#A2D65E;
+  --lime-dark:#6B9E30;
+  --lime-pale:#F3F9EC;
+  --white:#FFFFFF;
+  --off-white:#F8FAFB;
+  --text:#0E1C2E;
+  --text-muted:#5A748A;
+  --text-light:#8AACCC;
+  --border:rgba(14,28,46,0.08);
+  --border-light:rgba(14,28,46,0.05);
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
+
+/* PURCHASE BANNER */
+.purchase-banner{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--slate);display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 24px;}
+.purchase-banner p{font-size:12px;font-weight:400;color:rgba(255,255,255,0.8);}
+.purchase-banner p strong{color:#fff;font-weight:600;}
+.purchase-banner p span{opacity:0.4;margin-left:4px;}
+.banner-btn{background:var(--lime);color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:6px 16px;transition:background 0.2s;white-space:nowrap;}
+.banner-btn:hover{background:var(--lime-light);}
+
+/* EMERGENCY STRIP */
+.emergency-strip{background:var(--lime);padding:10px 60px;display:flex;align-items:center;justify-content:space-between;margin-top:36px;}
+.emergency-strip p{font-size:12px;font-weight:700;color:var(--text);}
+/* EMERGENCY PHONE — Change to your real number */
+.emergency-phone{font-size:15px;font-weight:700;color:var(--text);}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+/* LOGO — Change "Pipe" to your company name */
+.nav-logo{font-size:21px;font-weight:700;letter-spacing:-0.5px;color:var(--slate);}
+.nav-logo span{color:var(--lime-dark);}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text-muted);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{font-size:13px;font-weight:700;background:var(--slate);color:#fff;padding:11px 26px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--slate-2);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--slate);border-radius:1px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--slate);z-index:99;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 52px;opacity:0;transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1);}
+.mobile-menu.open{opacity:1;}
+.mobile-menu-links{display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a{font-size:clamp(44px,8vw,64px);font-weight:700;letter-spacing:-1px;color:#fff;opacity:0;transform:translateY(20px);transition:color 0.2s,opacity 0.4s ease,transform 0.4s ease;}
+.mobile-menu.open a{opacity:1;transform:none;}
+.mobile-menu.open a:nth-child(1){transition-delay:0.1s;}
+.mobile-menu.open a:nth-child(2){transition-delay:0.18s;}
+.mobile-menu.open a:nth-child(3){transition-delay:0.26s;}
+.mobile-menu.open a:nth-child(4){transition-delay:0.34s;}
+.mobile-menu a:hover{color:var(--lime-light);}
+.mobile-menu-bottom{position:absolute;bottom:48px;left:52px;right:52px;display:flex;align-items:center;justify-content:space-between;}
+.mobile-menu-contact{font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);}
+.mob-cta{display:inline-block;font-size:13px !important;font-weight:700;background:var(--lime);color:var(--text) !important;padding:12px 28px;}
+
+/* HERO — light, editorial, large type */
+.hero{padding:160px 60px 80px;background:var(--slate-pale);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+/* HERO LABEL — Change to your company type */
+.hero-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime-dark);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.hero-label::before{content:'';width:20px;height:3px;background:var(--lime);border-radius:2px;}
+/* HERO HEADLINE — Change to your company tagline */
+.hero h1{font-size:clamp(44px,5.5vw,72px);font-weight:700;letter-spacing:-2px;line-height:1.0;color:var(--slate);margin-bottom:18px;}
+.hero h1 em{font-style:normal;color:var(--lime-dark);}
+/* HERO SUBTEXT — Describe your company */
+.hero-sub{font-size:16px;font-weight:400;color:var(--text-muted);line-height:1.8;margin-bottom:32px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+.btn-slate{font-size:13px;font-weight:700;background:var(--slate);color:#fff;padding:15px 36px;transition:all 0.2s;display:inline-block;}
+.btn-slate:hover{background:var(--slate-2);transform:translateY(-1px);}
+.btn-lime{font-size:13px;font-weight:700;background:var(--lime);color:var(--text);padding:15px 28px;transition:all 0.2s;display:inline-block;}
+.btn-lime:hover{background:var(--lime-light);}
+/* HERO BADGES — Change to your real credentials */
+.hero-badges{display:flex;gap:20px;flex-wrap:wrap;}
+.hero-badge{font-size:11px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+.hero-badge::before{content:'✓';color:var(--lime-dark);font-weight:700;}
+/* HERO STATS — Change all to your real numbers */
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.hero-stat{background:var(--white);padding:32px 28px;border-left:3px solid var(--lime);}
+.hero-stat-num{font-size:44px;font-weight:700;letter-spacing:-2px;color:var(--slate);margin-bottom:4px;line-height:1;}
+.hero-stat-label{font-size:12px;font-weight:500;color:var(--text-muted);}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;padding:13px 0;background:var(--slate);}
+.marquee-inner{display:flex;animation:marquee 22s linear infinite;white-space:nowrap;}
+.marquee-item{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding:0 40px;display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--lime);opacity:0.6;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SERVICES */
+.services{padding:100px 60px;background:var(--white);}
+.section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--lime-dark);margin-bottom:10px;}
+.section-title{font-size:clamp(36px,5vw,60px);font-weight:700;letter-spacing:-2px;color:var(--text);margin-bottom:52px;line-height:1.0;}
+.section-title em{font-style:italic;font-weight:500;color:var(--slate);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+/* SERVICE CARDS — Change all to your real services */
+.service-card{background:var(--off-white);padding:40px 32px;border:1.5px solid transparent;transition:all 0.2s;position:relative;overflow:hidden;}
+.service-card:hover{border-color:var(--lime);background:var(--lime-pale);transform:translateY(-2px);}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--lime);transform:scaleX(0);transition:transform 0.3s;}
+.service-card:hover::after{transform:scaleX(1);}
+.service-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--lime-dark);margin-bottom:14px;opacity:0.7;}
+.service-name{font-size:20px;font-weight:700;letter-spacing:-0.3px;color:var(--text);margin-bottom:8px;transition:color 0.2s;}
+.service-card:hover .service-name{color:var(--slate);}
+.service-desc{font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.7;}
+
+/* PROCESS */
+.process{padding:100px 60px;background:var(--slate);}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.1);margin-top:48px;}
+/* PROCESS STEPS — Change all to your real process */
+.process-step{background:var(--slate);padding:40px 28px;}
+.process-step-num{font-size:52px;font-weight:700;letter-spacing:-2px;color:var(--lime);opacity:0.25;line-height:1;margin-bottom:16px;}
+.process-step-name{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;}
+.process-step-desc{font-size:13px;font-weight:400;color:rgba(255,255,255,0.5);line-height:1.7;}
+
+/* TESTIMONIALS */
+.testimonials{padding:100px 60px;background:var(--slate-pale);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.testimonial{background:var(--white);padding:40px 32px;border-bottom:3px solid var(--lime);transition:all 0.2s;}
+.testimonial:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,74,110,0.08);}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{font-size:14px;color:var(--lime-dark);}
+/* TESTIMONIALS — Replace with real client reviews */
+.testimonial-text{font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.8;margin-bottom:22px;}
+.testimonial-row{display:flex;align-items:center;gap:12px;}
+.testimonial-initial{width:36px;height:36px;background:var(--slate);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
+.testimonial-name{font-size:13px;font-weight:700;color:var(--text);}
+.testimonial-detail{font-size:11px;font-weight:400;color:var(--text-muted);margin-top:2px;}
+
+/* CONTACT CTA */
+.contact{padding:100px 60px;background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* CONTACT HEADLINE — Change to your own */
+.contact-title{font-size:clamp(44px,5.5vw,72px);font-weight:700;letter-spacing:-2px;color:var(--slate);margin-bottom:16px;line-height:1.0;}
+.contact-title em{font-style:italic;font-weight:500;color:var(--lime-dark);}
+.contact-sub{font-size:15px;font-weight:400;color:var(--text-muted);line-height:1.8;margin-bottom:28px;}
+/* CONTACT INFO — Change all to your real info */
+.contact-info{display:flex;flex-direction:column;gap:10px;}
+.contact-info-item{font-size:13px;font-weight:500;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+.contact-info-item::before{content:'';width:6px;height:6px;background:var(--lime);border-radius:50%;flex-shrink:0;}
+/* FORM — Change action to your Formspree endpoint */
+form{display:flex;flex-direction:column;gap:10px;}
+form input,form select,form textarea{width:100%;padding:14px 18px;background:var(--slate-pale);border:1.5px solid var(--border-light);font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border 0.2s;}
+form input::placeholder,form textarea::placeholder{color:var(--text-light);}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--slate);background:var(--white);}
+form select option{background:#fff;}
+form textarea{resize:none;height:80px;}
+.btn-submit{width:100%;padding:16px;background:var(--slate);color:#fff;border:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.btn-submit:hover{background:var(--slate-2);}
+
+/* FOOTER */
+footer{padding:72px 60px 36px;background:var(--text);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+/* FOOTER LOGO — Change to your company name */
+.footer-logo{font-size:21px;font-weight:700;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:var(--lime-light);}
+.footer-tagline{font-size:13px;font-weight:300;color:rgba(255,255,255,0.3);line-height:1.7;max-width:200px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+/* COPYRIGHT — Change company name */
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-built a{font-size:11px;color:rgba(255,255,255,0.15);transition:color 0.2s;}
+.footer-built a:hover{color:rgba(255,255,255,0.5);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+@media(max-width:1024px){.contact{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  .emergency-strip{padding:10px 20px;flex-direction:column;gap:4px;text-align:center;}
+  nav{padding:14px 20px;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}
+  .hero{padding:120px 20px 60px;grid-template-columns:1fr;}
+  .hero-stats{grid-template-columns:1fr 1fr;}
+  .services{padding:72px 20px;}.services-grid{grid-template-columns:1fr;}
+  .process{padding:72px 20px;}.process-grid{grid-template-columns:1fr 1fr;}
+  .testimonials{padding:72px 20px;}.testimonials-grid{grid-template-columns:1fr;}
+  .contact{padding:72px 20px;}
+  footer{padding:56px 20px 28px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="purchase-banner">
+  <p>Homepage Preview — <strong>Pipe</strong> · Premium Home Services Template<span>· $39.99</span></p>
+  <a href="/product.html?t=pipe" class="banner-btn">View Details</a>
+</div>
+
+<!-- EMERGENCY STRIP — Change phone number -->
+<div class="emergency-strip">
+  <p>🔧 24/7 Emergency Plumbing — We Answer Every Call, Every Time</p>
+  <!-- EMERGENCY PHONE — Change to your real number -->
+  <a href="tel:+15551234567" class="emergency-phone">(555) 123-4567</a>
+</div>
+
+<nav id="nav">
+  <!-- LOGO — Change "Pipe" to your company name -->
+  <a href="#" class="nav-logo">Pipe<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="mobile-menu-bottom">
+    <span class="mobile-menu-contact">(555) 123-4567</span>
+    <a href="#contact" class="mob-cta">Get a Quote</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <!-- HERO LABEL — Change to your company type and city -->
+    <div class="hero-label">Master Plumber · Houston, TX</div>
+    <!-- HERO HEADLINE — Change to your company tagline -->
+    <h1>Plumbing done <em>right,</em> the first time.</h1>
+    <!-- HERO SUBTEXT — Describe your company -->
+    <p class="hero-sub">Premium residential and commercial plumbing with a master plumber on every job. Licensed, insured, and backed by a full 2-year warranty on all work.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-slate">Get a Free Quote</a>
+      <a href="tel:+15551234567" class="btn-lime">Call Now</a>
+    </div>
+    <!-- HERO BADGES — Change to your real credentials -->
+    <div class="hero-badges">
+      <div class="hero-badge">Master Licensed</div>
+      <div class="hero-badge">2-Year Warranty</div>
+      <div class="hero-badge">$0 Call-Out Fee</div>
+      <div class="hero-badge">Upfront Pricing</div>
+    </div>
+  </div>
+  <!-- HERO STATS — Change all to your real numbers -->
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" data-count="18">0</div><div class="hero-stat-label">Years licensed</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="3200">0</div><div class="hero-stat-label">Jobs completed</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="24">0</div><div class="hero-stat-label">Hour emergency line</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" data-count="4.9" data-decimal="1">0</div><div class="hero-stat-label">Google rating</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE — Change items to your real services -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Leak Detection<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Drain Cleaning<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Repiping<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Water Heaters<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Emergency Service<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Master Licensed<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Leak Detection<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Drain Cleaning<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Repiping<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Water Heaters<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Emergency Service<div class="marquee-dot"></div></div>
+    <div class="marquee-item">Master Licensed<div class="marquee-dot"></div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our <em>services.</em></h2>
+  <div class="services-grid">
+    <!-- SERVICE CARDS — Change all to your real services -->
+    <div class="service-card reveal"><div class="service-num">01</div><div class="service-name">Leak Detection & Repair</div><p class="service-desc">Electronic leak detection for slab leaks, pipe leaks, and hidden water damage. We find it precisely — minimizing damage and repair cost.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-name">Drain Cleaning & Hydro-Jetting</div><p class="service-desc">Camera inspection, drain snaking, and high-pressure hydro-jetting for stubborn clogs and root intrusion in main lines.</p></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-num">03</div><div class="service-name">Water Heater Services</div><p class="service-desc">Tank and tankless installation, repair, and annual maintenance. Energy-efficient models available with rebate assistance.</p></div>
+    <div class="service-card reveal"><div class="service-num">04</div><div class="service-name">Full Home Repiping</div><p class="service-desc">Whole-home copper or PEX repiping completed in one to two days. Minimal wall damage and a 2-year parts and labor warranty.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-num">05</div><div class="service-name">Fixture & Appliance Install</div><p class="service-desc">Faucets, toilets, sinks, disposals, dishwashers, refrigerator lines. Supply-and-install or install-only with your fixtures.</p></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-num">06</div><div class="service-name">Commercial Plumbing</div><p class="service-desc">Tenant improvements, new construction rough-in, backflow testing, and ongoing maintenance agreements for commercial clients.</p></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label" style="color:rgba(139,195,74,0.7);">Our Process</div>
+  <h2 class="section-title" style="color:#fff;margin-bottom:0;">Simple from <em style="color:var(--lime-light);">start to finish.</em></h2>
+  <div class="process-grid">
+    <!-- PROCESS STEPS — Change all to your real process -->
+    <div class="process-step reveal"><div class="process-step-num">01</div><div class="process-step-name">Book Online or Call</div><p class="process-step-desc">Schedule in under 2 minutes. Same-day and emergency appointments available.</p></div>
+    <div class="process-step reveal reveal-delay-1"><div class="process-step-num">02</div><div class="process-step-name">Free Diagnosis</div><p class="process-step-desc">Master plumber diagnoses the problem and presents a clear written quote before any work starts.</p></div>
+    <div class="process-step reveal reveal-delay-2"><div class="process-step-num">03</div><div class="process-step-name">Expert Repair</div><p class="process-step-desc">We fix it right using quality parts. Most jobs completed in a single visit with minimal disruption.</p></div>
+    <div class="process-step reveal reveal-delay-3"><div class="process-step-num">04</div><div class="process-step-name">2-Year Warranty</div><p class="process-step-desc">Every repair is backed by our industry-leading 2-year parts and labor warranty. Your peace of mind included.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What clients <em>say.</em></h2>
+  <div class="testimonials-grid">
+    <!-- TESTIMONIALS — Replace with real client reviews -->
+    <div class="testimonial reveal"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"Slab leak under the kitchen. I called three plumbers and Pipe was the only one who used electronic detection instead of just guessing. Found it in 20 minutes. Exceptional."</p><div class="testimonial-row"><div class="testimonial-initial">A</div><div><div class="testimonial-name">Angela K.</div><div class="testimonial-detail">Slab leak detection & repair</div></div></div></div>
+    <div class="testimonial reveal reveal-delay-1"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"Repiped our entire 1960s home in two days. Every wall they opened was patched cleanly. The new water pressure is remarkable. Worth every dollar."</p><div class="testimonial-row"><div class="testimonial-initial">R</div><div><div class="testimonial-name">Robert H.</div><div class="testimonial-detail">Whole-home repipe</div></div></div></div>
+    <div class="testimonial reveal reveal-delay-2"><div class="testimonial-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">"My go-to plumber for our 12-unit building. Reliable, professional, and they document everything properly. Our property manager insists on them exclusively."</p><div class="testimonial-row"><div class="testimonial-initial">M</div><div><div class="testimonial-name">Maria S.</div><div class="testimonial-detail">Commercial property client</div></div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <!-- CONTACT HEADLINE — Change to your own -->
+    <h2 class="contact-title">Get your <em>free quote.</em></h2>
+    <p class="contact-sub">Tell us what you need. We'll respond same day with an honest diagnosis and a written price — no upselling, no vague estimates.</p>
+    <!-- CONTACT INFO — Change all to your real info -->
+    <div class="contact-info">
+      <div class="contact-info-item">(555) 123-4567 — 24/7 Emergency Line</div>
+      <div class="contact-info-item">hello@yourcompany.com</div>
+      <div class="contact-info-item">Houston, TX — All surrounding areas</div>
+      <div class="contact-info-item">Mon–Sat 7am–7pm · Emergency 24/7</div>
+    </div>
+  </div>
+  <div class="reveal">
+    <!-- CONTACT FORM — Change action to your Formspree endpoint -->
+    <form action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number">
+      <!-- SERVICE TYPE — Change to your real services -->
+      <select name="service"><option value="" disabled selected>Type of service?</option><option>Leak Detection & Repair</option><option>Drain Cleaning</option><option>Water Heater</option><option>Repiping</option><option>Fixture Installation</option><option>Commercial Plumbing</option><option>Emergency Service</option><option>Other</option></select>
+      <input type="text" name="address" placeholder="Property Address">
+      <textarea name="message" placeholder="Describe the issue or what you need..."></textarea>
+      <button type="submit" class="btn-submit">Request Free Quote</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <!-- FOOTER LOGO — Change to your company name -->
+      <div class="footer-logo">Pipe<span>.</span></div>
+      <!-- FOOTER TAGLINE — Change to describe your company -->
+      <p class="footer-tagline">Premium plumbing services in Houston, TX. Master licensed, fully insured, 2-year warranty on all work.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul><li><a href="#services">Leak Detection</a></li><li><a href="#services">Drain Cleaning</a></li><li><a href="#services">Repiping</a></li><li><a href="#services">Water Heaters</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul><li><a href="#process">Our Process</a></li><li><a href="#contact">Get a Quote</a></li><li><a href="#contact">Financing</a></li><li><a href="#contact">Reviews</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <!-- CONTACT INFO — Change all to your real info -->
+      <div class="footer-col-title">Contact</div>
+      <ul><li><a href="tel:+15551234567">(555) 123-4567</a></li><li><a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li><li><a href="#">Houston, TX</a></li><li><a href="#">24/7 Emergency</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!-- COPYRIGHT — Change company name -->
+    <span class="footer-copy">© 2026 Pipe Plumbing. All rights reserved.</span>
+    <span class="footer-built"><a href="https://siteafi.com">Template by Siteafi</a></span>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  if (open) { mobileMenu.style.display = 'flex'; setTimeout(() => mobileMenu.classList.add('open'), 10); }
+  else { mobileMenu.classList.remove('open'); setTimeout(() => { mobileMenu.style.display = 'none'; }, 400); }
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); mobileMenu.classList.remove('open');
+  setTimeout(() => { mobileMenu.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}));
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const decimals = parseInt(el.dataset.decimal || 0);
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const value = ease * target;
+    el.textContent = decimals ? value.toFixed(decimals) : Math.floor(value);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = decimals ? target.toFixed(decimals) : target;
+  }
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    if (e.target.dataset.count) animateCount(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c => animateCount(c));
+    observer.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .hero-stat').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
