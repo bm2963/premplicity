@@ -82,10 +82,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   padding:16px;
   border:1px solid rgba(255,255,255,0.08);
   backdrop-filter:blur(12px);
-  cursor:default;
+  cursor:pointer;
   transition:transform 0.4s ease,box-shadow 0.4s ease;
   z-index:2;
   overflow:hidden;
+  text-decoration:none;
+  display:block;
 }
 .float-card:hover{transform:translateY(-6px) rotate(0deg) scale(1.04) !important;box-shadow:0 20px 48px rgba(201,168,76,0.15) !important;}
 .fc-1{background:rgba(26,20,40,0.85);top:14%;left:5%;animation:float1 7s ease-in-out infinite;transform:rotate(-4deg);}
@@ -401,41 +403,41 @@ footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;a
   <div id="spotlight"></div>
 
   <!-- FLOATING TEMPLATE CARDS -->
-  <div class="float-card fc-1">
+  <a href="product.html?t=saveur" class="float-card fc-1" style="cursor:pointer;">
     <div class="fc-dots"><i></i><i></i><i></i></div>
     <div class="fc-tag">Restaurant</div>
     <div class="fc-name">Saveur</div>
     <div class="fc-tier">Premium Template</div>
     <div class="fc-bar"></div>
-  </div>
-  <div class="float-card fc-2">
+  </a>
+  <a href="product.html?t=noir" class="float-card fc-2" style="cursor:pointer;">
     <div class="fc-dots"><i></i><i></i><i></i></div>
-    <div class="fc-tag">Portfolio</div>
+    <div class="fc-tag">Salon & Beauty</div>
     <div class="fc-name">Noir</div>
-    <div class="fc-tier">Standard Template</div>
-    <div class="fc-bar"></div>
-  </div>
-  <div class="float-card fc-3">
-    <div class="fc-dots"><i></i><i></i><i></i></div>
-    <div class="fc-tag">Boutique</div>
-    <div class="fc-name">Luxe</div>
     <div class="fc-tier">Premium Template</div>
     <div class="fc-bar"></div>
-  </div>
-  <div class="float-card fc-4">
+  </a>
+  <a href="product.html?t=arctic" class="float-card fc-3" style="cursor:pointer;">
     <div class="fc-dots"><i></i><i></i><i></i></div>
-    <div class="fc-tag">Salon</div>
+    <div class="fc-tag">Home Services</div>
+    <div class="fc-name">Arctic</div>
+    <div class="fc-tier">Premium Template</div>
+    <div class="fc-bar"></div>
+  </a>
+  <a href="product.html?t=velour" class="float-card fc-4" style="cursor:pointer;">
+    <div class="fc-dots"><i></i><i></i><i></i></div>
+    <div class="fc-tag">Salon & Beauty</div>
     <div class="fc-name">Velour</div>
     <div class="fc-tier">Standard Template</div>
     <div class="fc-bar"></div>
-  </div>
-  <div class="float-card fc-5">
+  </a>
+  <a href="product.html?t=apex" class="float-card fc-5" style="cursor:pointer;">
     <div class="fc-dots"><i></i><i></i><i></i></div>
-    <div class="fc-tag">Agency</div>
+    <div class="fc-tag">Contractor</div>
     <div class="fc-name">Apex</div>
     <div class="fc-tier">Premium Template</div>
     <div class="fc-bar"></div>
-  </div>
+  </a>
 
   <div class="hero-badge"><span class="hero-badge-dot"></span>Premium Website Templates</div>
   <h1>Your business,<br>beautifully <em id="typeword">online.</em></h1>
@@ -457,38 +459,40 @@ footer{padding:36px 52px;border-top:1px solid var(--light-border);display:flex;a
   <div class="marquee-eyebrow">Template showcase</div>
   <div class="marquee-row">
     <div class="marquee-track track-left">
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Portfolio</div><div class="tcard-name">Noir</div><div class="tcard-sub">Bold creative portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Boutique</div><div class="tcard-name">Luxe</div><div class="tcard-sub">Fashion & retail store</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Agency</div><div class="tcard-name">Apex</div><div class="tcard-sub">Modern creative agency</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Pulse</div><div class="tcard-sub">Dynamic gym template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Law Firm</div><div class="tcard-name">Counsel</div><div class="tcard-sub">Professional legal</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Portfolio</div><div class="tcard-name">Noir</div><div class="tcard-sub">Bold creative portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Boutique</div><div class="tcard-name">Luxe</div><div class="tcard-sub">Fashion & retail store</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Agency</div><div class="tcard-name">Apex</div><div class="tcard-sub">Modern creative agency</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Pulse</div><div class="tcard-sub">Dynamic gym template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Law Firm</div><div class="tcard-name">Counsel</div><div class="tcard-sub">Professional legal</div><div class="tcard-bar"></div></div></div>
+      <a href="product.html?t=saveur" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=noir" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Noir</div><div class="tcard-sub">Sleek monochrome salon</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=apex" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Contractor</div><div class="tcard-name">Apex</div><div class="tcard-sub">Bold contractor template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=velour" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=surge" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Surge</div><div class="tcard-sub">High-energy gym template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=arctic" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Arctic</div><div class="tcard-sub">Dramatic HVAC template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=ember" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Ember</div><div class="tcard-sub">Warm rustic dining</div><div class="tcard-bar"></div></div></a>
+      <!-- duplicate set for seamless loop -->
+      <a href="product.html?t=saveur" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Saveur</div><div class="tcard-sub">Elegant dining template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=noir" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Noir</div><div class="tcard-sub">Sleek monochrome salon</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=apex" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Contractor</div><div class="tcard-name">Apex</div><div class="tcard-sub">Bold contractor template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=velour" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Velour</div><div class="tcard-sub">Beauty & wellness studio</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=surge" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Surge</div><div class="tcard-sub">High-energy gym template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=arctic" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Arctic</div><div class="tcard-sub">Dramatic HVAC template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=ember" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Ember</div><div class="tcard-sub">Warm rustic dining</div><div class="tcard-bar"></div></div></a>
     </div>
   </div>
   <div class="marquee-row">
     <div class="marquee-track track-right">
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Photography</div><div class="tcard-name">Aperture</div><div class="tcard-sub">Stunning visual portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Consulting</div><div class="tcard-name">Strata</div><div class="tcard-sub">Corporate advisory</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Bakery</div><div class="tcard-name">Brioche</div><div class="tcard-sub">Warm artisan bakery</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Real Estate</div><div class="tcard-name">Realty</div><div class="tcard-sub">Premium listings</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Spa</div><div class="tcard-name">Serene</div><div class="tcard-sub">Luxury wellness & spa</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Music</div><div class="tcard-name">Tempo</div><div class="tcard-sub">Artist & musician page</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Coffee</div><div class="tcard-name">Roast</div><div class="tcard-sub">Specialty cafe template</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Photography</div><div class="tcard-name">Aperture</div><div class="tcard-sub">Stunning visual portfolio</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Consulting</div><div class="tcard-name">Strata</div><div class="tcard-sub">Corporate advisory</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Bakery</div><div class="tcard-name">Brioche</div><div class="tcard-sub">Warm artisan bakery</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Real Estate</div><div class="tcard-name">Realty</div><div class="tcard-sub">Premium listings</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-c"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Spa</div><div class="tcard-name">Serene</div><div class="tcard-sub">Luxury wellness & spa</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-a"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Music</div><div class="tcard-name">Tempo</div><div class="tcard-sub">Artist & musician page</div><div class="tcard-bar"></div></div></div>
-      <div class="tcard tcard-b"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Coffee</div><div class="tcard-name">Roast</div><div class="tcard-sub">Specialty cafe template</div><div class="tcard-bar"></div></div></div>
+      <a href="product.html?t=gleam" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Gleam</div><div class="tcard-sub">Luxury cleaning template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=forge" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Contractor</div><div class="tcard-name">Forge</div><div class="tcard-sub">Industrial slate template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=tide" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Tide</div><div class="tcard-sub">Calm wellness studio</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=eclipse" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Eclipse</div><div class="tcard-sub">Gold on black luxury</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=harvest" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Harvest</div><div class="tcard-sub">Farm-to-table warmth</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=pipe" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Pipe</div><div class="tcard-sub">Premium plumbing template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=strike" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Strike</div><div class="tcard-sub">Combat sports template</div><div class="tcard-bar"></div></div></a>
+      <!-- duplicate set for seamless loop -->
+      <a href="product.html?t=gleam" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Gleam</div><div class="tcard-sub">Luxury cleaning template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=forge" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Contractor</div><div class="tcard-name">Forge</div><div class="tcard-sub">Industrial slate template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=tide" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Tide</div><div class="tcard-sub">Calm wellness studio</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=eclipse" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Salon & Beauty</div><div class="tcard-name">Eclipse</div><div class="tcard-sub">Gold on black luxury</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=harvest" class="tcard tcard-c" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Restaurant</div><div class="tcard-name">Harvest</div><div class="tcard-sub">Farm-to-table warmth</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=pipe" class="tcard tcard-a" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Home Services</div><div class="tcard-name">Pipe</div><div class="tcard-sub">Premium plumbing template</div><div class="tcard-bar"></div></div></a>
+      <a href="product.html?t=strike" class="tcard tcard-b" style="text-decoration:none;"><div class="tcard-overlay-hover"><span>Preview →</span></div><div class="tcard-inner"><div class="tcard-dots"><i></i><i></i><i></i></div><div class="tcard-tag">Fitness</div><div class="tcard-name">Strike</div><div class="tcard-sub">Combat sports template</div><div class="tcard-bar"></div></div></a>
     </div>
   </div>
 </section>
